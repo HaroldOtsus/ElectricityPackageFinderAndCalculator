@@ -7,6 +7,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Electricity_package_finder_
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PrjDatabaseComponent", "PrjDatabaseComponent\PrjDatabaseComponent.vbproj", "{76B300DF-05D0-4686-A01E-CCA64E1C9B80}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PrjDatabaseTestid", "PrjDatabaseTestid\PrjDatabaseTestid.vbproj", "{9AE0AAD0-67FD-47D4-B296-F4C9744D89B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{76B300DF-05D0-4686-A01E-CCA64E1C9B80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76B300DF-05D0-4686-A01E-CCA64E1C9B80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76B300DF-05D0-4686-A01E-CCA64E1C9B80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AE0AAD0-67FD-47D4-B296-F4C9744D89B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AE0AAD0-67FD-47D4-B296-F4C9744D89B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AE0AAD0-67FD-47D4-B296-F4C9744D89B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AE0AAD0-67FD-47D4-B296-F4C9744D89B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
