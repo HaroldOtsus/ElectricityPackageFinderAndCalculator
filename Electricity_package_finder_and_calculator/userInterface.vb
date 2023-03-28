@@ -8,6 +8,13 @@
         objekt = New PrjAPIComponent.APIComponent
 
         'Prints data from API component to text box
-        TextBox1.Text = objekt.GetDataFromEleringAPI
+        Dim result() As String = objekt.GetDataFromEleringAPI
+
+        'Filters to display only the price of string
+        For Each str As String In result
+            If Not String.IsNullOrEmpty(str) Then
+                TextBox1.AppendText(str.Substring(8, 7) & vbNewLine)
+            End If
+        Next
     End Sub
 End Class

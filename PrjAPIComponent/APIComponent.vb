@@ -33,6 +33,7 @@ Public Class APIComponent
         Dim result() As String = responseString.Split(","c)
         Dim endResult(0) As String
 
+        'Filters only strings that have the "price string"
         For Each str As String In result
             If str.Contains("price") Then
                 ReDim Preserve endResult(endResult.Length)
