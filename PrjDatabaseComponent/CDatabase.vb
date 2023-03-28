@@ -1,6 +1,8 @@
 ﻿Imports MySql.Data.MySqlClient
+
 Public Class CDatabase
-    Function connect() As Boolean
+    Implements IDatabase
+    Function Connect() As Boolean Implements IDatabase.Connect
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;"
         Dim conn As New MySqlConnection(connString)
         Try

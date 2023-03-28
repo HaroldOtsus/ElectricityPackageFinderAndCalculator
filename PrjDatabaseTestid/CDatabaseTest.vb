@@ -5,7 +5,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
     <TestMethod()> Public Sub TestMethod1()
         Dim getIn As New PrjDatabaseComponent.CDatabase
-        Dim vastus = getIn.connect()
+        Dim vastus = getIn.Connect()
         Assert.IsTrue(vastus)
     End Sub
 
