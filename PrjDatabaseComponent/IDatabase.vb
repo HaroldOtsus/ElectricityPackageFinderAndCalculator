@@ -1,3 +1,3 @@
 ﻿Public Interface IDatabase
-    Function Connect() As Boolean
+    Function Connect() As String
 End Interface
