@@ -3,11 +3,12 @@ Imports System.Net
 
 Public Class APIComponent
     Implements APIInterface
-    Public Function GetDataFromEleringAPI() As String Implements APIInterface.GetDataFromEleringAPI
+    Public Function GetDataFromEleringAPI() As String() Implements APIInterface.GetDataFromEleringAPI
 #Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
 
         'HttpWebRequest object sends a request to url specified
-        Dim webRequest As HttpWebRequest = CType(webRequest.Create("https://dashboard.elering.ee/umm/gas/rss"), HttpWebRequest)
+        Dim webRequest As HttpWebRequest = CType(webRequest.Create("https://dashboard.elering.ee/api/nps/price?start=2023-03-25T20%3A59%3A59.999Z&end=2023-03-26T20%3A59%3A59.999Z
+"), HttpWebRequest)
 
 #Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
 
@@ -28,7 +29,18 @@ Public Class APIComponent
         Dim responseString As String = stringStreamReader.ReadToEnd.ToString
         'Frees the resources used by HttpWebRequest object
         webResponse.Close()
-        Return responseString
+        'Splits the web response string into multiple strings separated by commas
+        Dim result() As String = responseString.Split(","c)
+        Dim endResult(0) As String
+
+        For Each str As String In result
+            If str.Contains("price") Then
+                ReDim Preserve endResult(endResult.Length)
+                endResult(endResult.Length - 1) = str
+            End If
+        Next
+
+        Return endResult
     End Function
 
 End Class
