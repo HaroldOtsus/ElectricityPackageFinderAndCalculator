@@ -10,13 +10,17 @@ Public Class CDatabase
             conn.Open()
             Dim rd As MySqlDataReader
             Dim command As New MySqlCommand
-            command.CommandText = "select name from  appliance where idPacket = 1"
+            command.CommandText = "SELECT * FROM appliance WHERE idPacket = 1;"
             rd = command.ExecuteReader
             If rd.Read Then
 
                 StrVar = rd.GetString(1)
+            Else
+                StrVar = "viga"
             End If
+
             rd.Close()
+            conn.Close()
 
         Catch ex As Exception
             Return 0
@@ -30,6 +34,7 @@ Public Class CDatabase
         Dim conn As New MySqlConnection(connString)
         Try
             conn.Open()
+            conn.Close()
             Return True
 
         Catch ex As Exception
