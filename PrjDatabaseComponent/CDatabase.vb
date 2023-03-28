@@ -2,8 +2,8 @@
 
 Public Class CDatabase
     Implements IDatabase
-    Function Connect() As String Implements IDatabase.Connect
-        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;"
+    Function stringReturn() As String Implements IDatabase.stringReturn
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Dim StrVar As String
         Try
@@ -15,11 +15,25 @@ Public Class CDatabase
             If rd.Read Then
 
                 StrVar = rd.GetString(1)
-
             End If
             rd.Close()
+
         Catch ex As Exception
             Return 0
+        End Try
+        Return StrVar
+    End Function
+
+    Function Connect() As Boolean
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        ' Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;"
+        Dim conn As New MySqlConnection(connString)
+        Try
+            conn.Open()
+            Return True
+
+        Catch ex As Exception
+            Return False
         End Try
     End Function
 
