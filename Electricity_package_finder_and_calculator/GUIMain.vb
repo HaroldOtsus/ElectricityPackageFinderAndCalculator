@@ -1,4 +1,5 @@
 ﻿Public Class GUIMain
+    Public sisend As String
     Private Sub btnPackageHourlyRate_Click(sender As Object, e As EventArgs) Handles btnPackageHourlyRate.Click
         TabControl1.SelectedTab = tabPackageHourlyRate
     End Sub
@@ -24,6 +25,11 @@
     End Sub
 
 
+    Private Sub rdioCoffeeMaker_CheckedChanged(sender As Object, e As EventArgs) Handles rdioCoffeeMaker.CheckedChanged
 
+    End Sub
 
+    Private Sub tboxMonthlyCost_TextChanged(sender As Object, e As EventArgs) Handles tboxMonthlyCost.TextChanged
+
+    End Sub
 End Class
