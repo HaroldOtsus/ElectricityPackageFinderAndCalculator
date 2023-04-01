@@ -3,12 +3,13 @@
 Public Class CDatabase
     Implements IDatabase
     Function stringReturn() As String Implements IDatabase.stringReturn
-        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;" 'string to access database
         Dim conn As New MySqlConnection(connString)
         Dim strVar As String
         Try
-            conn.Open()
+            conn.Open() 'try to gain access to database
             Dim command As New MySqlCommand("SELECT * FROM appliance WHERE idPacket = 1;", conn)
+            'get what we want to from the database, right now get everything from table appliance where idPacket is 1
             Dim reader As MySqlDataReader = command.ExecuteReader()
             While reader.Read()
                 Return reader.GetString(1)
