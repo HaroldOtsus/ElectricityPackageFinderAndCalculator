@@ -77,17 +77,65 @@ Partial Class GUIMain
         Me.lblApplianceChoice = New System.Windows.Forms.Label()
         Me.btnBack1 = New System.Windows.Forms.Button()
         Me.tabExchangeComparison = New System.Windows.Forms.TabPage()
+        Me.tblExchangeComparison = New System.Windows.Forms.TableLayoutPanel()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.lblExchangeComparisonResult = New System.Windows.Forms.Label()
+        Me.TextBox6 = New System.Windows.Forms.TextBox()
+        Me.TextBox5 = New System.Windows.Forms.TextBox()
+        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.lblImportExportPrice = New System.Windows.Forms.Label()
+        Me.lblExchangeChoice = New System.Windows.Forms.Label()
+        Me.lblCase2 = New System.Windows.Forms.Label()
+        Me.lblCase1 = New System.Windows.Forms.Label()
+        Me.lblEnterPrice = New System.Windows.Forms.Label()
+        Me.lblEndTime = New System.Windows.Forms.Label()
+        Me.lblStartTime = New System.Windows.Forms.Label()
+        Me.lblTimePeriodSelection = New System.Windows.Forms.Label()
         Me.btnBack2 = New System.Windows.Forms.Button()
         Me.tabConsumptionHistory = New System.Windows.Forms.TabPage()
+        Me.btnSimulateConsumptionHistory = New System.Windows.Forms.Button()
+        Me.TabControl2 = New System.Windows.Forms.TabControl()
+        Me.tabBlank = New System.Windows.Forms.TabPage()
+        Me.tabClientConsumptionHistory = New System.Windows.Forms.TabPage()
+        Me.lblSimulateClientConsumptionHistory = New System.Windows.Forms.Label()
+        Me.lblComparisonGraph = New System.Windows.Forms.Label()
+        Me.lblConsumptionGraph = New System.Windows.Forms.Label()
+        Me.lblClientConsumptionHistoryResult = New System.Windows.Forms.Label()
+        Me.lblUploadComparisonPackageCSV = New System.Windows.Forms.Label()
+        Me.lblUploadClientHistoryCSV = New System.Windows.Forms.Label()
+        Me.lblHistoryData = New System.Windows.Forms.Label()
+        Me.tabSimulateExchangeHistory = New System.Windows.Forms.TabPage()
+        Me.lblExchangePackageHistory = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.btnSeeHistory = New System.Windows.Forms.Button()
+        Me.TextBox8 = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton4 = New System.Windows.Forms.RadioButton()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.btnClientConsumptionHistory = New System.Windows.Forms.Button()
         Me.btnBack3 = New System.Windows.Forms.Button()
         Me.tabPackageComparison = New System.Windows.Forms.TabPage()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.lblPackage1 = New System.Windows.Forms.Label()
+        Me.lblChoosePackages = New System.Windows.Forms.Label()
         Me.btnBack4 = New System.Windows.Forms.Button()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
+        Me.lblComparisonResult = New System.Windows.Forms.Label()
+        Me.btnCompare = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         Me.tabPackageHourlyRate.SuspendLayout()
         Me.tabApplianceCalc.SuspendLayout()
         Me.tabExchangeComparison.SuspendLayout()
+        Me.tblExchangeComparison.SuspendLayout()
         Me.tabConsumptionHistory.SuspendLayout()
+        Me.TabControl2.SuspendLayout()
+        Me.tabClientConsumptionHistory.SuspendLayout()
+        Me.tabSimulateExchangeHistory.SuspendLayout()
         Me.tabPackageComparison.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -674,6 +722,21 @@ Partial Class GUIMain
         '
         'tabExchangeComparison
         '
+        Me.tabExchangeComparison.Controls.Add(Me.tblExchangeComparison)
+        Me.tabExchangeComparison.Controls.Add(Me.lblExchangeComparisonResult)
+        Me.tabExchangeComparison.Controls.Add(Me.TextBox6)
+        Me.tabExchangeComparison.Controls.Add(Me.TextBox5)
+        Me.tabExchangeComparison.Controls.Add(Me.TextBox4)
+        Me.tabExchangeComparison.Controls.Add(Me.TextBox2)
+        Me.tabExchangeComparison.Controls.Add(Me.Button2)
+        Me.tabExchangeComparison.Controls.Add(Me.lblImportExportPrice)
+        Me.tabExchangeComparison.Controls.Add(Me.lblExchangeChoice)
+        Me.tabExchangeComparison.Controls.Add(Me.lblCase2)
+        Me.tabExchangeComparison.Controls.Add(Me.lblCase1)
+        Me.tabExchangeComparison.Controls.Add(Me.lblEnterPrice)
+        Me.tabExchangeComparison.Controls.Add(Me.lblEndTime)
+        Me.tabExchangeComparison.Controls.Add(Me.lblStartTime)
+        Me.tabExchangeComparison.Controls.Add(Me.lblTimePeriodSelection)
         Me.tabExchangeComparison.Controls.Add(Me.btnBack2)
         Me.tabExchangeComparison.Location = New System.Drawing.Point(4, 26)
         Me.tabExchangeComparison.Name = "tabExchangeComparison"
@@ -682,6 +745,154 @@ Partial Class GUIMain
         Me.tabExchangeComparison.TabIndex = 3
         Me.tabExchangeComparison.Text = "Börsihinna võrdlus"
         Me.tabExchangeComparison.UseVisualStyleBackColor = True
+        '
+        'tblExchangeComparison
+        '
+        Me.tblExchangeComparison.ColumnCount = 3
+        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.03704!))
+        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.96296!))
+        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 195.0!))
+        Me.tblExchangeComparison.Controls.Add(Me.Label2, 1, 3)
+        Me.tblExchangeComparison.Location = New System.Drawing.Point(414, 52)
+        Me.tblExchangeComparison.Name = "tblExchangeComparison"
+        Me.tblExchangeComparison.RowCount = 6
+        Me.tblExchangeComparison.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.tblExchangeComparison.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.tblExchangeComparison.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.tblExchangeComparison.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.tblExchangeComparison.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.tblExchangeComparison.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
+        Me.tblExchangeComparison.Size = New System.Drawing.Size(354, 262)
+        Me.tblExchangeComparison.TabIndex = 16
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.ForeColor = System.Drawing.Color.Red
+        Me.Label2.Location = New System.Drawing.Point(61, 129)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(86, 13)
+        Me.Label2.TabIndex = 0
+        Me.Label2.Text = "PLACEHOLDER"
+        '
+        'lblExchangeComparisonResult
+        '
+        Me.lblExchangeComparisonResult.AutoSize = True
+        Me.lblExchangeComparisonResult.Location = New System.Drawing.Point(411, 22)
+        Me.lblExchangeComparisonResult.Name = "lblExchangeComparisonResult"
+        Me.lblExchangeComparisonResult.Size = New System.Drawing.Size(50, 13)
+        Me.lblExchangeComparisonResult.TabIndex = 15
+        Me.lblExchangeComparisonResult.Text = "Tulemus:"
+        '
+        'TextBox6
+        '
+        Me.TextBox6.Location = New System.Drawing.Point(184, 158)
+        Me.TextBox6.Name = "TextBox6"
+        Me.TextBox6.Size = New System.Drawing.Size(100, 20)
+        Me.TextBox6.TabIndex = 14
+        '
+        'TextBox5
+        '
+        Me.TextBox5.Location = New System.Drawing.Point(184, 132)
+        Me.TextBox5.Name = "TextBox5"
+        Me.TextBox5.Size = New System.Drawing.Size(100, 20)
+        Me.TextBox5.TabIndex = 13
+        '
+        'TextBox4
+        '
+        Me.TextBox4.Location = New System.Drawing.Point(184, 78)
+        Me.TextBox4.Name = "TextBox4"
+        Me.TextBox4.Size = New System.Drawing.Size(100, 20)
+        Me.TextBox4.TabIndex = 12
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Location = New System.Drawing.Point(184, 52)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(100, 20)
+        Me.TextBox2.TabIndex = 11
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(184, 291)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(75, 23)
+        Me.Button2.TabIndex = 10
+        Me.Button2.Text = "Button2"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'lblImportExportPrice
+        '
+        Me.lblImportExportPrice.AutoSize = True
+        Me.lblImportExportPrice.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(186, Byte))
+        Me.lblImportExportPrice.Location = New System.Drawing.Point(107, 237)
+        Me.lblImportExportPrice.Name = "lblImportExportPrice"
+        Me.lblImportExportPrice.Size = New System.Drawing.Size(195, 13)
+        Me.lblImportExportPrice.TabIndex = 9
+        Me.lblImportExportPrice.Text = "Impordi/Ekspordi hinnastamistingimused"
+        '
+        'lblExchangeChoice
+        '
+        Me.lblExchangeChoice.AutoSize = True
+        Me.lblExchangeChoice.Location = New System.Drawing.Point(107, 209)
+        Me.lblExchangeChoice.Name = "lblExchangeChoice"
+        Me.lblExchangeChoice.Size = New System.Drawing.Size(55, 13)
+        Me.lblExchangeChoice.TabIndex = 8
+        Me.lblExchangeChoice.Text = "Valikuline:"
+        '
+        'lblCase2
+        '
+        Me.lblCase2.AutoSize = True
+        Me.lblCase2.Location = New System.Drawing.Point(107, 161)
+        Me.lblCase2.Name = "lblCase2"
+        Me.lblCase2.Size = New System.Drawing.Size(61, 13)
+        Me.lblCase2.TabIndex = 7
+        Me.lblCase2.Text = "Tingimus 2:"
+        '
+        'lblCase1
+        '
+        Me.lblCase1.AutoSize = True
+        Me.lblCase1.Location = New System.Drawing.Point(107, 135)
+        Me.lblCase1.Name = "lblCase1"
+        Me.lblCase1.Size = New System.Drawing.Size(61, 13)
+        Me.lblCase1.TabIndex = 6
+        Me.lblCase1.Text = "Tingimus 1:"
+        '
+        'lblEnterPrice
+        '
+        Me.lblEnterPrice.AutoSize = True
+        Me.lblEnterPrice.Location = New System.Drawing.Point(107, 111)
+        Me.lblEnterPrice.Name = "lblEnterPrice"
+        Me.lblEnterPrice.Size = New System.Drawing.Size(152, 13)
+        Me.lblEnterPrice.TabIndex = 5
+        Me.lblEnterPrice.Text = "Sisesta hinnastamistingimused:"
+        '
+        'lblEndTime
+        '
+        Me.lblEndTime.AutoSize = True
+        Me.lblEndTime.Location = New System.Drawing.Point(107, 81)
+        Me.lblEndTime.Name = "lblEndTime"
+        Me.lblEndTime.Size = New System.Drawing.Size(52, 13)
+        Me.lblEndTime.TabIndex = 4
+        Me.lblEndTime.Text = "Lõppaeg:"
+        '
+        'lblStartTime
+        '
+        Me.lblStartTime.AutoSize = True
+        Me.lblStartTime.Location = New System.Drawing.Point(107, 55)
+        Me.lblStartTime.Name = "lblStartTime"
+        Me.lblStartTime.Size = New System.Drawing.Size(54, 13)
+        Me.lblStartTime.TabIndex = 3
+        Me.lblStartTime.Text = "Algusaeg:"
+        '
+        'lblTimePeriodSelection
+        '
+        Me.lblTimePeriodSelection.AutoSize = True
+        Me.lblTimePeriodSelection.Location = New System.Drawing.Point(107, 22)
+        Me.lblTimePeriodSelection.Name = "lblTimePeriodSelection"
+        Me.lblTimePeriodSelection.Size = New System.Drawing.Size(96, 13)
+        Me.lblTimePeriodSelection.TabIndex = 2
+        Me.lblTimePeriodSelection.Text = "Ajavahemiku valik:"
         '
         'btnBack2
         '
@@ -694,6 +905,9 @@ Partial Class GUIMain
         '
         'tabConsumptionHistory
         '
+        Me.tabConsumptionHistory.Controls.Add(Me.btnSimulateConsumptionHistory)
+        Me.tabConsumptionHistory.Controls.Add(Me.TabControl2)
+        Me.tabConsumptionHistory.Controls.Add(Me.btnClientConsumptionHistory)
         Me.tabConsumptionHistory.Controls.Add(Me.btnBack3)
         Me.tabConsumptionHistory.Location = New System.Drawing.Point(4, 26)
         Me.tabConsumptionHistory.Name = "tabConsumptionHistory"
@@ -702,6 +916,220 @@ Partial Class GUIMain
         Me.tabConsumptionHistory.TabIndex = 4
         Me.tabConsumptionHistory.Text = "Tarbimise ajalugu"
         Me.tabConsumptionHistory.UseVisualStyleBackColor = True
+        '
+        'btnSimulateConsumptionHistory
+        '
+        Me.btnSimulateConsumptionHistory.Location = New System.Drawing.Point(269, 17)
+        Me.btnSimulateConsumptionHistory.Name = "btnSimulateConsumptionHistory"
+        Me.btnSimulateConsumptionHistory.Size = New System.Drawing.Size(130, 80)
+        Me.btnSimulateConsumptionHistory.TabIndex = 1
+        Me.btnSimulateConsumptionHistory.Text = "Elektripakettide börsihindade ajalugu"
+        Me.btnSimulateConsumptionHistory.UseVisualStyleBackColor = True
+        '
+        'TabControl2
+        '
+        Me.TabControl2.Controls.Add(Me.tabBlank)
+        Me.TabControl2.Controls.Add(Me.tabClientConsumptionHistory)
+        Me.TabControl2.Controls.Add(Me.tabSimulateExchangeHistory)
+        Me.TabControl2.ItemSize = New System.Drawing.Size(42, 19)
+        Me.TabControl2.Location = New System.Drawing.Point(0, 106)
+        Me.TabControl2.Name = "TabControl2"
+        Me.TabControl2.SelectedIndex = 0
+        Me.TabControl2.Size = New System.Drawing.Size(835, 477)
+        Me.TabControl2.TabIndex = 2
+        '
+        'tabBlank
+        '
+        Me.tabBlank.Location = New System.Drawing.Point(4, 23)
+        Me.tabBlank.Name = "tabBlank"
+        Me.tabBlank.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabBlank.Size = New System.Drawing.Size(827, 450)
+        Me.tabBlank.TabIndex = 0
+        Me.tabBlank.Text = "Blank"
+        Me.tabBlank.UseVisualStyleBackColor = True
+        '
+        'tabClientConsumptionHistory
+        '
+        Me.tabClientConsumptionHistory.Controls.Add(Me.lblSimulateClientConsumptionHistory)
+        Me.tabClientConsumptionHistory.Controls.Add(Me.lblComparisonGraph)
+        Me.tabClientConsumptionHistory.Controls.Add(Me.lblConsumptionGraph)
+        Me.tabClientConsumptionHistory.Controls.Add(Me.lblClientConsumptionHistoryResult)
+        Me.tabClientConsumptionHistory.Controls.Add(Me.lblUploadComparisonPackageCSV)
+        Me.tabClientConsumptionHistory.Controls.Add(Me.lblUploadClientHistoryCSV)
+        Me.tabClientConsumptionHistory.Controls.Add(Me.lblHistoryData)
+        Me.tabClientConsumptionHistory.Location = New System.Drawing.Point(4, 23)
+        Me.tabClientConsumptionHistory.Name = "tabClientConsumptionHistory"
+        Me.tabClientConsumptionHistory.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabClientConsumptionHistory.Size = New System.Drawing.Size(827, 450)
+        Me.tabClientConsumptionHistory.TabIndex = 1
+        Me.tabClientConsumptionHistory.Text = "Simuleeri oma tarbimise ajalugu"
+        Me.tabClientConsumptionHistory.UseVisualStyleBackColor = True
+        '
+        'lblSimulateClientConsumptionHistory
+        '
+        Me.lblSimulateClientConsumptionHistory.AutoSize = True
+        Me.lblSimulateClientConsumptionHistory.Location = New System.Drawing.Point(48, 23)
+        Me.lblSimulateClientConsumptionHistory.Name = "lblSimulateClientConsumptionHistory"
+        Me.lblSimulateClientConsumptionHistory.Size = New System.Drawing.Size(153, 13)
+        Me.lblSimulateClientConsumptionHistory.TabIndex = 6
+        Me.lblSimulateClientConsumptionHistory.Text = "Simuleeri oma tarbimise ajalugu"
+        '
+        'lblComparisonGraph
+        '
+        Me.lblComparisonGraph.AutoSize = True
+        Me.lblComparisonGraph.Location = New System.Drawing.Point(573, 282)
+        Me.lblComparisonGraph.Name = "lblComparisonGraph"
+        Me.lblComparisonGraph.Size = New System.Drawing.Size(74, 13)
+        Me.lblComparisonGraph.TabIndex = 5
+        Me.lblComparisonGraph.Text = "Võrdlusgraafik"
+        '
+        'lblConsumptionGraph
+        '
+        Me.lblConsumptionGraph.AutoSize = True
+        Me.lblConsumptionGraph.Location = New System.Drawing.Point(573, 114)
+        Me.lblConsumptionGraph.Name = "lblConsumptionGraph"
+        Me.lblConsumptionGraph.Size = New System.Drawing.Size(78, 13)
+        Me.lblConsumptionGraph.TabIndex = 4
+        Me.lblConsumptionGraph.Text = "Tarbimisgraafik"
+        '
+        'lblClientConsumptionHistoryResult
+        '
+        Me.lblClientConsumptionHistoryResult.AutoSize = True
+        Me.lblClientConsumptionHistoryResult.Location = New System.Drawing.Point(426, 73)
+        Me.lblClientConsumptionHistoryResult.Name = "lblClientConsumptionHistoryResult"
+        Me.lblClientConsumptionHistoryResult.Size = New System.Drawing.Size(50, 13)
+        Me.lblClientConsumptionHistoryResult.TabIndex = 3
+        Me.lblClientConsumptionHistoryResult.Text = "Tulemus:"
+        '
+        'lblUploadComparisonPackageCSV
+        '
+        Me.lblUploadComparisonPackageCSV.AutoSize = True
+        Me.lblUploadComparisonPackageCSV.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(186, Byte))
+        Me.lblUploadComparisonPackageCSV.Location = New System.Drawing.Point(48, 212)
+        Me.lblUploadComparisonPackageCSV.Name = "lblUploadComparisonPackageCSV"
+        Me.lblUploadComparisonPackageCSV.Size = New System.Drawing.Size(156, 13)
+        Me.lblUploadComparisonPackageCSV.TabIndex = 2
+        Me.lblUploadComparisonPackageCSV.Text = "Lae üles võrreldava paketi CSV"
+        '
+        'lblUploadClientHistoryCSV
+        '
+        Me.lblUploadClientHistoryCSV.AutoSize = True
+        Me.lblUploadClientHistoryCSV.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(186, Byte))
+        Me.lblUploadClientHistoryCSV.Location = New System.Drawing.Point(48, 114)
+        Me.lblUploadClientHistoryCSV.Name = "lblUploadClientHistoryCSV"
+        Me.lblUploadClientHistoryCSV.Size = New System.Drawing.Size(185, 13)
+        Me.lblUploadClientHistoryCSV.TabIndex = 1
+        Me.lblUploadClientHistoryCSV.Text = "Lae üles oma tarbimise ajaloo CSV fail"
+        '
+        'lblHistoryData
+        '
+        Me.lblHistoryData.AutoSize = True
+        Me.lblHistoryData.Location = New System.Drawing.Point(48, 73)
+        Me.lblHistoryData.Name = "lblHistoryData"
+        Me.lblHistoryData.Size = New System.Drawing.Size(80, 13)
+        Me.lblHistoryData.TabIndex = 0
+        Me.lblHistoryData.Text = "Ajaloo andmed:"
+        '
+        'tabSimulateExchangeHistory
+        '
+        Me.tabSimulateExchangeHistory.Controls.Add(Me.lblExchangePackageHistory)
+        Me.tabSimulateExchangeHistory.Controls.Add(Me.Label8)
+        Me.tabSimulateExchangeHistory.Controls.Add(Me.btnSeeHistory)
+        Me.tabSimulateExchangeHistory.Controls.Add(Me.TextBox8)
+        Me.tabSimulateExchangeHistory.Controls.Add(Me.Label9)
+        Me.tabSimulateExchangeHistory.Controls.Add(Me.RadioButton3)
+        Me.tabSimulateExchangeHistory.Controls.Add(Me.RadioButton4)
+        Me.tabSimulateExchangeHistory.Controls.Add(Me.Label10)
+        Me.tabSimulateExchangeHistory.Location = New System.Drawing.Point(4, 23)
+        Me.tabSimulateExchangeHistory.Name = "tabSimulateExchangeHistory"
+        Me.tabSimulateExchangeHistory.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabSimulateExchangeHistory.Size = New System.Drawing.Size(827, 450)
+        Me.tabSimulateExchangeHistory.TabIndex = 2
+        Me.tabSimulateExchangeHistory.Text = "Elektripakettide börsihindade ajalugu"
+        Me.tabSimulateExchangeHistory.UseVisualStyleBackColor = True
+        '
+        'lblExchangePackageHistory
+        '
+        Me.lblExchangePackageHistory.AutoSize = True
+        Me.lblExchangePackageHistory.Location = New System.Drawing.Point(48, 23)
+        Me.lblExchangePackageHistory.Name = "lblExchangePackageHistory"
+        Me.lblExchangePackageHistory.Size = New System.Drawing.Size(180, 13)
+        Me.lblExchangePackageHistory.TabIndex = 20
+        Me.lblExchangePackageHistory.Text = "Elektripakettide börsihindade ajalugu"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(514, 145)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(50, 13)
+        Me.Label8.TabIndex = 19
+        Me.Label8.Text = "Tulemus:"
+        '
+        'btnSeeHistory
+        '
+        Me.btnSeeHistory.Location = New System.Drawing.Point(200, 241)
+        Me.btnSeeHistory.Name = "btnSeeHistory"
+        Me.btnSeeHistory.Size = New System.Drawing.Size(75, 23)
+        Me.btnSeeHistory.TabIndex = 18
+        Me.btnSeeHistory.Text = "Kuva ajalugu"
+        Me.btnSeeHistory.UseVisualStyleBackColor = True
+        '
+        'TextBox8
+        '
+        Me.TextBox8.Location = New System.Drawing.Point(175, 199)
+        Me.TextBox8.Name = "TextBox8"
+        Me.TextBox8.Size = New System.Drawing.Size(100, 20)
+        Me.TextBox8.TabIndex = 17
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(48, 202)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(46, 13)
+        Me.Label9.TabIndex = 16
+        Me.Label9.Text = "Kuutasu"
+        '
+        'RadioButton3
+        '
+        Me.RadioButton3.AutoSize = True
+        Me.RadioButton3.Location = New System.Drawing.Point(176, 145)
+        Me.RadioButton3.Name = "RadioButton3"
+        Me.RadioButton3.Size = New System.Drawing.Size(99, 17)
+        Me.RadioButton3.TabIndex = 15
+        Me.RadioButton3.TabStop = True
+        Me.RadioButton3.Text = "Fikseeritud hind"
+        Me.RadioButton3.UseVisualStyleBackColor = True
+        '
+        'RadioButton4
+        '
+        Me.RadioButton4.AutoSize = True
+        Me.RadioButton4.Location = New System.Drawing.Point(51, 145)
+        Me.RadioButton4.Name = "RadioButton4"
+        Me.RadioButton4.Size = New System.Drawing.Size(68, 17)
+        Me.RadioButton4.TabIndex = 14
+        Me.RadioButton4.TabStop = True
+        Me.RadioButton4.Text = "Börsihind"
+        Me.RadioButton4.UseVisualStyleBackColor = True
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(48, 76)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(162, 13)
+        Me.Label10.TabIndex = 13
+        Me.Label10.Text = "Kehtiva paketi andmete sisestus:"
+        '
+        'btnClientConsumptionHistory
+        '
+        Me.btnClientConsumptionHistory.Location = New System.Drawing.Point(133, 17)
+        Me.btnClientConsumptionHistory.Name = "btnClientConsumptionHistory"
+        Me.btnClientConsumptionHistory.Size = New System.Drawing.Size(130, 80)
+        Me.btnClientConsumptionHistory.TabIndex = 0
+        Me.btnClientConsumptionHistory.Text = "Simuleeri oma tarbimise ajalugu"
+        Me.btnClientConsumptionHistory.UseVisualStyleBackColor = True
         '
         'btnBack3
         '
@@ -714,6 +1142,13 @@ Partial Class GUIMain
         '
         'tabPackageComparison
         '
+        Me.tabPackageComparison.Controls.Add(Me.btnCompare)
+        Me.tabPackageComparison.Controls.Add(Me.lblComparisonResult)
+        Me.tabPackageComparison.Controls.Add(Me.ComboBox2)
+        Me.tabPackageComparison.Controls.Add(Me.ComboBox1)
+        Me.tabPackageComparison.Controls.Add(Me.Label6)
+        Me.tabPackageComparison.Controls.Add(Me.lblPackage1)
+        Me.tabPackageComparison.Controls.Add(Me.lblChoosePackages)
         Me.tabPackageComparison.Controls.Add(Me.btnBack4)
         Me.tabPackageComparison.Location = New System.Drawing.Point(4, 26)
         Me.tabPackageComparison.Name = "tabPackageComparison"
@@ -723,6 +1158,33 @@ Partial Class GUIMain
         Me.tabPackageComparison.Text = "Elektripakettide võrdlus"
         Me.tabPackageComparison.UseVisualStyleBackColor = True
         '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(53, 284)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(78, 13)
+        Me.Label6.TabIndex = 4
+        Me.Label6.Text = "Elektripakett 2:"
+        '
+        'lblPackage1
+        '
+        Me.lblPackage1.AutoSize = True
+        Me.lblPackage1.Location = New System.Drawing.Point(53, 160)
+        Me.lblPackage1.Name = "lblPackage1"
+        Me.lblPackage1.Size = New System.Drawing.Size(78, 13)
+        Me.lblPackage1.TabIndex = 3
+        Me.lblPackage1.Text = "Elektripakett 1:"
+        '
+        'lblChoosePackages
+        '
+        Me.lblChoosePackages.AutoSize = True
+        Me.lblChoosePackages.Location = New System.Drawing.Point(53, 64)
+        Me.lblChoosePackages.Name = "lblChoosePackages"
+        Me.lblChoosePackages.Size = New System.Drawing.Size(93, 13)
+        Me.lblChoosePackages.TabIndex = 2
+        Me.lblChoosePackages.Text = "Vali elektripaketid:"
+        '
         'btnBack4
         '
         Me.btnBack4.Location = New System.Drawing.Point(17, 17)
@@ -731,6 +1193,40 @@ Partial Class GUIMain
         Me.btnBack4.TabIndex = 1
         Me.btnBack4.Text = "Tagasi"
         Me.btnBack4.UseVisualStyleBackColor = True
+        '
+        'ComboBox1
+        '
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Location = New System.Drawing.Point(137, 157)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(121, 21)
+        Me.ComboBox1.TabIndex = 5
+        '
+        'ComboBox2
+        '
+        Me.ComboBox2.FormattingEnabled = True
+        Me.ComboBox2.Location = New System.Drawing.Point(137, 281)
+        Me.ComboBox2.Name = "ComboBox2"
+        Me.ComboBox2.Size = New System.Drawing.Size(121, 21)
+        Me.ComboBox2.TabIndex = 6
+        '
+        'lblComparisonResult
+        '
+        Me.lblComparisonResult.AutoSize = True
+        Me.lblComparisonResult.Location = New System.Drawing.Point(438, 64)
+        Me.lblComparisonResult.Name = "lblComparisonResult"
+        Me.lblComparisonResult.Size = New System.Drawing.Size(50, 13)
+        Me.lblComparisonResult.TabIndex = 7
+        Me.lblComparisonResult.Text = "Tulemus:"
+        '
+        'btnCompare
+        '
+        Me.btnCompare.Location = New System.Drawing.Point(137, 362)
+        Me.btnCompare.Name = "btnCompare"
+        Me.btnCompare.Size = New System.Drawing.Size(121, 23)
+        Me.btnCompare.TabIndex = 8
+        Me.btnCompare.Text = "Võrdle"
+        Me.btnCompare.UseVisualStyleBackColor = True
         '
         'GUIMain
         '
@@ -749,8 +1245,17 @@ Partial Class GUIMain
         Me.tabApplianceCalc.ResumeLayout(False)
         Me.tabApplianceCalc.PerformLayout()
         Me.tabExchangeComparison.ResumeLayout(False)
+        Me.tabExchangeComparison.PerformLayout()
+        Me.tblExchangeComparison.ResumeLayout(False)
+        Me.tblExchangeComparison.PerformLayout()
         Me.tabConsumptionHistory.ResumeLayout(False)
+        Me.TabControl2.ResumeLayout(False)
+        Me.tabClientConsumptionHistory.ResumeLayout(False)
+        Me.tabClientConsumptionHistory.PerformLayout()
+        Me.tabSimulateExchangeHistory.ResumeLayout(False)
+        Me.tabSimulateExchangeHistory.PerformLayout()
         Me.tabPackageComparison.ResumeLayout(False)
+        Me.tabPackageComparison.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -815,4 +1320,48 @@ Partial Class GUIMain
     Friend WithEvents rdioMicrowave As RadioButton
     Friend WithEvents rdioRouter As RadioButton
     Friend WithEvents rdioSewingMachine As RadioButton
+    Friend WithEvents lblImportExportPrice As Label
+    Friend WithEvents lblExchangeChoice As Label
+    Friend WithEvents lblCase2 As Label
+    Friend WithEvents lblCase1 As Label
+    Friend WithEvents lblEnterPrice As Label
+    Friend WithEvents lblEndTime As Label
+    Friend WithEvents lblStartTime As Label
+    Friend WithEvents lblTimePeriodSelection As Label
+    Friend WithEvents TextBox6 As TextBox
+    Friend WithEvents TextBox5 As TextBox
+    Friend WithEvents TextBox4 As TextBox
+    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents Button2 As Button
+    Friend WithEvents tblExchangeComparison As TableLayoutPanel
+    Friend WithEvents lblExchangeComparisonResult As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents btnSimulateConsumptionHistory As Button
+    Friend WithEvents TabControl2 As TabControl
+    Friend WithEvents tabBlank As TabPage
+    Friend WithEvents tabClientConsumptionHistory As TabPage
+    Friend WithEvents tabSimulateExchangeHistory As TabPage
+    Friend WithEvents btnClientConsumptionHistory As Button
+    Friend WithEvents lblComparisonGraph As Label
+    Friend WithEvents lblConsumptionGraph As Label
+    Friend WithEvents lblClientConsumptionHistoryResult As Label
+    Friend WithEvents lblUploadComparisonPackageCSV As Label
+    Friend WithEvents lblUploadClientHistoryCSV As Label
+    Friend WithEvents lblHistoryData As Label
+    Friend WithEvents Label8 As Label
+    Friend WithEvents btnSeeHistory As Button
+    Friend WithEvents TextBox8 As TextBox
+    Friend WithEvents Label9 As Label
+    Friend WithEvents RadioButton3 As RadioButton
+    Friend WithEvents RadioButton4 As RadioButton
+    Friend WithEvents Label10 As Label
+    Friend WithEvents lblSimulateClientConsumptionHistory As Label
+    Friend WithEvents lblExchangePackageHistory As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents lblPackage1 As Label
+    Friend WithEvents lblChoosePackages As Label
+    Friend WithEvents btnCompare As Button
+    Friend WithEvents lblComparisonResult As Label
+    Friend WithEvents ComboBox2 As ComboBox
+    Friend WithEvents ComboBox1 As ComboBox
 End Class

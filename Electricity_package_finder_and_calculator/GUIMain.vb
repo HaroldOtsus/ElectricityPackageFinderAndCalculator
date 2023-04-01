@@ -24,12 +24,20 @@
         TabControl1.SelectedTab = Main
     End Sub
 
-
-    Private Sub rdioCoffeeMaker_CheckedChanged(sender As Object, e As EventArgs) Handles rdioCoffeeMaker.CheckedChanged
-
-    End Sub
-
-    Private Sub tboxMonthlyCost_TextChanged(sender As Object, e As EventArgs) Handles tboxMonthlyCost.TextChanged
+    Private Sub btnClientConsumptionHistory_Click(sender As Object, e As EventArgs) Handles btnClientConsumptionHistory.Click
+        TabControl2.SelectedTab = tabClientConsumptionHistory
 
     End Sub
+
+    Private Sub btnSimulateConsumptionHistory_Click(sender As Object, e As EventArgs) Handles btnSimulateConsumptionHistory.Click
+        TabControl2.SelectedTab = tabSimulateExchangeHistory
+    End Sub
+
+
+    'If you change TabControl1 tab then TabControl2 reverts to a blank tab, looks cleaner this way IMO.
+    Private Sub tabConsumptionHistory_Leave(sender As Object, e As EventArgs) Handles tabConsumptionHistory.Leave
+        TabControl2.SelectedTab = tabBlank
+    End Sub
+
+
 End Class
