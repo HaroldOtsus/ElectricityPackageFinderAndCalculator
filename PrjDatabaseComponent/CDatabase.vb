@@ -5,27 +5,35 @@ Public Class CDatabase
     Function stringReturn() As String Implements IDatabase.stringReturn
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
-        Dim StrVar As String
+        Dim strVar As String
         Try
             conn.Open()
-            Dim rd As MySqlDataReader
-            Dim command As New MySqlCommand
-            command.CommandText = "SELECT * FROM appliance WHERE idPacket = 1;"
-            rd = command.ExecuteReader
-            If rd.Read Then
+            Dim command As New MySqlCommand("SELECT * FROM appliance WHERE idPacket = 1;", conn)
+            Dim reader As MySqlDataReader = command.ExecuteReader()
+            While reader.Read()
+                Return reader.GetString(1)
+            End While
+            reader.Close()
 
-                StrVar = rd.GetString(1)
-            Else
-                StrVar = "viga"
-            End If
-
-            rd.Close()
             conn.Close()
-
+        Catch ex As MySqlException
+            ' Handle MySqlException here
+            strVar = "MySqlException:"
+            strVar &= ex.Message
+            Return strVar
+        Catch ex As InvalidOperationException
+            ' Handle InvalidOperationException here
+            Console.WriteLine("InvalidOperationException: " & ex.Message)
+            strVar = "Invalidoperationexception:"
+            strVar &= ex.Message
+            Return strVar
         Catch ex As Exception
-            Return 0
+            ' Handle all other exceptions here
+            ' Console.WriteLine("Exception: " & ex.Message)
+
+            'StrVar = "excemption occured"
+            Return ex.Message
         End Try
-        Return StrVar
     End Function
 
     Function Connect() As Boolean
