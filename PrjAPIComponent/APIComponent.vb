@@ -4,15 +4,21 @@ Imports System.Net
 Public Class APIComponent
     Implements APIInterface
     Public Function GetDataFromEleringAPI() As String() Implements APIInterface.GetDataFromEleringAPI
+
+        'DateTime variables to get the 24 hour NordPool prices
+        Dim endTime As DateTime = DateTime.Now
+        Dim startTime As DateTime = endTime.AddDays(-1)
+        Dim strStartTime As String = startTime.ToString("yyyy-MM-dd")
+        Dim strEndTime As String = endTime.ToString("yyyy-MM-dd")
+
 #Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
 
         'HttpWebRequest object sends a request to url specified
-        Dim webRequest As HttpWebRequest = CType(webRequest.Create("https://dashboard.elering.ee/api/nps/price?start=2023-03-25T20%3A59%3A59.999Z&end=2023-03-26T20%3A59%3A59.999Z
-"), HttpWebRequest)
+        Dim webRequest As HttpWebRequest = CType(webRequest.Create("https://dashboard.elering.ee/api/nps/price?start=" + strStartTime + "T20%3A59%3A59.999Z&end=" + strEndTime + "T20%3A59%3A59.999Z"), HttpWebRequest)
 
 #Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
 
-        'GET method means that we are retrieveing datar from web server
+        'GET method means that we are retrieveing data from web server
         webRequest.Method = "GET"
         'Data received is in JSON format
         webRequest.ContentType = "application/json"
@@ -33,11 +39,13 @@ Public Class APIComponent
         Dim result() As String = responseString.Split(","c)
         Dim endResult(0) As String
 
-        'Filters only strings that have the "price string"
+        'Filters only strings that have the "price string" and only Estonian prices
         For Each str As String In result
             If str.Contains("price") Then
                 ReDim Preserve endResult(endResult.Length)
                 endResult(endResult.Length - 1) = str
+            ElseIf str.Contains("fi") Then
+                Exit For
             End If
         Next
 
