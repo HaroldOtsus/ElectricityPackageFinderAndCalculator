@@ -2,12 +2,14 @@
 
 Public Class CDatabase
     Implements IDatabase
-    Function stringReturn() As String Implements IDatabase.stringReturn
+    Function stringReturn(ByVal id As String) As (consumptionPerHour As String, usageTime As String) Implements IDatabase.stringReturn
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;" 'string to access database
         Dim conn As New MySqlConnection(connString)
         Dim strVar As String
-        Dim id As String
-        id = "1"
+        Dim consumptionPerHour As String = ""
+        Dim usageTime As String = ""
+        'Dim id As String
+        'id = "1"
         Try
             conn.Open() 'try to gain access to database
             Dim command As New MySqlCommand("SELECT * FROM appliance WHERE idPacket = ?;", conn)
@@ -15,7 +17,9 @@ Public Class CDatabase
             'get what we want to from the database, right now get everything from table appliance where idPacket is 1
             Dim reader As MySqlDataReader = command.ExecuteReader()
             While reader.Read()
-                Return reader.GetString(1)
+                consumptionPerHour = reader.GetString(2)
+                usageTime = reader.GetString(3)
+                Return (consumptionPerHour, usageTime)
             End While
             reader.Close()
 
@@ -24,19 +28,19 @@ Public Class CDatabase
             ' Handle MySqlException here
             strVar = "MySqlException:"
             strVar &= ex.Message
-            Return strVar
+            ' Return strVar
         Catch ex As InvalidOperationException
             ' Handle InvalidOperationException here
             Console.WriteLine("InvalidOperationException: " & ex.Message)
             strVar = "Invalidoperationexception:"
             strVar &= ex.Message
-            Return strVar
+            ' Return strVar
         Catch ex As Exception
             ' Handle all other exceptions here
             ' Console.WriteLine("Exception: " & ex.Message)
 
             'StrVar = "excemption occured"
-            Return ex.Message
+            'Return ex.Message
         End Try
     End Function
 
