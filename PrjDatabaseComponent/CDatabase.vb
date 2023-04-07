@@ -21,6 +21,7 @@ Public Class CDatabase
                 consumptionPerHour = reader.GetString(2)
                 usageTime = reader.GetString(3)
                 Return (consumptionPerHour, usageTime)
+                'actually this goes to calculator component but right now for testing purposes it is just returned
             End While
             reader.Close()
 
@@ -49,11 +50,17 @@ Public Class CDatabase
     Function stockPrice() As String()
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
+        Dim dateOfStockPrices As String
         Try
+
             conn.Open()
+
+            Dim command As New MySqlCommand("SELECT date FROM webdata WHERE idPacket = 1;", conn)
+            Dim reader As MySqlDataReader = command.ExecuteReader()
+            While reader.Read()
+                dateOfStockPrices = reader.GetString(0)
+            End While
             conn.Close()
-
-
         Catch ex As Exception
         End Try
 
