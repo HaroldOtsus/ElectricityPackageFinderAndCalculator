@@ -6,9 +6,12 @@ Public Class CDatabase
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;" 'string to access database
         Dim conn As New MySqlConnection(connString)
         Dim strVar As String
+        Dim id As String
+        id = "1"
         Try
             conn.Open() 'try to gain access to database
-            Dim command As New MySqlCommand("SELECT * FROM appliance WHERE idPacket = 1;", conn)
+            Dim command As New MySqlCommand("SELECT * FROM appliance WHERE idPacket = ?;", conn)
+            command.Parameters.AddWithValue("@id", id)
             'get what we want to from the database, right now get everything from table appliance where idPacket is 1
             Dim reader As MySqlDataReader = command.ExecuteReader()
             While reader.Read()

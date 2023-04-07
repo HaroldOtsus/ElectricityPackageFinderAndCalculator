@@ -16,4 +16,5 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Assert.AreEqual("Kohvimasin", vastus)
     End Sub
 
+
 End Class
