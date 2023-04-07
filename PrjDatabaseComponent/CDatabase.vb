@@ -2,6 +2,7 @@
 
 Public Class CDatabase
     Implements IDatabase
+    Implements IDatabaseAPI
     Function stringReturn(ByVal id As String) As (consumptionPerHour As String, usageTime As String) Implements IDatabase.stringReturn
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;" 'string to access database
         Dim conn As New MySqlConnection(connString)
@@ -14,7 +15,7 @@ Public Class CDatabase
             conn.Open() 'try to gain access to database
             Dim command As New MySqlCommand("SELECT * FROM appliance WHERE idPacket = ?;", conn)
             command.Parameters.AddWithValue("@id", id)
-            'get what we want to from the database, right now get everything from table appliance where idPacket is 1
+            'get what we want to from the database, right now get everything from table appliance where idPacket is what user inserter
             Dim reader As MySqlDataReader = command.ExecuteReader()
             While reader.Read()
                 consumptionPerHour = reader.GetString(2)
@@ -42,6 +43,20 @@ Public Class CDatabase
             'StrVar = "excemption occured"
             'Return ex.Message
         End Try
+    End Function
+
+
+    Function stockPrice() As String()
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+        Try
+            conn.Open()
+            conn.Close()
+
+
+        Catch ex As Exception
+        End Try
+
     End Function
 
     Function Connect() As Boolean
