@@ -1,5 +1,10 @@
-﻿Public Class GUIMain
-    Public sisend As String
+﻿
+
+Public Class GUIMain
+    Dim sisend As String
+    Dim applianceID As String
+
+    Public answer As String
     Private Sub btnPackageHourlyRate_Click(sender As Object, e As EventArgs) Handles btnPackageHourlyRate.Click
         TabControl1.SelectedTab = tabPackageHourlyRate
     End Sub
@@ -39,5 +44,20 @@
         TabControl2.SelectedTab = tabBlank
     End Sub
 
+    Private Sub rdioCoffeeMaker_CheckedChanged(sender As Object, e As EventArgs) Handles rdioCoffeeMaker.CheckedChanged
+        applianceID = "1"
+    End Sub
 
+
+    Private Sub btnConfirm_Click(sender As Object, e As EventArgs) Handles btnConfirm.Click
+        Dim returnString As PrjDatabaseComponent.IDatabase
+        returnString = New PrjDatabaseComponent.CDatabase
+        Dim actualOutput = returnString.stringReturn(applianceID)
+        textBoxConsumptionPerHour.Text = actualOutput.consumptionPerHour
+        textBoxUsageTime.Text = actualOutput.usageTime
+
+
+
+
+    End Sub
 End Class
