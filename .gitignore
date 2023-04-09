@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Mockup
+/Electricity_package_finder_and_calculator/Electricity_package_finder_and_calculator.vbproj
+/Electricity_package_finder_and_calculator/UserInterface.vb
+/Electricity_package_finder_and_calculator/userInterface.resx
+/Electricity_package_finder_and_calculator/UserInterface.Designer.vb
