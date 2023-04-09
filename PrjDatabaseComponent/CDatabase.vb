@@ -47,18 +47,28 @@ Public Class CDatabase
     End Function
 
 
-    Function stockPrice() As String()
+    Function stockPrice(ByRef one) As String
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
-        Dim dateOfStockPrices As String
+        Dim dateOfStockPrices As String = ""
+        Dim dateToday
+        dateToday = Date.Today 'get what date it is today
+
         Try
 
-            conn.Open()
+            conn.Open() 'try to connect to database
 
-            Dim command As New MySqlCommand("SELECT date FROM webdata WHERE idPacket = 1;", conn)
+            Dim command As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 1;", conn)
             Dim reader As MySqlDataReader = command.ExecuteReader()
             While reader.Read()
-                dateOfStockPrices = reader.GetString(0)
+                one = reader.GetString(1)
+                dateOfStockPrices = reader.GetString(26) 'get date from database
+                If dateOfStockPrices = dateToday Then
+                    Return dateOfStockPrices
+                Else
+                    one = ""
+                    Return "sad"
+                End If
             End While
             conn.Close()
         Catch ex As Exception
