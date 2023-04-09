@@ -45,27 +45,28 @@ Partial Class GUIMain
         Me.lblPackageHourly = New System.Windows.Forms.Label()
         Me.btnBack0 = New System.Windows.Forms.Button()
         Me.tabApplianceCalc = New System.Windows.Forms.TabPage()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.rdioFridge = New System.Windows.Forms.RadioButton()
+        Me.rdioCoffeeMaker = New System.Windows.Forms.RadioButton()
+        Me.rdioToaster = New System.Windows.Forms.RadioButton()
+        Me.rdioVacuum = New System.Windows.Forms.RadioButton()
+        Me.rdioMixer = New System.Windows.Forms.RadioButton()
+        Me.rdioMicrowave = New System.Windows.Forms.RadioButton()
+        Me.rdioElecStove = New System.Windows.Forms.RadioButton()
+        Me.rdioRouter = New System.Windows.Forms.RadioButton()
+        Me.rdioFoodProcessor = New System.Windows.Forms.RadioButton()
+        Me.rdioSewingMachine = New System.Windows.Forms.RadioButton()
+        Me.rdioTV = New System.Windows.Forms.RadioButton()
+        Me.rdioLED = New System.Windows.Forms.RadioButton()
+        Me.rdioRadio = New System.Windows.Forms.RadioButton()
+        Me.rdioPrinter = New System.Windows.Forms.RadioButton()
+        Me.rdioEggCooker = New System.Windows.Forms.RadioButton()
+        Me.rdioHairDryer = New System.Windows.Forms.RadioButton()
+        Me.rdioComputer = New System.Windows.Forms.RadioButton()
         Me.textBoxUsageTime = New System.Windows.Forms.TextBox()
         Me.textBoxConsumptionPerHour = New System.Windows.Forms.TextBox()
         Me.lblUsageTime = New System.Windows.Forms.Label()
         Me.lblConsumptionPerHour = New System.Windows.Forms.Label()
-        Me.rdioMicrowave = New System.Windows.Forms.RadioButton()
-        Me.rdioRouter = New System.Windows.Forms.RadioButton()
-        Me.rdioSewingMachine = New System.Windows.Forms.RadioButton()
-        Me.rdioLED = New System.Windows.Forms.RadioButton()
-        Me.rdioPrinter = New System.Windows.Forms.RadioButton()
-        Me.rdioHairDryer = New System.Windows.Forms.RadioButton()
-        Me.rdioComputer = New System.Windows.Forms.RadioButton()
-        Me.rdioFridge = New System.Windows.Forms.RadioButton()
-        Me.rdioEggCooker = New System.Windows.Forms.RadioButton()
-        Me.rdioRadio = New System.Windows.Forms.RadioButton()
-        Me.rdioTV = New System.Windows.Forms.RadioButton()
-        Me.rdioFoodProcessor = New System.Windows.Forms.RadioButton()
-        Me.rdioElecStove = New System.Windows.Forms.RadioButton()
-        Me.rdioMixer = New System.Windows.Forms.RadioButton()
-        Me.rdioVacuum = New System.Windows.Forms.RadioButton()
-        Me.rdioToaster = New System.Windows.Forms.RadioButton()
-        Me.rdioCoffeeMaker = New System.Windows.Forms.RadioButton()
         Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.textBoxElectricityConsumptionRate = New System.Windows.Forms.TextBox()
         Me.btnConfirm = New System.Windows.Forms.Button()
@@ -130,11 +131,11 @@ Partial Class GUIMain
         Me.lblPackage1 = New System.Windows.Forms.Label()
         Me.lblChoosePackages = New System.Windows.Forms.Label()
         Me.btnBack4 = New System.Windows.Forms.Button()
-        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         Me.tabPackageHourlyRate.SuspendLayout()
         Me.tabApplianceCalc.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.tabExchangeComparison.SuspendLayout()
         Me.tblExchangeComparison.SuspendLayout()
         Me.tabConsumptionHistory.SuspendLayout()
@@ -142,7 +143,6 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.SuspendLayout()
         Me.tabSimulateExchangeHistory.SuspendLayout()
         Me.tabPackageComparison.SuspendLayout()
-        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label1
@@ -395,39 +395,84 @@ Partial Class GUIMain
         Me.tabApplianceCalc.Text = "Kodumasina tarbimise hinna kalkulaator"
         Me.tabApplianceCalc.UseVisualStyleBackColor = True
         '
-        'textBoxUsageTime
+        'Panel1
         '
-        Me.textBoxUsageTime.Location = New System.Drawing.Point(564, 81)
-        Me.textBoxUsageTime.Name = "textBoxUsageTime"
-        Me.textBoxUsageTime.ReadOnly = True
-        Me.textBoxUsageTime.Size = New System.Drawing.Size(100, 20)
-        Me.textBoxUsageTime.TabIndex = 38
+        Me.Panel1.Controls.Add(Me.rdioFridge)
+        Me.Panel1.Controls.Add(Me.rdioCoffeeMaker)
+        Me.Panel1.Controls.Add(Me.rdioToaster)
+        Me.Panel1.Controls.Add(Me.rdioVacuum)
+        Me.Panel1.Controls.Add(Me.rdioMixer)
+        Me.Panel1.Controls.Add(Me.rdioMicrowave)
+        Me.Panel1.Controls.Add(Me.rdioElecStove)
+        Me.Panel1.Controls.Add(Me.rdioRouter)
+        Me.Panel1.Controls.Add(Me.rdioFoodProcessor)
+        Me.Panel1.Controls.Add(Me.rdioSewingMachine)
+        Me.Panel1.Controls.Add(Me.rdioTV)
+        Me.Panel1.Controls.Add(Me.rdioLED)
+        Me.Panel1.Controls.Add(Me.rdioRadio)
+        Me.Panel1.Controls.Add(Me.rdioPrinter)
+        Me.Panel1.Controls.Add(Me.rdioEggCooker)
+        Me.Panel1.Controls.Add(Me.rdioHairDryer)
+        Me.Panel1.Controls.Add(Me.rdioComputer)
+        Me.Panel1.Location = New System.Drawing.Point(36, 56)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(236, 275)
+        Me.Panel1.TabIndex = 39
         '
-        'textBoxConsumptionPerHour
+        'rdioFridge
         '
-        Me.textBoxConsumptionPerHour.Location = New System.Drawing.Point(564, 49)
-        Me.textBoxConsumptionPerHour.Name = "textBoxConsumptionPerHour"
-        Me.textBoxConsumptionPerHour.ReadOnly = True
-        Me.textBoxConsumptionPerHour.Size = New System.Drawing.Size(100, 20)
-        Me.textBoxConsumptionPerHour.TabIndex = 37
+        Me.rdioFridge.AutoSize = True
+        Me.rdioFridge.Location = New System.Drawing.Point(126, 26)
+        Me.rdioFridge.Name = "rdioFridge"
+        Me.rdioFridge.Size = New System.Drawing.Size(72, 17)
+        Me.rdioFridge.TabIndex = 27
+        Me.rdioFridge.TabStop = True
+        Me.rdioFridge.Text = "Külmkapp"
+        Me.rdioFridge.UseVisualStyleBackColor = True
         '
-        'lblUsageTime
+        'rdioCoffeeMaker
         '
-        Me.lblUsageTime.AutoSize = True
-        Me.lblUsageTime.Location = New System.Drawing.Point(367, 88)
-        Me.lblUsageTime.Name = "lblUsageTime"
-        Me.lblUsageTime.Size = New System.Drawing.Size(63, 13)
-        Me.lblUsageTime.TabIndex = 36
-        Me.lblUsageTime.Text = "Kasutusaeg"
+        Me.rdioCoffeeMaker.AutoSize = True
+        Me.rdioCoffeeMaker.Location = New System.Drawing.Point(25, 26)
+        Me.rdioCoffeeMaker.Name = "rdioCoffeeMaker"
+        Me.rdioCoffeeMaker.Size = New System.Drawing.Size(79, 17)
+        Me.rdioCoffeeMaker.TabIndex = 18
+        Me.rdioCoffeeMaker.TabStop = True
+        Me.rdioCoffeeMaker.Text = "Kohvimasin"
+        Me.rdioCoffeeMaker.UseVisualStyleBackColor = True
         '
-        'lblConsumptionPerHour
+        'rdioToaster
         '
-        Me.lblConsumptionPerHour.AutoSize = True
-        Me.lblConsumptionPerHour.Location = New System.Drawing.Point(368, 56)
-        Me.lblConsumptionPerHour.Name = "lblConsumptionPerHour"
-        Me.lblConsumptionPerHour.Size = New System.Drawing.Size(100, 13)
-        Me.lblConsumptionPerHour.TabIndex = 35
-        Me.lblConsumptionPerHour.Text = "Energia kulu tunnis:"
+        Me.rdioToaster.AutoSize = True
+        Me.rdioToaster.Location = New System.Drawing.Point(25, 49)
+        Me.rdioToaster.Name = "rdioToaster"
+        Me.rdioToaster.Size = New System.Drawing.Size(56, 17)
+        Me.rdioToaster.TabIndex = 19
+        Me.rdioToaster.TabStop = True
+        Me.rdioToaster.Text = "Röster"
+        Me.rdioToaster.UseVisualStyleBackColor = True
+        '
+        'rdioVacuum
+        '
+        Me.rdioVacuum.AutoSize = True
+        Me.rdioVacuum.Location = New System.Drawing.Point(25, 72)
+        Me.rdioVacuum.Name = "rdioVacuum"
+        Me.rdioVacuum.Size = New System.Drawing.Size(78, 17)
+        Me.rdioVacuum.TabIndex = 20
+        Me.rdioVacuum.TabStop = True
+        Me.rdioVacuum.Text = "Tolmuimeja"
+        Me.rdioVacuum.UseVisualStyleBackColor = True
+        '
+        'rdioMixer
+        '
+        Me.rdioMixer.AutoSize = True
+        Me.rdioMixer.Location = New System.Drawing.Point(25, 95)
+        Me.rdioMixer.Name = "rdioMixer"
+        Me.rdioMixer.Size = New System.Drawing.Size(56, 17)
+        Me.rdioMixer.TabIndex = 21
+        Me.rdioMixer.TabStop = True
+        Me.rdioMixer.Text = "Mikser"
+        Me.rdioMixer.UseVisualStyleBackColor = True
         '
         'rdioMicrowave
         '
@@ -440,6 +485,17 @@ Partial Class GUIMain
         Me.rdioMicrowave.Text = "Mikrolaineahi"
         Me.rdioMicrowave.UseVisualStyleBackColor = True
         '
+        'rdioElecStove
+        '
+        Me.rdioElecStove.AutoSize = True
+        Me.rdioElecStove.Location = New System.Drawing.Point(25, 118)
+        Me.rdioElecStove.Name = "rdioElecStove"
+        Me.rdioElecStove.Size = New System.Drawing.Size(69, 17)
+        Me.rdioElecStove.TabIndex = 22
+        Me.rdioElecStove.TabStop = True
+        Me.rdioElecStove.Text = "Elektripliit"
+        Me.rdioElecStove.UseVisualStyleBackColor = True
+        '
         'rdioRouter
         '
         Me.rdioRouter.AutoSize = True
@@ -450,6 +506,17 @@ Partial Class GUIMain
         Me.rdioRouter.TabStop = True
         Me.rdioRouter.Text = "Ruuter"
         Me.rdioRouter.UseVisualStyleBackColor = True
+        '
+        'rdioFoodProcessor
+        '
+        Me.rdioFoodProcessor.AutoSize = True
+        Me.rdioFoodProcessor.Location = New System.Drawing.Point(25, 141)
+        Me.rdioFoodProcessor.Name = "rdioFoodProcessor"
+        Me.rdioFoodProcessor.Size = New System.Drawing.Size(92, 17)
+        Me.rdioFoodProcessor.TabIndex = 23
+        Me.rdioFoodProcessor.TabStop = True
+        Me.rdioFoodProcessor.Text = "Köögikombain"
+        Me.rdioFoodProcessor.UseVisualStyleBackColor = True
         '
         'rdioSewingMachine
         '
@@ -462,6 +529,17 @@ Partial Class GUIMain
         Me.rdioSewingMachine.Text = "Õmblusmasin"
         Me.rdioSewingMachine.UseVisualStyleBackColor = True
         '
+        'rdioTV
+        '
+        Me.rdioTV.AutoSize = True
+        Me.rdioTV.Location = New System.Drawing.Point(25, 164)
+        Me.rdioTV.Name = "rdioTV"
+        Me.rdioTV.Size = New System.Drawing.Size(39, 17)
+        Me.rdioTV.TabIndex = 24
+        Me.rdioTV.TabStop = True
+        Me.rdioTV.Text = "TV"
+        Me.rdioTV.UseVisualStyleBackColor = True
+        '
         'rdioLED
         '
         Me.rdioLED.AutoSize = True
@@ -473,6 +551,17 @@ Partial Class GUIMain
         Me.rdioLED.Text = "Lambipirn (LED)"
         Me.rdioLED.UseVisualStyleBackColor = True
         '
+        'rdioRadio
+        '
+        Me.rdioRadio.AutoSize = True
+        Me.rdioRadio.Location = New System.Drawing.Point(25, 187)
+        Me.rdioRadio.Name = "rdioRadio"
+        Me.rdioRadio.Size = New System.Drawing.Size(59, 17)
+        Me.rdioRadio.TabIndex = 25
+        Me.rdioRadio.TabStop = True
+        Me.rdioRadio.Text = "Raadio"
+        Me.rdioRadio.UseVisualStyleBackColor = True
+        '
         'rdioPrinter
         '
         Me.rdioPrinter.AutoSize = True
@@ -483,6 +572,17 @@ Partial Class GUIMain
         Me.rdioPrinter.TabStop = True
         Me.rdioPrinter.Text = "Printer"
         Me.rdioPrinter.UseVisualStyleBackColor = True
+        '
+        'rdioEggCooker
+        '
+        Me.rdioEggCooker.AutoSize = True
+        Me.rdioEggCooker.Location = New System.Drawing.Point(25, 210)
+        Me.rdioEggCooker.Name = "rdioEggCooker"
+        Me.rdioEggCooker.Size = New System.Drawing.Size(81, 17)
+        Me.rdioEggCooker.TabIndex = 26
+        Me.rdioEggCooker.TabStop = True
+        Me.rdioEggCooker.Text = "Munakeetja"
+        Me.rdioEggCooker.UseVisualStyleBackColor = True
         '
         'rdioHairDryer
         '
@@ -506,115 +606,43 @@ Partial Class GUIMain
         Me.rdioComputer.Text = "Arvuti"
         Me.rdioComputer.UseVisualStyleBackColor = True
         '
-        'rdioFridge
+        'textBoxUsageTime
         '
-        Me.rdioFridge.AutoSize = True
-        Me.rdioFridge.Location = New System.Drawing.Point(126, 26)
-        Me.rdioFridge.Name = "rdioFridge"
-        Me.rdioFridge.Size = New System.Drawing.Size(72, 17)
-        Me.rdioFridge.TabIndex = 27
-        Me.rdioFridge.TabStop = True
-        Me.rdioFridge.Text = "Külmkapp"
-        Me.rdioFridge.UseVisualStyleBackColor = True
+        Me.textBoxUsageTime.BackColor = System.Drawing.SystemColors.HighlightText
+        Me.textBoxUsageTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.textBoxUsageTime.Location = New System.Drawing.Point(564, 81)
+        Me.textBoxUsageTime.Name = "textBoxUsageTime"
+        Me.textBoxUsageTime.ReadOnly = True
+        Me.textBoxUsageTime.Size = New System.Drawing.Size(100, 20)
+        Me.textBoxUsageTime.TabIndex = 38
         '
-        'rdioEggCooker
+        'textBoxConsumptionPerHour
         '
-        Me.rdioEggCooker.AutoSize = True
-        Me.rdioEggCooker.Location = New System.Drawing.Point(25, 210)
-        Me.rdioEggCooker.Name = "rdioEggCooker"
-        Me.rdioEggCooker.Size = New System.Drawing.Size(81, 17)
-        Me.rdioEggCooker.TabIndex = 26
-        Me.rdioEggCooker.TabStop = True
-        Me.rdioEggCooker.Text = "Munakeetja"
-        Me.rdioEggCooker.UseVisualStyleBackColor = True
+        Me.textBoxConsumptionPerHour.BackColor = System.Drawing.SystemColors.HighlightText
+        Me.textBoxConsumptionPerHour.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.textBoxConsumptionPerHour.Location = New System.Drawing.Point(564, 49)
+        Me.textBoxConsumptionPerHour.Name = "textBoxConsumptionPerHour"
+        Me.textBoxConsumptionPerHour.ReadOnly = True
+        Me.textBoxConsumptionPerHour.Size = New System.Drawing.Size(100, 20)
+        Me.textBoxConsumptionPerHour.TabIndex = 37
         '
-        'rdioRadio
+        'lblUsageTime
         '
-        Me.rdioRadio.AutoSize = True
-        Me.rdioRadio.Location = New System.Drawing.Point(25, 187)
-        Me.rdioRadio.Name = "rdioRadio"
-        Me.rdioRadio.Size = New System.Drawing.Size(59, 17)
-        Me.rdioRadio.TabIndex = 25
-        Me.rdioRadio.TabStop = True
-        Me.rdioRadio.Text = "Raadio"
-        Me.rdioRadio.UseVisualStyleBackColor = True
+        Me.lblUsageTime.AutoSize = True
+        Me.lblUsageTime.Location = New System.Drawing.Point(367, 88)
+        Me.lblUsageTime.Name = "lblUsageTime"
+        Me.lblUsageTime.Size = New System.Drawing.Size(63, 13)
+        Me.lblUsageTime.TabIndex = 36
+        Me.lblUsageTime.Text = "Kasutusaeg"
         '
-        'rdioTV
+        'lblConsumptionPerHour
         '
-        Me.rdioTV.AutoSize = True
-        Me.rdioTV.Location = New System.Drawing.Point(25, 164)
-        Me.rdioTV.Name = "rdioTV"
-        Me.rdioTV.Size = New System.Drawing.Size(39, 17)
-        Me.rdioTV.TabIndex = 24
-        Me.rdioTV.TabStop = True
-        Me.rdioTV.Text = "TV"
-        Me.rdioTV.UseVisualStyleBackColor = True
-        '
-        'rdioFoodProcessor
-        '
-        Me.rdioFoodProcessor.AutoSize = True
-        Me.rdioFoodProcessor.Location = New System.Drawing.Point(25, 141)
-        Me.rdioFoodProcessor.Name = "rdioFoodProcessor"
-        Me.rdioFoodProcessor.Size = New System.Drawing.Size(92, 17)
-        Me.rdioFoodProcessor.TabIndex = 23
-        Me.rdioFoodProcessor.TabStop = True
-        Me.rdioFoodProcessor.Text = "Köögikombain"
-        Me.rdioFoodProcessor.UseVisualStyleBackColor = True
-        '
-        'rdioElecStove
-        '
-        Me.rdioElecStove.AutoSize = True
-        Me.rdioElecStove.Location = New System.Drawing.Point(25, 118)
-        Me.rdioElecStove.Name = "rdioElecStove"
-        Me.rdioElecStove.Size = New System.Drawing.Size(69, 17)
-        Me.rdioElecStove.TabIndex = 22
-        Me.rdioElecStove.TabStop = True
-        Me.rdioElecStove.Text = "Elektripliit"
-        Me.rdioElecStove.UseVisualStyleBackColor = True
-        '
-        'rdioMixer
-        '
-        Me.rdioMixer.AutoSize = True
-        Me.rdioMixer.Location = New System.Drawing.Point(25, 95)
-        Me.rdioMixer.Name = "rdioMixer"
-        Me.rdioMixer.Size = New System.Drawing.Size(56, 17)
-        Me.rdioMixer.TabIndex = 21
-        Me.rdioMixer.TabStop = True
-        Me.rdioMixer.Text = "Mikser"
-        Me.rdioMixer.UseVisualStyleBackColor = True
-        '
-        'rdioVacuum
-        '
-        Me.rdioVacuum.AutoSize = True
-        Me.rdioVacuum.Location = New System.Drawing.Point(25, 72)
-        Me.rdioVacuum.Name = "rdioVacuum"
-        Me.rdioVacuum.Size = New System.Drawing.Size(78, 17)
-        Me.rdioVacuum.TabIndex = 20
-        Me.rdioVacuum.TabStop = True
-        Me.rdioVacuum.Text = "Tolmuimeja"
-        Me.rdioVacuum.UseVisualStyleBackColor = True
-        '
-        'rdioToaster
-        '
-        Me.rdioToaster.AutoSize = True
-        Me.rdioToaster.Location = New System.Drawing.Point(25, 49)
-        Me.rdioToaster.Name = "rdioToaster"
-        Me.rdioToaster.Size = New System.Drawing.Size(56, 17)
-        Me.rdioToaster.TabIndex = 19
-        Me.rdioToaster.TabStop = True
-        Me.rdioToaster.Text = "Röster"
-        Me.rdioToaster.UseVisualStyleBackColor = True
-        '
-        'rdioCoffeeMaker
-        '
-        Me.rdioCoffeeMaker.AutoSize = True
-        Me.rdioCoffeeMaker.Location = New System.Drawing.Point(25, 26)
-        Me.rdioCoffeeMaker.Name = "rdioCoffeeMaker"
-        Me.rdioCoffeeMaker.Size = New System.Drawing.Size(79, 17)
-        Me.rdioCoffeeMaker.TabIndex = 18
-        Me.rdioCoffeeMaker.TabStop = True
-        Me.rdioCoffeeMaker.Text = "Kohvimasin"
-        Me.rdioCoffeeMaker.UseVisualStyleBackColor = True
+        Me.lblConsumptionPerHour.AutoSize = True
+        Me.lblConsumptionPerHour.Location = New System.Drawing.Point(368, 56)
+        Me.lblConsumptionPerHour.Name = "lblConsumptionPerHour"
+        Me.lblConsumptionPerHour.Size = New System.Drawing.Size(100, 13)
+        Me.lblConsumptionPerHour.TabIndex = 35
+        Me.lblConsumptionPerHour.Text = "Energia kulu tunnis:"
         '
         'TextBox3
         '
@@ -778,7 +806,7 @@ Partial Class GUIMain
         Me.tblExchangeComparison.ColumnCount = 3
         Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.03704!))
         Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.96296!))
-        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 199.0!))
+        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200.0!))
         Me.tblExchangeComparison.Controls.Add(Me.Label2, 1, 3)
         Me.tblExchangeComparison.Location = New System.Drawing.Point(414, 52)
         Me.tblExchangeComparison.Name = "tblExchangeComparison"
@@ -1255,30 +1283,6 @@ Partial Class GUIMain
         Me.btnBack4.Text = "Tagasi"
         Me.btnBack4.UseVisualStyleBackColor = True
         '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.rdioFridge)
-        Me.Panel1.Controls.Add(Me.rdioCoffeeMaker)
-        Me.Panel1.Controls.Add(Me.rdioToaster)
-        Me.Panel1.Controls.Add(Me.rdioVacuum)
-        Me.Panel1.Controls.Add(Me.rdioMixer)
-        Me.Panel1.Controls.Add(Me.rdioMicrowave)
-        Me.Panel1.Controls.Add(Me.rdioElecStove)
-        Me.Panel1.Controls.Add(Me.rdioRouter)
-        Me.Panel1.Controls.Add(Me.rdioFoodProcessor)
-        Me.Panel1.Controls.Add(Me.rdioSewingMachine)
-        Me.Panel1.Controls.Add(Me.rdioTV)
-        Me.Panel1.Controls.Add(Me.rdioLED)
-        Me.Panel1.Controls.Add(Me.rdioRadio)
-        Me.Panel1.Controls.Add(Me.rdioPrinter)
-        Me.Panel1.Controls.Add(Me.rdioEggCooker)
-        Me.Panel1.Controls.Add(Me.rdioHairDryer)
-        Me.Panel1.Controls.Add(Me.rdioComputer)
-        Me.Panel1.Location = New System.Drawing.Point(36, 56)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(236, 275)
-        Me.Panel1.TabIndex = 39
-        '
         'GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1295,6 +1299,8 @@ Partial Class GUIMain
         Me.tabPackageHourlyRate.PerformLayout()
         Me.tabApplianceCalc.ResumeLayout(False)
         Me.tabApplianceCalc.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.tabExchangeComparison.ResumeLayout(False)
         Me.tabExchangeComparison.PerformLayout()
         Me.tblExchangeComparison.ResumeLayout(False)
@@ -1307,8 +1313,6 @@ Partial Class GUIMain
         Me.tabSimulateExchangeHistory.PerformLayout()
         Me.tabPackageComparison.ResumeLayout(False)
         Me.tabPackageComparison.PerformLayout()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
