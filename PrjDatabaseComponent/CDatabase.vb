@@ -63,13 +63,37 @@ Public Class CDatabase
             While reader.Read()
                 one = reader.GetString(1)
                 dateOfStockPrices = reader.GetString(26) 'get date from database
-                If dateOfStockPrices = dateToday Then
-                    Return dateOfStockPrices
-                Else
-                    one = ""
-                    Return "sad"
-                End If
             End While
+            If dateOfStockPrices = dateToday Then
+                Return dateOfStockPrices
+            Else
+                ''we ask prices from the API
+                ''we put the info to the database
+                one = ""
+                Return "sad"
+            End If
+            conn.Close()
+        Catch ex As Exception
+        End Try
+
+    End Function
+
+    Function insertStockPriceToDatabase(ByRef one As String, ByRef two As String, ByRef three As String) As String
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+        Dim dateToday
+        dateToday = Date.Today 'get what date it is today
+
+        Try
+
+            conn.Open() 'try to connect to database
+
+            Dim command As New MySqlCommand("UPDATE webdata SET one = @colOne, two = @colTwo, three = @colThree, date = @colDate ", conn)
+            command.Parameters.AddWithValue("@colOne", one)
+            command.Parameters.AddWithValue("@colTwo", two)
+            command.Parameters.AddWithValue("@colThree", three)
+            command.Parameters.AddWithValue("@colDate", dateToday)
+            command.ExecuteNonQuery()
             conn.Close()
         Catch ex As Exception
         End Try
