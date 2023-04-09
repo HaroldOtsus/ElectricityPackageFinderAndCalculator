@@ -1292,7 +1292,7 @@ Partial Class GUIMain
         Me.Controls.Add(Me.Label1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "GUIMain"
-        Me.Text = "Form1"
+        Me.Text = "Elektri paketi kalkulaator"
         Me.TabControl1.ResumeLayout(False)
         Me.Main.ResumeLayout(False)
         Me.tabPackageHourlyRate.ResumeLayout(False)
