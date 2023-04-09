@@ -8,17 +8,17 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("Electricity_package_finder_and_calculator")>
+<Assembly: AssemblyTitle("GUI")>
 <Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("HP Inc.")>
-<Assembly: AssemblyProduct("Electricity_package_finder_and_calculator")>
-<Assembly: AssemblyCopyright("Copyright © HP Inc. 2023")>
+<Assembly: AssemblyCompany("")>
+<Assembly: AssemblyProduct("GUI")>
+<Assembly: AssemblyCopyright("Copyright ©  2023")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("336b57bc-365f-4d7a-a1fd-eb89fdb4c014")>
+<Assembly: Guid("6dff74fa-e54f-441a-bd10-992f185160d4")>
 
 ' Version information for an assembly consists of the following four values:
 '

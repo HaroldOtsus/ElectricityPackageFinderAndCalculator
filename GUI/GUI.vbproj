@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E3F498DF-89B3-49C9-B3C0-79A25B163374}</ProjectGuid>
+    <ProjectGuid>{3EDC3D51-8B3B-484C-A409-474047CCC8E5}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>Electricity_package_finder_and_calculator.My.MyApplication</StartupObject>
-    <RootNamespace>Electricity_package_finder_and_calculator</RootNamespace>
-    <AssemblyName>Electricity_package_finder_and_calculator</AssemblyName>
+    <StartupObject>GUI.My.MyApplication</StartupObject>
+    <RootNamespace>GUI</RootNamespace>
+    <AssemblyName>GUI</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -22,7 +22,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>Electricity_package_finder_and_calculator.xml</DocumentationFile>
+    <DocumentationFile>GUI.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -32,7 +32,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>Electricity_package_finder_and_calculator.xml</DocumentationFile>
+    <DocumentationFile>GUI.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -87,7 +87,6 @@
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
-      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
