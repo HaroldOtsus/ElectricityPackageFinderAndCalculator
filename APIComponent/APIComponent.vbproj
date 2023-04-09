@@ -4,35 +4,31 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E3F498DF-89B3-49C9-B3C0-79A25B163374}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <StartupObject>Electricity_package_finder_and_calculator.My.MyApplication</StartupObject>
-    <RootNamespace>Electricity_package_finder_and_calculator</RootNamespace>
-    <AssemblyName>Electricity_package_finder_and_calculator</AssemblyName>
+    <ProjectGuid>{349E9D42-8BA9-4DF1-962C-283A67E2FA69}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>APIComponent</RootNamespace>
+    <AssemblyName>APIComponent</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <MyType>WindowsForms</MyType>
+    <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>Electricity_package_finder_and_calculator.xml</DocumentationFile>
+    <DocumentationFile>APIComponent.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>Electricity_package_finder_and_calculator.xml</DocumentationFile>
+    <DocumentationFile>APIComponent.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -50,9 +46,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -65,21 +58,14 @@
     <Import Include="System.Collections" />
     <Import Include="System.Collections.Generic" />
     <Import Include="System.Data" />
-    <Import Include="System.Drawing" />
     <Import Include="System.Diagnostics" />
-    <Import Include="System.Windows.Forms" />
     <Import Include="System.Linq" />
     <Import Include="System.Xml.Linq" />
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UserInterface.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UserInterface.Designer.vb">
-      <DependentUpon>UserInterface.vb</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="APIInterface.vb" />
+    <Compile Include="Class1.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -114,13 +100,6 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\APIComponent\APIComponent.vbproj">
-      <Project>{349e9d42-8ba9-4df1-962c-283a67e2fa69}</Project>
-      <Name>APIComponent</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
