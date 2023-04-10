@@ -4,7 +4,37 @@ Public Class CDatabase
     Implements IDatabase
     Implements IDatabaseAPI
 
-    Function login(ByVal username As String, ByVal password As String, ByVal name As String, ByVal email As String)
+
+
+    Function login(ByVal username As String, ByVal password As String) As Boolean
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+        Dim pass As String = ""
+        Try
+            conn.Open()
+            Dim command As New MySqlCommand("SELECT password FROM user
+            WHERE username = @username;", conn)
+            command.Parameters.AddWithValue("@username", username)
+            Dim reader As MySqlDataReader = command.ExecuteReader()
+            While reader.Read()
+                pass = reader.GetString(0)
+
+            End While
+            If string.Compare(pass,password) = 0 Then
+                Return True 
+                Else 
+                Return False
+            End If
+            conn.Close()
+            Return False
+
+        Catch ex As Exception
+            Return False
+        End Try
+
+    End Function
+
+    Function signup(ByVal username As String, ByVal password As String, ByVal name As String, ByVal email As String)
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         ''call function that hashes password
