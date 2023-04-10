@@ -32,6 +32,7 @@ Partial Class GUIMain
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.Main = New System.Windows.Forms.TabPage()
         Me.tabPackageHourlyRate = New System.Windows.Forms.TabPage()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.txtboxPackageHourlyRate = New System.Windows.Forms.TextBox()
         Me.lblPriceGraph = New System.Windows.Forms.Label()
         Me.lblPriceTable = New System.Windows.Forms.Label()
@@ -45,6 +46,20 @@ Partial Class GUIMain
         Me.lblPackageHourly = New System.Windows.Forms.Label()
         Me.btnBack0 = New System.Windows.Forms.Button()
         Me.tabApplianceCalc = New System.Windows.Forms.TabPage()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.lblApplianceResult = New System.Windows.Forms.Label()
+        Me.lblElectricityConsumptionRate = New System.Windows.Forms.Label()
+        Me.textBoxUsageTime = New System.Windows.Forms.TextBox()
+        Me.lblRoughPrice = New System.Windows.Forms.Label()
+        Me.textBoxConsumptionPerHour = New System.Windows.Forms.TextBox()
+        Me.textBoxElectricityConsumptionRate = New System.Windows.Forms.TextBox()
+        Me.lblUsageTime = New System.Windows.Forms.Label()
+        Me.textBoxApproxPrice = New System.Windows.Forms.TextBox()
+        Me.lblConsumptionPerHour = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.rdioFridge = New System.Windows.Forms.RadioButton()
         Me.rdioCoffeeMaker = New System.Windows.Forms.RadioButton()
@@ -63,20 +78,11 @@ Partial Class GUIMain
         Me.rdioEggCooker = New System.Windows.Forms.RadioButton()
         Me.rdioHairDryer = New System.Windows.Forms.RadioButton()
         Me.rdioComputer = New System.Windows.Forms.RadioButton()
-        Me.textBoxUsageTime = New System.Windows.Forms.TextBox()
-        Me.textBoxConsumptionPerHour = New System.Windows.Forms.TextBox()
-        Me.lblUsageTime = New System.Windows.Forms.Label()
-        Me.lblConsumptionPerHour = New System.Windows.Forms.Label()
-        Me.textBoxApproxPrice = New System.Windows.Forms.TextBox()
-        Me.textBoxElectricityConsumptionRate = New System.Windows.Forms.TextBox()
         Me.btnConfirm = New System.Windows.Forms.Button()
         Me.textBoxPackagePrice = New System.Windows.Forms.TextBox()
         Me.rdioFixedPrice1 = New System.Windows.Forms.RadioButton()
         Me.rdioExchangePrice = New System.Windows.Forms.RadioButton()
         Me.lblCurrentPackagePrice = New System.Windows.Forms.Label()
-        Me.lblRoughPrice = New System.Windows.Forms.Label()
-        Me.lblElectricityConsumptionRate = New System.Windows.Forms.Label()
-        Me.lblApplianceResult = New System.Windows.Forms.Label()
         Me.lblOptional = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.lblApplianceChoice = New System.Windows.Forms.Label()
@@ -131,15 +137,35 @@ Partial Class GUIMain
         Me.lblPackage1 = New System.Windows.Forms.Label()
         Me.lblChoosePackages = New System.Windows.Forms.Label()
         Me.btnBack4 = New System.Windows.Forms.Button()
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label11 = New System.Windows.Forms.Label()
+        Me.t1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.t24 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.t999 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.t1000 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.t1222 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.t1333 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.t1444 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.t5555 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.t6666 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.t1777 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.t1888 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.t1999 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.t2000 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.t2111 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.t2222 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.t2333 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.t2444 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         Me.tabPackageHourlyRate.SuspendLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabApplianceCalc.SuspendLayout()
+        Me.Panel2.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.tabExchangeComparison.SuspendLayout()
         Me.tblExchangeComparison.SuspendLayout()
@@ -148,7 +174,6 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.SuspendLayout()
         Me.tabSimulateExchangeHistory.SuspendLayout()
         Me.tabPackageComparison.SuspendLayout()
-        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label1
@@ -238,6 +263,7 @@ Partial Class GUIMain
         '
         'tabPackageHourlyRate
         '
+        Me.tabPackageHourlyRate.Controls.Add(Me.DataGridView1)
         Me.tabPackageHourlyRate.Controls.Add(Me.txtboxPackageHourlyRate)
         Me.tabPackageHourlyRate.Controls.Add(Me.lblPriceGraph)
         Me.tabPackageHourlyRate.Controls.Add(Me.lblPriceTable)
@@ -258,6 +284,15 @@ Partial Class GUIMain
         Me.tabPackageHourlyRate.Text = "Paketijärgne tunnihind"
         Me.tabPackageHourlyRate.UseVisualStyleBackColor = True
         '
+        'DataGridView1
+        '
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.t1, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6, Me.Column7, Me.t24, Me.t999, Me.t1000, Me.t1222, Me.t1333, Me.t1444, Me.t5555, Me.t6666, Me.t1777, Me.t1888, Me.t1999, Me.t2000, Me.t2111, Me.t2222, Me.t2333, Me.t2444})
+        Me.DataGridView1.Location = New System.Drawing.Point(502, 213)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.Size = New System.Drawing.Size(284, 68)
+        Me.DataGridView1.TabIndex = 12
+        '
         'txtboxPackageHourlyRate
         '
         Me.txtboxPackageHourlyRate.BackColor = System.Drawing.SystemColors.HighlightText
@@ -274,7 +309,7 @@ Partial Class GUIMain
         'lblPriceGraph
         '
         Me.lblPriceGraph.AutoSize = True
-        Me.lblPriceGraph.Location = New System.Drawing.Point(499, 314)
+        Me.lblPriceGraph.Location = New System.Drawing.Point(499, 379)
         Me.lblPriceGraph.Name = "lblPriceGraph"
         Me.lblPriceGraph.Size = New System.Drawing.Size(70, 13)
         Me.lblPriceGraph.TabIndex = 10
@@ -392,6 +427,156 @@ Partial Class GUIMain
         Me.tabApplianceCalc.TabIndex = 2
         Me.tabApplianceCalc.Text = "Kodumasina tarbimise hinna kalkulaator"
         Me.tabApplianceCalc.UseVisualStyleBackColor = True
+        '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.Label11)
+        Me.Panel2.Controls.Add(Me.Label7)
+        Me.Panel2.Controls.Add(Me.Label5)
+        Me.Panel2.Controls.Add(Me.Label4)
+        Me.Panel2.Controls.Add(Me.lblApplianceResult)
+        Me.Panel2.Controls.Add(Me.lblElectricityConsumptionRate)
+        Me.Panel2.Controls.Add(Me.textBoxUsageTime)
+        Me.Panel2.Controls.Add(Me.lblRoughPrice)
+        Me.Panel2.Controls.Add(Me.textBoxConsumptionPerHour)
+        Me.Panel2.Controls.Add(Me.textBoxElectricityConsumptionRate)
+        Me.Panel2.Controls.Add(Me.lblUsageTime)
+        Me.Panel2.Controls.Add(Me.textBoxApproxPrice)
+        Me.Panel2.Controls.Add(Me.lblConsumptionPerHour)
+        Me.Panel2.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.Panel2.Location = New System.Drawing.Point(376, 56)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(387, 270)
+        Me.Panel2.TabIndex = 40
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(319, 170)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(13, 13)
+        Me.Label11.TabIndex = 42
+        Me.Label11.Text = "€"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(319, 138)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(41, 13)
+        Me.Label7.TabIndex = 41
+        Me.Label7.Text = "kW / h"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(319, 84)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(23, 13)
+        Me.Label5.TabIndex = 40
+        Me.Label5.Text = "min"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(319, 52)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(24, 13)
+        Me.Label4.TabIndex = 39
+        Me.Label4.Text = "kW"
+        '
+        'lblApplianceResult
+        '
+        Me.lblApplianceResult.AutoSize = True
+        Me.lblApplianceResult.Location = New System.Drawing.Point(17, 23)
+        Me.lblApplianceResult.Name = "lblApplianceResult"
+        Me.lblApplianceResult.Size = New System.Drawing.Size(50, 13)
+        Me.lblApplianceResult.TabIndex = 5
+        Me.lblApplianceResult.Text = "Tulemus:"
+        '
+        'lblElectricityConsumptionRate
+        '
+        Me.lblElectricityConsumptionRate.AutoSize = True
+        Me.lblElectricityConsumptionRate.Location = New System.Drawing.Point(16, 138)
+        Me.lblElectricityConsumptionRate.Name = "lblElectricityConsumptionRate"
+        Me.lblElectricityConsumptionRate.Size = New System.Drawing.Size(150, 13)
+        Me.lblElectricityConsumptionRate.TabIndex = 7
+        Me.lblElectricityConsumptionRate.Text = "Elektrienergia tarbimise kogus:"
+        '
+        'textBoxUsageTime
+        '
+        Me.textBoxUsageTime.BackColor = System.Drawing.SystemColors.HighlightText
+        Me.textBoxUsageTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.textBoxUsageTime.HideSelection = False
+        Me.textBoxUsageTime.Location = New System.Drawing.Point(213, 82)
+        Me.textBoxUsageTime.Name = "textBoxUsageTime"
+        Me.textBoxUsageTime.ReadOnly = True
+        Me.textBoxUsageTime.Size = New System.Drawing.Size(100, 20)
+        Me.textBoxUsageTime.TabIndex = 38
+        '
+        'lblRoughPrice
+        '
+        Me.lblRoughPrice.AutoSize = True
+        Me.lblRoughPrice.Location = New System.Drawing.Point(16, 170)
+        Me.lblRoughPrice.Name = "lblRoughPrice"
+        Me.lblRoughPrice.Size = New System.Drawing.Size(88, 13)
+        Me.lblRoughPrice.TabIndex = 8
+        Me.lblRoughPrice.Text = "Orienteeruv hind:"
+        '
+        'textBoxConsumptionPerHour
+        '
+        Me.textBoxConsumptionPerHour.BackColor = System.Drawing.SystemColors.HighlightText
+        Me.textBoxConsumptionPerHour.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.textBoxConsumptionPerHour.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.textBoxConsumptionPerHour.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.textBoxConsumptionPerHour.HideSelection = False
+        Me.textBoxConsumptionPerHour.Location = New System.Drawing.Point(213, 50)
+        Me.textBoxConsumptionPerHour.Name = "textBoxConsumptionPerHour"
+        Me.textBoxConsumptionPerHour.ReadOnly = True
+        Me.textBoxConsumptionPerHour.Size = New System.Drawing.Size(100, 20)
+        Me.textBoxConsumptionPerHour.TabIndex = 37
+        '
+        'textBoxElectricityConsumptionRate
+        '
+        Me.textBoxElectricityConsumptionRate.BackColor = System.Drawing.Color.White
+        Me.textBoxElectricityConsumptionRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.textBoxElectricityConsumptionRate.Enabled = False
+        Me.textBoxElectricityConsumptionRate.ForeColor = System.Drawing.Color.Black
+        Me.textBoxElectricityConsumptionRate.Location = New System.Drawing.Point(213, 135)
+        Me.textBoxElectricityConsumptionRate.Name = "textBoxElectricityConsumptionRate"
+        Me.textBoxElectricityConsumptionRate.ReadOnly = True
+        Me.textBoxElectricityConsumptionRate.Size = New System.Drawing.Size(100, 20)
+        Me.textBoxElectricityConsumptionRate.TabIndex = 16
+        '
+        'lblUsageTime
+        '
+        Me.lblUsageTime.AutoSize = True
+        Me.lblUsageTime.Location = New System.Drawing.Point(16, 89)
+        Me.lblUsageTime.Name = "lblUsageTime"
+        Me.lblUsageTime.Size = New System.Drawing.Size(63, 13)
+        Me.lblUsageTime.TabIndex = 36
+        Me.lblUsageTime.Text = "Kasutusaeg"
+        '
+        'textBoxApproxPrice
+        '
+        Me.textBoxApproxPrice.BackColor = System.Drawing.Color.White
+        Me.textBoxApproxPrice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.textBoxApproxPrice.Enabled = False
+        Me.textBoxApproxPrice.ForeColor = System.Drawing.Color.Black
+        Me.textBoxApproxPrice.Location = New System.Drawing.Point(213, 167)
+        Me.textBoxApproxPrice.Name = "textBoxApproxPrice"
+        Me.textBoxApproxPrice.ReadOnly = True
+        Me.textBoxApproxPrice.Size = New System.Drawing.Size(100, 20)
+        Me.textBoxApproxPrice.TabIndex = 17
+        '
+        'lblConsumptionPerHour
+        '
+        Me.lblConsumptionPerHour.AutoSize = True
+        Me.lblConsumptionPerHour.Location = New System.Drawing.Point(17, 57)
+        Me.lblConsumptionPerHour.Name = "lblConsumptionPerHour"
+        Me.lblConsumptionPerHour.Size = New System.Drawing.Size(100, 13)
+        Me.lblConsumptionPerHour.TabIndex = 35
+        Me.lblConsumptionPerHour.Text = "Energia kulu tunnis:"
         '
         'Panel1
         '
@@ -604,72 +789,6 @@ Partial Class GUIMain
         Me.rdioComputer.Text = "Arvuti"
         Me.rdioComputer.UseVisualStyleBackColor = True
         '
-        'textBoxUsageTime
-        '
-        Me.textBoxUsageTime.BackColor = System.Drawing.SystemColors.HighlightText
-        Me.textBoxUsageTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.textBoxUsageTime.HideSelection = False
-        Me.textBoxUsageTime.Location = New System.Drawing.Point(213, 82)
-        Me.textBoxUsageTime.Name = "textBoxUsageTime"
-        Me.textBoxUsageTime.ReadOnly = True
-        Me.textBoxUsageTime.Size = New System.Drawing.Size(100, 20)
-        Me.textBoxUsageTime.TabIndex = 38
-        '
-        'textBoxConsumptionPerHour
-        '
-        Me.textBoxConsumptionPerHour.BackColor = System.Drawing.SystemColors.HighlightText
-        Me.textBoxConsumptionPerHour.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.textBoxConsumptionPerHour.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.textBoxConsumptionPerHour.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.textBoxConsumptionPerHour.HideSelection = False
-        Me.textBoxConsumptionPerHour.Location = New System.Drawing.Point(213, 50)
-        Me.textBoxConsumptionPerHour.Name = "textBoxConsumptionPerHour"
-        Me.textBoxConsumptionPerHour.ReadOnly = True
-        Me.textBoxConsumptionPerHour.Size = New System.Drawing.Size(100, 20)
-        Me.textBoxConsumptionPerHour.TabIndex = 37
-        '
-        'lblUsageTime
-        '
-        Me.lblUsageTime.AutoSize = True
-        Me.lblUsageTime.Location = New System.Drawing.Point(16, 89)
-        Me.lblUsageTime.Name = "lblUsageTime"
-        Me.lblUsageTime.Size = New System.Drawing.Size(63, 13)
-        Me.lblUsageTime.TabIndex = 36
-        Me.lblUsageTime.Text = "Kasutusaeg"
-        '
-        'lblConsumptionPerHour
-        '
-        Me.lblConsumptionPerHour.AutoSize = True
-        Me.lblConsumptionPerHour.Location = New System.Drawing.Point(17, 57)
-        Me.lblConsumptionPerHour.Name = "lblConsumptionPerHour"
-        Me.lblConsumptionPerHour.Size = New System.Drawing.Size(100, 13)
-        Me.lblConsumptionPerHour.TabIndex = 35
-        Me.lblConsumptionPerHour.Text = "Energia kulu tunnis:"
-        '
-        'textBoxApproxPrice
-        '
-        Me.textBoxApproxPrice.BackColor = System.Drawing.Color.White
-        Me.textBoxApproxPrice.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.textBoxApproxPrice.Enabled = False
-        Me.textBoxApproxPrice.ForeColor = System.Drawing.Color.Black
-        Me.textBoxApproxPrice.Location = New System.Drawing.Point(213, 167)
-        Me.textBoxApproxPrice.Name = "textBoxApproxPrice"
-        Me.textBoxApproxPrice.ReadOnly = True
-        Me.textBoxApproxPrice.Size = New System.Drawing.Size(100, 20)
-        Me.textBoxApproxPrice.TabIndex = 17
-        '
-        'textBoxElectricityConsumptionRate
-        '
-        Me.textBoxElectricityConsumptionRate.BackColor = System.Drawing.Color.White
-        Me.textBoxElectricityConsumptionRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.textBoxElectricityConsumptionRate.Enabled = False
-        Me.textBoxElectricityConsumptionRate.ForeColor = System.Drawing.Color.Black
-        Me.textBoxElectricityConsumptionRate.Location = New System.Drawing.Point(213, 135)
-        Me.textBoxElectricityConsumptionRate.Name = "textBoxElectricityConsumptionRate"
-        Me.textBoxElectricityConsumptionRate.ReadOnly = True
-        Me.textBoxElectricityConsumptionRate.Size = New System.Drawing.Size(100, 20)
-        Me.textBoxElectricityConsumptionRate.TabIndex = 16
-        '
         'btnConfirm
         '
         Me.btnConfirm.Location = New System.Drawing.Point(49, 490)
@@ -716,33 +835,6 @@ Partial Class GUIMain
         Me.lblCurrentPackagePrice.Size = New System.Drawing.Size(127, 13)
         Me.lblCurrentPackagePrice.TabIndex = 10
         Me.lblCurrentPackagePrice.Text = "Kehtiva paketi tunnihind: "
-        '
-        'lblRoughPrice
-        '
-        Me.lblRoughPrice.AutoSize = True
-        Me.lblRoughPrice.Location = New System.Drawing.Point(16, 170)
-        Me.lblRoughPrice.Name = "lblRoughPrice"
-        Me.lblRoughPrice.Size = New System.Drawing.Size(88, 13)
-        Me.lblRoughPrice.TabIndex = 8
-        Me.lblRoughPrice.Text = "Orienteeruv hind:"
-        '
-        'lblElectricityConsumptionRate
-        '
-        Me.lblElectricityConsumptionRate.AutoSize = True
-        Me.lblElectricityConsumptionRate.Location = New System.Drawing.Point(16, 138)
-        Me.lblElectricityConsumptionRate.Name = "lblElectricityConsumptionRate"
-        Me.lblElectricityConsumptionRate.Size = New System.Drawing.Size(150, 13)
-        Me.lblElectricityConsumptionRate.TabIndex = 7
-        Me.lblElectricityConsumptionRate.Text = "Elektrienergia tarbimise kogus:"
-        '
-        'lblApplianceResult
-        '
-        Me.lblApplianceResult.AutoSize = True
-        Me.lblApplianceResult.Location = New System.Drawing.Point(17, 23)
-        Me.lblApplianceResult.Name = "lblApplianceResult"
-        Me.lblApplianceResult.Size = New System.Drawing.Size(50, 13)
-        Me.lblApplianceResult.TabIndex = 5
-        Me.lblApplianceResult.Text = "Tulemus:"
         '
         'lblOptional
         '
@@ -811,7 +903,7 @@ Partial Class GUIMain
         Me.tblExchangeComparison.ColumnCount = 3
         Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.03704!))
         Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.96296!))
-        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 202.0!))
+        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 203.0!))
         Me.tblExchangeComparison.Controls.Add(Me.Label2, 1, 3)
         Me.tblExchangeComparison.Location = New System.Drawing.Point(414, 52)
         Me.tblExchangeComparison.Name = "tblExchangeComparison"
@@ -829,7 +921,7 @@ Partial Class GUIMain
         '
         Me.Label2.AutoSize = True
         Me.Label2.ForeColor = System.Drawing.Color.Red
-        Me.Label2.Location = New System.Drawing.Point(59, 129)
+        Me.Label2.Location = New System.Drawing.Point(58, 129)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(86, 13)
         Me.Label2.TabIndex = 0
@@ -1288,62 +1380,145 @@ Partial Class GUIMain
         Me.btnBack4.Text = "Tagasi"
         Me.btnBack4.UseVisualStyleBackColor = True
         '
-        'Panel2
+        't1
         '
-        Me.Panel2.Controls.Add(Me.Label11)
-        Me.Panel2.Controls.Add(Me.Label7)
-        Me.Panel2.Controls.Add(Me.Label5)
-        Me.Panel2.Controls.Add(Me.Label4)
-        Me.Panel2.Controls.Add(Me.lblApplianceResult)
-        Me.Panel2.Controls.Add(Me.lblElectricityConsumptionRate)
-        Me.Panel2.Controls.Add(Me.textBoxUsageTime)
-        Me.Panel2.Controls.Add(Me.lblRoughPrice)
-        Me.Panel2.Controls.Add(Me.textBoxConsumptionPerHour)
-        Me.Panel2.Controls.Add(Me.textBoxElectricityConsumptionRate)
-        Me.Panel2.Controls.Add(Me.lblUsageTime)
-        Me.Panel2.Controls.Add(Me.textBoxApproxPrice)
-        Me.Panel2.Controls.Add(Me.lblConsumptionPerHour)
-        Me.Panel2.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.Panel2.Location = New System.Drawing.Point(376, 56)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(387, 270)
-        Me.Panel2.TabIndex = 40
+        Me.t1.HeaderText = "t111"
+        Me.t1.MaxInputLength = 20
+        Me.t1.Name = "t1"
+        Me.t1.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.t1.Width = 37
         '
-        'Label4
+        'Column2
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(319, 52)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(24, 13)
-        Me.Label4.TabIndex = 39
-        Me.Label4.Text = "kW"
+        Me.Column2.HeaderText = "t222"
+        Me.Column2.Name = "Column2"
+        Me.Column2.Width = 37
         '
-        'Label5
+        'Column3
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(319, 84)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(23, 13)
-        Me.Label5.TabIndex = 40
-        Me.Label5.Text = "min"
+        Me.Column3.HeaderText = "t333"
+        Me.Column3.Name = "Column3"
+        Me.Column3.Width = 37
         '
-        'Label7
+        'Column4
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(319, 138)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(41, 13)
-        Me.Label7.TabIndex = 41
-        Me.Label7.Text = "kW / h"
+        Me.Column4.HeaderText = "t444"
+        Me.Column4.Name = "Column4"
+        Me.Column4.Width = 37
         '
-        'Label11
+        'Column5
         '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(319, 170)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(13, 13)
-        Me.Label11.TabIndex = 42
-        Me.Label11.Text = "€"
+        Me.Column5.HeaderText = "t555"
+        Me.Column5.Name = "Column5"
+        Me.Column5.Width = 37
+        '
+        'Column6
+        '
+        Me.Column6.HeaderText = "t666"
+        Me.Column6.Name = "Column6"
+        Me.Column6.Width = 37
+        '
+        'Column7
+        '
+        Me.Column7.HeaderText = "t777"
+        Me.Column7.Name = "Column7"
+        Me.Column7.Width = 37
+        '
+        't24
+        '
+        Me.t24.HeaderText = "t888"
+        Me.t24.Name = "t24"
+        Me.t24.Width = 37
+        '
+        't999
+        '
+        Me.t999.HeaderText = "t999"
+        Me.t999.Name = "t999"
+        Me.t999.Width = 37
+        '
+        't1000
+        '
+        Me.t1000.HeaderText = "t1111"
+        Me.t1000.Name = "t1000"
+        Me.t1000.Width = 37
+        '
+        't1222
+        '
+        Me.t1222.HeaderText = "t1222"
+        Me.t1222.Name = "t1222"
+        Me.t1222.Width = 37
+        '
+        't1333
+        '
+        Me.t1333.HeaderText = "t1333"
+        Me.t1333.Name = "t1333"
+        Me.t1333.Width = 37
+        '
+        't1444
+        '
+        Me.t1444.HeaderText = "t1444"
+        Me.t1444.Name = "t1444"
+        Me.t1444.Width = 37
+        '
+        't5555
+        '
+        Me.t5555.HeaderText = "t1555"
+        Me.t5555.Name = "t5555"
+        Me.t5555.Width = 37
+        '
+        't6666
+        '
+        Me.t6666.HeaderText = "t1666"
+        Me.t6666.Name = "t6666"
+        Me.t6666.Width = 37
+        '
+        't1777
+        '
+        Me.t1777.HeaderText = "t1777"
+        Me.t1777.Name = "t1777"
+        Me.t1777.Width = 37
+        '
+        't1888
+        '
+        Me.t1888.HeaderText = "t1888"
+        Me.t1888.Name = "t1888"
+        Me.t1888.Width = 37
+        '
+        't1999
+        '
+        Me.t1999.HeaderText = "t1999"
+        Me.t1999.Name = "t1999"
+        Me.t1999.Width = 37
+        '
+        't2000
+        '
+        Me.t2000.HeaderText = "t2000"
+        Me.t2000.Name = "t2000"
+        Me.t2000.Width = 37
+        '
+        't2111
+        '
+        Me.t2111.HeaderText = "t2111"
+        Me.t2111.Name = "t2111"
+        Me.t2111.Width = 37
+        '
+        't2222
+        '
+        Me.t2222.HeaderText = "t2222"
+        Me.t2222.Name = "t2222"
+        Me.t2222.Width = 37
+        '
+        't2333
+        '
+        Me.t2333.HeaderText = "t2333"
+        Me.t2333.Name = "t2333"
+        Me.t2333.Width = 37
+        '
+        't2444
+        '
+        Me.t2444.HeaderText = "t2444"
+        Me.t2444.Name = "t2444"
+        Me.t2444.Width = 37
         '
         'GUIMain
         '
@@ -1359,8 +1534,11 @@ Partial Class GUIMain
         Me.Main.ResumeLayout(False)
         Me.tabPackageHourlyRate.ResumeLayout(False)
         Me.tabPackageHourlyRate.PerformLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabApplianceCalc.ResumeLayout(False)
         Me.tabApplianceCalc.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.tabExchangeComparison.ResumeLayout(False)
@@ -1375,8 +1553,6 @@ Partial Class GUIMain
         Me.tabSimulateExchangeHistory.PerformLayout()
         Me.tabPackageComparison.ResumeLayout(False)
         Me.tabPackageComparison.PerformLayout()
-        Me.Panel2.ResumeLayout(False)
-        Me.Panel2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1495,4 +1671,28 @@ Partial Class GUIMain
     Friend WithEvents Label7 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents Label4 As Label
+    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents t1 As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents Column4 As DataGridViewTextBoxColumn
+    Friend WithEvents Column5 As DataGridViewTextBoxColumn
+    Friend WithEvents Column6 As DataGridViewTextBoxColumn
+    Friend WithEvents Column7 As DataGridViewTextBoxColumn
+    Friend WithEvents t24 As DataGridViewTextBoxColumn
+    Friend WithEvents t999 As DataGridViewTextBoxColumn
+    Friend WithEvents t1000 As DataGridViewTextBoxColumn
+    Friend WithEvents t1222 As DataGridViewTextBoxColumn
+    Friend WithEvents t1333 As DataGridViewTextBoxColumn
+    Friend WithEvents t1444 As DataGridViewTextBoxColumn
+    Friend WithEvents t5555 As DataGridViewTextBoxColumn
+    Friend WithEvents t6666 As DataGridViewTextBoxColumn
+    Friend WithEvents t1777 As DataGridViewTextBoxColumn
+    Friend WithEvents t1888 As DataGridViewTextBoxColumn
+    Friend WithEvents t1999 As DataGridViewTextBoxColumn
+    Friend WithEvents t2000 As DataGridViewTextBoxColumn
+    Friend WithEvents t2111 As DataGridViewTextBoxColumn
+    Friend WithEvents t2222 As DataGridViewTextBoxColumn
+    Friend WithEvents t2333 As DataGridViewTextBoxColumn
+    Friend WithEvents t2444 As DataGridViewTextBoxColumn
 End Class
