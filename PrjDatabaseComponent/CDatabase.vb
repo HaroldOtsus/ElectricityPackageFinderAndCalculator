@@ -4,13 +4,6 @@ Public Class CDatabase
     Implements IDatabase
     Implements IDatabaseAPI
 
-    ''Function test() As String()
-    ''Dim api As APIComponent.APIInterface
-    ''  api = New APIComponent.APIComponent
-    ''Return api.GetDataFromEleringAPI
-
-    ''End Function
-
     Function stringReturn(ByVal id As String) As (consumptionPerHour As String, usageTime As String) Implements IDatabase.stringReturn
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;" 'string to access database
         Dim conn As New MySqlConnection(connString)
@@ -106,22 +99,17 @@ Public Class CDatabase
                     sPrices(24) = read.GetString(24)
                 End While
                 read.Close()
-            End If
+                con.Close()
 
-            '        ' Close the connection
-            con.Close()
-
-            ' Return stringOfPricesDatabase
-            'Dim myArray() As String = {"foo", "bar", "baz"}
             Return sPrices
 
-            '    Else
-            '        Dim stringOfPrices As String()
-            '        stringOfPrices = insertStockPriceToDatabase()
-            '        'Return stringOfPrices
+            Else
+            Dim stringOfPrices As String()
+            stringOfPrices = insertStockPriceToDatabase()
+            Return stringOfPrices
             '        ''we put the info to the database
-            '    End If
-            ' conn.Close()
+            End If
+            conn.Close()
         Catch ex As Exception
         End Try
 
@@ -170,12 +158,7 @@ Public Class CDatabase
             command.Parameters.AddWithValue("@colNine", sPrices(9))
             command.Parameters.AddWithValue("@colTen", sPrices(10))
             command.ExecuteNonQuery()
-            'eleven = @colEleven,
-            'fourteen = @colFourteen, 
-            ' fifteen = @colfifteen, 
-            'sixteen = @colSixteen, 
-            'seventeen = @colSeventeen, 
-            'eighteen = @colEighteen
+
             Dim com As New MySqlCommand("
     UPDATE webdata 
     SET  
