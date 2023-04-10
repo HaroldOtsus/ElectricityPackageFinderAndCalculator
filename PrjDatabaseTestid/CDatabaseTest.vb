@@ -33,6 +33,10 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
     End Sub
 
+    <TestMethod()> Public Sub TestLogin()
+        Dim getIn As New PrjDatabaseComponent.CDatabase
+        getIn.login("maasikas", "12345!", "Maria Kask", "maria.kask@gmail.com")
+    End Sub
     '<TestMethod()> Public Sub TestDatabaseInsertAPI()
     '    Dim getIn As New PrjDatabaseComponent.CDatabase
     '    Dim first As String = "6,00"
