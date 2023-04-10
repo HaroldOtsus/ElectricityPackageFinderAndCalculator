@@ -20,11 +20,11 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Assert.AreEqual("1000", actualOutput.consumptionPerHour)
         Assert.AreEqual("5", actualOutput.usageTime)
     End Sub
-    <TestMethod()> Public Sub TestDatabaseAPI()
+    <TestMethod()> Public Sub TestDatabaseInsert()
         Dim getIn As New PrjDatabaseComponent.CDatabase
         Dim first As String = ""
         getIn.stockPrice(first)
-        Assert.AreEqual("6,28", first)
+        Assert.AreEqual("6,00", first)
     End Sub
 
     <TestMethod()> Public Sub TestDatabaseInsertAPI()

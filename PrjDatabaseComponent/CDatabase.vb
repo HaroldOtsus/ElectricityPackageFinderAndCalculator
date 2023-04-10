@@ -3,6 +3,14 @@
 Public Class CDatabase
     Implements IDatabase
     Implements IDatabaseAPI
+
+    Function test() As String()
+        '' Dim api As APIComponent.
+        '' api = New PrjAPIComponent.APIComponent
+        ''  Return api.GetDataFromEleringAPI
+
+    End Function
+
     Function stringReturn(ByVal id As String) As (consumptionPerHour As String, usageTime As String) Implements IDatabase.stringReturn
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;" 'string to access database
         Dim conn As New MySqlConnection(connString)
