@@ -56,8 +56,11 @@ Public Class GUIMain
         textBoxConsumptionPerHour.Text = actualOutput.consumptionPerHour
         textBoxUsageTime.Text = actualOutput.usageTime
 
-
-
+        Dim incoming As Computing_Component.ICalculating
+        incoming = New Computing_Component.CCalculating
+        Dim actualOutput2 = incoming.applianceConsumption(textBoxConsumptionPerHour.Text, textBoxUsageTime.Text, textBoxPackagePrice.Text)
+        textBoxElectricityConsumptionRate.Text = actualOutput2.consumption
+        textBoxApproxPrice.Text = actualOutput2.aproxPrice
 
     End Sub
 
