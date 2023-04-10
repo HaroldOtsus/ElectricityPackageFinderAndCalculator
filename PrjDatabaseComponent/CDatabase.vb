@@ -4,6 +4,28 @@ Public Class CDatabase
     Implements IDatabase
     Implements IDatabaseAPI
 
+    Function login(ByVal username As String, ByVal password As String, ByVal name As String, ByVal email As String)
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+        ''call function that hashes password
+        ''right now it's not written
+        Try
+            conn.Open()
+            Dim command As New MySqlCommand("INSERT INTO user (name, password, username, email)
+            VALUES (@name, @password, @username, @email);", conn)
+            command.Parameters.AddWithValue("@username", username)
+            command.Parameters.AddWithValue("@password", password)
+            command.Parameters.AddWithValue("@name", name)
+            command.Parameters.AddWithValue("@email", email)
+            command.ExecuteNonQuery()
+            conn.Close()
+
+        Catch ex As Exception
+        End Try
+
+
+    End Function
+
     Function stringReturn(ByVal id As String) As (consumptionPerHour As String, usageTime As String) Implements IDatabase.stringReturn
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;" 'string to access database
         Dim conn As New MySqlConnection(connString)
@@ -16,18 +38,18 @@ Public Class CDatabase
             conn.Open() 'try to gain access to database
             Dim command As New MySqlCommand("SELECT * FROM appliance WHERE idPacket = ?;", conn)
             command.Parameters.AddWithValue("@id", id)
-            'get what we want to from the database, right now get everything from table appliance where idPacket is what user inserter
+            'get what we want to from the database, right now get everything from table appliance where idPacket is what user inserted
             Dim reader As MySqlDataReader = command.ExecuteReader()
             While reader.Read()
                 consumptionPerHour = reader.GetString(2)
                 usageTime = reader.GetString(3)
                 Return (consumptionPerHour, usageTime)
-                'actually this goes to calculator component but right now for testing purposes it is just returned
+                'return to GUI
             End While
             reader.Close()
 
             conn.Close()
-        Catch ex As MySqlException
+        Catch ex As MySqlException ''code for troubleshooting will have to change it if want to use with GUI
             ' Handle MySqlException here
             strVar = "MySqlException:"
             strVar &= ex.Message
@@ -222,9 +244,8 @@ Public Class CDatabase
 
     End Function
 
-    Function Connect() As Boolean
+    Function Connect() As Boolean ' use it to test if there is connection to database (look at PrjDatabaseTestid)
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        ' Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;"
         Dim conn As New MySqlConnection(connString)
         Try
             conn.Open()
