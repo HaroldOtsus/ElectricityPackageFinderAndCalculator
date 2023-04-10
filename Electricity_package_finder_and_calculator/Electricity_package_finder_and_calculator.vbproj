@@ -119,5 +119,11 @@
     </None>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CArvutaja\Computing_Component.vbproj">
+      <Project>{dfe28ffd-17b1-4fd6-8f08-deb35f9996e4}</Project>
+      <Name>Computing_Component</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
