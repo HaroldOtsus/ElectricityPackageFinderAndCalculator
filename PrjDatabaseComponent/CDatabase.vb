@@ -55,7 +55,7 @@ Public Class CDatabase
     End Function
 
 
-    Function stockPrice() As String()
+    Function stockPrice() As String() Implements IDatabaseAPI.stockPrice
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Dim dateOfStockPrices As String = ""
@@ -105,8 +105,8 @@ Public Class CDatabase
                     sPrices(23) = read.GetString(23)
                     sPrices(24) = read.GetString(24)
                 End While
-                    read.Close()
-                End If
+                read.Close()
+            End If
 
             '        ' Close the connection
             con.Close()
