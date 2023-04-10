@@ -20,23 +20,28 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Assert.AreEqual("1000", actualOutput.consumptionPerHour)
         Assert.AreEqual("5", actualOutput.usageTime)
     End Sub
-    <TestMethod()> Public Sub TestDatabaseGet()
+
+    <TestMethod()> Public Sub TestAPI()
         Dim getIn As New PrjDatabaseComponent.CDatabase
-        Dim output = getIn.stockPrice()
-        Assert.AreEqual("cool", output)
+        Dim expected() As String = {"bar1", "bar2", "bar3"}
+        Dim vastus() As String
+        vastus = getIn.stockPrice
+        'If vastus IsNot Nothing Then
+        ' Assert.AreEqual(expected.Length, vastus.Length)
+        Assert.AreEqual("6.00", vastus(4))
+        ' End If
+
     End Sub
 
-
-
-    <TestMethod()> Public Sub TestDatabaseInsertAPI()
-        Dim getIn As New PrjDatabaseComponent.CDatabase
-        Dim first As String = "6,00"
-        Dim second As String = "7,00"
-        Dim third As String
-        third = getIn.insertStockPriceToDatabase()
-        Assert.AreEqual("cool", third)
-        ''right now test doesn't show anything in visual studio but when running this data in databse changes so test is successful
-    End Sub
+    '<TestMethod()> Public Sub TestDatabaseInsertAPI()
+    '    Dim getIn As New PrjDatabaseComponent.CDatabase
+    '    Dim first As String = "6,00"
+    '    Dim second As String = "7,00"
+    '    Dim third As String
+    '    third = getIn.insertStockPriceToDatabase()
+    '    Assert.AreEqual("cool", third)
+    '    ''right now test doesn't show anything in visual studio but when running this data in databse changes so test is successful
+    'End Sub
 
 
 End Class

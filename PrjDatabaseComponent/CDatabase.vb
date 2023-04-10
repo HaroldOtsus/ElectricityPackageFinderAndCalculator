@@ -58,32 +58,76 @@ Public Class CDatabase
     Function stockPrice() As String()
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
-        Dim dateOfStockPrices As String
+        Dim dateOfStockPrices As String = ""
         Dim dateToday
         dateToday = Date.Today 'get what date it is today
         Try
 
             conn.Open() 'try to connect to database
-
             Dim command As New MySqlCommand("SELECT date FROM webdata WHERE idPacket = 1;", conn)
             Dim reader As MySqlDataReader = command.ExecuteReader()
             While reader.Read()
                 dateOfStockPrices = reader.GetString(0) 'get date from database
             End While
-            If dateOfStockPrices = dateToday Then
-                ''need to return all prices from database
-                ''Return dateOfStockPrices
-            Else
-                ''we ask prices from the API
-                ''we put the info to the database
-            End If
             conn.Close()
+            Dim con As New MySqlConnection(connString)
+            con.Open()
+            Dim sPrices() As String = New String(24) {}
+            sPrices(0) = ""
+            ' If dateOfStockPrices = dateToday Then
+            '        ''need to return all prices from database
+            Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 1;", con)
+            Dim read As MySqlDataReader = cmd.ExecuteReader()
+            If read IsNot Nothing Then
+                While read.Read() 'with recursion got null exeptions :(
+                    sPrices(1) = read.GetString(1)
+                    sPrices(2) = read.GetString(2)
+                    sPrices(3) = read.GetString(3)
+                    sPrices(4) = read.GetString(4)
+                    sPrices(5) = read.GetString(5)
+                    sPrices(6) = read.GetString(6)
+                    sPrices(7) = read.GetString(7)
+                    sPrices(8) = read.GetString(8)
+                    sPrices(9) = read.GetString(9)
+                    sPrices(10) = read.GetString(10)
+                    sPrices(11) = read.GetString(11)
+                    sPrices(12) = read.GetString(12)
+                    sPrices(13) = read.GetString(13)
+                    sPrices(14) = read.GetString(14)
+                    sPrices(15) = read.GetString(15)
+                    sPrices(16) = read.GetString(16)
+                    sPrices(17) = read.GetString(17)
+                    sPrices(18) = read.GetString(18)
+                    sPrices(19) = read.GetString(19)
+                    sPrices(20) = read.GetString(20)
+                    sPrices(21) = read.GetString(21)
+                    sPrices(22) = read.GetString(22)
+                    sPrices(23) = read.GetString(23)
+                    sPrices(24) = read.GetString(24)
+                End While
+                    read.Close()
+                End If
+
+            '        ' Close the connection
+            con.Close()
+
+            ' Return stringOfPricesDatabase
+            'Dim myArray() As String = {"foo", "bar", "baz"}
+            Return sPrices
+
+            '    Else
+            '        Dim stringOfPrices As String()
+            '        stringOfPrices = insertStockPriceToDatabase()
+            '        'Return stringOfPrices
+            '        ''we put the info to the database
+            '    End If
+            ' conn.Close()
         Catch ex As Exception
         End Try
 
     End Function
 
-    Function insertStockPriceToDatabase() As String ''get data from API and insert it into database
+    Function insertStockPriceToDatabase() As String() ''get data from API and insert it into database
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Dim dateToday
@@ -188,7 +232,7 @@ Public Class CDatabase
             comm.Parameters.AddWithValue("@colDate", dateToday)
             comm.ExecuteNonQuery()
             conn.Close()
-            Return "cool"
+            Return sPrices
         Catch ex As Exception
 
         End Try
