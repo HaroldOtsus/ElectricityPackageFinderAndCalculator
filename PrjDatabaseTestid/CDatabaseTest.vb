@@ -28,15 +28,15 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
 
 
-    '<TestMethod()> Public Sub TestDatabaseInsertAPI()
-    '    Dim getIn As New PrjDatabaseComponent.CDatabase
-    '    Dim first As String = "6,00"
-    '    Dim second As String = "7,00"
-    '    Dim third As String
-    '    third = getIn.insertStockPriceToDatabase()
-    '    Assert.AreEqual("cool", third)
-    '    ''right now test doesn't show anything in visual studio but when running this data in databse changes so test is successful
-    'End Sub
+    <TestMethod()> Public Sub TestDatabaseInsertAPI()
+        Dim getIn As New PrjDatabaseComponent.CDatabase
+        Dim first As String = "6,00"
+        Dim second As String = "7,00"
+        Dim third As String
+        third = getIn.insertStockPriceToDatabase()
+        Assert.AreEqual("cool", third)
+        ''right now test doesn't show anything in visual studio but when running this data in databse changes so test is successful
+    End Sub
 
 
 End Class
