@@ -238,4 +238,27 @@ Public Class GUIMain
     Private Sub tabPackageHourlyRate_Enter(sender As Object, e As EventArgs) Handles tabPackageHourlyRate.Enter
         rdioExchange.Checked = True
     End Sub
+
+    Private Sub Chart1_Click(sender As Object, e As EventArgs) Handles Chart1.Click
+
+    End Sub
+
+    Private Sub GUIMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim seriesName As String = "Börsihind"
+        Chart1.Series.Add(seriesName)
+        Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+        returnString = New PrjDatabaseComponent.CDatabase
+        Dim sPrices As String()
+        sPrices = returnString.stockPrice()
+        Dim dblValues(sPrices.Length - 1) As Double
+        For i As Integer = 1 To sPrices.Length - 1
+            Double.TryParse(sPrices(i), dblValues(i))
+        Next
+
+        ' Add some data points to the series
+        'Dim values() As Double = {10, 20, 30, 40, 50}
+        For i As Integer = 0 To dblValues.Length - 1
+            Chart1.Series(seriesName).Points.AddXY(i + 1, dblValues(i))
+        Next
+    End Sub
 End Class
