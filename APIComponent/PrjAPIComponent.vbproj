@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{349E9D42-8BA9-4DF1-962C-283A67E2FA69}</ProjectGuid>
+    <ProjectGuid>{7F647EC6-613A-4EB9-9FF2-E2486CA61BA7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>PrjAPIComponent</RootNamespace>
     <AssemblyName>PrjAPIComponent</AssemblyName>
