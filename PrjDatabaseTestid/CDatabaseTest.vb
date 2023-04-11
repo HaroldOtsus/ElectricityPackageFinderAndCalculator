@@ -33,16 +33,33 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
     End Sub
 
-
     <TestMethod()> Public Sub TestSignup()
         Dim getIn As New PrjDatabaseComponent.CDatabase
-        getIn.signup("maasikas", "12345!", "Maria Kask", "maria.kask@gmail.com")
+        Dim check As Boolean
+        check = getIn.signup("karl", "karl", "Karl", "wafawfaw@gmail.com")
+        Assert.IsTrue(check)
     End Sub
     <TestMethod()> Public Sub TestLogin()
         Dim getIn As New PrjDatabaseComponent.CDatabase
-        Dim vastus As String = getIn.login("maasikas", "1235!")
-        Assert.IsFalse(vastus)
+        Dim vastus As String = getIn.login("laura", "laura")
+        Assert.IsTrue(vastus)
     End Sub
+
+    <TestMethod()> Public Sub TestHash()
+        Dim getIn As New PrjDatabaseComponent.CDatabase
+        Dim password As String
+        password = "laura"
+        Dim vastus As String = getIn.hashPassword(password)
+        Assert.AreEqual("XXAusHko7XuEYmt3fIbDm/TLQD1AJPAx1fl6SwZkQh8=", vastus)
+    End Sub
+
+    '<TestMethod()> Public Sub TestCheckIfUsernameExists()
+    '    Dim getIn As New PrjDatabaseComponent.CDatabase
+    '    Dim uname As String
+    '    uname = "maasikas"
+    '    Dim vastus As String = getIn.checkIfUsernameExists(uname)
+    '    Assert.IsFalse(vastus)
+    'End Sub
 
     '<TestMethod()> Public Sub TestDatabaseInsertAPI()
     '    Dim getIn As New PrjDatabaseComponent.CDatabase
