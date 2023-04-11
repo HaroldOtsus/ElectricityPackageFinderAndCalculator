@@ -106,11 +106,5 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\APIComponent\PrjAPIComponent.vbproj">
-      <Project>{349e9d42-8ba9-4df1-962c-283a67e2fa69}</Project>
-      <Name>PrjAPIComponent</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
