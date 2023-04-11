@@ -13,16 +13,20 @@
     'et saada kWh, tuleb tarbiminie korrutada kasutusajaga, tulemus jagada 1000'ga
 
     Public Function applianceConsumption(kodumasina_tarbmimine As String, kasutusaeg As String, tunnihind As String) As (consumption As String, aproxPrice As String) Implements ICalculating.applianceConsumption
-        kasutusaeg = kasutusaeg / 60
-        Dim consumption = (kodumasina_tarbmimine * kasutusaeg) / 1000
-        Dim aproxPrice = ((kodumasina_tarbmimine * kasutusaeg) / 1000) * tunnihind
-        If kodumasina_tarbmimine = " " Or kasutusaeg = " " Or tunnihind = " " Then
+        'checks whether either of input string is empty
+        If String.IsNullOrEmpty(kodumasina_tarbmimine) Or String.IsNullOrEmpty(kasutusaeg) Or String.IsNullOrEmpty(tunnihind) Then
             Return ("Nan", "Nan")
         Else
+            kasutusaeg = kasutusaeg / 60
+            Dim consumption = (kodumasina_tarbmimine * kasutusaeg) / 1000
+            Dim aproxPrice = ((kodumasina_tarbmimine * kasutusaeg) / 1000) * tunnihind
             Return (consumption, aproxPrice)
         End If
     End Function
 
+    Public Function add20Percent(ByRef kuuTasu As String) As Object Implements ICalculating.add20Percent
 
+        kuuTasu = kuuTasu * 1.2 / 730.484398
 
+    End Function
 End Class
