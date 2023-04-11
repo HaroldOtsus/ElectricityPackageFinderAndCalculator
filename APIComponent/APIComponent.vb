@@ -43,6 +43,9 @@ Public Class APIComponent
         For Each str As String In result
             If str.Contains("price") Then
                 ReDim Preserve endResult(endResult.Length)
+                str = str.Substring(8)
+                str = str.Replace("]", "")
+                str = str.Replace("}", "")
                 endResult(endResult.Length - 1) = str
             ElseIf str.Contains("fi") Then
                 Exit For

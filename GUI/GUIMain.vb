@@ -50,14 +50,29 @@ Public Class GUIMain
 
 
     Private Sub btnConfirm_Click(sender As Object, e As EventArgs) Handles btnConfirm.Click
+
         Dim returnString As PrjDatabaseComponent.IDatabase
         returnString = New PrjDatabaseComponent.CDatabase
         Dim actualOutput = returnString.stringReturn(applianceID)
-        textBoxConsumptionPerHour.Text = actualOutput.consumptionPerHour
-        textBoxUsageTime.Text = actualOutput.usageTime
 
 
+        tBoxConsumptionPerHour.Text = actualOutput.consumptionPerHour
+        tBoxUsageTime.Text = actualOutput.usageTime
 
+        Dim incoming As Computing_Component.ICalculating
+        incoming = New Computing_Component.CCalculating
+        Dim actualOutput2 = incoming.applianceConsumption(tBoxConsumptionPerHour.Text, tBoxUsageTime.Text, tBoxPackagePrice.Text)
+
+        'Shows only 3 decimal spaces
+        Dim cons As Decimal = actualOutput2.consumption
+
+        Dim consOut As String = cons.ToString("N3")
+
+        Dim aprox As Decimal = actualOutput2.aproxPrice
+        Dim aproxOut As String = aprox.ToString("N3")
+
+        tBoxElectricityConsumptionRate.Text = consOut
+        tBoxApproxPrice.Text = aproxOut
 
     End Sub
 
@@ -123,5 +138,104 @@ Public Class GUIMain
 
     Private Sub rdioMicrowave_CheckedChanged(sender As Object, e As EventArgs) Handles rdioMicrowave.CheckedChanged
         applianceID = "18"
+    End Sub
+
+
+
+    Private Sub btnConfirmInput_Click(sender As Object, e As EventArgs) Handles btnConfirmInput.Click
+
+        Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
+        'Dim dt As New DataTable()
+        ''dt.Columns.Add("ID", GetType(Integer))
+        ''dt.Columns.Add("Name", GetType(String))
+        '' dt.Columns.Add("Age", GetType(Integer))
+        'Dim array(24) As List(Of Integer)
+        'dt.TableName = "tblPriceTable"
+        'For i As Integer = 1 To 24
+        '    'array(i) = i
+
+        'Next
+        'Dim myRow As DataRow
+        ''myRow = dt.Rows.Add
+        'For i As Integer = 1 To 23
+        '    'dt.Columns.Add(i)
+        '    'dt.Columns.Add(timeNowHours + 1, GetType(Integer))
+        '    'myRow.Add(array(i))
+        'Next
+        ''dt.Rows.Add(array)
+
+        Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+        returnString = New PrjDatabaseComponent.CDatabase
+        Dim sPrices As String()
+        sPrices = returnString.stockPrice()
+
+        Dim dgv As New DataGridView()
+
+        For i As Integer = 0 To 23
+            'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
+            dgv.Columns.Add(timeNowHours & ":00", timeNowHours + i & ":00")
+
+        Next
+
+
+        If rdioFixedPrice.Checked Then
+            For i As Integer = 0 To 23
+                dgv.Rows(0).Cells(i).Value = tboxMonthlyCost.Text & "€" ' or any other number you want to insert
+            Next
+        Else
+            For i As Integer = 0 To 23
+                dgv.Rows(0).Cells(i).Value = sPrices(i + 1) & "€" ' or any other number you want to insert
+            Next
+        End If
+
+
+        tblPriceTable.Controls.Add(dgv)
+
+
+    End Sub
+
+    Private Sub rdioExchange_CheckedChanged(sender As Object, e As EventArgs) Handles rdioExchange.CheckedChanged
+        tboxMonthlyCost.Enabled = False
+
+        Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+        returnString = New PrjDatabaseComponent.CDatabase
+        Dim sPrices As String()
+        sPrices = returnString.stockPrice()
+        sPrices(1) = sPrices(1).Replace(".", ",")
+
+
+        'Dim sPricesOut As String = sPrices(1)
+        Dim sPricesOut As Double
+        Double.TryParse(sPrices(1), sPricesOut)
+
+        tBoxPackageHourlyRate.Text = sPricesOut & "€"
+    End Sub
+
+    Private Sub rdioFixedPrice_CheckedChanged(sender As Object, e As EventArgs) Handles rdioFixedPrice.CheckedChanged
+        tboxMonthlyCost.Enabled = True
+        tBoxPackageHourlyRate.Clear()
+    End Sub
+
+    Private Sub rdioFixedPrice1_CheckedChanged(sender As Object, e As EventArgs) Handles rdioFixedPrice1.CheckedChanged
+        tBoxPackagePrice.Enabled = True
+        tBoxPackagePrice.Clear()
+    End Sub
+
+    Private Sub rdioExchangePrice_CheckedChanged(sender As Object, e As EventArgs) Handles rdioExchangePrice.CheckedChanged
+        tBoxPackagePrice.Enabled = False
+
+        Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+        returnString = New PrjDatabaseComponent.CDatabase
+        Dim sPrices As String()
+        sPrices = returnString.stockPrice()
+
+        sPrices(1) = sPrices(1).Replace(".", ",")
+        tBoxPackagePrice.Text = sPrices(1) & "€"
+    End Sub
+
+
+
+    Private Sub tabPackageHourlyRate_Enter(sender As Object, e As EventArgs) Handles tabPackageHourlyRate.Enter
+        rdioExchange.Checked = True
     End Sub
 End Class

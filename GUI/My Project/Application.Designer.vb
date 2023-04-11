@@ -32,7 +32,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.Electricity_package_finder_and_calculator.GUIMain
+            Me.MainForm = Global.GUI.GUIMain
         End Sub
     End Class
 End Namespace

@@ -64,9 +64,9 @@ Namespace My
     Friend Module MySettingsProperty
 
         <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")> _
-        Friend ReadOnly Property Settings() As Global.Electricity_package_finder_and_calculator.My.MySettings
+        Friend ReadOnly Property Settings() As Global.GUI.My.MySettings
             Get
-                Return Global.Electricity_package_finder_and_calculator.My.MySettings.Default
+                Return Global.GUI.My.MySettings.Default
             End Get
         End Property
     End Module
