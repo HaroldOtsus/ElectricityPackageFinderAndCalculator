@@ -43,7 +43,9 @@ Public Class APIComponent
         For Each str As String In result
             If str.Contains("price") Then
                 ReDim Preserve endResult(endResult.Length)
+                'Removes first 8 characters in string
                 str = str.Substring(8)
+                'Removes ] and } characters from the string
                 str = str.Replace("]", "")
                 str = str.Replace("}", "")
                 endResult(endResult.Length - 1) = str
@@ -91,7 +93,9 @@ Public Class APIComponent
         For Each str As String In result
             If str.Contains("price") Then
                 ReDim Preserve endResult(endResult.Length)
+                'Removes first 8 characters in string
                 str = str.Substring(8)
+                'Removes ] and } characters from the string
                 str = str.Replace("]", "")
                 str = str.Replace("}", "")
                 endResult(endResult.Length - 1) = str
