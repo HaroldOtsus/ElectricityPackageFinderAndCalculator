@@ -124,6 +124,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\APIComponent\PrjAPIComponent.vbproj">
+      <Project>{7f647ec6-613a-4eb9-9ff2-e2486ca61ba7}</Project>
+      <Name>PrjAPIComponent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CArvutaja\Computing_Component.vbproj">
       <Project>{dfe28ffd-17b1-4fd6-8f08-deb35f9996e4}</Project>
       <Name>Computing_Component</Name>
