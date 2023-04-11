@@ -170,13 +170,33 @@ Public Class GUIMain
                 dgv.Rows(0).Cells(i).Value = sPrices(i + 1) & "€" ' or any other number you want to insert
             Next
         End If
-
-
         tblPriceTable.Controls.Add(dgv)
 
 
-    End Sub
+        'CHART
+        chart()
 
+
+
+    End Sub
+    Function chart()
+        Dim seriesName As String = "Börsihind"
+        chrtPriceChart.Series.Add(seriesName)
+        Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+        returnString = New PrjDatabaseComponent.CDatabase
+        Dim sPrices As String()
+        sPrices = returnString.stockPrice()
+        Dim dblValues(sPrices.Length - 1) As Double
+        For i As Integer = 1 To sPrices.Length - 1
+            Double.TryParse(sPrices(i), dblValues(i))
+        Next
+
+        ' Add some data points to the series
+        'Dim values() As Double = {10, 20, 30, 40, 50}
+        For i As Integer = 0 To dblValues.Length - 1
+            chrtPriceChart.Series(seriesName).Points.AddXY(i + 1, dblValues(i))
+        Next
+    End Function
     Private Sub rdioExchange_CheckedChanged(sender As Object, e As EventArgs) Handles rdioExchange.CheckedChanged
         tboxMonthlyCost.Enabled = False
         tboxMonthlyCost.Clear()
@@ -220,5 +240,8 @@ Public Class GUIMain
 
     Private Sub tabPackageHourlyRate_Enter(sender As Object, e As EventArgs) Handles tabPackageHourlyRate.Enter
         rdioExchange.Checked = True
+
     End Sub
+
+
 End Class

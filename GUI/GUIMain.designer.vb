@@ -22,6 +22,8 @@ Partial Class GUIMain
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(GUIMain))
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnPackageHourlyRate = New System.Windows.Forms.Button()
@@ -32,6 +34,7 @@ Partial Class GUIMain
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.Main = New System.Windows.Forms.TabPage()
         Me.tabPackageHourlyRate = New System.Windows.Forms.TabPage()
+        Me.chrtPriceChart = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.tblPriceTable = New System.Windows.Forms.DataGridView()
         Me.tBoxPackageHourlyRate = New System.Windows.Forms.TextBox()
         Me.lblPriceGraph = New System.Windows.Forms.Label()
@@ -140,6 +143,7 @@ Partial Class GUIMain
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         Me.tabPackageHourlyRate.SuspendLayout()
+        CType(Me.chrtPriceChart, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tblPriceTable, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabApplianceCalc.SuspendLayout()
         Me.Panel2.SuspendLayout()
@@ -240,6 +244,7 @@ Partial Class GUIMain
         '
         'tabPackageHourlyRate
         '
+        Me.tabPackageHourlyRate.Controls.Add(Me.chrtPriceChart)
         Me.tabPackageHourlyRate.Controls.Add(Me.tblPriceTable)
         Me.tabPackageHourlyRate.Controls.Add(Me.tBoxPackageHourlyRate)
         Me.tabPackageHourlyRate.Controls.Add(Me.lblPriceGraph)
@@ -260,6 +265,18 @@ Partial Class GUIMain
         Me.tabPackageHourlyRate.TabIndex = 1
         Me.tabPackageHourlyRate.Text = "Paketijärgne tunnihind"
         Me.tabPackageHourlyRate.UseVisualStyleBackColor = True
+        '
+        'chrtPriceChart
+        '
+        ChartArea1.Name = "ChartArea1"
+        Me.chrtPriceChart.ChartAreas.Add(ChartArea1)
+        Legend1.Name = "Legend1"
+        Me.chrtPriceChart.Legends.Add(Legend1)
+        Me.chrtPriceChart.Location = New System.Drawing.Point(17, 244)
+        Me.chrtPriceChart.Name = "chrtPriceChart"
+        Me.chrtPriceChart.Size = New System.Drawing.Size(479, 333)
+        Me.chrtPriceChart.TabIndex = 14
+        Me.chrtPriceChart.Text = "Chart1"
         '
         'tblPriceTable
         '
@@ -879,7 +896,7 @@ Partial Class GUIMain
         Me.tblExchangeComparison.ColumnCount = 3
         Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.03704!))
         Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.96296!))
-        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 208.0!))
+        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 209.0!))
         Me.tblExchangeComparison.Controls.Add(Me.Label2, 1, 3)
         Me.tblExchangeComparison.Location = New System.Drawing.Point(414, 52)
         Me.tblExchangeComparison.Name = "tblExchangeComparison"
@@ -897,7 +914,7 @@ Partial Class GUIMain
         '
         Me.Label2.AutoSize = True
         Me.Label2.ForeColor = System.Drawing.Color.Red
-        Me.Label2.Location = New System.Drawing.Point(57, 129)
+        Me.Label2.Location = New System.Drawing.Point(56, 129)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(78, 26)
         Me.Label2.TabIndex = 0
@@ -1370,6 +1387,7 @@ Partial Class GUIMain
         Me.Main.ResumeLayout(False)
         Me.tabPackageHourlyRate.ResumeLayout(False)
         Me.tabPackageHourlyRate.PerformLayout()
+        CType(Me.chrtPriceChart, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tblPriceTable, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabApplianceCalc.ResumeLayout(False)
         Me.tabApplianceCalc.PerformLayout()
@@ -1508,4 +1526,5 @@ Partial Class GUIMain
     Friend WithEvents Label5 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents tblPriceTable As DataGridView
+    Friend WithEvents chrtPriceChart As DataVisualization.Charting.Chart
 End Class
