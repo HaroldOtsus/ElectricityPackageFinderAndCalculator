@@ -33,8 +33,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
     End Sub
 
-<<<<<<< HEAD
-=======
+
     <TestMethod()> Public Sub TestSignup()
         Dim getIn As New PrjDatabaseComponent.CDatabase
         getIn.signup("maasikas", "12345!", "Maria Kask", "maria.kask@gmail.com")
@@ -44,7 +43,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim vastus As String = getIn.login("maasikas", "1235!")
         Assert.IsFalse(vastus)
     End Sub
->>>>>>> Database-component
+
     '<TestMethod()> Public Sub TestDatabaseInsertAPI()
     '    Dim getIn As New PrjDatabaseComponent.CDatabase
     '    Dim first As String = "6,00"

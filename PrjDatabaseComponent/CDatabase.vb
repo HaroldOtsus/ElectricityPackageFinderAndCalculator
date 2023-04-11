@@ -4,8 +4,7 @@ Public Class CDatabase
     Implements IDatabase
     Implements IDatabaseAPI
 
-<<<<<<< HEAD
-=======
+
 
 
     Function login(ByVal username As String, ByVal password As String) As Boolean
@@ -58,7 +57,7 @@ Public Class CDatabase
 
     End Function
 
->>>>>>> Database-component
+
     Function stringReturn(ByVal id As String) As (consumptionPerHour As String, usageTime As String) Implements IDatabase.stringReturn
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;" 'string to access database
         Dim conn As New MySqlConnection(connString)
@@ -156,23 +155,15 @@ Public Class CDatabase
                 read.Close()
                 con.Close()
 
-<<<<<<< HEAD
-            Return sPrices
+
+                Return sPrices
 
             Else
             Dim stringOfPrices As String()
             stringOfPrices = insertStockPriceToDatabase()
             Return stringOfPrices
-            '        ''we put the info to the database
-=======
-                Return sPrices
-
-            Else
-                Dim stringOfPrices As String()
-                stringOfPrices = insertStockPriceToDatabase()
-                Return stringOfPrices
                 '        ''we put the info to the database
->>>>>>> Database-component
+
             End If
             conn.Close()
         Catch ex As Exception
