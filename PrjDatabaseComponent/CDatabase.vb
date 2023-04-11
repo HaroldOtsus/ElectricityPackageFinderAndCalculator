@@ -149,6 +149,9 @@ Public Class CDatabase
             'StrVar = "excemption occured"
             'Return ex.Message
         End Try
+        consumptionPerHour = "Error"
+        usageTime = "Error"
+        Return (consumptionPerHour, usageTime)
     End Function
 
 
@@ -156,6 +159,7 @@ Public Class CDatabase
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Dim dateOfStockPrices As String = ""
+        Dim stringOfErrors() As String = Nothing
         Dim dateToday
         dateToday = Date.Today 'get what date it is today
         Try
@@ -215,6 +219,8 @@ Public Class CDatabase
             End If
             conn.Close()
         Catch ex As Exception
+            stringOfErrors = {"error", "error", "error"}
+            Return stringOfErrors
         End Try
 
     End Function
@@ -223,6 +229,7 @@ Public Class CDatabase
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Dim dateToday
+        Dim stringOfErrors() As String = Nothing
         dateToday = Date.Today 'get what date it is today
         Dim api As PrjAPIComponent.APIInterface
         api = New PrjAPIComponent.APIComponent
@@ -321,7 +328,8 @@ Public Class CDatabase
             conn.Close()
             Return sPrices
         Catch ex As Exception
-
+            stringOfErrors = {"error", "error", "error"}
+            Return stringOfErrors
         End Try
 
     End Function
