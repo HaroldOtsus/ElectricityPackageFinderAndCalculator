@@ -16,7 +16,7 @@ Public Class APIComponent
         'HttpWebRequest object sends a request to url specified
         Dim webRequest As HttpWebRequest = CType(webRequest.Create("https://dashboard.elering.ee/api/nps/price?start=" + strStartTime + "T20%3A59%3A59.999Z&end=" + strEndTime + "T20%3A59%3A59.999Z"), HttpWebRequest)
 
-#Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
+#Enable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance 
 
         'GET method means that we are retrieveing data from web server
         webRequest.Method = "GET"
