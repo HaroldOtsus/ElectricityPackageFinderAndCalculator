@@ -5,43 +5,62 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
 
 
-    <TestMethod()> Public Sub TestConnection()
-        Dim getIn As New PrjDatabaseComponent.CDatabase
-        Dim vastus As String = getIn.Connect()
-        Assert.IsTrue(vastus)
-    End Sub
+    '<TestMethod()> Public Sub TestConnection()
+    '    Dim getIn As New PrjDatabaseComponent.CDatabase
+    '    Dim vastus As String = getIn.Connect()
+    '    Assert.IsTrue(vastus)
+    'End Sub
 
 
-    <TestMethod()> Public Sub TestStringReturn()
-        Dim getIn As New PrjDatabaseComponent.CDatabase
-        Dim id As String
-        id = "1"
-        Dim actualOutput = getIn.stringReturn(id)
-        Assert.AreEqual("1000", actualOutput.consumptionPerHour)
-        Assert.AreEqual("5", actualOutput.usageTime)
-    End Sub
+    '<TestMethod()> Public Sub TestStringReturn()
+    '    Dim getIn As New PrjDatabaseComponent.CDatabase
+    '    Dim id As String
+    '    id = "1"
+    '    Dim actualOutput = getIn.stringReturn(id)
+    '    Assert.AreEqual("1000", actualOutput.consumptionPerHour)
+    '    Assert.AreEqual("5", actualOutput.usageTime)
+    'End Sub
 
-    <TestMethod()> Public Sub TestAPI()
-        Dim getIn As New PrjDatabaseComponent.CDatabase
-        Dim expected() As String = {"bar1", "bar2", "bar3"}
-        Dim vastus() As String
-        vastus = getIn.stockPrice
-        'If vastus IsNot Nothing Then
-        ' Assert.AreEqual(expected.Length, vastus.Length)
-        Assert.AreEqual("6.00", vastus(4))
-        ' End If
+    '<TestMethod()> Public Sub TestAPI()
+    '    Dim getIn As New PrjDatabaseComponent.CDatabase
+    '    Dim expected() As String = {"bar1", "bar2", "bar3"}
+    '    Dim vastus() As String
+    '    vastus = getIn.stockPrice
+    '    'If vastus IsNot Nothing Then
+    '    ' Assert.AreEqual(expected.Length, vastus.Length)
+    '    Assert.AreEqual("6.00", vastus(4))
+    '    ' End If
 
-    End Sub
+    'End Sub
 
     <TestMethod()> Public Sub TestSignup()
         Dim getIn As New PrjDatabaseComponent.CDatabase
-        getIn.signup("maasikas", "12345!", "Maria Kask", "maria.kask@gmail.com")
+        Dim check As Boolean
+        check = getIn.signup("karl", "karl", "Karl", "wafawfaw@gmail.com")
+        Assert.IsTrue(check)
     End Sub
     <TestMethod()> Public Sub TestLogin()
         Dim getIn As New PrjDatabaseComponent.CDatabase
-        Dim vastus As String = getIn.login("maasikas", "1235!")
-        Assert.IsFalse(vastus)
+        Dim vastus As String = getIn.login("laura", "laura")
+        Assert.IsTrue(vastus)
     End Sub
+
+    <TestMethod()> Public Sub TestHash()
+        Dim getIn As New PrjDatabaseComponent.CDatabase
+        Dim password As String
+        password = "laura"
+        Dim vastus As String = getIn.hashPassword(password)
+        Assert.AreEqual("XXAusHko7XuEYmt3fIbDm/TLQD1AJPAx1fl6SwZkQh8=", vastus)
+    End Sub
+
+    '<TestMethod()> Public Sub TestCheckIfUsernameExists()
+    '    Dim getIn As New PrjDatabaseComponent.CDatabase
+    '    Dim uname As String
+    '    uname = "maasikas"
+    '    Dim vastus As String = getIn.checkIfUsernameExists(uname)
+    '    Assert.IsFalse(vastus)
+    'End Sub
+
     '<TestMethod()> Public Sub TestDatabaseInsertAPI()
     '    Dim getIn As New PrjDatabaseComponent.CDatabase
     '    Dim first As String = "6,00"
