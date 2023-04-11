@@ -143,26 +143,9 @@ Public Class GUIMain
 
 
     Private Sub btnConfirmInput_Click(sender As Object, e As EventArgs) Handles btnConfirmInput.Click
-
+        tblPriceTable.Controls.Clear()
         Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
-        'Dim dt As New DataTable()
-        ''dt.Columns.Add("ID", GetType(Integer))
-        ''dt.Columns.Add("Name", GetType(String))
-        '' dt.Columns.Add("Age", GetType(Integer))
-        'Dim array(24) As List(Of Integer)
-        'dt.TableName = "tblPriceTable"
-        'For i As Integer = 1 To 24
-        '    'array(i) = i
 
-        'Next
-        'Dim myRow As DataRow
-        ''myRow = dt.Rows.Add
-        'For i As Integer = 1 To 23
-        '    'dt.Columns.Add(i)
-        '    'dt.Columns.Add(timeNowHours + 1, GetType(Integer))
-        '    'myRow.Add(array(i))
-        'Next
-        ''dt.Rows.Add(array)
 
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
         returnString = New PrjDatabaseComponent.CDatabase
@@ -196,7 +179,7 @@ Public Class GUIMain
 
     Private Sub rdioExchange_CheckedChanged(sender As Object, e As EventArgs) Handles rdioExchange.CheckedChanged
         tboxMonthlyCost.Enabled = False
-
+        tboxMonthlyCost.Clear()
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
         returnString = New PrjDatabaseComponent.CDatabase
         Dim sPrices As String()
