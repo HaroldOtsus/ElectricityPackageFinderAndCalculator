@@ -11,7 +11,7 @@ Public Class APIComponent
         Dim strStartTime As String = startTime.ToString("yyyy-MM-dd")
         Dim strEndTime As String = endTime.ToString("yyyy-MM-dd")
 
-#Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
+#Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance 
 
         'HttpWebRequest object sends a request to url specified
         Dim webRequest As HttpWebRequest = CType(webRequest.Create("https://dashboard.elering.ee/api/nps/price?start=" + strStartTime + "T20%3A59%3A59.999Z&end=" + strEndTime + "T20%3A59%3A59.999Z"), HttpWebRequest)
