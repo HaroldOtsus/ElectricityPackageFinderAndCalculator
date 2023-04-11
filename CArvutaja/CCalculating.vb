@@ -12,13 +12,16 @@
     'eeldan et andmebaasis on tarbimine lic Wattides
     'et saada kWh, tuleb tarbiminie korrutada kasutusajaga, tulemus jagada 1000'ga
 
-    Public Function applianceConsumption(kodumasina_tarbmimine As String, kasutusaeg As String, tunnihind As String) As (consumption As String, aproxPrice As String) Implements ICalculating.applianceConsumption
-        kasutusaeg = kasutusaeg / 60
-        Dim consumption = (kodumasina_tarbmimine * kasutusaeg) / 1000
-        Dim aproxPrice = ((kodumasina_tarbmimine * kasutusaeg) / 1000) * tunnihind
-        If kodumasina_tarbmimine = " " Or kasutusaeg = " " Or tunnihind = " " Then
+    Public Function applianceConsumption(kodumasina_tarbmimine As String, kasutusaeg As String, tunnihind As Double) As (consumption As String, aproxPrice As String) Implements ICalculating.applianceConsumption
+
+
+
+        If String.IsNullOrEmpty(kodumasina_tarbmimine) Or String.IsNullOrEmpty(kasutusaeg) Or String.IsNullOrEmpty(tunnihind) Then
             Return ("Nan", "Nan")
         Else
+            kasutusaeg = kasutusaeg / 60
+            Dim consumption = (kodumasina_tarbmimine * kasutusaeg) / 1000
+            Dim aproxPrice = ((kodumasina_tarbmimine * kasutusaeg) / 1000) * tunnihind
             Return (consumption, aproxPrice)
         End If
     End Function
