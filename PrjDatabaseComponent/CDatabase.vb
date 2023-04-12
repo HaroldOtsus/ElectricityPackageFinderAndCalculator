@@ -1,30 +1,44 @@
 ﻿Imports MySql.Data.MySqlClient
-
+Imports System.Security.Cryptography
 Public Class CDatabase
     Implements IDatabase
     Implements IDatabaseAPI
+    Implements ISignup
+    Implements ILogin
+    Function hashPassword(ByVal password As String) As String
+        Dim sha256 As SHA256 = SHA256.Create() 'use create method that returns best available implementation of SHA256
+        'convert password to bytes
+        Dim bytes As Byte() = System.Text.Encoding.UTF8.GetBytes(password)
+        'we hash the byte array
+        Dim hash As Byte() = sha256.ComputeHash(bytes)
+        Return Convert.ToBase64String(hash)
+        ''SHA256 explanation learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.sha256?view=net-7.0
+    End Function
 
 
-
-
-    Function login(ByVal username As String, ByVal password As String) As Boolean
+    Function login(ByVal username As String, ByVal password As String) As Boolean Implements ILogin.login
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Dim pass As String = ""
         Try
             conn.Open()
-            Dim command As New MySqlCommand("SELECT password FROM user
+            Dim checkIfUsername As Boolean
+            checkIfUsername = checkIfUsernameExists(username)
+            If checkIfUsername = False Then
+                Dim command As New MySqlCommand("SELECT password FROM user
             WHERE username = @username;", conn)
-            command.Parameters.AddWithValue("@username", username)
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read()
-                pass = reader.GetString(0)
+                command.Parameters.AddWithValue("@username", username)
+                Dim reader As MySqlDataReader = command.ExecuteReader()
+                Dim passW = hashPassword(password)
+                While reader.Read()
+                    pass = reader.GetString(0)
 
-            End While
-            If String.Compare(pass, password) = 0 Then
-                Return True
-            Else
-                Return False
+                End While
+                If String.Compare(pass, passW) = 0 Then
+                    Return True
+                Else
+                    Return False
+                End If
             End If
             conn.Close()
             Return False
@@ -35,27 +49,63 @@ Public Class CDatabase
 
     End Function
 
-    Function signup(ByVal username As String, ByVal password As String, ByVal name As String, ByVal email As String)
+
+    Function checkIfUsernameExists(ByVal username As String) As Boolean
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+        Dim cmd As New MySqlCommand("SELECT COUNT(*) FROM user WHERE username  = @username", conn)
+        cmd.Parameters.AddWithValue("@username", username)
+        Try
+            conn.Open()
+            Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+            If count > 0 Then
+                Return False
+            Else
+                Return True
+            End If
+
+            conn.Close()
+
+        Catch ex As Exception
+            Return False
+        End Try
+
+    End Function
+
+    Function signup(ByVal username As String, ByVal password As String, ByVal name As String, ByVal email As String) As Boolean Implements ISignup.signup
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         ''call function that hashes password
         ''right now it's not written
         Try
             conn.Open()
-            Dim command As New MySqlCommand("INSERT INTO user (name, password, username, email)
+            Dim cool As Boolean
+            cool = checkIfUsernameExists(username)
+            If cool = True Then
+                ''will need to do work on password
+                Dim pass = hashPassword(password)
+                Dim command As New MySqlCommand("INSERT INTO user (name, password, username, email)
             VALUES (@name, @password, @username, @email);", conn)
-            command.Parameters.AddWithValue("@username", username)
-            command.Parameters.AddWithValue("@password", password)
-            command.Parameters.AddWithValue("@name", name)
-            command.Parameters.AddWithValue("@email", email)
-            command.ExecuteNonQuery()
+                command.Parameters.AddWithValue("@username", username)
+                command.Parameters.AddWithValue("@password", pass)
+                command.Parameters.AddWithValue("@name", name)
+                command.Parameters.AddWithValue("@email", email)
+                command.ExecuteNonQuery()
+                Return True
+            End If
             conn.Close()
+            Return False
 
         Catch ex As Exception
+            Return False
+
         End Try
 
 
     End Function
+
+
+
 
 
     Function stringReturn(ByVal id As String) As (consumptionPerHour As String, usageTime As String) Implements IDatabase.stringReturn
@@ -99,6 +149,9 @@ Public Class CDatabase
             'StrVar = "excemption occured"
             'Return ex.Message
         End Try
+        consumptionPerHour = "Error"
+        usageTime = "Error"
+        Return (consumptionPerHour, usageTime)
     End Function
 
 
@@ -106,6 +159,7 @@ Public Class CDatabase
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Dim dateOfStockPrices As String = ""
+        Dim stringOfErrors() As String = Nothing
         Dim dateToday
         dateToday = Date.Today 'get what date it is today
         Try
@@ -155,18 +209,18 @@ Public Class CDatabase
                 read.Close()
                 con.Close()
 
-
                 Return sPrices
 
             Else
-            Dim stringOfPrices As String()
-            stringOfPrices = insertStockPriceToDatabase()
-            Return stringOfPrices
+                Dim stringOfPrices As String()
+                stringOfPrices = insertStockPriceToDatabase()
+                Return stringOfPrices
                 '        ''we put the info to the database
-
             End If
             conn.Close()
         Catch ex As Exception
+            stringOfErrors = {"error", "error", "error"}
+            Return stringOfErrors
         End Try
 
     End Function
@@ -175,6 +229,7 @@ Public Class CDatabase
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Dim dateToday
+        Dim stringOfErrors() As String = Nothing
         dateToday = Date.Today 'get what date it is today
         Dim api As PrjAPIComponent.APIInterface
         api = New PrjAPIComponent.APIComponent
@@ -273,7 +328,8 @@ Public Class CDatabase
             conn.Close()
             Return sPrices
         Catch ex As Exception
-
+            stringOfErrors = {"error", "error", "error"}
+            Return stringOfErrors
         End Try
 
     End Function

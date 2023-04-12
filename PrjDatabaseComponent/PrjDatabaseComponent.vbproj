@@ -71,6 +71,8 @@
     <Compile Include="CDatabase.vb" />
     <Compile Include="IDatabase.vb" />
     <Compile Include="IDatabaseAPI.vb" />
+    <Compile Include="ILogin.vb" />
+    <Compile Include="ISignup.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

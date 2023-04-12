@@ -143,14 +143,43 @@ Public Class GUIMain
 
 
     Private Sub btnConfirmInput_Click(sender As Object, e As EventArgs) Handles btnConfirmInput.Click
-        tblPriceTable.Controls.Clear()
-        Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
 
+        Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
+        'Dim dt As New DataTable()
+        ''dt.Columns.Add("ID", GetType(Integer))
+        ''dt.Columns.Add("Name", GetType(String))
+        '' dt.Columns.Add("Age", GetType(Integer))
+        'Dim array(24) As List(Of Integer)
+        'dt.TableName = "tblPriceTable"
+        'For i As Integer = 1 To 24
+        '    'array(i) = i
+
+        'Next
+        'Dim myRow As DataRow
+        ''myRow = dt.Rows.Add
+        'For i As Integer = 1 To 23
+        '    'dt.Columns.Add(i)
+        '    'dt.Columns.Add(timeNowHours + 1, GetType(Integer))
+        '    'myRow.Add(array(i))
+        'Next
+        ''dt.Rows.Add(array)
 
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
         returnString = New PrjDatabaseComponent.CDatabase
         Dim sPrices As String()
         sPrices = returnString.stockPrice()
+
+        For i As Integer = 1 To 24
+            sPrices(i) = sPrices(i).Replace(".", ",")
+        Next
+
+        Dim dPrices As Double() = New Double(sPrices.Length - 1) {}
+
+        For i As Integer = 1 To sPrices.Length - 1
+            dPrices(i) = Double.Parse(sPrices(i))
+        Next
+
+        Array.Sort(dPrices)
 
         Dim dgv As New DataGridView()
 
@@ -167,39 +196,39 @@ Public Class GUIMain
             Next
         Else
             For i As Integer = 0 To 23
-                dgv.Rows(0).Cells(i).Value = sPrices(i + 1) & "€" ' or any other number you want to insert
+                dgv.Rows(0).Cells(i).Value = dPrices(i + 1) & "€" ' or any other number you want to insert
             Next
         End If
+
+
         tblPriceTable.Controls.Add(dgv)
 
-
-        'CHART
         chart()
 
 
-
     End Sub
-    Function chart()
+    Public Function chart()
         Dim seriesName As String = "Börsihind"
-        chrtPriceChart.Series.Add(seriesName)
-        Dim returnString As PrjDatabaseComponent.IDatabaseAPI
-        returnString = New PrjDatabaseComponent.CDatabase
-        Dim sPrices As String()
-        sPrices = returnString.stockPrice()
-        Dim dblValues(sPrices.Length - 1) As Double
-        For i As Integer = 1 To sPrices.Length - 1
-            Double.TryParse(sPrices(i), dblValues(i))
+        Chart1.Series.Add(seriesName)
+        Dim returnString1 As PrjDatabaseComponent.IDatabaseAPI
+        returnString1 = New PrjDatabaseComponent.CDatabase
+        Dim sPrices1 As String()
+        sPrices1 = returnString1.stockPrice()
+        Dim dblValues(sPrices1.Length - 1) As Double
+        For i As Integer = 1 To sPrices1.Length - 1
+            Double.TryParse(sPrices1(i), dblValues(i))
         Next
 
         ' Add some data points to the series
         'Dim values() As Double = {10, 20, 30, 40, 50}
         For i As Integer = 0 To dblValues.Length - 1
-            chrtPriceChart.Series(seriesName).Points.AddXY(i + 1, dblValues(i))
+            Chart1.Series(seriesName).Points.AddXY(i + 1, sPrices1(i))
         Next
     End Function
+
     Private Sub rdioExchange_CheckedChanged(sender As Object, e As EventArgs) Handles rdioExchange.CheckedChanged
         tboxMonthlyCost.Enabled = False
-        tboxMonthlyCost.Clear()
+
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
         returnString = New PrjDatabaseComponent.CDatabase
         Dim sPrices As String()
@@ -240,8 +269,79 @@ Public Class GUIMain
 
     Private Sub tabPackageHourlyRate_Enter(sender As Object, e As EventArgs) Handles tabPackageHourlyRate.Enter
         rdioExchange.Checked = True
-
     End Sub
 
 
+
+    Private Sub Main_Enter(sender As Object, e As EventArgs) Handles Main.Enter
+        'Dim seriesName As String = "Börsihind"
+        'chrFrontPageChart.Series.Add(seriesName)
+        'Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+        'returnString = New PrjDatabaseComponent.CDatabase
+        'Dim sPrices As String()
+        'sPrices = returnString.stockPrice()
+        'Dim dblValues(sPrices.Length - 1) As Double
+        'For i As Integer = 1 To sPrices.Length - 1
+        '    Double.TryParse(sPrices(i), dblValues(i))
+        'Next
+
+        '' Add some data points to the series
+        ''Dim values() As Double = {10, 20, 30, 40, 50}
+        'For i As Integer = 0 To dblValues.Length - 1
+        '    chrFrontPageChart.Series(seriesName).Points.AddXY(i + 1, sPrices(i))
+        'Next
+    End Sub
+
+    'Private Sub GUIMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    '    Dim seriesName As String = "Börsihind"
+    '    chrFrontPageChart.Series.Add(seriesName)
+    '    Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+    '    returnString = New PrjDatabaseComponent.CDatabase
+    '    Dim sPrices As String()
+    '    sPrices = returnString.stockPrice()
+    '    Dim dblValues(sPrices.Length - 1) As Double
+
+
+    '    ' Add some data points to the series
+    '    'Dim values() As Double = {10, 20, 30, 40, 50}
+    '    For i As Integer = 0 To dblValues.Length - 1
+    '        chrFrontPageChart.Series(seriesName).Points.AddXY(i + 1, sPrices(i))
+    '    Next
+    'End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim seriesName As String = "Börsihind"
+        Chart2.Series.Add(seriesName)
+        Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+        returnString = New PrjDatabaseComponent.CDatabase
+        Dim sPrices As String()
+        sPrices = returnString.stockPrice()
+        Dim dblValues(sPrices.Length - 1) As Double
+
+
+        ' Add some data points to the series
+        'Dim values() As Double = {10, 20, 30, 40, 50}
+        For i As Integer = 0 To dblValues.Length - 1
+            Chart2.Series(seriesName).Points.AddXY(i + 1, sPrices(i))
+        Next
+    End Sub
+
+    'Private Sub GUIMain_VisibleChanged(sender As Object, e As EventArgs) Handles Me.VisibleChanged
+    '    Dim seriesName As String = "Börsihind"
+    '    chrFrontPageChart.Series.Add(seriesName)
+    '    Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+    '    returnString = New PrjDatabaseComponent.CDatabase
+    '    Dim sPrices As String()
+    '    sPrices = returnString.stockPrice()
+    '    Dim dblValues(sPrices.Length - 1) As Double
+    '    For i As Integer = 1 To sPrices.Length - 1
+    '        Double.TryParse(sPrices(i), dblValues(i))
+    '    Next
+
+    '    ' Add some data points to the series
+    '    'Dim values() As Double = {10, 20, 30, 40, 50}
+    '    For i As Integer = 0 To dblValues.Length - 1
+    '        chrFrontPageChart.Series(seriesName).Points.AddXY(i + 1, sPrices(i))
+    '    Next
+    'End Sub
 End Class
