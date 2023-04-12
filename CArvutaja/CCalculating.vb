@@ -22,6 +22,7 @@
             kasutusaeg = kasutusaeg / 60
             Dim consumption = (kodumasina_tarbmimine * kasutusaeg) / 1000
             Dim aproxPrice = ((kodumasina_tarbmimine * kasutusaeg) / 1000) * tunnihind
+            aproxPrice = aproxPrice / 100000000  ''MWH to kwh '' ajutine fix, et saada sama mis kalkulaatoris
             Return (consumption, aproxPrice)
         End If
     End Function

@@ -90,8 +90,7 @@ Public Class GUIMain
         Dim consOut As String = cons.ToString("N3")
 
         Dim aprox As Decimal = actualOutput2.aproxPrice
-        Dim aproxOut As String = aprox.ToString("N3")
-
+        Dim aproxOut As String = aprox.ToString '("N3")
         tBoxElectricityConsumptionRate.Text = consOut
         tBoxApproxPrice.Text = aproxOut
 
