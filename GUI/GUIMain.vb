@@ -376,6 +376,10 @@ Public Class GUIMain
         btnTaasta.Enabled = False
     End Sub
 
+    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
+
+    End Sub
+
     'Private Sub GUIMain_VisibleChanged(sender As Object, e As EventArgs) Handles Me.VisibleChanged
     '    Dim seriesName As String = "Börsihind"
     '    chrFrontPageChart.Series.Add(seriesName)
