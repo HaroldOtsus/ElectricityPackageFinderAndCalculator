@@ -191,8 +191,28 @@ Public Class GUIMain
 
         tblPriceTable.Controls.Add(dgv)
 
+        chart()
+
 
     End Sub
+    Public Function chart()
+        Dim seriesName As String = "Börsihind"
+        Chart1.Series.Add(seriesName)
+        Dim returnString1 As PrjDatabaseComponent.IDatabaseAPI
+        returnString1 = New PrjDatabaseComponent.CDatabase
+        Dim sPrices1 As String()
+        sPrices1 = returnString1.stockPrice()
+        Dim dblValues(sPrices1.Length - 1) As Double
+        For i As Integer = 1 To sPrices1.Length - 1
+            Double.TryParse(sPrices1(i), dblValues(i))
+        Next
+
+        ' Add some data points to the series
+        'Dim values() As Double = {10, 20, 30, 40, 50}
+        For i As Integer = 0 To dblValues.Length - 1
+            Chart1.Series(seriesName).Points.AddXY(i + 1, sPrices1(i))
+        Next
+    End Function
 
     Private Sub rdioExchange_CheckedChanged(sender As Object, e As EventArgs) Handles rdioExchange.CheckedChanged
         tboxMonthlyCost.Enabled = False
@@ -239,26 +259,77 @@ Public Class GUIMain
         rdioExchange.Checked = True
     End Sub
 
-    Private Sub Chart1_Click(sender As Object, e As EventArgs) Handles Chart1.Click
 
+
+    Private Sub Main_Enter(sender As Object, e As EventArgs) Handles Main.Enter
+        'Dim seriesName As String = "Börsihind"
+        'chrFrontPageChart.Series.Add(seriesName)
+        'Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+        'returnString = New PrjDatabaseComponent.CDatabase
+        'Dim sPrices As String()
+        'sPrices = returnString.stockPrice()
+        'Dim dblValues(sPrices.Length - 1) As Double
+        'For i As Integer = 1 To sPrices.Length - 1
+        '    Double.TryParse(sPrices(i), dblValues(i))
+        'Next
+
+        '' Add some data points to the series
+        ''Dim values() As Double = {10, 20, 30, 40, 50}
+        'For i As Integer = 0 To dblValues.Length - 1
+        '    chrFrontPageChart.Series(seriesName).Points.AddXY(i + 1, sPrices(i))
+        'Next
     End Sub
 
-    Private Sub GUIMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    'Private Sub GUIMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    '    Dim seriesName As String = "Börsihind"
+    '    chrFrontPageChart.Series.Add(seriesName)
+    '    Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+    '    returnString = New PrjDatabaseComponent.CDatabase
+    '    Dim sPrices As String()
+    '    sPrices = returnString.stockPrice()
+    '    Dim dblValues(sPrices.Length - 1) As Double
+
+
+    '    ' Add some data points to the series
+    '    'Dim values() As Double = {10, 20, 30, 40, 50}
+    '    For i As Integer = 0 To dblValues.Length - 1
+    '        chrFrontPageChart.Series(seriesName).Points.AddXY(i + 1, sPrices(i))
+    '    Next
+    'End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim seriesName As String = "Börsihind"
-        Chart1.Series.Add(seriesName)
+        chrFrontPageChart.Series.Add(seriesName)
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
         returnString = New PrjDatabaseComponent.CDatabase
         Dim sPrices As String()
         sPrices = returnString.stockPrice()
         Dim dblValues(sPrices.Length - 1) As Double
-        For i As Integer = 1 To sPrices.Length - 1
-            Double.TryParse(sPrices(i), dblValues(i))
-        Next
+
 
         ' Add some data points to the series
         'Dim values() As Double = {10, 20, 30, 40, 50}
         For i As Integer = 0 To dblValues.Length - 1
-            Chart1.Series(seriesName).Points.AddXY(i + 1, dblValues(i))
+            chrFrontPageChart.Series(seriesName).Points.AddXY(i + 1, sPrices(i))
         Next
     End Sub
+
+    'Private Sub GUIMain_VisibleChanged(sender As Object, e As EventArgs) Handles Me.VisibleChanged
+    '    Dim seriesName As String = "Börsihind"
+    '    chrFrontPageChart.Series.Add(seriesName)
+    '    Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+    '    returnString = New PrjDatabaseComponent.CDatabase
+    '    Dim sPrices As String()
+    '    sPrices = returnString.stockPrice()
+    '    Dim dblValues(sPrices.Length - 1) As Double
+    '    For i As Integer = 1 To sPrices.Length - 1
+    '        Double.TryParse(sPrices(i), dblValues(i))
+    '    Next
+
+    '    ' Add some data points to the series
+    '    'Dim values() As Double = {10, 20, 30, 40, 50}
+    '    For i As Integer = 0 To dblValues.Length - 1
+    '        chrFrontPageChart.Series(seriesName).Points.AddXY(i + 1, sPrices(i))
+    '    Next
+    'End Sub
 End Class

@@ -27,6 +27,7 @@ Partial Class LoginWindow
         Me.lblPassword = New System.Windows.Forms.Label()
         Me.tBoxUsername = New System.Windows.Forms.TextBox()
         Me.tBoxPassword = New System.Windows.Forms.TextBox()
+        Me.btnSignUp = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btnLogin
@@ -70,11 +71,21 @@ Partial Class LoginWindow
         Me.tBoxPassword.Size = New System.Drawing.Size(100, 20)
         Me.tBoxPassword.TabIndex = 4
         '
+        'btnSignUp
+        '
+        Me.btnSignUp.Location = New System.Drawing.Point(350, 225)
+        Me.btnSignUp.Name = "btnSignUp"
+        Me.btnSignUp.Size = New System.Drawing.Size(75, 23)
+        Me.btnSignUp.TabIndex = 5
+        Me.btnSignUp.Text = "Registreeri"
+        Me.btnSignUp.UseVisualStyleBackColor = True
+        '
         'LoginWindow
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.btnSignUp)
         Me.Controls.Add(Me.tBoxPassword)
         Me.Controls.Add(Me.tBoxUsername)
         Me.Controls.Add(Me.lblPassword)
@@ -92,4 +103,5 @@ Partial Class LoginWindow
     Friend WithEvents lblPassword As Label
     Friend WithEvents tBoxUsername As TextBox
     Friend WithEvents tBoxPassword As TextBox
+    Friend WithEvents btnSignUp As Button
 End Class
