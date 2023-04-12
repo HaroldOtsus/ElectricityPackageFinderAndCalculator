@@ -184,7 +184,15 @@ Public Class GUIMain
 
         For i As Integer = 0 To 23
             'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
-            dgv.Columns.Add(timeNowHours & ":00", timeNowHours + i & ":00")
+            If timeNowHours >= 24 Then
+                timeNowHours = timeNowHours - 24
+                dgv.Columns.Add(0, timeNowHours & ":00")
+
+            Else
+                dgv.Columns.Add(0, timeNowHours & ":00")
+
+            End If
+            timeNowHours = timeNowHours + 1
 
         Next
 
@@ -335,9 +343,9 @@ Public Class GUIMain
         Dim sPrices As String()
         sPrices = returnString.stockPrice()
 
-        '  For i As Integer = 1 To 24
-        ' sPrices(i) = sPrices(i).Replace(".", ",")
-        'Next
+        For i As Integer = 1 To 24
+            sPrices(i) = sPrices(i).Replace(".", ",")
+        Next
 
         Dim dPrices As Double() = New Double(sPrices.Length - 1) {}
 
@@ -351,7 +359,15 @@ Public Class GUIMain
 
         For i As Integer = 0 To 23
             'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
-            dgv.Columns.Add(timeNowHours & ":00", timeNowHours + i & ":00")
+            If timeNowHours >= 24 Then
+                timeNowHours = timeNowHours - 24
+                dgv.Columns.Add(0, timeNowHours & ":00")
+
+            Else
+                dgv.Columns.Add(0, timeNowHours & ":00")
+
+            End If
+            timeNowHours = timeNowHours + 1
 
         Next
 
