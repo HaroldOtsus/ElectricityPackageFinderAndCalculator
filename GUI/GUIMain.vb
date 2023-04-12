@@ -143,7 +143,8 @@ Public Class GUIMain
 
 
     Private Sub btnConfirmInput_Click(sender As Object, e As EventArgs) Handles btnConfirmInput.Click
-
+        tblPriceTable.Controls.Clear()
+        Chart1.Series.Clear()
         Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
 
 
@@ -173,7 +174,7 @@ Public Class GUIMain
             Next
         Else
             For i As Integer = 0 To 23
-                dgv.Rows(0).Cells(i).Value = dPrices(i + 1) & "€" ' or any other number you want to insert
+                dgv.Rows(0).Cells(i).Value = sPrices(i + 1) & "€" ' or any other number you want to insert
             Next
         End If
 
@@ -317,7 +318,13 @@ Public Class GUIMain
             sPrices(i) = sPrices(i).Replace(".", ",")
         Next
 
+        Dim dPrices As Double() = New Double(sPrices.Length - 1) {}
 
+        For i As Integer = 1 To sPrices.Length - 1
+            dPrices(i) = Double.Parse(sPrices(i))
+        Next
+
+        Array.Sort(dPrices)
 
         Dim dgv As New DataGridView()
 
@@ -341,7 +348,6 @@ Public Class GUIMain
 
         tblPriceTable.Controls.Add(dgv)
 
-        chart()
     End Sub
 
     'Private Sub GUIMain_VisibleChanged(sender As Object, e As EventArgs) Handles Me.VisibleChanged
