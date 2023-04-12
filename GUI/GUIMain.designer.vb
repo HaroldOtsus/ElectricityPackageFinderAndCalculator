@@ -548,9 +548,9 @@ Partial Class GUIMain
         Me.Label7.Location = New System.Drawing.Point(425, 170)
         Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(48, 17)
+        Me.Label7.Size = New System.Drawing.Size(36, 17)
         Me.Label7.TabIndex = 41
-        Me.Label7.Text = "kW / h"
+        Me.Label7.Text = "kWh"
         '
         'Label5
         '
@@ -1027,7 +1027,7 @@ Partial Class GUIMain
         Me.tblExchangeComparison.ColumnCount = 3
         Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.03704!))
         Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.96296!))
-        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 290.0!))
+        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 291.0!))
         Me.tblExchangeComparison.Controls.Add(Me.Label2, 1, 3)
         Me.tblExchangeComparison.Location = New System.Drawing.Point(552, 64)
         Me.tblExchangeComparison.Margin = New System.Windows.Forms.Padding(4)

@@ -216,7 +216,7 @@ Public Class GUIMain
     End Sub
     Public Function chart()
         Dim seriesName As String = "Börsihind"
-        Chart1.Series.Add(seriesName)
+        Chart2.Series.Add(seriesName)
         Dim returnString1 As PrjDatabaseComponent.IDatabaseAPI
         returnString1 = New PrjDatabaseComponent.CDatabase
         Dim sPrices1 As String()
@@ -229,7 +229,7 @@ Public Class GUIMain
         ' Add some data points to the series
         'Dim values() As Double = {10, 20, 30, 40, 50}
         For i As Integer = 0 To dblValues.Length - 1
-            Chart1.Series(seriesName).Points.AddXY(i + 1, sPrices1(i))
+            Chart2.Series(seriesName).Points.AddXY(i + 1, sPrices1(i))
         Next
     End Function
 

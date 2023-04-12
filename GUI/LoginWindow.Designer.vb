@@ -32,9 +32,10 @@ Partial Class LoginWindow
         '
         'btnLogin
         '
-        Me.btnLogin.Location = New System.Drawing.Point(350, 183)
+        Me.btnLogin.Location = New System.Drawing.Point(467, 225)
+        Me.btnLogin.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnLogin.Name = "btnLogin"
-        Me.btnLogin.Size = New System.Drawing.Size(75, 23)
+        Me.btnLogin.Size = New System.Drawing.Size(100, 28)
         Me.btnLogin.TabIndex = 0
         Me.btnLogin.Text = "Logi sisse"
         Me.btnLogin.UseVisualStyleBackColor = True
@@ -42,55 +43,62 @@ Partial Class LoginWindow
         'lblUsername
         '
         Me.lblUsername.AutoSize = True
-        Me.lblUsername.Location = New System.Drawing.Point(264, 115)
+        Me.lblUsername.Location = New System.Drawing.Point(352, 142)
+        Me.lblUsername.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblUsername.Name = "lblUsername"
-        Me.lblUsername.Size = New System.Drawing.Size(69, 13)
+        Me.lblUsername.Size = New System.Drawing.Size(92, 17)
         Me.lblUsername.TabIndex = 1
         Me.lblUsername.Text = "Kasutajanimi:"
         '
         'lblPassword
         '
         Me.lblPassword.AutoSize = True
-        Me.lblPassword.Location = New System.Drawing.Point(279, 145)
+        Me.lblPassword.Location = New System.Drawing.Point(372, 178)
+        Me.lblPassword.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblPassword.Name = "lblPassword"
-        Me.lblPassword.Size = New System.Drawing.Size(54, 13)
+        Me.lblPassword.Size = New System.Drawing.Size(71, 17)
         Me.lblPassword.TabIndex = 2
         Me.lblPassword.Text = "Salasõna:"
         '
         'tBoxUsername
         '
-        Me.tBoxUsername.Location = New System.Drawing.Point(339, 112)
+        Me.tBoxUsername.Location = New System.Drawing.Point(452, 138)
+        Me.tBoxUsername.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tBoxUsername.Name = "tBoxUsername"
-        Me.tBoxUsername.Size = New System.Drawing.Size(100, 20)
+        Me.tBoxUsername.Size = New System.Drawing.Size(132, 22)
         Me.tBoxUsername.TabIndex = 3
         '
         'tBoxPassword
         '
-        Me.tBoxPassword.Location = New System.Drawing.Point(339, 142)
+        Me.tBoxPassword.Location = New System.Drawing.Point(452, 175)
+        Me.tBoxPassword.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tBoxPassword.Name = "tBoxPassword"
-        Me.tBoxPassword.Size = New System.Drawing.Size(100, 20)
+        Me.tBoxPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.tBoxPassword.Size = New System.Drawing.Size(132, 22)
         Me.tBoxPassword.TabIndex = 4
         '
         'btnSignUp
         '
-        Me.btnSignUp.Location = New System.Drawing.Point(350, 225)
+        Me.btnSignUp.Location = New System.Drawing.Point(467, 277)
+        Me.btnSignUp.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnSignUp.Name = "btnSignUp"
-        Me.btnSignUp.Size = New System.Drawing.Size(75, 23)
+        Me.btnSignUp.Size = New System.Drawing.Size(100, 28)
         Me.btnSignUp.TabIndex = 5
         Me.btnSignUp.Text = "Registreeri"
         Me.btnSignUp.UseVisualStyleBackColor = True
         '
         'LoginWindow
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(1067, 554)
         Me.Controls.Add(Me.btnSignUp)
         Me.Controls.Add(Me.tBoxPassword)
         Me.Controls.Add(Me.tBoxUsername)
         Me.Controls.Add(Me.lblPassword)
         Me.Controls.Add(Me.lblUsername)
         Me.Controls.Add(Me.btnLogin)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "LoginWindow"
         Me.Text = "LoginWindow"
         Me.ResumeLayout(False)

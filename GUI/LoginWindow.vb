@@ -11,6 +11,7 @@
 
             GUIMain.Show()
             Me.Visible = False
+            GUIMain.chart()
         End If
 
     End Sub
