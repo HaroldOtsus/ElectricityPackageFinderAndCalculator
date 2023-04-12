@@ -336,9 +336,9 @@ Public Class GUIMain
         Dim sPrices As String()
         sPrices = returnString.stockPrice()
 
-        For i As Integer = 1 To 24
-            sPrices(i) = sPrices(i).Replace(".", ",")
-        Next
+        '  For i As Integer = 1 To 24
+        ' sPrices(i) = sPrices(i).Replace(".", ",")
+        'Next
 
         Dim dPrices As Double() = New Double(sPrices.Length - 1) {}
 
