@@ -49,16 +49,37 @@ Public Class GUIMain
     End Sub
 
 
+    Private Sub btnSisesta_Click(sender As Object, e As EventArgs) Handles btnSisesta.Click
+        tBoxConsumptionPerHour.ReadOnly = False
+        tBoxUsageTime.ReadOnly = False
+        tBoxConsumptionPerHour.Text = ""
+        tBoxUsageTime.Text = ""
+        btnTaasta.Enabled = True
+        btnSisesta.Enabled = False
+    End Sub
+    Private Sub btnTaasta_Click(sender As Object, e As EventArgs) Handles btnTaasta.Click
+        tBoxConsumptionPerHour.ReadOnly = True
+        tBoxUsageTime.ReadOnly = True
+        btnTaasta.Enabled = False
+        btnSisesta.Enabled = True
+        tBoxConsumptionPerHour.Text = ""
+        tBoxUsageTime.Text = ""
+    End Sub
     Private Sub btnConfirm_Click(sender As Object, e As EventArgs) Handles btnConfirm.Click
 
-        Dim returnString As PrjDatabaseComponent.IDatabase
-        returnString = New PrjDatabaseComponent.CDatabase
-        Dim actualOutput = returnString.stringReturn(applianceID)
 
 
-        tBoxConsumptionPerHour.Text = actualOutput.consumptionPerHour
-        tBoxUsageTime.Text = actualOutput.usageTime
+        If tBoxConsumptionPerHour.ReadOnly = True And tBoxUsageTime.ReadOnly = True Then
+            Dim returnString As PrjDatabaseComponent.IDatabase
+            returnString = New PrjDatabaseComponent.CDatabase
+            Dim actualOutput = returnString.stringReturn(applianceID)
+            tBoxConsumptionPerHour.Text = actualOutput.consumptionPerHour
+            tBoxUsageTime.Text = actualOutput.usageTime
+        Else
 
+
+        End If
+        tBoxPackagePrice.Text = tBoxPackagePrice.Text.Replace("€", "")
         Dim incoming As Computing_Component.ICalculating
         incoming = New Computing_Component.CCalculating
         Dim actualOutput2 = incoming.applianceConsumption(tBoxConsumptionPerHour.Text, tBoxUsageTime.Text, tBoxPackagePrice.Text)
@@ -73,6 +94,7 @@ Public Class GUIMain
 
         tBoxElectricityConsumptionRate.Text = consOut
         tBoxApproxPrice.Text = aproxOut
+
 
     End Sub
 
@@ -348,6 +370,10 @@ Public Class GUIMain
 
         tblPriceTable.Controls.Add(dgv)
 
+    End Sub
+
+    Private Sub GUIMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        btnTaasta.Enabled = False
     End Sub
 
     'Private Sub GUIMain_VisibleChanged(sender As Object, e As EventArgs) Handles Me.VisibleChanged
