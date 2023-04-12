@@ -48,31 +48,52 @@ Public Class GUIMain
         applianceID = "1"
     End Sub
 
-
+    Private Sub btnSisesta_Click(sender As Object, e As EventArgs) Handles btnSisesta.Click
+        tBoxConsumptionPerHour.ReadOnly = False
+        tBoxUsageTime.ReadOnly = False
+        tBoxConsumptionPerHour.Text = ""
+        tBoxUsageTime.Text = ""
+        btnTaasta.Enabled = True
+        btnSisesta.Enabled = False
+    End Sub
+    Private Sub btnTaasta_Click(sender As Object, e As EventArgs) Handles btnTaasta.Click
+        tBoxConsumptionPerHour.ReadOnly = True
+        tBoxUsageTime.ReadOnly = True
+        btnTaasta.Enabled = False
+        btnSisesta.Enabled = True
+        tBoxConsumptionPerHour.Text = ""
+        tBoxUsageTime.Text = ""
+    End Sub
     Private Sub btnConfirm_Click(sender As Object, e As EventArgs) Handles btnConfirm.Click
 
-        Dim returnString As PrjDatabaseComponent.IDatabase
-        returnString = New PrjDatabaseComponent.CDatabase
-        Dim actualOutput = returnString.stringReturn(applianceID)
 
 
-        tBoxConsumptionPerHour.Text = actualOutput.consumptionPerHour
-        tBoxUsageTime.Text = actualOutput.usageTime
+        If tBoxConsumptionPerHour.ReadOnly = True And tBoxUsageTime.ReadOnly = True Then
+            Dim returnString As PrjDatabaseComponent.IDatabase
+            returnString = New PrjDatabaseComponent.CDatabase
+            Dim actualOutput = returnString.stringReturn(applianceID)
+            tBoxConsumptionPerHour.Text = actualOutput.consumptionPerHour
+            tBoxUsageTime.Text = actualOutput.usageTime
+        Else
 
+
+        End If
+        tBoxPackagePrice.Text = tBoxPackagePrice.Text.Replace("€", "")
         Dim incoming As Computing_Component.ICalculating
-        incoming = New Computing_Component.CCalculating
-        Dim actualOutput2 = incoming.applianceConsumption(tBoxConsumptionPerHour.Text, tBoxUsageTime.Text, tBoxPackagePrice.Text)
+            incoming = New Computing_Component.CCalculating
+            Dim actualOutput2 = incoming.applianceConsumption(tBoxConsumptionPerHour.Text, tBoxUsageTime.Text, tBoxPackagePrice.Text)
 
-        'Shows only 3 decimal spaces
-        Dim cons As Decimal = actualOutput2.consumption
+            'Shows only 3 decimal spaces
+            Dim cons As Decimal = actualOutput2.consumption
 
-        Dim consOut As String = cons.ToString("N3")
+            Dim consOut As String = cons.ToString("N3")
 
-        Dim aprox As Decimal = actualOutput2.aproxPrice
-        Dim aproxOut As String = aprox.ToString("N3")
+            Dim aprox As Decimal = actualOutput2.aproxPrice
+            Dim aproxOut As String = aprox.ToString("N3")
 
-        tBoxElectricityConsumptionRate.Text = consOut
-        tBoxApproxPrice.Text = aproxOut
+            tBoxElectricityConsumptionRate.Text = consOut
+            tBoxApproxPrice.Text = aproxOut
+
 
     End Sub
 
@@ -325,6 +346,20 @@ Public Class GUIMain
             Chart2.Series(seriesName).Points.AddXY(i + 1, sPrices(i))
         Next
     End Sub
+
+    Private Sub GUIMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        btnTaasta.Enabled = False
+    End Sub
+
+    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
+
+    End Sub
+
+
+
+
+
+
 
     'Private Sub GUIMain_VisibleChanged(sender As Object, e As EventArgs) Handles Me.VisibleChanged
     '    Dim seriesName As String = "Börsihind"
