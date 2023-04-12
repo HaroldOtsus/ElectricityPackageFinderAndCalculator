@@ -144,6 +144,7 @@ Partial Class GUIMain
         Me.lblPackage1 = New System.Windows.Forms.Label()
         Me.lblChoosePackages = New System.Windows.Forms.Label()
         Me.btnBack4 = New System.Windows.Forms.Button()
+        Me.btnChartAsc = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.Chart2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -272,6 +273,7 @@ Partial Class GUIMain
         '
         'tabPackageHourlyRate
         '
+        Me.tabPackageHourlyRate.Controls.Add(Me.btnChartAsc)
         Me.tabPackageHourlyRate.Controls.Add(Me.Chart1)
         Me.tabPackageHourlyRate.Controls.Add(Me.tblPriceTable)
         Me.tabPackageHourlyRate.Controls.Add(Me.tBoxPackageHourlyRate)
@@ -926,7 +928,7 @@ Partial Class GUIMain
         Me.tblExchangeComparison.ColumnCount = 3
         Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.03704!))
         Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.96296!))
-        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 215.0!))
+        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 216.0!))
         Me.tblExchangeComparison.Controls.Add(Me.Label2, 1, 3)
         Me.tblExchangeComparison.Location = New System.Drawing.Point(414, 52)
         Me.tblExchangeComparison.Name = "tblExchangeComparison"
@@ -1403,6 +1405,15 @@ Partial Class GUIMain
         Me.btnBack4.Text = "Tagasi"
         Me.btnBack4.UseVisualStyleBackColor = True
         '
+        'btnChartAsc
+        '
+        Me.btnChartAsc.Location = New System.Drawing.Point(331, 211)
+        Me.btnChartAsc.Name = "btnChartAsc"
+        Me.btnChartAsc.Size = New System.Drawing.Size(146, 32)
+        Me.btnChartAsc.TabIndex = 15
+        Me.btnChartAsc.Text = "Järjesta tabel kasvavalt"
+        Me.btnChartAsc.UseVisualStyleBackColor = True
+        '
         'GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1560,4 +1571,5 @@ Partial Class GUIMain
     Friend WithEvents Chart1 As DataVisualization.Charting.Chart
     Friend WithEvents Button1 As Button
     Friend WithEvents Chart2 As DataVisualization.Charting.Chart
+    Friend WithEvents btnChartAsc As Button
 End Class

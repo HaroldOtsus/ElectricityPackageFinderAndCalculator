@@ -145,24 +145,7 @@ Public Class GUIMain
     Private Sub btnConfirmInput_Click(sender As Object, e As EventArgs) Handles btnConfirmInput.Click
 
         Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
-        'Dim dt As New DataTable()
-        ''dt.Columns.Add("ID", GetType(Integer))
-        ''dt.Columns.Add("Name", GetType(String))
-        '' dt.Columns.Add("Age", GetType(Integer))
-        'Dim array(24) As List(Of Integer)
-        'dt.TableName = "tblPriceTable"
-        'For i As Integer = 1 To 24
-        '    'array(i) = i
 
-        'Next
-        'Dim myRow As DataRow
-        ''myRow = dt.Rows.Add
-        'For i As Integer = 1 To 23
-        '    'dt.Columns.Add(i)
-        '    'dt.Columns.Add(timeNowHours + 1, GetType(Integer))
-        '    'myRow.Add(array(i))
-        'Next
-        ''dt.Rows.Add(array)
 
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
         returnString = New PrjDatabaseComponent.CDatabase
@@ -173,13 +156,7 @@ Public Class GUIMain
             sPrices(i) = sPrices(i).Replace(".", ",")
         Next
 
-        Dim dPrices As Double() = New Double(sPrices.Length - 1) {}
 
-        For i As Integer = 1 To sPrices.Length - 1
-            dPrices(i) = Double.Parse(sPrices(i))
-        Next
-
-        Array.Sort(dPrices)
 
         Dim dgv As New DataGridView()
 
@@ -324,6 +301,47 @@ Public Class GUIMain
         For i As Integer = 0 To dblValues.Length - 1
             Chart2.Series(seriesName).Points.AddXY(i + 1, sPrices(i))
         Next
+    End Sub
+
+    Private Sub btnChartAsc_Click(sender As Object, e As EventArgs) Handles btnChartAsc.Click
+        tblPriceTable.Controls.Clear()
+        Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
+
+
+        Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+        returnString = New PrjDatabaseComponent.CDatabase
+        Dim sPrices As String()
+        sPrices = returnString.stockPrice()
+
+        For i As Integer = 1 To 24
+            sPrices(i) = sPrices(i).Replace(".", ",")
+        Next
+
+
+
+        Dim dgv As New DataGridView()
+
+        For i As Integer = 0 To 23
+            'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
+            dgv.Columns.Add(timeNowHours & ":00", timeNowHours + i & ":00")
+
+        Next
+
+
+        If rdioFixedPrice.Checked Then
+            For i As Integer = 0 To 23
+                dgv.Rows(0).Cells(i).Value = tboxMonthlyCost.Text & "€" ' or any other number you want to insert
+            Next
+        Else
+            For i As Integer = 0 To 23
+                dgv.Rows(0).Cells(i).Value = dPrices(i + 1) & "€" ' or any other number you want to insert
+            Next
+        End If
+
+
+        tblPriceTable.Controls.Add(dgv)
+
+        chart()
     End Sub
 
     'Private Sub GUIMain_VisibleChanged(sender As Object, e As EventArgs) Handles Me.VisibleChanged
