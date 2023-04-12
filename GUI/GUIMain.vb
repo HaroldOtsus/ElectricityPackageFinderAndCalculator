@@ -169,6 +169,18 @@ Public Class GUIMain
         Dim sPrices As String()
         sPrices = returnString.stockPrice()
 
+        For i As Integer = 1 To 24
+            sPrices(i) = sPrices(i).Replace(".", ",")
+        Next
+
+        Dim dPrices As Double() = New Double(sPrices.Length - 1) {}
+
+        For i As Integer = 1 To sPrices.Length - 1
+            dPrices(i) = Double.Parse(sPrices(i))
+        Next
+
+        Array.Sort(dPrices)
+
         Dim dgv As New DataGridView()
 
         For i As Integer = 0 To 23
@@ -184,7 +196,7 @@ Public Class GUIMain
             Next
         Else
             For i As Integer = 0 To 23
-                dgv.Rows(0).Cells(i).Value = sPrices(i + 1) & "€" ' or any other number you want to insert
+                dgv.Rows(0).Cells(i).Value = dPrices(i + 1) & "€" ' or any other number you want to insert
             Next
         End If
 
@@ -299,7 +311,7 @@ Public Class GUIMain
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim seriesName As String = "Börsihind"
-        chrFrontPageChart.Series.Add(seriesName)
+        Chart2.Series.Add(seriesName)
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
         returnString = New PrjDatabaseComponent.CDatabase
         Dim sPrices As String()
@@ -310,7 +322,7 @@ Public Class GUIMain
         ' Add some data points to the series
         'Dim values() As Double = {10, 20, 30, 40, 50}
         For i As Integer = 0 To dblValues.Length - 1
-            chrFrontPageChart.Series(seriesName).Points.AddXY(i + 1, sPrices(i))
+            Chart2.Series(seriesName).Points.AddXY(i + 1, sPrices(i))
         Next
     End Sub
 

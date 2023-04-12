@@ -22,9 +22,9 @@ Partial Class GUIMain
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(GUIMain))
         Me.Label1 = New System.Windows.Forms.Label()
@@ -35,7 +35,8 @@ Partial Class GUIMain
         Me.btnPackageComparison = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.Main = New System.Windows.Forms.TabPage()
-        Me.chrFrontPageChart = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.Chart2 = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.tabPackageHourlyRate = New System.Windows.Forms.TabPage()
         Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.tblPriceTable = New System.Windows.Forms.DataGridView()
@@ -143,10 +144,9 @@ Partial Class GUIMain
         Me.lblPackage1 = New System.Windows.Forms.Label()
         Me.lblChoosePackages = New System.Windows.Forms.Label()
         Me.btnBack4 = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
-        CType(Me.chrFrontPageChart, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Chart2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabPackageHourlyRate.SuspendLayout()
         CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tblPriceTable, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -235,8 +235,8 @@ Partial Class GUIMain
         'Main
         '
         Me.Main.BackColor = System.Drawing.Color.Transparent
+        Me.Main.Controls.Add(Me.Chart2)
         Me.Main.Controls.Add(Me.Button1)
-        Me.Main.Controls.Add(Me.chrFrontPageChart)
         Me.Main.Controls.Add(Me.btnPackageHourlyRate)
         Me.Main.Controls.Add(Me.btnPackageComparison)
         Me.Main.Controls.Add(Me.btnApplianceCalc)
@@ -249,18 +249,26 @@ Partial Class GUIMain
         Me.Main.TabIndex = 0
         Me.Main.Text = "Home"
         '
-        'chrFrontPageChart
+        'Chart2
         '
+        ChartArea1.Name = "ChartArea1"
+        Me.Chart2.ChartAreas.Add(ChartArea1)
         Legend1.Name = "Legend1"
-        Me.chrFrontPageChart.Legends.Add(Legend1)
-        Me.chrFrontPageChart.Location = New System.Drawing.Point(99, 217)
-        Me.chrFrontPageChart.Name = "chrFrontPageChart"
-        Series1.Legend = "Legend1"
-        Series1.Name = "Series1"
-        Me.chrFrontPageChart.Series.Add(Series1)
-        Me.chrFrontPageChart.Size = New System.Drawing.Size(566, 345)
-        Me.chrFrontPageChart.TabIndex = 6
-        Me.chrFrontPageChart.Text = "Chart2"
+        Me.Chart2.Legends.Add(Legend1)
+        Me.Chart2.Location = New System.Drawing.Point(17, 242)
+        Me.Chart2.Name = "Chart2"
+        Me.Chart2.Size = New System.Drawing.Size(465, 300)
+        Me.Chart2.TabIndex = 8
+        Me.Chart2.Text = "Chart2"
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(734, 242)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 7
+        Me.Button1.Text = "Kuva graaf"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'tabPackageHourlyRate
         '
@@ -288,11 +296,11 @@ Partial Class GUIMain
         '
         'Chart1
         '
-        ChartArea1.Name = "ChartArea1"
-        Me.Chart1.ChartAreas.Add(ChartArea1)
+        ChartArea2.Name = "ChartArea1"
+        Me.Chart1.ChartAreas.Add(ChartArea2)
         Legend2.Name = "Legend1"
         Me.Chart1.Legends.Add(Legend2)
-        Me.Chart1.Location = New System.Drawing.Point(452, 418)
+        Me.Chart1.Location = New System.Drawing.Point(502, 415)
         Me.Chart1.Margin = New System.Windows.Forms.Padding(2)
         Me.Chart1.Name = "Chart1"
         Me.Chart1.Size = New System.Drawing.Size(266, 147)
@@ -305,7 +313,7 @@ Partial Class GUIMain
         Me.tblPriceTable.Location = New System.Drawing.Point(502, 211)
         Me.tblPriceTable.Name = "tblPriceTable"
         Me.tblPriceTable.RowHeadersWidth = 51
-        Me.tblPriceTable.Size = New System.Drawing.Size(240, 120)
+        Me.tblPriceTable.Size = New System.Drawing.Size(240, 150)
         Me.tblPriceTable.TabIndex = 13
         '
         'tBoxPackageHourlyRate
@@ -918,7 +926,7 @@ Partial Class GUIMain
         Me.tblExchangeComparison.ColumnCount = 3
         Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.03704!))
         Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.96296!))
-        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 213.0!))
+        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 215.0!))
         Me.tblExchangeComparison.Controls.Add(Me.Label2, 1, 3)
         Me.tblExchangeComparison.Location = New System.Drawing.Point(414, 52)
         Me.tblExchangeComparison.Name = "tblExchangeComparison"
@@ -936,7 +944,7 @@ Partial Class GUIMain
         '
         Me.Label2.AutoSize = True
         Me.Label2.ForeColor = System.Drawing.Color.Red
-        Me.Label2.Location = New System.Drawing.Point(55, 129)
+        Me.Label2.Location = New System.Drawing.Point(54, 129)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(78, 26)
         Me.Label2.TabIndex = 0
@@ -1395,15 +1403,6 @@ Partial Class GUIMain
         Me.btnBack4.Text = "Tagasi"
         Me.btnBack4.UseVisualStyleBackColor = True
         '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(734, 242)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 7
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1416,7 +1415,7 @@ Partial Class GUIMain
         Me.Text = "Elektri paketi kalkulaator"
         Me.TabControl1.ResumeLayout(False)
         Me.Main.ResumeLayout(False)
-        CType(Me.chrFrontPageChart, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Chart2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabPackageHourlyRate.ResumeLayout(False)
         Me.tabPackageHourlyRate.PerformLayout()
         CType(Me.Chart1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1559,6 +1558,6 @@ Partial Class GUIMain
     Friend WithEvents Label4 As Label
     Friend WithEvents tblPriceTable As DataGridView
     Friend WithEvents Chart1 As DataVisualization.Charting.Chart
-    Friend WithEvents chrFrontPageChart As DataVisualization.Charting.Chart
     Friend WithEvents Button1 As Button
+    Friend WithEvents Chart2 As DataVisualization.Charting.Chart
 End Class
