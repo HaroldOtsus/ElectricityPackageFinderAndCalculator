@@ -146,6 +146,8 @@ Partial Class GUIMain
         Me.lblPackage1 = New System.Windows.Forms.Label()
         Me.lblChoosePackages = New System.Windows.Forms.Label()
         Me.btnBack4 = New System.Windows.Forms.Button()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.rdioUniversalPackage = New System.Windows.Forms.RadioButton()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -162,6 +164,7 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.SuspendLayout()
         Me.tabSimulateExchangeHistory.SuspendLayout()
         Me.tabPackageComparison.SuspendLayout()
+        Me.Panel3.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label1
@@ -434,12 +437,11 @@ Partial Class GUIMain
         '
         'tabApplianceCalc
         '
+        Me.tabApplianceCalc.Controls.Add(Me.Panel3)
         Me.tabApplianceCalc.Controls.Add(Me.Panel2)
         Me.tabApplianceCalc.Controls.Add(Me.Panel1)
         Me.tabApplianceCalc.Controls.Add(Me.btnConfirm)
         Me.tabApplianceCalc.Controls.Add(Me.tBoxPackagePrice)
-        Me.tabApplianceCalc.Controls.Add(Me.rdioFixedPrice1)
-        Me.tabApplianceCalc.Controls.Add(Me.rdioExchangePrice)
         Me.tabApplianceCalc.Controls.Add(Me.lblCurrentPackagePrice)
         Me.tabApplianceCalc.Controls.Add(Me.lblOptional)
         Me.tabApplianceCalc.Controls.Add(Me.Label3)
@@ -838,7 +840,7 @@ Partial Class GUIMain
         '
         'btnConfirm
         '
-        Me.btnConfirm.Location = New System.Drawing.Point(49, 490)
+        Me.btnConfirm.Location = New System.Drawing.Point(36, 527)
         Me.btnConfirm.Name = "btnConfirm"
         Me.btnConfirm.Size = New System.Drawing.Size(75, 23)
         Me.btnConfirm.TabIndex = 15
@@ -847,7 +849,7 @@ Partial Class GUIMain
         '
         'tBoxPackagePrice
         '
-        Me.tBoxPackagePrice.Location = New System.Drawing.Point(225, 438)
+        Me.tBoxPackagePrice.Location = New System.Drawing.Point(195, 497)
         Me.tBoxPackagePrice.Name = "tBoxPackagePrice"
         Me.tBoxPackagePrice.Size = New System.Drawing.Size(100, 20)
         Me.tBoxPackagePrice.TabIndex = 14
@@ -855,7 +857,7 @@ Partial Class GUIMain
         'rdioFixedPrice1
         '
         Me.rdioFixedPrice1.AutoSize = True
-        Me.rdioFixedPrice1.Location = New System.Drawing.Point(184, 411)
+        Me.rdioFixedPrice1.Location = New System.Drawing.Point(25, 26)
         Me.rdioFixedPrice1.Name = "rdioFixedPrice1"
         Me.rdioFixedPrice1.Size = New System.Drawing.Size(99, 17)
         Me.rdioFixedPrice1.TabIndex = 12
@@ -866,7 +868,7 @@ Partial Class GUIMain
         'rdioExchangePrice
         '
         Me.rdioExchangePrice.AutoSize = True
-        Me.rdioExchangePrice.Location = New System.Drawing.Point(49, 411)
+        Me.rdioExchangePrice.Location = New System.Drawing.Point(25, 3)
         Me.rdioExchangePrice.Name = "rdioExchangePrice"
         Me.rdioExchangePrice.Size = New System.Drawing.Size(68, 17)
         Me.rdioExchangePrice.TabIndex = 11
@@ -877,7 +879,7 @@ Partial Class GUIMain
         'lblCurrentPackagePrice
         '
         Me.lblCurrentPackagePrice.AutoSize = True
-        Me.lblCurrentPackagePrice.Location = New System.Drawing.Point(46, 441)
+        Me.lblCurrentPackagePrice.Location = New System.Drawing.Point(39, 497)
         Me.lblCurrentPackagePrice.Name = "lblCurrentPackagePrice"
         Me.lblCurrentPackagePrice.Size = New System.Drawing.Size(127, 13)
         Me.lblCurrentPackagePrice.TabIndex = 10
@@ -950,7 +952,7 @@ Partial Class GUIMain
         Me.tblExchangeComparison.ColumnCount = 3
         Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.03704!))
         Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.96296!))
-        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 220.0!))
+        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 221.0!))
         Me.tblExchangeComparison.Controls.Add(Me.Label2, 1, 3)
         Me.tblExchangeComparison.Location = New System.Drawing.Point(414, 52)
         Me.tblExchangeComparison.Name = "tblExchangeComparison"
@@ -970,7 +972,7 @@ Partial Class GUIMain
         Me.Label2.ForeColor = System.Drawing.Color.Red
         Me.Label2.Location = New System.Drawing.Point(52, 129)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(78, 26)
+        Me.Label2.Size = New System.Drawing.Size(71, 26)
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "PLACEHOLDER"
         '
@@ -1427,6 +1429,27 @@ Partial Class GUIMain
         Me.btnBack4.Text = "Tagasi"
         Me.btnBack4.UseVisualStyleBackColor = True
         '
+        'Panel3
+        '
+        Me.Panel3.Controls.Add(Me.rdioUniversalPackage)
+        Me.Panel3.Controls.Add(Me.rdioFixedPrice1)
+        Me.Panel3.Controls.Add(Me.rdioExchangePrice)
+        Me.Panel3.Location = New System.Drawing.Point(36, 409)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(236, 70)
+        Me.Panel3.TabIndex = 41
+        '
+        'rdioUniversalPackage
+        '
+        Me.rdioUniversalPackage.AutoSize = True
+        Me.rdioUniversalPackage.Location = New System.Drawing.Point(25, 49)
+        Me.rdioUniversalPackage.Name = "rdioUniversalPackage"
+        Me.rdioUniversalPackage.Size = New System.Drawing.Size(108, 17)
+        Me.rdioUniversalPackage.TabIndex = 42
+        Me.rdioUniversalPackage.TabStop = True
+        Me.rdioUniversalPackage.Text = "Universaal pakett"
+        Me.rdioUniversalPackage.UseVisualStyleBackColor = True
+        '
         'GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1462,6 +1485,8 @@ Partial Class GUIMain
         Me.tabSimulateExchangeHistory.PerformLayout()
         Me.tabPackageComparison.ResumeLayout(False)
         Me.tabPackageComparison.PerformLayout()
+        Me.Panel3.ResumeLayout(False)
+        Me.Panel3.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1586,4 +1611,6 @@ Partial Class GUIMain
     Friend WithEvents btnChartAsc As Button
     Friend WithEvents btnTaasta As Button
     Friend WithEvents btnSisesta As Button
+    Friend WithEvents Panel3 As Panel
+    Friend WithEvents rdioUniversalPackage As RadioButton
 End Class
