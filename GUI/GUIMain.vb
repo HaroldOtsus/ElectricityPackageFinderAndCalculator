@@ -78,7 +78,7 @@ Public Class GUIMain
         'Next
 
         Dim noneSelectedPower As Boolean = True ' we check if one radiobutton on Tarvitav võimsus valik panel is checked
-        For Each radioButton As RadioButton In Panel2.Controls.OfType(Of RadioButton)() 'loop through all radio buttons on panel2
+        For Each radioButton As RadioButton In Panel3.Controls.OfType(Of RadioButton)() 'loop through all radio buttons on panel2
             If radioButton.Checked Then ' if button is checked
                 noneSelectedPower = False 'variable is false
                 Exit For
@@ -446,6 +446,32 @@ Public Class GUIMain
 
         End If
     End Sub
+
+    Private Sub cbColor_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbColor.SelectedIndexChanged
+
+        Dim selectedItem As String = cbColor.SelectedItem
+
+        Select Case selectedItem 'change color based on the item the user choosed
+            Case "Punane"
+                Me.BackColor = Color.Crimson
+            Case "Sinine"
+                Me.BackColor = Color.LightSkyBlue
+            Case "Roheline"
+                Me.BackColor = Color.OliveDrab
+            Case "Roosa"
+                Me.BackColor = Color.Pink
+                chrtFrontPage.Series(0).Color = Color.Pink
+            Case "Tumehall"
+                Me.BackColor = Color.LightSlateGray
+            Case "Valge"
+                Me.BackColor = Color.White
+            Case Else
+                Me.BackColor = SystemColors.Control ' everything else is light grey
+        End Select
+    End Sub
+
+
+
 
 
     'Private Sub GUIMain_VisibleChanged(sender As Object, e As EventArgs) Handles Me.VisibleChanged
