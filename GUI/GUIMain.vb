@@ -69,33 +69,48 @@ Public Class GUIMain
     End Sub
     Private Sub btnConfirm_Click(sender As Object, e As EventArgs) Handles btnConfirm.Click
 
+        'Dim noneSelectedAppliance As Boolean = True ' we check if one radiobutton on Kodumasina valik panel is checked
+        'For Each radioButton As RadioButton In Panel1.Controls.OfType(Of RadioButton)() 'loop through all radio buttons on panel1
+        '    If radioButton.Checked Then ' if button is checked
+        '        noneSelectedAppliance = False 'variable is false
+        '        Exit For
+        '    End If
+        'Next
+
+        Dim noneSelectedPower As Boolean = True ' we check if one radiobutton on Tarvitav võimsus valik panel is checked
+        For Each radioButton As RadioButton In Panel2.Controls.OfType(Of RadioButton)() 'loop through all radio buttons on panel2
+            If radioButton.Checked Then ' if button is checked
+                noneSelectedPower = False 'variable is false
+                Exit For
+            End If
+        Next
+        If noneSelectedPower = False Then 'if radio button is checked on panel 2
+
+            If tBoxConsumptionPerHour.ReadOnly = True And tBoxUsageTime.ReadOnly = True Then
+                Dim returnString As PrjDatabaseComponent.IDatabase
+                returnString = New PrjDatabaseComponent.CDatabase
+                Dim actualOutput = returnString.stringReturn(applianceID)
+                tBoxConsumptionPerHour.Text = actualOutput.consumptionPerHour
+                tBoxUsageTime.Text = actualOutput.usageTime
+            Else
 
 
-        If tBoxConsumptionPerHour.ReadOnly = True And tBoxUsageTime.ReadOnly = True Then
-            Dim returnString As PrjDatabaseComponent.IDatabase
-            returnString = New PrjDatabaseComponent.CDatabase
-            Dim actualOutput = returnString.stringReturn(applianceID)
-            tBoxConsumptionPerHour.Text = actualOutput.consumptionPerHour
-            tBoxUsageTime.Text = actualOutput.usageTime
-        Else
+            End If
+            tBoxPackagePrice.Text = tBoxPackagePrice.Text.Replace("€", "")
+            Dim incoming As Computing_Component.ICalculating
+            incoming = New Computing_Component.CCalculating
+            Dim actualOutput2 = incoming.applianceConsumption(tBoxConsumptionPerHour.Text, tBoxUsageTime.Text, tBoxPackagePrice.Text)
 
+            'Shows only 3 decimal spaces
+            Dim cons As Decimal = actualOutput2.consumption
 
+            Dim consOut As String = cons.ToString("N3")
+
+            Dim aprox As Decimal = actualOutput2.aproxPrice
+            Dim aproxOut As String = aprox.ToString '("N3")
+            tBoxElectricityConsumptionRate.Text = consOut
+            tBoxApproxPrice.Text = aproxOut
         End If
-        tBoxPackagePrice.Text = tBoxPackagePrice.Text.Replace("€", "")
-        Dim incoming As Computing_Component.ICalculating
-        incoming = New Computing_Component.CCalculating
-        Dim actualOutput2 = incoming.applianceConsumption(tBoxConsumptionPerHour.Text, tBoxUsageTime.Text, tBoxPackagePrice.Text)
-
-        'Shows only 3 decimal spaces
-        Dim cons As Decimal = actualOutput2.consumption
-
-        Dim consOut As String = cons.ToString("N3")
-
-        Dim aprox As Decimal = actualOutput2.aproxPrice
-        Dim aproxOut As String = aprox.ToString '("N3")
-        tBoxElectricityConsumptionRate.Text = consOut
-        tBoxApproxPrice.Text = aproxOut
-
 
     End Sub
 
