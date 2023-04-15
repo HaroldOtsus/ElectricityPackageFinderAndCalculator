@@ -1,12 +1,13 @@
 ﻿
 
 Public Class GUIMain
-    Dim sisend As String
+
     Dim applianceID As String
 
     Public answer As String
     Private Sub btnPackageHourlyRate_Click(sender As Object, e As EventArgs) Handles btnPackageHourlyRate.Click
         TabControl1.SelectedTab = tabPackageHourlyRate
+
     End Sub
 
     Private Sub btnApplianceCalc_Click(sender As Object, e As EventArgs) Handles btnApplianceCalc.Click
@@ -46,6 +47,7 @@ Public Class GUIMain
 
     Private Sub rdioCoffeeMaker_CheckedChanged(sender As Object, e As EventArgs) Handles rdioCoffeeMaker.CheckedChanged
         applianceID = "1"
+        btnConfirm.Enabled = True
     End Sub
 
 
@@ -99,73 +101,89 @@ Public Class GUIMain
 
     Private Sub rdioToaster_CheckedChanged(sender As Object, e As EventArgs) Handles rdioToaster.CheckedChanged
         applianceID = "2"
+        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioVacuum_CheckedChanged(sender As Object, e As EventArgs) Handles rdioVacuum.CheckedChanged
         applianceID = "3"
+        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioMixer_CheckedChanged(sender As Object, e As EventArgs) Handles rdioMixer.CheckedChanged
         applianceID = "4"
+        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioElecStove_CheckedChanged(sender As Object, e As EventArgs) Handles rdioElecStove.CheckedChanged
         applianceID = "5"
+        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioFoodProcessor_CheckedChanged(sender As Object, e As EventArgs) Handles rdioFoodProcessor.CheckedChanged
         applianceID = "6"
+        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioTV_CheckedChanged(sender As Object, e As EventArgs) Handles rdioTV.CheckedChanged
         applianceID = "7"
+        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioRadio_CheckedChanged(sender As Object, e As EventArgs) Handles rdioRadio.CheckedChanged
         applianceID = "8"
+        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioEggCooker_CheckedChanged(sender As Object, e As EventArgs) Handles rdioEggCooker.CheckedChanged
         applianceID = "9"
+        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioFridge_CheckedChanged(sender As Object, e As EventArgs) Handles rdioFridge.CheckedChanged
         applianceID = "10"
+        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioComputer_CheckedChanged(sender As Object, e As EventArgs) Handles rdioComputer.CheckedChanged
         applianceID = "11"
+        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioHairDryer_CheckedChanged(sender As Object, e As EventArgs) Handles rdioHairDryer.CheckedChanged
         applianceID = "12"
+        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioPrinter_CheckedChanged(sender As Object, e As EventArgs) Handles rdioPrinter.CheckedChanged
         applianceID = "13"
+        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioLED_CheckedChanged(sender As Object, e As EventArgs) Handles rdioLED.CheckedChanged
         applianceID = "14"
+        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioSewingMachine_CheckedChanged(sender As Object, e As EventArgs) Handles rdioSewingMachine.CheckedChanged
         applianceID = "16"
+        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioRouter_CheckedChanged(sender As Object, e As EventArgs) Handles rdioRouter.CheckedChanged
         applianceID = "17"
+        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioMicrowave_CheckedChanged(sender As Object, e As EventArgs) Handles rdioMicrowave.CheckedChanged
         applianceID = "18"
+        btnConfirm.Enabled = True
     End Sub
 
 
 
     Private Sub btnConfirmInput_Click(sender As Object, e As EventArgs) Handles btnConfirmInput.Click
         tblPriceTable.Controls.Clear()
-        Chart1.Series.Clear()
+        chrtPackageHourlyRate.Series.Clear()
         Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
 
 
@@ -214,9 +232,9 @@ Public Class GUIMain
 
 
     End Sub
-    Public Function chart()
+    Public Function chartFrontPage()
         Dim seriesName As String = "Börsihind"
-        Chart2.Series.Add(seriesName)
+        chrtFrontPage.Series.Add(seriesName)
         Dim returnString1 As PrjDatabaseComponent.IDatabaseAPI
         returnString1 = New PrjDatabaseComponent.CDatabase
         Dim sPrices1 As String()
@@ -229,10 +247,27 @@ Public Class GUIMain
         ' Add some data points to the series
         'Dim values() As Double = {10, 20, 30, 40, 50}
         For i As Integer = 0 To dblValues.Length - 1
-            Chart2.Series(seriesName).Points.AddXY(i + 1, sPrices1(i))
+            chrtFrontPage.Series(seriesName).Points.AddXY(i + 1, sPrices1(i))
         Next
     End Function
+    Public Function chart()
+        Dim seriesName As String = "Börsihind"
+        chrtPackageHourlyRate.Series.Add(seriesName)
+        Dim returnString1 As PrjDatabaseComponent.IDatabaseAPI
+        returnString1 = New PrjDatabaseComponent.CDatabase
+        Dim sPrices1 As String()
+        sPrices1 = returnString1.stockPrice()
+        Dim dblValues(sPrices1.Length - 1) As Double
+        For i As Integer = 1 To sPrices1.Length - 1
+            Double.TryParse(sPrices1(i), dblValues(i))
+        Next
 
+        ' Add some data points to the series
+        'Dim values() As Double = {10, 20, 30, 40, 50}
+        For i As Integer = 0 To dblValues.Length - 1
+            chrtPackageHourlyRate.Series(seriesName).Points.AddXY(i + 1, sPrices1(i))
+        Next
+    End Function
     Private Sub rdioExchange_CheckedChanged(sender As Object, e As EventArgs) Handles rdioExchange.CheckedChanged
         tboxMonthlyCost.Enabled = False
 
@@ -316,22 +351,7 @@ Public Class GUIMain
     '    Next
     'End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim seriesName As String = "Börsihind"
-        Chart2.Series.Add(seriesName)
-        Dim returnString As PrjDatabaseComponent.IDatabaseAPI
-        returnString = New PrjDatabaseComponent.CDatabase
-        Dim sPrices As String()
-        sPrices = returnString.stockPrice()
-        Dim dblValues(sPrices.Length - 1) As Double
 
-
-        ' Add some data points to the series
-        'Dim values() As Double = {10, 20, 30, 40, 50}
-        For i As Integer = 0 To dblValues.Length - 1
-            Chart2.Series(seriesName).Points.AddXY(i + 1, sPrices(i))
-        Next
-    End Sub
 
     Private Sub btnChartAsc_Click(sender As Object, e As EventArgs) Handles btnChartAsc.Click
         tblPriceTable.Controls.Clear()
@@ -391,9 +411,17 @@ Public Class GUIMain
         btnTaasta.Enabled = False
     End Sub
 
-    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
+    Private Sub tabApplianceCalc_Click(sender As Object, e As EventArgs) Handles tabApplianceCalc.Click
 
     End Sub
+
+    Private Sub tabApplianceCalc_Enter(sender As Object, e As EventArgs) Handles tabApplianceCalc.Enter
+        If IsNothing(applianceID) Then
+            btnConfirm.Enabled = False
+
+        End If
+    End Sub
+
 
     'Private Sub GUIMain_VisibleChanged(sender As Object, e As EventArgs) Handles Me.VisibleChanged
     '    Dim seriesName As String = "Börsihind"
