@@ -72,6 +72,19 @@ Public Class APIComponent
         'the for loop, so this line is needed to filter unnecessary characters from the first element
         endResultTimestamp(1) = endResultTimestamp(1).Substring(14)
 
+        'Cycle that converts UNIX timestamp into a datetime string
+        For Each str As String In endResultTimestamp
+            'Checks if string is null or empty
+            If Not String.IsNullOrEmpty(str) Then
+                'Convert string into double
+                Dim dstr As Double = Double.Parse(str)
+                'Create a new DateTime object from the converted double
+                Dim dateTimestr As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(dstr).ToLocalTime()
+                'Convert the DateTime object into a string
+                str = dateTimestr.ToString("yyyy-MM-dd HH:mm:ss")
+            End If
+        Next
+
         'endResultPrice = Item1
         'endResultTimestamp = Item2
         Return (endResultPrice, endResultTimestamp)
@@ -141,6 +154,19 @@ Public Class APIComponent
         'For some reason the first element in the timestamp array still has "timestamp" in it after 
         'the for loop, so this line is needed to filter unnecessary characters from the first element
         endResultTimestamp(1) = endResultTimestamp(1).Substring(14)
+
+        'Cycle that converts UNIX timestamp into a datetime string
+        For Each str As String In endResultTimestamp
+            'Checks if string is null or empty
+            If Not String.IsNullOrEmpty(str) Then
+                'Convert string into double
+                Dim dstr As Double = Double.Parse(str)
+                'Create a new DateTime object from the converted double
+                Dim dateTimestr As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(dstr).ToLocalTime()
+                'Convert the DateTime object into a string
+                str = dateTimestr.ToString("yyyy-MM-dd HH:mm:ss")
+            End If
+        Next
 
         'endResultPrice = Item1
         'endResultTimestamp = Item2
