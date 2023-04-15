@@ -3,11 +3,13 @@
 Public Class GUIMain
 
     Dim applianceID As String
+    Dim isFlagRaised As Boolean = False
+    Dim myColor As Color
+
 
     Public answer As String
     Private Sub btnPackageHourlyRate_Click(sender As Object, e As EventArgs) Handles btnPackageHourlyRate.Click
         TabControl1.SelectedTab = tabPackageHourlyRate
-
     End Sub
 
     Private Sub btnApplianceCalc_Click(sender As Object, e As EventArgs) Handles btnApplianceCalc.Click
@@ -251,7 +253,9 @@ Public Class GUIMain
 
         Dim seriesName As String = "Börsihind"
         chrtFrontPage.Series.Add(seriesName)
-
+        'chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
+        chrtFrontPage.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
+        chrtFrontPage.ChartAreas(0).AxisY.Interval = 5 'more lines Y axis
         chrtFrontPage.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.StepLine
         chrtFrontPage.Series(0).Color = Color.Red
         chrtFrontPage.Series(0).BorderWidth = 3
@@ -266,10 +270,13 @@ Public Class GUIMain
 
         ' Add some data points to the series
         'Dim values() As Double = {10, 20, 30, 40, 50}
-        For i As Integer = 1 To dblValues.Length - 1
-            chrtFrontPage.Series(seriesName).Points.AddXY(i, sPrices1(i))
+        For i As Integer = 0 To dblValues.Length - 1
+            If i <> 0 Then 'there is no info from -1 to 0
+                chrtFrontPage.Series(seriesName).Points.AddXY(i - 1, sPrices1(i))
+            End If
         Next
-
+        Dim hour23 As Integer = dblValues.Length
+        chrtFrontPage.Series(seriesName).Points.AddXY(hour23 - 1, sPrices1(hour23 - 1)) ' so 23 value would last entire hour
     End Function
     Public Function chart()
         Dim seriesName As String = "Börsihind"
@@ -453,22 +460,56 @@ Public Class GUIMain
 
         Select Case selectedItem 'change color based on the item the user choosed
             Case "Punane"
+                Main.BackColor = Color.White
                 Me.BackColor = Color.Crimson
+                chrtFrontPage.Series(0).Color = Color.Red
+                Dim myColorLightRed As Color = Color.FromArgb(247, 176, 156)
+                myColor = myColorLightRed
             Case "Sinine"
+                Main.BackColor = Color.White
                 Me.BackColor = Color.LightSkyBlue
+                chrtFrontPage.Series(0).Color = Color.Blue
+                Dim myColorLightBlue As Color = Color.FromArgb(190, 234, 252)
+                myColor = myColorLightBlue
             Case "Roheline"
-                Me.BackColor = Color.OliveDrab
+                Main.BackColor = Color.White
+                Dim myColorDarkGreen As Color = Color.FromArgb(169, 213, 130)
+                chrtFrontPage.Series(0).Color = Color.Green
+                Me.BackColor = myColorDarkGreen
+                Dim myColorLightGreen As Color = Color.FromArgb(219, 246, 195)
+                myColor = myColorLightGreen
             Case "Roosa"
+                Main.BackColor = Color.White
                 Me.BackColor = Color.Pink
-                chrtFrontPage.Series(0).Color = Color.Pink
+                Dim myColorDarkPink As Color = Color.FromArgb(252, 10, 167) 'creating dark pink color bc it does not exist
+                chrtFrontPage.Series(0).Color = myColorDarkPink 'change chart line color
+                Dim myColorLightPink As Color = Color.FromArgb(254, 210, 238)
+                myColor = myColorLightPink
             Case "Tumehall"
+                Main.BackColor = Color.White
                 Me.BackColor = Color.LightSlateGray
+                chrtFrontPage.Series(0).Color = Color.Black
+                myColor = Color.White
             Case "Valge"
+                Main.BackColor = Color.White
                 Me.BackColor = Color.White
+                chrtFrontPage.Series(0).Color = Color.Black
+                myColor = Color.White
             Case Else
                 Me.BackColor = SystemColors.Control ' everything else is light grey
+                chrtFrontPage.Series(0).Color = Color.Red
+                myColor = Color.White
+                Main.BackColor = SystemColors.Control
         End Select
+
+        btnPackageHourlyRate.BackColor = myColor
+        btnApplianceCalc.BackColor = myColor
+        btnExchangePriceComparison.BackColor = myColor
+        btnConsumptionHistory.BackColor = myColor
+        btnPackageComparison.BackColor = myColor
     End Sub
+
+
 
 
 
