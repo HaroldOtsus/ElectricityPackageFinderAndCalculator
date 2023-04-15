@@ -234,7 +234,7 @@ Public Class CDatabase
         Dim api As PrjAPIComponent.APIInterface
         api = New PrjAPIComponent.APIComponent
         Dim sPrices As String()
-        sPrices = api.GetDataFromEleringAPI()
+        sPrices = api.GetDataFromEleringAPI().Item1
         '' sPrices()
         Try
 

@@ -233,8 +233,13 @@ Public Class GUIMain
 
     End Sub
     Public Function chartFrontPage()
+
         Dim seriesName As String = "Börsihind"
         chrtFrontPage.Series.Add(seriesName)
+
+        chrtFrontPage.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.StepLine
+        chrtFrontPage.Series(0).Color = Color.Red
+        chrtFrontPage.Series(0).BorderWidth = 3
         Dim returnString1 As PrjDatabaseComponent.IDatabaseAPI
         returnString1 = New PrjDatabaseComponent.CDatabase
         Dim sPrices1 As String()
@@ -246,13 +251,18 @@ Public Class GUIMain
 
         ' Add some data points to the series
         'Dim values() As Double = {10, 20, 30, 40, 50}
-        For i As Integer = 0 To dblValues.Length - 1
-            chrtFrontPage.Series(seriesName).Points.AddXY(i + 1, sPrices1(i))
+        For i As Integer = 1 To dblValues.Length - 1
+            chrtFrontPage.Series(seriesName).Points.AddXY(i, sPrices1(i))
         Next
+
     End Function
     Public Function chart()
         Dim seriesName As String = "Börsihind"
         chrtPackageHourlyRate.Series.Add(seriesName)
+        chrtPackageHourlyRate.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.StepLine
+        chrtPackageHourlyRate.Series(0).Color = Color.Red
+        chrtPackageHourlyRate.Series(0).BorderWidth = 3
+
         Dim returnString1 As PrjDatabaseComponent.IDatabaseAPI
         returnString1 = New PrjDatabaseComponent.CDatabase
         Dim sPrices1 As String()
@@ -264,8 +274,8 @@ Public Class GUIMain
 
         ' Add some data points to the series
         'Dim values() As Double = {10, 20, 30, 40, 50}
-        For i As Integer = 0 To dblValues.Length - 1
-            chrtPackageHourlyRate.Series(seriesName).Points.AddXY(i + 1, sPrices1(i))
+        For i As Integer = 1 To dblValues.Length - 1
+            chrtPackageHourlyRate.Series(seriesName).Points.AddXY(i, sPrices1(i))
         Next
     End Function
     Private Sub rdioExchange_CheckedChanged(sender As Object, e As EventArgs) Handles rdioExchange.CheckedChanged
