@@ -1,5 +1,7 @@
 ﻿
 
+Imports System.IO
+
 Public Class GUIMain
     Dim sisend As String
     Dim applianceID As String
@@ -348,6 +350,56 @@ Public Class GUIMain
 
         tblPriceTable.Controls.Add(dgv)
 
+    End Sub
+
+    Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
+        Dim openFileDialog As New OpenFileDialog()
+        'Filter to only show CSV files and all files
+        openFileDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*"
+
+        'If the user selects a file and presses OK
+        If openFileDialog.ShowDialog() = DialogResult.OK Then
+            'Reads data from the selected file
+            Using streamReader As New StreamReader(openFileDialog.FileName)
+                'Reads until the end of the file
+                While Not streamReader.EndOfStream
+                    'Variable "line" contains 1 line from the CSV file
+                    Dim line As String = streamReader.ReadLine()
+
+                    'Data processing code goes here
+
+                    'Currently just using console print for debugging
+                    Console.WriteLine(line)
+                End While
+            End Using
+        End If
+    End Sub
+
+    Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
+        Dim saveFileDialog As New SaveFileDialog()
+
+        'Filter to only take CSV files
+        saveFileDialog.Filter = "CSV files (*.csv)|*.csv"
+
+        'Initial directory and the name of the file
+        saveFileDialog.InitialDirectory = "C:\"
+        saveFileDialog.FileName = "exported_data.csv"
+
+        'If the user presses OK
+        If saveFileDialog.ShowDialog() = DialogResult.OK Then
+            'Get the selected file name
+            Dim fileName As String = saveFileDialog.FileName
+
+            'Write the CSV data to the selected file
+            Using writer As New StreamWriter(fileName)
+                writer.WriteLine("Column1,Column2,Column3")
+                writer.WriteLine("Value1,Value2,Value3")
+                writer.WriteLine("Value4,Value5,Value6")
+            End Using
+
+            'Shows a message that the export was successful
+            MessageBox.Show("File exported successfully to " & fileName)
+        End If
     End Sub
 
     'Private Sub GUIMain_VisibleChanged(sender As Object, e As EventArgs) Handles Me.VisibleChanged

@@ -38,6 +38,7 @@ Partial Class GUIMain
         Me.Chart2 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.tabPackageHourlyRate = New System.Windows.Forms.TabPage()
+        Me.btnChartAsc = New System.Windows.Forms.Button()
         Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.tblPriceTable = New System.Windows.Forms.DataGridView()
         Me.tBoxPackageHourlyRate = New System.Windows.Forms.TextBox()
@@ -95,6 +96,7 @@ Partial Class GUIMain
         Me.lblApplianceChoice = New System.Windows.Forms.Label()
         Me.btnBack1 = New System.Windows.Forms.Button()
         Me.tabExchangeComparison = New System.Windows.Forms.TabPage()
+        Me.btnImport = New System.Windows.Forms.Button()
         Me.tblExchangeComparison = New System.Windows.Forms.TableLayoutPanel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblExchangeComparisonResult = New System.Windows.Forms.Label()
@@ -103,7 +105,6 @@ Partial Class GUIMain
         Me.TextBox4 = New System.Windows.Forms.TextBox()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.lblImportExportPrice = New System.Windows.Forms.Label()
         Me.lblExchangeChoice = New System.Windows.Forms.Label()
         Me.lblCase2 = New System.Windows.Forms.Label()
         Me.lblCase1 = New System.Windows.Forms.Label()
@@ -144,7 +145,7 @@ Partial Class GUIMain
         Me.lblPackage1 = New System.Windows.Forms.Label()
         Me.lblChoosePackages = New System.Windows.Forms.Label()
         Me.btnBack4 = New System.Windows.Forms.Button()
-        Me.btnChartAsc = New System.Windows.Forms.Button()
+        Me.btnExport = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.Chart2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -295,6 +296,15 @@ Partial Class GUIMain
         Me.tabPackageHourlyRate.TabIndex = 1
         Me.tabPackageHourlyRate.Text = "Paketijärgne tunnihind"
         Me.tabPackageHourlyRate.UseVisualStyleBackColor = True
+        '
+        'btnChartAsc
+        '
+        Me.btnChartAsc.Location = New System.Drawing.Point(331, 211)
+        Me.btnChartAsc.Name = "btnChartAsc"
+        Me.btnChartAsc.Size = New System.Drawing.Size(146, 32)
+        Me.btnChartAsc.TabIndex = 15
+        Me.btnChartAsc.Text = "Järjesta tabel kasvavalt"
+        Me.btnChartAsc.UseVisualStyleBackColor = True
         '
         'Chart1
         '
@@ -899,6 +909,8 @@ Partial Class GUIMain
         '
         'tabExchangeComparison
         '
+        Me.tabExchangeComparison.Controls.Add(Me.btnExport)
+        Me.tabExchangeComparison.Controls.Add(Me.btnImport)
         Me.tabExchangeComparison.Controls.Add(Me.tblExchangeComparison)
         Me.tabExchangeComparison.Controls.Add(Me.lblExchangeComparisonResult)
         Me.tabExchangeComparison.Controls.Add(Me.TextBox6)
@@ -906,7 +918,6 @@ Partial Class GUIMain
         Me.tabExchangeComparison.Controls.Add(Me.TextBox4)
         Me.tabExchangeComparison.Controls.Add(Me.TextBox2)
         Me.tabExchangeComparison.Controls.Add(Me.Button2)
-        Me.tabExchangeComparison.Controls.Add(Me.lblImportExportPrice)
         Me.tabExchangeComparison.Controls.Add(Me.lblExchangeChoice)
         Me.tabExchangeComparison.Controls.Add(Me.lblCase2)
         Me.tabExchangeComparison.Controls.Add(Me.lblCase1)
@@ -923,12 +934,21 @@ Partial Class GUIMain
         Me.tabExchangeComparison.Text = "Börsihinna võrdlus"
         Me.tabExchangeComparison.UseVisualStyleBackColor = True
         '
+        'btnImport
+        '
+        Me.btnImport.Location = New System.Drawing.Point(110, 239)
+        Me.btnImport.Name = "btnImport"
+        Me.btnImport.Size = New System.Drawing.Size(75, 23)
+        Me.btnImport.TabIndex = 17
+        Me.btnImport.Text = "Import"
+        Me.btnImport.UseVisualStyleBackColor = True
+        '
         'tblExchangeComparison
         '
         Me.tblExchangeComparison.ColumnCount = 3
         Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.03704!))
         Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.96296!))
-        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 216.0!))
+        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 218.0!))
         Me.tblExchangeComparison.Controls.Add(Me.Label2, 1, 3)
         Me.tblExchangeComparison.Location = New System.Drawing.Point(414, 52)
         Me.tblExchangeComparison.Name = "tblExchangeComparison"
@@ -946,7 +966,7 @@ Partial Class GUIMain
         '
         Me.Label2.AutoSize = True
         Me.Label2.ForeColor = System.Drawing.Color.Red
-        Me.Label2.Location = New System.Drawing.Point(54, 129)
+        Me.Label2.Location = New System.Drawing.Point(53, 129)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(78, 26)
         Me.Label2.TabIndex = 0
@@ -997,16 +1017,6 @@ Partial Class GUIMain
         Me.Button2.TabIndex = 10
         Me.Button2.Text = "Button2"
         Me.Button2.UseVisualStyleBackColor = True
-        '
-        'lblImportExportPrice
-        '
-        Me.lblImportExportPrice.AutoSize = True
-        Me.lblImportExportPrice.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(186, Byte))
-        Me.lblImportExportPrice.Location = New System.Drawing.Point(107, 237)
-        Me.lblImportExportPrice.Name = "lblImportExportPrice"
-        Me.lblImportExportPrice.Size = New System.Drawing.Size(195, 13)
-        Me.lblImportExportPrice.TabIndex = 9
-        Me.lblImportExportPrice.Text = "Impordi/Ekspordi hinnastamistingimused"
         '
         'lblExchangeChoice
         '
@@ -1405,14 +1415,14 @@ Partial Class GUIMain
         Me.btnBack4.Text = "Tagasi"
         Me.btnBack4.UseVisualStyleBackColor = True
         '
-        'btnChartAsc
+        'btnExport
         '
-        Me.btnChartAsc.Location = New System.Drawing.Point(331, 211)
-        Me.btnChartAsc.Name = "btnChartAsc"
-        Me.btnChartAsc.Size = New System.Drawing.Size(146, 32)
-        Me.btnChartAsc.TabIndex = 15
-        Me.btnChartAsc.Text = "Järjesta tabel kasvavalt"
-        Me.btnChartAsc.UseVisualStyleBackColor = True
+        Me.btnExport.Location = New System.Drawing.Point(209, 239)
+        Me.btnExport.Name = "btnExport"
+        Me.btnExport.Size = New System.Drawing.Size(75, 23)
+        Me.btnExport.TabIndex = 18
+        Me.btnExport.Text = "Export"
+        Me.btnExport.UseVisualStyleBackColor = True
         '
         'GUIMain
         '
@@ -1513,7 +1523,6 @@ Partial Class GUIMain
     Friend WithEvents rdioMicrowave As RadioButton
     Friend WithEvents rdioRouter As RadioButton
     Friend WithEvents rdioSewingMachine As RadioButton
-    Friend WithEvents lblImportExportPrice As Label
     Friend WithEvents lblExchangeChoice As Label
     Friend WithEvents lblCase2 As Label
     Friend WithEvents lblCase1 As Label
@@ -1572,4 +1581,6 @@ Partial Class GUIMain
     Friend WithEvents Button1 As Button
     Friend WithEvents Chart2 As DataVisualization.Charting.Chart
     Friend WithEvents btnChartAsc As Button
+    Friend WithEvents btnImport As Button
+    Friend WithEvents btnExport As Button
 End Class
