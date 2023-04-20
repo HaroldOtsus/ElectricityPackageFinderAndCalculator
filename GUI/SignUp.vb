@@ -5,12 +5,8 @@
         returnString = New PrjDatabaseComponent.CDatabase
         Dim sumtin As Boolean
         sumtin = returnString.signup(tBoxUsername.Text, tBoxPassword.Text, tBoxName.Text, tBoxEmail.Text)
-
-
         GUIMain.Show()
         GUIMain.chartFrontPage()
         Me.Visible = False
-
-
     End Sub
 End Class
