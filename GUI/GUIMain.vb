@@ -206,6 +206,28 @@ Public Class GUIMain
         Next
     End Function
 
+    Public Function chartFrontPage()
+
+        Dim seriesName As String = "Börsihind"
+        chrtFrontPage.Series.Add(seriesName)
+
+        chrtFrontPage.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.StepLine
+        chrtFrontPage.Series(0).Color = Color.Red
+        chrtFrontPage.Series(0).BorderWidth = 3
+        Dim returnString1 As PrjDatabaseComponent.IDatabaseAPI
+        returnString1 = New PrjDatabaseComponent.CDatabase
+        Dim sPrices1 As String()
+
+        ' Add some data points to the series
+        'Dim values() As Double = {10, 20, 30, 40, 50}
+        Dim dblValues(sPrices1.Length - 1) As Double
+        For i As Integer = 0 To dblValues.Length - 1
+            chrtFrontPage.Series(seriesName).Points.AddXY(i + 1, sPrices1(i))
+            For j As Integer = 1 To dblValues.Length - 1
+                chrtFrontPage.Series(seriesName).Points.AddXY(j, sPrices1(i))
+            Next
+        Next
+    End Function
     Private Sub rdioExchange_CheckedChanged(sender As Object, e As EventArgs) Handles rdioExchange.CheckedChanged
         tboxMonthlyCost.Enabled = False
 
