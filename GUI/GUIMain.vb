@@ -3,9 +3,17 @@
 Imports System.IO
 
 Public Class GUIMain
+    Public Structure PriceDateStruct
+
+        Dim price As Double
+        Dim sDate As String
+    End Structure
+
     Dim sisend As String
     Dim applianceID As String
     Dim myColor As Color
+
+
     Public answer As String
     Private Sub btnPackageHourlyRate_Click(sender As Object, e As EventArgs) Handles btnPackageHourlyRate.Click
         TabControl1.SelectedTab = tabPackageHourlyRate
@@ -154,7 +162,7 @@ Public Class GUIMain
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
         returnString = New PrjDatabaseComponent.CDatabase
         Dim sPrices As String()
-        sPrices = returnString.stockPrice()
+        sPrices = returnString.stockPrice().prices
 
         For i As Integer = 1 To 24
             sPrices(i) = sPrices(i).Replace(".", ",")
@@ -208,7 +216,7 @@ Public Class GUIMain
         Dim returnString1 As PrjDatabaseComponent.IDatabaseAPI
         returnString1 = New PrjDatabaseComponent.CDatabase
         Dim sPrices1 As String()
-        sPrices1 = returnString1.stockPrice()
+        sPrices1 = returnString1.stockPrice().prices
         Dim dblValues(sPrices1.Length - 1) As Double
         For i As Integer = 1 To sPrices1.Length - 1
             Double.TryParse(sPrices1(i), dblValues(i))
@@ -238,7 +246,7 @@ Public Class GUIMain
         Dim returnString1 As PrjDatabaseComponent.IDatabaseAPI
         returnString1 = New PrjDatabaseComponent.CDatabase
         Dim sPrices1 As String()
-        sPrices1 = returnString1.stockPrice()
+        sPrices1 = returnString1.stockPrice().prices
         Dim dblValues(sPrices1.Length - 1) As Double
         For i As Integer = 1 To sPrices1.Length - 1
             Double.TryParse(sPrices1(i), dblValues(i))
@@ -260,7 +268,7 @@ Public Class GUIMain
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
         returnString = New PrjDatabaseComponent.CDatabase
         Dim sPrices As String()
-        sPrices = returnString.stockPrice()
+        sPrices = returnString.stockPrice().prices
         sPrices(1) = sPrices(1).Replace(".", ",")
 
 
@@ -287,7 +295,7 @@ Public Class GUIMain
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
         returnString = New PrjDatabaseComponent.CDatabase
         Dim sPrices As String()
-        sPrices = returnString.stockPrice()
+        sPrices = returnString.stockPrice().prices
 
         sPrices(1) = sPrices(1).Replace(".", ",")
         tBoxPackagePrice.Text = sPrices(1) & "€"
@@ -328,66 +336,48 @@ Public Class GUIMain
         tblPriceTable.Controls.Clear()
         Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
 
-        Dim timeNowArray As Integer()
+
 
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
         Dim sPrices As String()
+        Dim sDates As String()
         Dim dPrices As Double()
-        Dim dPricesToBeSorted As Double()
+        Dim priceDateStruct As New PriceDateStruct()
+
 
         returnString = New PrjDatabaseComponent.CDatabase
 
-        sPrices = returnString.stockPrice()
+        sPrices = returnString.stockPrice().prices
+        sDates = returnString.stockPrice().dates
 
         For i As Integer = 1 To 24
             sPrices(i) = sPrices(i).Replace(".", ",")
         Next
         dPrices = New Double(sPrices.Length - 1) {}
-        dPricesToBeSorted = New Double(sPrices.Length - 1) {}
+
 
         For i As Integer = 1 To sPrices.Length - 1
             dPrices(i) = Double.Parse(sPrices(i))
-            dPricesToBeSorted(i) = Double.Parse(sPrices(i))
+
         Next
 
-        Array.Sort(dPricesToBeSorted) 'dPricesToBeSorted is now sorted :-)
+
+        'Dim priceAndDate As PriceDateStruct
+        Dim records As List(Of PriceDateStruct)
+        records = New List(Of PriceDateStruct)
+
+        Dim p As PriceDateStruct = records(24)
+        For i As Integer = 1 To 24
+            p.price = dPrices(i)
+            p.sDate = sDates(i)
+            records(i) = p
+        Next
+
+        'Array.Sort(dPrices) 'dPricesToBeSorted is now sorted :-)
 
         Dim dgv As New DataGridView()
 
-        For i As Integer = 0 To 23
 
-
-            Dim j As Integer = 0
-            Do While dPricesToBeSorted(i) <> dPrices(j) ' "<>" is called the NOT EQUALS operator (!= in C) 
-
-                j = j + 1
-
-                If dPricesToBeSorted(i) = dPrices(j) Then
-
-                    If timeNowHours + j >= 24 Then
-                        timeNowHours = timeNowHours - 24
-                        dgv.Columns.Add(0, timeNowHours & ":00")
-
-                    Else
-                        dgv.Columns.Add(0, timeNowHours + j & ":00")
-
-                    End If
-
-                    'dgv.Columns.Add(0, timeNowHours + j & ":00")
-
-                End If
-                'breakpoint
-
-            Loop
-
-            'For j As Integer = 0 To dPrices.Length
-            '    If dPricesToBeSorted(i) = dPrices(j) Then
-            '        dgv.Columns.Add(0, timeNowHours + j & ":00")
-
-            '    End If
-            'Next
-            timeNowHours = timeNowHours + 1
-        Next
 
         'For i As Integer = 0 To 23
         '    'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
