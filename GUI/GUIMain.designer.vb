@@ -100,6 +100,8 @@ Partial Class GUIMain
         Me.lblApplianceChoice = New System.Windows.Forms.Label()
         Me.btnBack1 = New System.Windows.Forms.Button()
         Me.tabExchangeComparison = New System.Windows.Forms.TabPage()
+        Me.btnExport = New System.Windows.Forms.Button()
+        Me.btnImport = New System.Windows.Forms.Button()
         Me.lblExchangeComparisonResult = New System.Windows.Forms.Label()
         Me.TextBox6 = New System.Windows.Forms.TextBox()
         Me.TextBox5 = New System.Windows.Forms.TextBox()
@@ -145,8 +147,6 @@ Partial Class GUIMain
         Me.lblPackage1 = New System.Windows.Forms.Label()
         Me.lblChoosePackages = New System.Windows.Forms.Label()
         Me.btnBack4 = New System.Windows.Forms.Button()
-        Me.btnImport = New System.Windows.Forms.Button()
-        Me.btnExport = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -302,7 +302,7 @@ Partial Class GUIMain
         '
         'btnChartAsc
         '
-        Me.btnChartAsc.Location = New System.Drawing.Point(331, 211)
+        Me.btnChartAsc.Location = New System.Drawing.Point(26, 242)
         Me.btnChartAsc.Name = "btnChartAsc"
         Me.btnChartAsc.Size = New System.Drawing.Size(146, 32)
         Me.btnChartAsc.TabIndex = 15
@@ -315,17 +315,17 @@ Partial Class GUIMain
         Me.chrtPackageHourlyRate.ChartAreas.Add(ChartArea2)
         Legend2.Name = "Legend1"
         Me.chrtPackageHourlyRate.Legends.Add(Legend2)
-        Me.chrtPackageHourlyRate.Location = New System.Drawing.Point(502, 415)
+        Me.chrtPackageHourlyRate.Location = New System.Drawing.Point(386, 290)
         Me.chrtPackageHourlyRate.Margin = New System.Windows.Forms.Padding(2)
         Me.chrtPackageHourlyRate.Name = "chrtPackageHourlyRate"
-        Me.chrtPackageHourlyRate.Size = New System.Drawing.Size(266, 147)
+        Me.chrtPackageHourlyRate.Size = New System.Drawing.Size(413, 270)
         Me.chrtPackageHourlyRate.TabIndex = 14
         Me.chrtPackageHourlyRate.Text = "Chart1"
         '
         'tblPriceTable
         '
         Me.tblPriceTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.tblPriceTable.Location = New System.Drawing.Point(502, 211)
+        Me.tblPriceTable.Location = New System.Drawing.Point(26, 333)
         Me.tblPriceTable.Name = "tblPriceTable"
         Me.tblPriceTable.RowHeadersWidth = 51
         Me.tblPriceTable.Size = New System.Drawing.Size(240, 150)
@@ -347,7 +347,7 @@ Partial Class GUIMain
         'lblPriceGraph
         '
         Me.lblPriceGraph.AutoSize = True
-        Me.lblPriceGraph.Location = New System.Drawing.Point(499, 379)
+        Me.lblPriceGraph.Location = New System.Drawing.Point(383, 252)
         Me.lblPriceGraph.Name = "lblPriceGraph"
         Me.lblPriceGraph.Size = New System.Drawing.Size(70, 13)
         Me.lblPriceGraph.TabIndex = 10
@@ -356,7 +356,7 @@ Partial Class GUIMain
         'lblPriceTable
         '
         Me.lblPriceTable.AutoSize = True
-        Me.lblPriceTable.Location = New System.Drawing.Point(499, 175)
+        Me.lblPriceTable.Location = New System.Drawing.Point(23, 306)
         Me.lblPriceTable.Name = "lblPriceTable"
         Me.lblPriceTable.Size = New System.Drawing.Size(61, 13)
         Me.lblPriceTable.TabIndex = 9
@@ -977,6 +977,24 @@ Partial Class GUIMain
         Me.tabExchangeComparison.Text = "Börsihinna võrdlus"
         Me.tabExchangeComparison.UseVisualStyleBackColor = True
         '
+        'btnExport
+        '
+        Me.btnExport.Location = New System.Drawing.Point(237, 240)
+        Me.btnExport.Name = "btnExport"
+        Me.btnExport.Size = New System.Drawing.Size(76, 23)
+        Me.btnExport.TabIndex = 18
+        Me.btnExport.Text = "Export"
+        Me.btnExport.UseVisualStyleBackColor = True
+        '
+        'btnImport
+        '
+        Me.btnImport.Location = New System.Drawing.Point(128, 240)
+        Me.btnImport.Name = "btnImport"
+        Me.btnImport.Size = New System.Drawing.Size(75, 23)
+        Me.btnImport.TabIndex = 17
+        Me.btnImport.Text = "Import"
+        Me.btnImport.UseVisualStyleBackColor = True
+        '
         'lblExchangeComparisonResult
         '
         Me.lblExchangeComparisonResult.AutoSize = True
@@ -1410,24 +1428,6 @@ Partial Class GUIMain
         Me.btnBack4.TabIndex = 1
         Me.btnBack4.Text = "Tagasi"
         Me.btnBack4.UseVisualStyleBackColor = True
-        '
-        'btnImport
-        '
-        Me.btnImport.Location = New System.Drawing.Point(128, 240)
-        Me.btnImport.Name = "btnImport"
-        Me.btnImport.Size = New System.Drawing.Size(75, 23)
-        Me.btnImport.TabIndex = 17
-        Me.btnImport.Text = "Import"
-        Me.btnImport.UseVisualStyleBackColor = True
-        '
-        'btnExport
-        '
-        Me.btnExport.Location = New System.Drawing.Point(237, 240)
-        Me.btnExport.Name = "btnExport"
-        Me.btnExport.Size = New System.Drawing.Size(76, 23)
-        Me.btnExport.TabIndex = 18
-        Me.btnExport.Text = "Export"
-        Me.btnExport.UseVisualStyleBackColor = True
         '
         'GUIMain
         '

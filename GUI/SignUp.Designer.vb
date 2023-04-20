@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class SignUp
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class SignUp
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.tBoxUsername = New System.Windows.Forms.TextBox()
         Me.tBoxPassword = New System.Windows.Forms.TextBox()
@@ -31,7 +31,6 @@ Partial Class SignUp
         Me.tBoxEmail = New System.Windows.Forms.TextBox()
         Me.lblName = New System.Windows.Forms.Label()
         Me.tBoxName = New System.Windows.Forms.TextBox()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'tBoxUsername
@@ -107,19 +106,11 @@ Partial Class SignUp
         Me.tBoxName.Size = New System.Drawing.Size(100, 20)
         Me.tBoxName.TabIndex = 7
         '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(614, 282)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(100, 20)
-        Me.TextBox1.TabIndex = 9
-        '
         'SignUp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.lblName)
         Me.Controls.Add(Me.tBoxName)
         Me.Controls.Add(Me.lblEmail)
@@ -145,5 +136,4 @@ Partial Class SignUp
     Friend WithEvents tBoxEmail As TextBox
     Friend WithEvents lblName As Label
     Friend WithEvents tBoxName As TextBox
-    Friend WithEvents TextBox1 As TextBox
 End Class

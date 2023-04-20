@@ -6,13 +6,11 @@
         Dim sumtin As Boolean
         sumtin = returnString.signup(tBoxUsername.Text, tBoxPassword.Text, tBoxName.Text, tBoxEmail.Text)
 
-        If sumtin = True Then
 
-            TextBox1.Text = "beans"
-            GUIMain.Show()
-            Me.Visible = False
-        Else
-            TextBox1.Text = "no beans"
-        End If
+        GUIMain.Show()
+        GUIMain.chartFrontPage()
+        Me.Visible = False
+
+
     End Sub
 End Class

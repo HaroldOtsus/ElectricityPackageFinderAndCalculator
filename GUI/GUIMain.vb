@@ -190,6 +190,12 @@ Public Class GUIMain
     Public Function chart()
         Dim seriesName As String = "Börsihind"
         chrtPackageHourlyRate.Series.Add(seriesName)
+        'chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
+        chrtPackageHourlyRate.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
+        chrtPackageHourlyRate.ChartAreas(0).AxisY.Interval = 5 'more lines Y axis
+        chrtPackageHourlyRate.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.StepLine
+        chrtPackageHourlyRate.Series(0).Color = Color.Red
+        chrtPackageHourlyRate.Series(0).BorderWidth = 3
         Dim returnString1 As PrjDatabaseComponent.IDatabaseAPI
         returnString1 = New PrjDatabaseComponent.CDatabase
         Dim sPrices1 As String()
@@ -202,8 +208,12 @@ Public Class GUIMain
         ' Add some data points to the series
         'Dim values() As Double = {10, 20, 30, 40, 50}
         For i As Integer = 0 To dblValues.Length - 1
-            chrtPackageHourlyRate.Series(seriesName).Points.AddXY(i + 1, sPrices1(i))
+            If i <> 0 Then 'there is no info from -1 to 0
+                chrtPackageHourlyRate.Series(seriesName).Points.AddXY(i - 1, sPrices1(i))
+            End If
         Next
+        Dim hour23 As Integer = dblValues.Length
+        chrtPackageHourlyRate.Series(seriesName).Points.AddXY(hour23 - 1, sPrices1(hour23 - 1)) ' so 23 value would last entire hour
     End Function
 
     Public Function chartFrontPage()
