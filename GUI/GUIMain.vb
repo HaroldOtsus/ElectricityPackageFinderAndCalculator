@@ -341,6 +341,7 @@ Public Class GUIMain
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
         Dim sPrices As String()
         Dim sDates As String()
+        Dim dDates As Double()
         Dim dPrices As Double()
         Dim priceDateStruct As New PriceDateStruct()
 
@@ -361,23 +362,40 @@ Public Class GUIMain
 
         Next
 
+        'UNIX NEEDS TO BE CONVERTED TO CONVENTIONAL TIMESTAMP DO BE USABLE
+        dDates = New Double(sDates.Length - 1) {}
+        For i As Integer = 1 To sDates.Length - 1
+            dDates(i) = Double.Parse(sDates(i))
+
+        Next
 
         'Dim priceAndDate As PriceDateStruct
         Dim records As List(Of PriceDateStruct)
         records = New List(Of PriceDateStruct)
 
-        Dim p As PriceDateStruct = records(24)
-        For i As Integer = 1 To 24
+        Dim p As PriceDateStruct
+
+        For i As Integer = 0 To 23
+
             p.price = dPrices(i)
             p.sDate = sDates(i)
-            records(i) = p
+            records.Add(p)
+            'records(i) = p
         Next
 
         'Array.Sort(dPrices) 'dPricesToBeSorted is now sorted :-)
+        records.Sort(Function(x, y) x.price.CompareTo(y.price))
 
         Dim dgv As New DataGridView()
 
+        For i As Integer = 0 To 23
+            'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
 
+            dgv.Columns.Add(0, records(i).sDate & ":00")
+
+
+
+        Next
 
         'For i As Integer = 0 To 23
         '    'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
