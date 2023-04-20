@@ -150,6 +150,7 @@ Public Class GUIMain
         Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
 
 
+
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
         returnString = New PrjDatabaseComponent.CDatabase
         Dim sPrices As String()
@@ -326,51 +327,92 @@ Public Class GUIMain
     Private Sub btnChartAsc_Click(sender As Object, e As EventArgs) Handles btnChartAsc.Click
         tblPriceTable.Controls.Clear()
         Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
+
         Dim timeNowArray As Integer()
 
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
-        returnString = New PrjDatabaseComponent.CDatabase
         Dim sPrices As String()
+        Dim dPrices As Double()
+        Dim dPricesToBeSorted As Double()
+
+        returnString = New PrjDatabaseComponent.CDatabase
+
         sPrices = returnString.stockPrice()
 
         For i As Integer = 1 To 24
             sPrices(i) = sPrices(i).Replace(".", ",")
         Next
-
-        Dim dPrices As Double() = New Double(sPrices.Length - 1) {}
+        dPrices = New Double(sPrices.Length - 1) {}
+        dPricesToBeSorted = New Double(sPrices.Length - 1) {}
 
         For i As Integer = 1 To sPrices.Length - 1
             dPrices(i) = Double.Parse(sPrices(i))
+            dPricesToBeSorted(i) = Double.Parse(sPrices(i))
         Next
 
-        Array.Sort(dPrices)
+        Array.Sort(dPricesToBeSorted) 'dPricesToBeSorted is now sorted :-)
 
         Dim dgv As New DataGridView()
 
         For i As Integer = 0 To 23
-            'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
-            If timeNowHours >= 24 Then
-                timeNowHours = timeNowHours - 24
-                dgv.Columns.Add(0, timeNowHours & ":00")
 
-            Else
-                dgv.Columns.Add(0, timeNowHours & ":00")
 
-            End If
+            Dim j As Integer = 0
+            Do While dPricesToBeSorted(i) <> dPrices(j) ' "<>" is called the NOT EQUALS operator (!= in C) 
+
+                j = j + 1
+
+                If dPricesToBeSorted(i) = dPrices(j) Then
+
+                    If timeNowHours + j >= 24 Then
+                        timeNowHours = timeNowHours - 24
+                        dgv.Columns.Add(0, timeNowHours & ":00")
+
+                    Else
+                        dgv.Columns.Add(0, timeNowHours + j & ":00")
+
+                    End If
+
+                    'dgv.Columns.Add(0, timeNowHours + j & ":00")
+
+                End If
+                'breakpoint
+
+            Loop
+
+            'For j As Integer = 0 To dPrices.Length
+            '    If dPricesToBeSorted(i) = dPrices(j) Then
+            '        dgv.Columns.Add(0, timeNowHours + j & ":00")
+
+            '    End If
+            'Next
             timeNowHours = timeNowHours + 1
-
         Next
 
+        'For i As Integer = 0 To 23
+        '    'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
+        '    If timeNowHours >= 24 Then
+        '        timeNowHours = timeNowHours - 24
+        '        dgv.Columns.Add(0, timeNowHours & ":00")
 
-        If rdioFixedPrice.Checked Then
-            For i As Integer = 0 To 23
-                dgv.Rows(0).Cells(i).Value = tboxMonthlyCost.Text & "€" ' or any other number you want to insert
-            Next
-        Else
-            For i As Integer = 0 To 23
-                dgv.Rows(0).Cells(i).Value = dPrices(i + 1) & "€" ' or any other number you want to insert
-            Next
-        End If
+        '    Else
+        '        dgv.Columns.Add(0, timeNowHours & ":00")
+
+        '    End If
+        '    timeNowHours = timeNowHours + 1
+
+        'Next
+
+
+        'If rdioFixedPrice.Checked Then
+        '    For i As Integer = 0 To 23
+        '        dgv.Rows(0).Cells(i).Value = tboxMonthlyCost.Text & "€" ' or any other number you want to insert
+        '    Next
+        'Else
+        '    For i As Integer = 0 To 23
+        '        dgv.Rows(0).Cells(i).Value = dPricesToBeSorted(i + 1) & "€" ' or any other number you want to insert
+        '    Next
+        'End If
 
 
         tblPriceTable.Controls.Add(dgv)
