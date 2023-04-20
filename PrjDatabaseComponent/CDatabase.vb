@@ -157,35 +157,53 @@ Public Class CDatabase
     Function datesOfStockPrice() As String() 'get stockprice dates from database
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
+        Dim dateOfStockPrices As String = ""
         Dim stringOfErrors() As String = Nothing
+        Dim dateToday
+        dateToday = Date.Today 'get what date it is today
         Try
 
+            conn.Open() 'try to connect to database
+            Dim command As New MySqlCommand("SELECT date FROM webdata WHERE idPacket = 1;", conn)
+            Dim reader As MySqlDataReader = command.ExecuteReader()
+            While reader.Read()
+                dateOfStockPrices = reader.GetString(0) 'get date from database
+            End While
+            conn.Close()
             Dim con As New MySqlConnection(connString)
             con.Open()
-            Dim sDates() As String = New String(24) {}
-            sDates(0) = ""
+            Dim sPrices() As String = New String(25) {}
+            sPrices(0) = ""
+            If dateOfStockPrices = dateToday Then
+                '        ''need to return all prices from database
+                Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 2;", con)
+                Dim read As MySqlDataReader = cmd.ExecuteReader()
+                If read IsNot Nothing Then
+                    While read.Read() 'get all dates from database
+                        For i As Integer = 1 To 24
+                            sPrices(i) = read.GetString(i)
+                        Next
+                    End While
+                    read.Close()
+                    con.Close()
 
-            Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 2;", con)
-            Dim read As MySqlDataReader = cmd.ExecuteReader()
-            If read IsNot Nothing Then
-                While read.Read() 'get all dates from database
-                    For i As Integer = 1 To 24
-                        sDates(i) = read.GetString(i)
-                    Next
-                End While
-                read.Close()
-                con.Close()
+                    'Dim stringOfDates As String()
+                    'stringOfDates = insertDatesToDatabase()
 
+                    Return sPrices
+                End If
             End If
-            Return sDates
+            conn.Close()
         Catch ex As Exception
-            '   stringOfErrors = {"error", "error", "error"}
-            '  Return stringOfErrors
+            stringOfErrors = {"error", "error", "error"}
+            Return stringOfErrors
         End Try
+
     End Function
 
 
     Function stockPrice() As (prices As String(), dates As String()) Implements IDatabaseAPI.stockPrice
+
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Dim dateOfStockPrices As String = ""
@@ -287,12 +305,13 @@ Public Class CDatabase
             Dim com As New MySqlCommand("
     UPDATE webdata 
     SET  
+        eleven = @colEleven,
         twelve = @colTwelve, 
         thirteen = @colThirteen,
         fourteen = @colFourteen
     WHERE 
         idPacket = 1", conn)
-
+            com.Parameters.AddWithValue("@colEleven", sPrices(11))
             com.Parameters.AddWithValue("@colTwelve", sPrices(12))
             com.Parameters.AddWithValue("@colThirteen", sPrices(13))
             com.Parameters.AddWithValue("@colFourteen", sPrices(14))
@@ -396,13 +415,14 @@ Public Class CDatabase
 
             Dim com As New MySqlCommand("
     UPDATE webdata 
-    SET  
+    SET 
+        eleven = @colEleven,
         twelve = @colTwelve, 
         thirteen = @colThirteen,
         fourteen = @colFourteen
     WHERE 
         idPacket = 2", conn)
-
+            com.Parameters.AddWithValue("@colEleven", sDates(11))
             com.Parameters.AddWithValue("@colTwelve", sDates(12))
             com.Parameters.AddWithValue("@colThirteen", sDates(13))
             com.Parameters.AddWithValue("@colFourteen", sDates(14))

@@ -147,6 +147,7 @@ Partial Class GUIMain
         Me.lblPackage1 = New System.Windows.Forms.Label()
         Me.lblChoosePackages = New System.Windows.Forms.Label()
         Me.btnBack4 = New System.Windows.Forms.Button()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -287,6 +288,7 @@ Partial Class GUIMain
         '
         'tabPackageHourlyRate
         '
+        Me.tabPackageHourlyRate.Controls.Add(Me.TextBox1)
         Me.tabPackageHourlyRate.Controls.Add(Me.btnChartAsc)
         Me.tabPackageHourlyRate.Controls.Add(Me.chrtPackageHourlyRate)
         Me.tabPackageHourlyRate.Controls.Add(Me.tblPriceTable)
@@ -1546,6 +1548,14 @@ Partial Class GUIMain
         Me.btnBack4.Text = "Tagasi"
         Me.btnBack4.UseVisualStyleBackColor = True
         '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(296, 305)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(132, 22)
+        Me.TextBox1.TabIndex = 16
+        '
         'GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1707,4 +1717,5 @@ Partial Class GUIMain
     Friend WithEvents cbColor As ComboBox
     Friend WithEvents btnExport As Button
     Friend WithEvents btnImport As Button
+    Friend WithEvents TextBox1 As TextBox
 End Class

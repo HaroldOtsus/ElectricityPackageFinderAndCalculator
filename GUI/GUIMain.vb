@@ -363,9 +363,15 @@ Public Class GUIMain
         Next
 
         'UNIX NEEDS TO BE CONVERTED TO CONVENTIONAL TIMESTAMP DO BE USABLE
-        dDates = New Double(sDates.Length - 1) {}
+        'dDates = New Double(sDates.Length - 1) {}
         For i As Integer = 1 To sDates.Length - 1
-            dDates(i) = Double.Parse(sDates(i))
+            ' dDates(i) = Double.Parse(sDates(i))
+
+            'in textbox get one time as string
+            Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(sDates(i)) 'new datetimeoffset from sDate string
+            Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
+            Dim hour As Integer = CInt(dateValue.Hour) 'convert to integer
+            TextBox1.Text = hour 'put hour to textbox for testing
 
         Next
 
@@ -536,4 +542,6 @@ Public Class GUIMain
     Private Sub GUIMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
+
+
 End Class

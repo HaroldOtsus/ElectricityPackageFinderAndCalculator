@@ -11,6 +11,18 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Assert.IsTrue(vastus)
     End Sub
 
+    <TestMethod()> Public Sub TestDateReturnFromAPIToDatabase()
+        Dim getIn As New PrjDatabaseComponent.CDatabase
+        Dim actualOutput = getIn.insertDatesToDatabase
+        Assert.AreEqual("1123123123", actualOutput(1))
+    End Sub
+
+    <TestMethod()> Public Sub TestDateReturnFromDatabase()
+        Dim getIn As New PrjDatabaseComponent.CDatabase
+        Dim actualOutput = getIn.datesOfStockPrice
+        Assert.AreEqual("1123123123", actualOutput(1))
+    End Sub
+
 
     '<TestMethod()> Public Sub TestStringReturn()
     '    Dim getIn As New PrjDatabaseComponent.CDatabase
