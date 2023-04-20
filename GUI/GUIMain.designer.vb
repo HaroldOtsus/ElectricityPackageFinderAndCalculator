@@ -100,15 +100,11 @@ Partial Class GUIMain
         Me.lblApplianceChoice = New System.Windows.Forms.Label()
         Me.btnBack1 = New System.Windows.Forms.Button()
         Me.tabExchangeComparison = New System.Windows.Forms.TabPage()
-        Me.tblExchangeComparison = New System.Windows.Forms.TableLayoutPanel()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.lblExchangeComparisonResult = New System.Windows.Forms.Label()
         Me.TextBox6 = New System.Windows.Forms.TextBox()
         Me.TextBox5 = New System.Windows.Forms.TextBox()
         Me.TextBox4 = New System.Windows.Forms.TextBox()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.lblImportExportPrice = New System.Windows.Forms.Label()
         Me.lblExchangeChoice = New System.Windows.Forms.Label()
         Me.lblCase2 = New System.Windows.Forms.Label()
         Me.lblCase1 = New System.Windows.Forms.Label()
@@ -149,6 +145,8 @@ Partial Class GUIMain
         Me.lblPackage1 = New System.Windows.Forms.Label()
         Me.lblChoosePackages = New System.Windows.Forms.Label()
         Me.btnBack4 = New System.Windows.Forms.Button()
+        Me.btnImport = New System.Windows.Forms.Button()
+        Me.btnExport = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -160,7 +158,6 @@ Partial Class GUIMain
         Me.Panel2.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.tabExchangeComparison.SuspendLayout()
-        Me.tblExchangeComparison.SuspendLayout()
         Me.tabConsumptionHistory.SuspendLayout()
         Me.TabControl2.SuspendLayout()
         Me.tabClientConsumptionHistory.SuspendLayout()
@@ -173,7 +170,7 @@ Partial Class GUIMain
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(30, 21)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(53, 15)
+        Me.Label1.Size = New System.Drawing.Size(47, 13)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "MENÜÜ"
         '
@@ -352,7 +349,7 @@ Partial Class GUIMain
         Me.lblPriceGraph.AutoSize = True
         Me.lblPriceGraph.Location = New System.Drawing.Point(499, 379)
         Me.lblPriceGraph.Name = "lblPriceGraph"
-        Me.lblPriceGraph.Size = New System.Drawing.Size(80, 15)
+        Me.lblPriceGraph.Size = New System.Drawing.Size(70, 13)
         Me.lblPriceGraph.TabIndex = 10
         Me.lblPriceGraph.Text = "Hinnagraafik:"
         '
@@ -361,7 +358,7 @@ Partial Class GUIMain
         Me.lblPriceTable.AutoSize = True
         Me.lblPriceTable.Location = New System.Drawing.Point(499, 175)
         Me.lblPriceTable.Name = "lblPriceTable"
-        Me.lblPriceTable.Size = New System.Drawing.Size(70, 15)
+        Me.lblPriceTable.Size = New System.Drawing.Size(61, 13)
         Me.lblPriceTable.TabIndex = 9
         Me.lblPriceTable.Text = "Hinnatabel:"
         '
@@ -370,7 +367,7 @@ Partial Class GUIMain
         Me.lblPackageHourlyRate.AutoSize = True
         Me.lblPackageHourlyRate.Location = New System.Drawing.Point(499, 126)
         Me.lblPackageHourlyRate.Name = "lblPackageHourlyRate"
-        Me.lblPackageHourlyRate.Size = New System.Drawing.Size(133, 15)
+        Me.lblPackageHourlyRate.Size = New System.Drawing.Size(115, 13)
         Me.lblPackageHourlyRate.TabIndex = 8
         Me.lblPackageHourlyRate.Text = "Paketijärgne tunnihind:"
         '
@@ -379,7 +376,7 @@ Partial Class GUIMain
         Me.lblResult.AutoSize = True
         Me.lblResult.Location = New System.Drawing.Point(499, 74)
         Me.lblResult.Name = "lblResult"
-        Me.lblResult.Size = New System.Drawing.Size(58, 15)
+        Me.lblResult.Size = New System.Drawing.Size(50, 13)
         Me.lblResult.TabIndex = 7
         Me.lblResult.Text = "Tulemus:"
         '
@@ -404,7 +401,7 @@ Partial Class GUIMain
         Me.lblMonthlyCost.AutoSize = True
         Me.lblMonthlyCost.Location = New System.Drawing.Point(53, 144)
         Me.lblMonthlyCost.Name = "lblMonthlyCost"
-        Me.lblMonthlyCost.Size = New System.Drawing.Size(52, 15)
+        Me.lblMonthlyCost.Size = New System.Drawing.Size(46, 13)
         Me.lblMonthlyCost.TabIndex = 4
         Me.lblMonthlyCost.Text = "Kuutasu"
         '
@@ -413,7 +410,7 @@ Partial Class GUIMain
         Me.rdioFixedPrice.AutoSize = True
         Me.rdioFixedPrice.Location = New System.Drawing.Point(190, 87)
         Me.rdioFixedPrice.Name = "rdioFixedPrice"
-        Me.rdioFixedPrice.Size = New System.Drawing.Size(115, 19)
+        Me.rdioFixedPrice.Size = New System.Drawing.Size(99, 17)
         Me.rdioFixedPrice.TabIndex = 3
         Me.rdioFixedPrice.TabStop = True
         Me.rdioFixedPrice.Text = "Fikseeritud hind"
@@ -424,7 +421,7 @@ Partial Class GUIMain
         Me.rdioExchange.AutoSize = True
         Me.rdioExchange.Location = New System.Drawing.Point(36, 87)
         Me.rdioExchange.Name = "rdioExchange"
-        Me.rdioExchange.Size = New System.Drawing.Size(80, 19)
+        Me.rdioExchange.Size = New System.Drawing.Size(68, 17)
         Me.rdioExchange.TabIndex = 2
         Me.rdioExchange.TabStop = True
         Me.rdioExchange.Text = "Börsihind"
@@ -435,7 +432,7 @@ Partial Class GUIMain
         Me.lblPackageHourly.AutoSize = True
         Me.lblPackageHourly.Location = New System.Drawing.Point(110, 22)
         Me.lblPackageHourly.Name = "lblPackageHourly"
-        Me.lblPackageHourly.Size = New System.Drawing.Size(185, 15)
+        Me.lblPackageHourly.Size = New System.Drawing.Size(162, 13)
         Me.lblPackageHourly.TabIndex = 1
         Me.lblPackageHourly.Text = "Kehtiva paketi andmete sisestus:"
         '
@@ -483,7 +480,7 @@ Partial Class GUIMain
         Me.rdioUniversalPackage.AutoSize = True
         Me.rdioUniversalPackage.Location = New System.Drawing.Point(25, 49)
         Me.rdioUniversalPackage.Name = "rdioUniversalPackage"
-        Me.rdioUniversalPackage.Size = New System.Drawing.Size(122, 19)
+        Me.rdioUniversalPackage.Size = New System.Drawing.Size(108, 17)
         Me.rdioUniversalPackage.TabIndex = 42
         Me.rdioUniversalPackage.TabStop = True
         Me.rdioUniversalPackage.Text = "Universaal pakett"
@@ -494,7 +491,7 @@ Partial Class GUIMain
         Me.rdioFixedPrice1.AutoSize = True
         Me.rdioFixedPrice1.Location = New System.Drawing.Point(25, 26)
         Me.rdioFixedPrice1.Name = "rdioFixedPrice1"
-        Me.rdioFixedPrice1.Size = New System.Drawing.Size(115, 19)
+        Me.rdioFixedPrice1.Size = New System.Drawing.Size(99, 17)
         Me.rdioFixedPrice1.TabIndex = 12
         Me.rdioFixedPrice1.TabStop = True
         Me.rdioFixedPrice1.Text = "Fikseeritud hind"
@@ -505,7 +502,7 @@ Partial Class GUIMain
         Me.rdioExchangePrice.AutoSize = True
         Me.rdioExchangePrice.Location = New System.Drawing.Point(25, 3)
         Me.rdioExchangePrice.Name = "rdioExchangePrice"
-        Me.rdioExchangePrice.Size = New System.Drawing.Size(80, 19)
+        Me.rdioExchangePrice.Size = New System.Drawing.Size(68, 17)
         Me.rdioExchangePrice.TabIndex = 11
         Me.rdioExchangePrice.TabStop = True
         Me.rdioExchangePrice.Text = "Börsihind"
@@ -559,7 +556,7 @@ Partial Class GUIMain
         Me.Label11.AutoSize = True
         Me.Label11.Location = New System.Drawing.Point(319, 170)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(14, 15)
+        Me.Label11.Size = New System.Drawing.Size(13, 13)
         Me.Label11.TabIndex = 42
         Me.Label11.Text = "€"
         '
@@ -568,7 +565,7 @@ Partial Class GUIMain
         Me.Label7.AutoSize = True
         Me.Label7.Location = New System.Drawing.Point(319, 138)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(31, 15)
+        Me.Label7.Size = New System.Drawing.Size(30, 13)
         Me.Label7.TabIndex = 41
         Me.Label7.Text = "kWh"
         '
@@ -577,7 +574,7 @@ Partial Class GUIMain
         Me.Label5.AutoSize = True
         Me.Label5.Location = New System.Drawing.Point(319, 84)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(28, 15)
+        Me.Label5.Size = New System.Drawing.Size(23, 13)
         Me.Label5.TabIndex = 40
         Me.Label5.Text = "min"
         '
@@ -586,7 +583,7 @@ Partial Class GUIMain
         Me.Label4.AutoSize = True
         Me.Label4.Location = New System.Drawing.Point(319, 52)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(18, 15)
+        Me.Label4.Size = New System.Drawing.Size(18, 13)
         Me.Label4.TabIndex = 39
         Me.Label4.Text = "W"
         '
@@ -595,7 +592,7 @@ Partial Class GUIMain
         Me.lblApplianceResult.AutoSize = True
         Me.lblApplianceResult.Location = New System.Drawing.Point(17, 23)
         Me.lblApplianceResult.Name = "lblApplianceResult"
-        Me.lblApplianceResult.Size = New System.Drawing.Size(58, 15)
+        Me.lblApplianceResult.Size = New System.Drawing.Size(50, 13)
         Me.lblApplianceResult.TabIndex = 5
         Me.lblApplianceResult.Text = "Tulemus:"
         '
@@ -604,7 +601,7 @@ Partial Class GUIMain
         Me.lblElectricityConsumptionRate.AutoSize = True
         Me.lblElectricityConsumptionRate.Location = New System.Drawing.Point(16, 138)
         Me.lblElectricityConsumptionRate.Name = "lblElectricityConsumptionRate"
-        Me.lblElectricityConsumptionRate.Size = New System.Drawing.Size(176, 15)
+        Me.lblElectricityConsumptionRate.Size = New System.Drawing.Size(150, 13)
         Me.lblElectricityConsumptionRate.TabIndex = 7
         Me.lblElectricityConsumptionRate.Text = "Elektrienergia tarbimise kogus:"
         '
@@ -624,7 +621,7 @@ Partial Class GUIMain
         Me.lblRoughPrice.AutoSize = True
         Me.lblRoughPrice.Location = New System.Drawing.Point(16, 170)
         Me.lblRoughPrice.Name = "lblRoughPrice"
-        Me.lblRoughPrice.Size = New System.Drawing.Size(100, 15)
+        Me.lblRoughPrice.Size = New System.Drawing.Size(88, 13)
         Me.lblRoughPrice.TabIndex = 8
         Me.lblRoughPrice.Text = "Orienteeruv hind:"
         '
@@ -658,7 +655,7 @@ Partial Class GUIMain
         Me.lblUsageTime.AutoSize = True
         Me.lblUsageTime.Location = New System.Drawing.Point(16, 89)
         Me.lblUsageTime.Name = "lblUsageTime"
-        Me.lblUsageTime.Size = New System.Drawing.Size(72, 15)
+        Me.lblUsageTime.Size = New System.Drawing.Size(63, 13)
         Me.lblUsageTime.TabIndex = 36
         Me.lblUsageTime.Text = "Kasutusaeg"
         '
@@ -679,7 +676,7 @@ Partial Class GUIMain
         Me.lblConsumptionPerHour.AutoSize = True
         Me.lblConsumptionPerHour.Location = New System.Drawing.Point(17, 57)
         Me.lblConsumptionPerHour.Name = "lblConsumptionPerHour"
-        Me.lblConsumptionPerHour.Size = New System.Drawing.Size(115, 15)
+        Me.lblConsumptionPerHour.Size = New System.Drawing.Size(100, 13)
         Me.lblConsumptionPerHour.TabIndex = 35
         Me.lblConsumptionPerHour.Text = "Energia kulu tunnis:"
         '
@@ -712,7 +709,7 @@ Partial Class GUIMain
         Me.rdioFridge.AutoSize = True
         Me.rdioFridge.Location = New System.Drawing.Point(126, 26)
         Me.rdioFridge.Name = "rdioFridge"
-        Me.rdioFridge.Size = New System.Drawing.Size(84, 19)
+        Me.rdioFridge.Size = New System.Drawing.Size(72, 17)
         Me.rdioFridge.TabIndex = 27
         Me.rdioFridge.TabStop = True
         Me.rdioFridge.Text = "Külmkapp"
@@ -723,7 +720,7 @@ Partial Class GUIMain
         Me.rdioCoffeeMaker.AutoSize = True
         Me.rdioCoffeeMaker.Location = New System.Drawing.Point(25, 26)
         Me.rdioCoffeeMaker.Name = "rdioCoffeeMaker"
-        Me.rdioCoffeeMaker.Size = New System.Drawing.Size(92, 19)
+        Me.rdioCoffeeMaker.Size = New System.Drawing.Size(79, 17)
         Me.rdioCoffeeMaker.TabIndex = 18
         Me.rdioCoffeeMaker.TabStop = True
         Me.rdioCoffeeMaker.Text = "Kohvimasin"
@@ -734,7 +731,7 @@ Partial Class GUIMain
         Me.rdioToaster.AutoSize = True
         Me.rdioToaster.Location = New System.Drawing.Point(25, 49)
         Me.rdioToaster.Name = "rdioToaster"
-        Me.rdioToaster.Size = New System.Drawing.Size(64, 19)
+        Me.rdioToaster.Size = New System.Drawing.Size(56, 17)
         Me.rdioToaster.TabIndex = 19
         Me.rdioToaster.TabStop = True
         Me.rdioToaster.Text = "Röster"
@@ -745,7 +742,7 @@ Partial Class GUIMain
         Me.rdioVacuum.AutoSize = True
         Me.rdioVacuum.Location = New System.Drawing.Point(25, 72)
         Me.rdioVacuum.Name = "rdioVacuum"
-        Me.rdioVacuum.Size = New System.Drawing.Size(94, 19)
+        Me.rdioVacuum.Size = New System.Drawing.Size(78, 17)
         Me.rdioVacuum.TabIndex = 20
         Me.rdioVacuum.TabStop = True
         Me.rdioVacuum.Text = "Tolmuimeja"
@@ -756,7 +753,7 @@ Partial Class GUIMain
         Me.rdioMixer.AutoSize = True
         Me.rdioMixer.Location = New System.Drawing.Point(25, 95)
         Me.rdioMixer.Name = "rdioMixer"
-        Me.rdioMixer.Size = New System.Drawing.Size(65, 19)
+        Me.rdioMixer.Size = New System.Drawing.Size(56, 17)
         Me.rdioMixer.TabIndex = 21
         Me.rdioMixer.TabStop = True
         Me.rdioMixer.Text = "Mikser"
@@ -767,7 +764,7 @@ Partial Class GUIMain
         Me.rdioMicrowave.AutoSize = True
         Me.rdioMicrowave.Location = New System.Drawing.Point(126, 187)
         Me.rdioMicrowave.Name = "rdioMicrowave"
-        Me.rdioMicrowave.Size = New System.Drawing.Size(103, 19)
+        Me.rdioMicrowave.Size = New System.Drawing.Size(87, 17)
         Me.rdioMicrowave.TabIndex = 34
         Me.rdioMicrowave.TabStop = True
         Me.rdioMicrowave.Text = "Mikrolaineahi"
@@ -778,7 +775,7 @@ Partial Class GUIMain
         Me.rdioElecStove.AutoSize = True
         Me.rdioElecStove.Location = New System.Drawing.Point(25, 118)
         Me.rdioElecStove.Name = "rdioElecStove"
-        Me.rdioElecStove.Size = New System.Drawing.Size(81, 19)
+        Me.rdioElecStove.Size = New System.Drawing.Size(69, 17)
         Me.rdioElecStove.TabIndex = 22
         Me.rdioElecStove.TabStop = True
         Me.rdioElecStove.Text = "Elektripliit"
@@ -789,7 +786,7 @@ Partial Class GUIMain
         Me.rdioRouter.AutoSize = True
         Me.rdioRouter.Location = New System.Drawing.Point(126, 164)
         Me.rdioRouter.Name = "rdioRouter"
-        Me.rdioRouter.Size = New System.Drawing.Size(65, 19)
+        Me.rdioRouter.Size = New System.Drawing.Size(57, 17)
         Me.rdioRouter.TabIndex = 33
         Me.rdioRouter.TabStop = True
         Me.rdioRouter.Text = "Ruuter"
@@ -800,7 +797,7 @@ Partial Class GUIMain
         Me.rdioFoodProcessor.AutoSize = True
         Me.rdioFoodProcessor.Location = New System.Drawing.Point(25, 141)
         Me.rdioFoodProcessor.Name = "rdioFoodProcessor"
-        Me.rdioFoodProcessor.Size = New System.Drawing.Size(108, 19)
+        Me.rdioFoodProcessor.Size = New System.Drawing.Size(92, 17)
         Me.rdioFoodProcessor.TabIndex = 23
         Me.rdioFoodProcessor.TabStop = True
         Me.rdioFoodProcessor.Text = "Köögikombain"
@@ -811,7 +808,7 @@ Partial Class GUIMain
         Me.rdioSewingMachine.AutoSize = True
         Me.rdioSewingMachine.Location = New System.Drawing.Point(126, 141)
         Me.rdioSewingMachine.Name = "rdioSewingMachine"
-        Me.rdioSewingMachine.Size = New System.Drawing.Size(105, 19)
+        Me.rdioSewingMachine.Size = New System.Drawing.Size(87, 17)
         Me.rdioSewingMachine.TabIndex = 32
         Me.rdioSewingMachine.TabStop = True
         Me.rdioSewingMachine.Text = "Õmblusmasin"
@@ -822,7 +819,7 @@ Partial Class GUIMain
         Me.rdioTV.AutoSize = True
         Me.rdioTV.Location = New System.Drawing.Point(25, 164)
         Me.rdioTV.Name = "rdioTV"
-        Me.rdioTV.Size = New System.Drawing.Size(42, 19)
+        Me.rdioTV.Size = New System.Drawing.Size(39, 17)
         Me.rdioTV.TabIndex = 24
         Me.rdioTV.TabStop = True
         Me.rdioTV.Text = "TV"
@@ -833,7 +830,7 @@ Partial Class GUIMain
         Me.rdioLED.AutoSize = True
         Me.rdioLED.Location = New System.Drawing.Point(126, 118)
         Me.rdioLED.Name = "rdioLED"
-        Me.rdioLED.Size = New System.Drawing.Size(119, 19)
+        Me.rdioLED.Size = New System.Drawing.Size(100, 17)
         Me.rdioLED.TabIndex = 31
         Me.rdioLED.TabStop = True
         Me.rdioLED.Text = "Lambipirn (LED)"
@@ -844,7 +841,7 @@ Partial Class GUIMain
         Me.rdioRadio.AutoSize = True
         Me.rdioRadio.Location = New System.Drawing.Point(25, 187)
         Me.rdioRadio.Name = "rdioRadio"
-        Me.rdioRadio.Size = New System.Drawing.Size(68, 19)
+        Me.rdioRadio.Size = New System.Drawing.Size(59, 17)
         Me.rdioRadio.TabIndex = 25
         Me.rdioRadio.TabStop = True
         Me.rdioRadio.Text = "Raadio"
@@ -855,7 +852,7 @@ Partial Class GUIMain
         Me.rdioPrinter.AutoSize = True
         Me.rdioPrinter.Location = New System.Drawing.Point(126, 95)
         Me.rdioPrinter.Name = "rdioPrinter"
-        Me.rdioPrinter.Size = New System.Drawing.Size(64, 19)
+        Me.rdioPrinter.Size = New System.Drawing.Size(55, 17)
         Me.rdioPrinter.TabIndex = 30
         Me.rdioPrinter.TabStop = True
         Me.rdioPrinter.Text = "Printer"
@@ -866,7 +863,7 @@ Partial Class GUIMain
         Me.rdioEggCooker.AutoSize = True
         Me.rdioEggCooker.Location = New System.Drawing.Point(25, 210)
         Me.rdioEggCooker.Name = "rdioEggCooker"
-        Me.rdioEggCooker.Size = New System.Drawing.Size(93, 19)
+        Me.rdioEggCooker.Size = New System.Drawing.Size(81, 17)
         Me.rdioEggCooker.TabIndex = 26
         Me.rdioEggCooker.TabStop = True
         Me.rdioEggCooker.Text = "Munakeetja"
@@ -877,7 +874,7 @@ Partial Class GUIMain
         Me.rdioHairDryer.AutoSize = True
         Me.rdioHairDryer.Location = New System.Drawing.Point(126, 72)
         Me.rdioHairDryer.Name = "rdioHairDryer"
-        Me.rdioHairDryer.Size = New System.Drawing.Size(56, 19)
+        Me.rdioHairDryer.Size = New System.Drawing.Size(49, 17)
         Me.rdioHairDryer.TabIndex = 29
         Me.rdioHairDryer.TabStop = True
         Me.rdioHairDryer.Text = "Föön"
@@ -888,7 +885,7 @@ Partial Class GUIMain
         Me.rdioComputer.AutoSize = True
         Me.rdioComputer.Location = New System.Drawing.Point(126, 49)
         Me.rdioComputer.Name = "rdioComputer"
-        Me.rdioComputer.Size = New System.Drawing.Size(57, 19)
+        Me.rdioComputer.Size = New System.Drawing.Size(52, 17)
         Me.rdioComputer.TabIndex = 28
         Me.rdioComputer.TabStop = True
         Me.rdioComputer.Text = "Arvuti"
@@ -915,7 +912,7 @@ Partial Class GUIMain
         Me.lblCurrentPackagePrice.AutoSize = True
         Me.lblCurrentPackagePrice.Location = New System.Drawing.Point(39, 497)
         Me.lblCurrentPackagePrice.Name = "lblCurrentPackagePrice"
-        Me.lblCurrentPackagePrice.Size = New System.Drawing.Size(143, 15)
+        Me.lblCurrentPackagePrice.Size = New System.Drawing.Size(127, 13)
         Me.lblCurrentPackagePrice.TabIndex = 10
         Me.lblCurrentPackagePrice.Text = "Kehtiva paketi tunnihind: "
         '
@@ -924,7 +921,7 @@ Partial Class GUIMain
         Me.lblOptional.AutoSize = True
         Me.lblOptional.Location = New System.Drawing.Point(46, 379)
         Me.lblOptional.Name = "lblOptional"
-        Me.lblOptional.Size = New System.Drawing.Size(60, 15)
+        Me.lblOptional.Size = New System.Drawing.Size(52, 13)
         Me.lblOptional.TabIndex = 4
         Me.lblOptional.Text = "Valikuline"
         '
@@ -933,7 +930,7 @@ Partial Class GUIMain
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(46, 366)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(172, 15)
+        Me.Label3.Size = New System.Drawing.Size(151, 13)
         Me.Label3.TabIndex = 3
         Me.Label3.Text = "Tarvitav võimsus ühes minutis:"
         '
@@ -942,7 +939,7 @@ Partial Class GUIMain
         Me.lblApplianceChoice.AutoSize = True
         Me.lblApplianceChoice.Location = New System.Drawing.Point(112, 22)
         Me.lblApplianceChoice.Name = "lblApplianceChoice"
-        Me.lblApplianceChoice.Size = New System.Drawing.Size(107, 15)
+        Me.lblApplianceChoice.Size = New System.Drawing.Size(93, 13)
         Me.lblApplianceChoice.TabIndex = 2
         Me.lblApplianceChoice.Text = "Kodumasina valik:"
         '
@@ -957,14 +954,13 @@ Partial Class GUIMain
         '
         'tabExchangeComparison
         '
-        Me.tabExchangeComparison.Controls.Add(Me.tblExchangeComparison)
+        Me.tabExchangeComparison.Controls.Add(Me.btnExport)
+        Me.tabExchangeComparison.Controls.Add(Me.btnImport)
         Me.tabExchangeComparison.Controls.Add(Me.lblExchangeComparisonResult)
         Me.tabExchangeComparison.Controls.Add(Me.TextBox6)
         Me.tabExchangeComparison.Controls.Add(Me.TextBox5)
         Me.tabExchangeComparison.Controls.Add(Me.TextBox4)
         Me.tabExchangeComparison.Controls.Add(Me.TextBox2)
-        Me.tabExchangeComparison.Controls.Add(Me.Button2)
-        Me.tabExchangeComparison.Controls.Add(Me.lblImportExportPrice)
         Me.tabExchangeComparison.Controls.Add(Me.lblExchangeChoice)
         Me.tabExchangeComparison.Controls.Add(Me.lblCase2)
         Me.tabExchangeComparison.Controls.Add(Me.lblCase1)
@@ -981,41 +977,12 @@ Partial Class GUIMain
         Me.tabExchangeComparison.Text = "Börsihinna võrdlus"
         Me.tabExchangeComparison.UseVisualStyleBackColor = True
         '
-        'tblExchangeComparison
-        '
-        Me.tblExchangeComparison.ColumnCount = 3
-        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.03704!))
-        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.96296!))
-        Me.tblExchangeComparison.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 224.0!))
-        Me.tblExchangeComparison.Controls.Add(Me.Label2, 1, 3)
-        Me.tblExchangeComparison.Location = New System.Drawing.Point(414, 52)
-        Me.tblExchangeComparison.Name = "tblExchangeComparison"
-        Me.tblExchangeComparison.RowCount = 6
-        Me.tblExchangeComparison.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
-        Me.tblExchangeComparison.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
-        Me.tblExchangeComparison.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
-        Me.tblExchangeComparison.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
-        Me.tblExchangeComparison.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
-        Me.tblExchangeComparison.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667!))
-        Me.tblExchangeComparison.Size = New System.Drawing.Size(354, 262)
-        Me.tblExchangeComparison.TabIndex = 16
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.ForeColor = System.Drawing.Color.Red
-        Me.Label2.Location = New System.Drawing.Point(51, 129)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(70, 30)
-        Me.Label2.TabIndex = 0
-        Me.Label2.Text = "PLACEHOLDER"
-        '
         'lblExchangeComparisonResult
         '
         Me.lblExchangeComparisonResult.AutoSize = True
         Me.lblExchangeComparisonResult.Location = New System.Drawing.Point(411, 22)
         Me.lblExchangeComparisonResult.Name = "lblExchangeComparisonResult"
-        Me.lblExchangeComparisonResult.Size = New System.Drawing.Size(58, 15)
+        Me.lblExchangeComparisonResult.Size = New System.Drawing.Size(50, 13)
         Me.lblExchangeComparisonResult.TabIndex = 15
         Me.lblExchangeComparisonResult.Text = "Tulemus:"
         '
@@ -1047,31 +1014,12 @@ Partial Class GUIMain
         Me.TextBox2.Size = New System.Drawing.Size(100, 20)
         Me.TextBox2.TabIndex = 11
         '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(184, 291)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 10
-        Me.Button2.Text = "Button2"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
-        'lblImportExportPrice
-        '
-        Me.lblImportExportPrice.AutoSize = True
-        Me.lblImportExportPrice.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(186, Byte))
-        Me.lblImportExportPrice.Location = New System.Drawing.Point(107, 237)
-        Me.lblImportExportPrice.Name = "lblImportExportPrice"
-        Me.lblImportExportPrice.Size = New System.Drawing.Size(260, 17)
-        Me.lblImportExportPrice.TabIndex = 9
-        Me.lblImportExportPrice.Text = "Impordi/Ekspordi hinnastamistingimused"
-        '
         'lblExchangeChoice
         '
         Me.lblExchangeChoice.AutoSize = True
         Me.lblExchangeChoice.Location = New System.Drawing.Point(107, 209)
         Me.lblExchangeChoice.Name = "lblExchangeChoice"
-        Me.lblExchangeChoice.Size = New System.Drawing.Size(63, 15)
+        Me.lblExchangeChoice.Size = New System.Drawing.Size(55, 13)
         Me.lblExchangeChoice.TabIndex = 8
         Me.lblExchangeChoice.Text = "Valikuline:"
         '
@@ -1080,7 +1028,7 @@ Partial Class GUIMain
         Me.lblCase2.AutoSize = True
         Me.lblCase2.Location = New System.Drawing.Point(107, 161)
         Me.lblCase2.Name = "lblCase2"
-        Me.lblCase2.Size = New System.Drawing.Size(71, 15)
+        Me.lblCase2.Size = New System.Drawing.Size(61, 13)
         Me.lblCase2.TabIndex = 7
         Me.lblCase2.Text = "Tingimus 2:"
         '
@@ -1089,7 +1037,7 @@ Partial Class GUIMain
         Me.lblCase1.AutoSize = True
         Me.lblCase1.Location = New System.Drawing.Point(107, 135)
         Me.lblCase1.Name = "lblCase1"
-        Me.lblCase1.Size = New System.Drawing.Size(71, 15)
+        Me.lblCase1.Size = New System.Drawing.Size(61, 13)
         Me.lblCase1.TabIndex = 6
         Me.lblCase1.Text = "Tingimus 1:"
         '
@@ -1098,7 +1046,7 @@ Partial Class GUIMain
         Me.lblEnterPrice.AutoSize = True
         Me.lblEnterPrice.Location = New System.Drawing.Point(107, 111)
         Me.lblEnterPrice.Name = "lblEnterPrice"
-        Me.lblEnterPrice.Size = New System.Drawing.Size(181, 15)
+        Me.lblEnterPrice.Size = New System.Drawing.Size(152, 13)
         Me.lblEnterPrice.TabIndex = 5
         Me.lblEnterPrice.Text = "Sisesta hinnastamistingimused:"
         '
@@ -1107,7 +1055,7 @@ Partial Class GUIMain
         Me.lblEndTime.AutoSize = True
         Me.lblEndTime.Location = New System.Drawing.Point(107, 81)
         Me.lblEndTime.Name = "lblEndTime"
-        Me.lblEndTime.Size = New System.Drawing.Size(59, 15)
+        Me.lblEndTime.Size = New System.Drawing.Size(52, 13)
         Me.lblEndTime.TabIndex = 4
         Me.lblEndTime.Text = "Lõppaeg:"
         '
@@ -1116,7 +1064,7 @@ Partial Class GUIMain
         Me.lblStartTime.AutoSize = True
         Me.lblStartTime.Location = New System.Drawing.Point(107, 55)
         Me.lblStartTime.Name = "lblStartTime"
-        Me.lblStartTime.Size = New System.Drawing.Size(61, 15)
+        Me.lblStartTime.Size = New System.Drawing.Size(54, 13)
         Me.lblStartTime.TabIndex = 3
         Me.lblStartTime.Text = "Algusaeg:"
         '
@@ -1125,7 +1073,7 @@ Partial Class GUIMain
         Me.lblTimePeriodSelection.AutoSize = True
         Me.lblTimePeriodSelection.Location = New System.Drawing.Point(107, 22)
         Me.lblTimePeriodSelection.Name = "lblTimePeriodSelection"
-        Me.lblTimePeriodSelection.Size = New System.Drawing.Size(107, 15)
+        Me.lblTimePeriodSelection.Size = New System.Drawing.Size(96, 13)
         Me.lblTimePeriodSelection.TabIndex = 2
         Me.lblTimePeriodSelection.Text = "Ajavahemiku valik:"
         '
@@ -1205,7 +1153,7 @@ Partial Class GUIMain
         Me.lblSimulateClientConsumptionHistory.AutoSize = True
         Me.lblSimulateClientConsumptionHistory.Location = New System.Drawing.Point(48, 23)
         Me.lblSimulateClientConsumptionHistory.Name = "lblSimulateClientConsumptionHistory"
-        Me.lblSimulateClientConsumptionHistory.Size = New System.Drawing.Size(186, 15)
+        Me.lblSimulateClientConsumptionHistory.Size = New System.Drawing.Size(153, 13)
         Me.lblSimulateClientConsumptionHistory.TabIndex = 6
         Me.lblSimulateClientConsumptionHistory.Text = "Simuleeri oma tarbimise ajalugu"
         '
@@ -1214,7 +1162,7 @@ Partial Class GUIMain
         Me.lblComparisonGraph.AutoSize = True
         Me.lblComparisonGraph.Location = New System.Drawing.Point(573, 282)
         Me.lblComparisonGraph.Name = "lblComparisonGraph"
-        Me.lblComparisonGraph.Size = New System.Drawing.Size(85, 15)
+        Me.lblComparisonGraph.Size = New System.Drawing.Size(74, 13)
         Me.lblComparisonGraph.TabIndex = 5
         Me.lblComparisonGraph.Text = "Võrdlusgraafik"
         '
@@ -1223,7 +1171,7 @@ Partial Class GUIMain
         Me.lblConsumptionGraph.AutoSize = True
         Me.lblConsumptionGraph.Location = New System.Drawing.Point(573, 114)
         Me.lblConsumptionGraph.Name = "lblConsumptionGraph"
-        Me.lblConsumptionGraph.Size = New System.Drawing.Size(92, 15)
+        Me.lblConsumptionGraph.Size = New System.Drawing.Size(78, 13)
         Me.lblConsumptionGraph.TabIndex = 4
         Me.lblConsumptionGraph.Text = "Tarbimisgraafik"
         '
@@ -1232,7 +1180,7 @@ Partial Class GUIMain
         Me.lblClientConsumptionHistoryResult.AutoSize = True
         Me.lblClientConsumptionHistoryResult.Location = New System.Drawing.Point(426, 73)
         Me.lblClientConsumptionHistoryResult.Name = "lblClientConsumptionHistoryResult"
-        Me.lblClientConsumptionHistoryResult.Size = New System.Drawing.Size(58, 15)
+        Me.lblClientConsumptionHistoryResult.Size = New System.Drawing.Size(50, 13)
         Me.lblClientConsumptionHistoryResult.TabIndex = 3
         Me.lblClientConsumptionHistoryResult.Text = "Tulemus:"
         '
@@ -1242,7 +1190,7 @@ Partial Class GUIMain
         Me.lblUploadComparisonPackageCSV.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(186, Byte))
         Me.lblUploadComparisonPackageCSV.Location = New System.Drawing.Point(48, 212)
         Me.lblUploadComparisonPackageCSV.Name = "lblUploadComparisonPackageCSV"
-        Me.lblUploadComparisonPackageCSV.Size = New System.Drawing.Size(206, 17)
+        Me.lblUploadComparisonPackageCSV.Size = New System.Drawing.Size(156, 13)
         Me.lblUploadComparisonPackageCSV.TabIndex = 2
         Me.lblUploadComparisonPackageCSV.Text = "Lae üles võrreldava paketi CSV"
         '
@@ -1252,7 +1200,7 @@ Partial Class GUIMain
         Me.lblUploadClientHistoryCSV.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(186, Byte))
         Me.lblUploadClientHistoryCSV.Location = New System.Drawing.Point(48, 114)
         Me.lblUploadClientHistoryCSV.Name = "lblUploadClientHistoryCSV"
-        Me.lblUploadClientHistoryCSV.Size = New System.Drawing.Size(249, 17)
+        Me.lblUploadClientHistoryCSV.Size = New System.Drawing.Size(185, 13)
         Me.lblUploadClientHistoryCSV.TabIndex = 1
         Me.lblUploadClientHistoryCSV.Text = "Lae üles oma tarbimise ajaloo CSV fail"
         '
@@ -1261,7 +1209,7 @@ Partial Class GUIMain
         Me.lblHistoryData.AutoSize = True
         Me.lblHistoryData.Location = New System.Drawing.Point(48, 73)
         Me.lblHistoryData.Name = "lblHistoryData"
-        Me.lblHistoryData.Size = New System.Drawing.Size(93, 15)
+        Me.lblHistoryData.Size = New System.Drawing.Size(80, 13)
         Me.lblHistoryData.TabIndex = 0
         Me.lblHistoryData.Text = "Ajaloo andmed:"
         '
@@ -1288,7 +1236,7 @@ Partial Class GUIMain
         Me.lblExchangePackageHistory.AutoSize = True
         Me.lblExchangePackageHistory.Location = New System.Drawing.Point(48, 23)
         Me.lblExchangePackageHistory.Name = "lblExchangePackageHistory"
-        Me.lblExchangePackageHistory.Size = New System.Drawing.Size(210, 15)
+        Me.lblExchangePackageHistory.Size = New System.Drawing.Size(180, 13)
         Me.lblExchangePackageHistory.TabIndex = 20
         Me.lblExchangePackageHistory.Text = "Elektripakettide börsihindade ajalugu"
         '
@@ -1297,7 +1245,7 @@ Partial Class GUIMain
         Me.Label8.AutoSize = True
         Me.Label8.Location = New System.Drawing.Point(514, 145)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(58, 15)
+        Me.Label8.Size = New System.Drawing.Size(50, 13)
         Me.Label8.TabIndex = 19
         Me.Label8.Text = "Tulemus:"
         '
@@ -1322,7 +1270,7 @@ Partial Class GUIMain
         Me.Label9.AutoSize = True
         Me.Label9.Location = New System.Drawing.Point(48, 202)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(52, 15)
+        Me.Label9.Size = New System.Drawing.Size(46, 13)
         Me.Label9.TabIndex = 16
         Me.Label9.Text = "Kuutasu"
         '
@@ -1331,7 +1279,7 @@ Partial Class GUIMain
         Me.RadioButton3.AutoSize = True
         Me.RadioButton3.Location = New System.Drawing.Point(176, 145)
         Me.RadioButton3.Name = "RadioButton3"
-        Me.RadioButton3.Size = New System.Drawing.Size(115, 19)
+        Me.RadioButton3.Size = New System.Drawing.Size(99, 17)
         Me.RadioButton3.TabIndex = 15
         Me.RadioButton3.TabStop = True
         Me.RadioButton3.Text = "Fikseeritud hind"
@@ -1342,7 +1290,7 @@ Partial Class GUIMain
         Me.RadioButton4.AutoSize = True
         Me.RadioButton4.Location = New System.Drawing.Point(51, 145)
         Me.RadioButton4.Name = "RadioButton4"
-        Me.RadioButton4.Size = New System.Drawing.Size(80, 19)
+        Me.RadioButton4.Size = New System.Drawing.Size(68, 17)
         Me.RadioButton4.TabIndex = 14
         Me.RadioButton4.TabStop = True
         Me.RadioButton4.Text = "Börsihind"
@@ -1353,7 +1301,7 @@ Partial Class GUIMain
         Me.Label10.AutoSize = True
         Me.Label10.Location = New System.Drawing.Point(48, 76)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(185, 15)
+        Me.Label10.Size = New System.Drawing.Size(162, 13)
         Me.Label10.TabIndex = 13
         Me.Label10.Text = "Kehtiva paketi andmete sisestus:"
         '
@@ -1407,7 +1355,7 @@ Partial Class GUIMain
         Me.lblComparisonResult.AutoSize = True
         Me.lblComparisonResult.Location = New System.Drawing.Point(438, 64)
         Me.lblComparisonResult.Name = "lblComparisonResult"
-        Me.lblComparisonResult.Size = New System.Drawing.Size(58, 15)
+        Me.lblComparisonResult.Size = New System.Drawing.Size(50, 13)
         Me.lblComparisonResult.TabIndex = 7
         Me.lblComparisonResult.Text = "Tulemus:"
         '
@@ -1432,7 +1380,7 @@ Partial Class GUIMain
         Me.Label6.AutoSize = True
         Me.Label6.Location = New System.Drawing.Point(53, 284)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(87, 15)
+        Me.Label6.Size = New System.Drawing.Size(78, 13)
         Me.Label6.TabIndex = 4
         Me.Label6.Text = "Elektripakett 2:"
         '
@@ -1441,7 +1389,7 @@ Partial Class GUIMain
         Me.lblPackage1.AutoSize = True
         Me.lblPackage1.Location = New System.Drawing.Point(53, 160)
         Me.lblPackage1.Name = "lblPackage1"
-        Me.lblPackage1.Size = New System.Drawing.Size(87, 15)
+        Me.lblPackage1.Size = New System.Drawing.Size(78, 13)
         Me.lblPackage1.TabIndex = 3
         Me.lblPackage1.Text = "Elektripakett 1:"
         '
@@ -1450,7 +1398,7 @@ Partial Class GUIMain
         Me.lblChoosePackages.AutoSize = True
         Me.lblChoosePackages.Location = New System.Drawing.Point(53, 64)
         Me.lblChoosePackages.Name = "lblChoosePackages"
-        Me.lblChoosePackages.Size = New System.Drawing.Size(106, 15)
+        Me.lblChoosePackages.Size = New System.Drawing.Size(93, 13)
         Me.lblChoosePackages.TabIndex = 2
         Me.lblChoosePackages.Text = "Vali elektripaketid:"
         '
@@ -1462,6 +1410,24 @@ Partial Class GUIMain
         Me.btnBack4.TabIndex = 1
         Me.btnBack4.Text = "Tagasi"
         Me.btnBack4.UseVisualStyleBackColor = True
+        '
+        'btnImport
+        '
+        Me.btnImport.Location = New System.Drawing.Point(128, 240)
+        Me.btnImport.Name = "btnImport"
+        Me.btnImport.Size = New System.Drawing.Size(75, 23)
+        Me.btnImport.TabIndex = 17
+        Me.btnImport.Text = "Import"
+        Me.btnImport.UseVisualStyleBackColor = True
+        '
+        'btnExport
+        '
+        Me.btnExport.Location = New System.Drawing.Point(237, 240)
+        Me.btnExport.Name = "btnExport"
+        Me.btnExport.Size = New System.Drawing.Size(76, 23)
+        Me.btnExport.TabIndex = 18
+        Me.btnExport.Text = "Export"
+        Me.btnExport.UseVisualStyleBackColor = True
         '
         'GUIMain
         '
@@ -1490,8 +1456,6 @@ Partial Class GUIMain
         Me.Panel1.PerformLayout()
         Me.tabExchangeComparison.ResumeLayout(False)
         Me.tabExchangeComparison.PerformLayout()
-        Me.tblExchangeComparison.ResumeLayout(False)
-        Me.tblExchangeComparison.PerformLayout()
         Me.tabConsumptionHistory.ResumeLayout(False)
         Me.TabControl2.ResumeLayout(False)
         Me.tabClientConsumptionHistory.ResumeLayout(False)
@@ -1564,7 +1528,6 @@ Partial Class GUIMain
     Friend WithEvents rdioMicrowave As RadioButton
     Friend WithEvents rdioRouter As RadioButton
     Friend WithEvents rdioSewingMachine As RadioButton
-    Friend WithEvents lblImportExportPrice As Label
     Friend WithEvents lblExchangeChoice As Label
     Friend WithEvents lblCase2 As Label
     Friend WithEvents lblCase1 As Label
@@ -1576,10 +1539,7 @@ Partial Class GUIMain
     Friend WithEvents TextBox5 As TextBox
     Friend WithEvents TextBox4 As TextBox
     Friend WithEvents TextBox2 As TextBox
-    Friend WithEvents Button2 As Button
-    Friend WithEvents tblExchangeComparison As TableLayoutPanel
     Friend WithEvents lblExchangeComparisonResult As Label
-    Friend WithEvents Label2 As Label
     Friend WithEvents btnSimulateConsumptionHistory As Button
     Friend WithEvents TabControl2 As TabControl
     Friend WithEvents tabBlank As TabPage
@@ -1627,4 +1587,6 @@ Partial Class GUIMain
     Friend WithEvents Panel3 As Panel
     Friend WithEvents rdioUniversalPackage As RadioButton
     Friend WithEvents cbColor As ComboBox
+    Friend WithEvents btnExport As Button
+    Friend WithEvents btnImport As Button
 End Class
