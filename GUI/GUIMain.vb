@@ -1,11 +1,10 @@
 ﻿
 
+Imports System.IO
+
 Public Class GUIMain
-
+    Dim sisend As String
     Dim applianceID As String
-    Dim isFlagRaised As Boolean = False
-    Dim myColor As Color
-
 
     Public answer As String
     Private Sub btnPackageHourlyRate_Click(sender As Object, e As EventArgs) Handles btnPackageHourlyRate.Click
@@ -49,151 +48,98 @@ Public Class GUIMain
 
     Private Sub rdioCoffeeMaker_CheckedChanged(sender As Object, e As EventArgs) Handles rdioCoffeeMaker.CheckedChanged
         applianceID = "1"
-        btnConfirm.Enabled = True
     End Sub
 
 
-    Private Sub btnSisesta_Click(sender As Object, e As EventArgs) Handles btnSisesta.Click
-        tBoxConsumptionPerHour.ReadOnly = False
-        tBoxUsageTime.ReadOnly = False
-        tBoxConsumptionPerHour.Text = ""
-        tBoxUsageTime.Text = ""
-        btnTaasta.Enabled = True
-        btnSisesta.Enabled = False
-    End Sub
-    Private Sub btnTaasta_Click(sender As Object, e As EventArgs) Handles btnTaasta.Click
-        tBoxConsumptionPerHour.ReadOnly = True
-        tBoxUsageTime.ReadOnly = True
-        btnTaasta.Enabled = False
-        btnSisesta.Enabled = True
-        tBoxConsumptionPerHour.Text = ""
-        tBoxUsageTime.Text = ""
-    End Sub
     Private Sub btnConfirm_Click(sender As Object, e As EventArgs) Handles btnConfirm.Click
 
-        'Dim noneSelectedAppliance As Boolean = True ' we check if one radiobutton on Kodumasina valik panel is checked
-        'For Each radioButton As RadioButton In Panel1.Controls.OfType(Of RadioButton)() 'loop through all radio buttons on panel1
-        '    If radioButton.Checked Then ' if button is checked
-        '        noneSelectedAppliance = False 'variable is false
-        '        Exit For
-        '    End If
-        'Next
-
-        Dim noneSelectedPower As Boolean = True ' we check if one radiobutton on Tarvitav võimsus valik panel is checked
-        For Each radioButton As RadioButton In Panel3.Controls.OfType(Of RadioButton)() 'loop through all radio buttons on panel2
-            If radioButton.Checked Then ' if button is checked
-                noneSelectedPower = False 'variable is false
-                Exit For
-            End If
-        Next
-        If noneSelectedPower = False Then 'if radio button is checked on panel 2
-
-            If tBoxConsumptionPerHour.ReadOnly = True And tBoxUsageTime.ReadOnly = True Then
-                Dim returnString As PrjDatabaseComponent.IDatabase
-                returnString = New PrjDatabaseComponent.CDatabase
-                Dim actualOutput = returnString.stringReturn(applianceID)
-                tBoxConsumptionPerHour.Text = actualOutput.consumptionPerHour
-                tBoxUsageTime.Text = actualOutput.usageTime
-            Else
+        Dim returnString As PrjDatabaseComponent.IDatabase
+        returnString = New PrjDatabaseComponent.CDatabase
+        Dim actualOutput = returnString.stringReturn(applianceID)
 
 
-            End If
-            tBoxPackagePrice.Text = tBoxPackagePrice.Text.Replace("€", "")
-            Dim incoming As Computing_Component.ICalculating
-            incoming = New Computing_Component.CCalculating
-            Dim actualOutput2 = incoming.applianceConsumption(tBoxConsumptionPerHour.Text, tBoxUsageTime.Text, tBoxPackagePrice.Text)
+        tBoxConsumptionPerHour.Text = actualOutput.consumptionPerHour
+        tBoxUsageTime.Text = actualOutput.usageTime
 
-            'Shows only 3 decimal spaces
-            Dim cons As Decimal = actualOutput2.consumption
+        Dim incoming As Computing_Component.ICalculating
+        incoming = New Computing_Component.CCalculating
+        Dim actualOutput2 = incoming.applianceConsumption(tBoxConsumptionPerHour.Text, tBoxUsageTime.Text, tBoxPackagePrice.Text)
 
-            Dim consOut As String = cons.ToString("N3")
+        'Shows only 3 decimal spaces
+        Dim cons As Decimal = actualOutput2.consumption
 
-            Dim aprox As Decimal = actualOutput2.aproxPrice
-            Dim aproxOut As String = aprox.ToString '("N3")
-            tBoxElectricityConsumptionRate.Text = consOut
-            tBoxApproxPrice.Text = aproxOut
-        End If
+        Dim consOut As String = cons.ToString("N3")
+
+        Dim aprox As Decimal = actualOutput2.aproxPrice
+        Dim aproxOut As String = aprox.ToString("N3")
+
+        tBoxElectricityConsumptionRate.Text = consOut
+        tBoxApproxPrice.Text = aproxOut
 
     End Sub
 
     Private Sub rdioToaster_CheckedChanged(sender As Object, e As EventArgs) Handles rdioToaster.CheckedChanged
         applianceID = "2"
-        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioVacuum_CheckedChanged(sender As Object, e As EventArgs) Handles rdioVacuum.CheckedChanged
         applianceID = "3"
-        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioMixer_CheckedChanged(sender As Object, e As EventArgs) Handles rdioMixer.CheckedChanged
         applianceID = "4"
-        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioElecStove_CheckedChanged(sender As Object, e As EventArgs) Handles rdioElecStove.CheckedChanged
         applianceID = "5"
-        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioFoodProcessor_CheckedChanged(sender As Object, e As EventArgs) Handles rdioFoodProcessor.CheckedChanged
         applianceID = "6"
-        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioTV_CheckedChanged(sender As Object, e As EventArgs) Handles rdioTV.CheckedChanged
         applianceID = "7"
-        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioRadio_CheckedChanged(sender As Object, e As EventArgs) Handles rdioRadio.CheckedChanged
         applianceID = "8"
-        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioEggCooker_CheckedChanged(sender As Object, e As EventArgs) Handles rdioEggCooker.CheckedChanged
         applianceID = "9"
-        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioFridge_CheckedChanged(sender As Object, e As EventArgs) Handles rdioFridge.CheckedChanged
         applianceID = "10"
-        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioComputer_CheckedChanged(sender As Object, e As EventArgs) Handles rdioComputer.CheckedChanged
         applianceID = "11"
-        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioHairDryer_CheckedChanged(sender As Object, e As EventArgs) Handles rdioHairDryer.CheckedChanged
         applianceID = "12"
-        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioPrinter_CheckedChanged(sender As Object, e As EventArgs) Handles rdioPrinter.CheckedChanged
         applianceID = "13"
-        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioLED_CheckedChanged(sender As Object, e As EventArgs) Handles rdioLED.CheckedChanged
         applianceID = "14"
-        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioSewingMachine_CheckedChanged(sender As Object, e As EventArgs) Handles rdioSewingMachine.CheckedChanged
         applianceID = "16"
-        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioRouter_CheckedChanged(sender As Object, e As EventArgs) Handles rdioRouter.CheckedChanged
         applianceID = "17"
-        btnConfirm.Enabled = True
     End Sub
 
     Private Sub rdioMicrowave_CheckedChanged(sender As Object, e As EventArgs) Handles rdioMicrowave.CheckedChanged
         applianceID = "18"
-        btnConfirm.Enabled = True
     End Sub
 
 
@@ -219,15 +165,7 @@ Public Class GUIMain
 
         For i As Integer = 0 To 23
             'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
-            If timeNowHours >= 24 Then
-                timeNowHours = timeNowHours - 24
-                dgv.Columns.Add(0, timeNowHours & ":00")
-
-            Else
-                dgv.Columns.Add(0, timeNowHours & ":00")
-
-            End If
-            timeNowHours = timeNowHours + 1
+            dgv.Columns.Add(timeNowHours & ":00", timeNowHours + i & ":00")
 
         Next
 
@@ -249,16 +187,9 @@ Public Class GUIMain
 
 
     End Sub
-    Public Function chartFrontPage()
-
+    Public Function chart()
         Dim seriesName As String = "Börsihind"
-        chrtFrontPage.Series.Add(seriesName)
-        'chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
-        chrtFrontPage.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
-        chrtFrontPage.ChartAreas(0).AxisY.Interval = 5 'more lines Y axis
-        chrtFrontPage.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.StepLine
-        chrtFrontPage.Series(0).Color = Color.Red
-        chrtFrontPage.Series(0).BorderWidth = 3
+        chrtPackageHourlyRate.Series.Add(seriesName)
         Dim returnString1 As PrjDatabaseComponent.IDatabaseAPI
         returnString1 = New PrjDatabaseComponent.CDatabase
         Dim sPrices1 As String()
@@ -271,35 +202,10 @@ Public Class GUIMain
         ' Add some data points to the series
         'Dim values() As Double = {10, 20, 30, 40, 50}
         For i As Integer = 0 To dblValues.Length - 1
-            If i <> 0 Then 'there is no info from -1 to 0
-                chrtFrontPage.Series(seriesName).Points.AddXY(i - 1, sPrices1(i))
-            End If
-        Next
-        Dim hour23 As Integer = dblValues.Length
-        chrtFrontPage.Series(seriesName).Points.AddXY(hour23 - 1, sPrices1(hour23 - 1)) ' so 23 value would last entire hour
-    End Function
-    Public Function chart()
-        Dim seriesName As String = "Börsihind"
-        chrtPackageHourlyRate.Series.Add(seriesName)
-        chrtPackageHourlyRate.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.StepLine
-        chrtPackageHourlyRate.Series(0).Color = Color.Red
-        chrtPackageHourlyRate.Series(0).BorderWidth = 3
-
-        Dim returnString1 As PrjDatabaseComponent.IDatabaseAPI
-        returnString1 = New PrjDatabaseComponent.CDatabase
-        Dim sPrices1 As String()
-        sPrices1 = returnString1.stockPrice()
-        Dim dblValues(sPrices1.Length - 1) As Double
-        For i As Integer = 1 To sPrices1.Length - 1
-            Double.TryParse(sPrices1(i), dblValues(i))
-        Next
-
-        ' Add some data points to the series
-        'Dim values() As Double = {10, 20, 30, 40, 50}
-        For i As Integer = 1 To dblValues.Length - 1
-            chrtPackageHourlyRate.Series(seriesName).Points.AddXY(i, sPrices1(i))
+            chrtPackageHourlyRate.Series(seriesName).Points.AddXY(i + 1, sPrices1(i))
         Next
     End Function
+
     Private Sub rdioExchange_CheckedChanged(sender As Object, e As EventArgs) Handles rdioExchange.CheckedChanged
         tboxMonthlyCost.Enabled = False
 
@@ -366,29 +272,14 @@ Public Class GUIMain
         'Next
     End Sub
 
-    'Private Sub GUIMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-    '    Dim seriesName As String = "Börsihind"
-    '    chrFrontPageChart.Series.Add(seriesName)
-    '    Dim returnString As PrjDatabaseComponent.IDatabaseAPI
-    '    returnString = New PrjDatabaseComponent.CDatabase
-    '    Dim sPrices As String()
-    '    sPrices = returnString.stockPrice()
-    '    Dim dblValues(sPrices.Length - 1) As Double
 
-
-    '    ' Add some data points to the series
-    '    'Dim values() As Double = {10, 20, 30, 40, 50}
-    '    For i As Integer = 0 To dblValues.Length - 1
-    '        chrFrontPageChart.Series(seriesName).Points.AddXY(i + 1, sPrices(i))
-    '    Next
-    'End Sub
 
 
 
     Private Sub btnChartAsc_Click(sender As Object, e As EventArgs) Handles btnChartAsc.Click
         tblPriceTable.Controls.Clear()
         Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
-
+        Dim timeNowArray As Integer()
 
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
         returnString = New PrjDatabaseComponent.CDatabase
@@ -411,15 +302,7 @@ Public Class GUIMain
 
         For i As Integer = 0 To 23
             'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
-            If timeNowHours >= 24 Then
-                timeNowHours = timeNowHours - 24
-                dgv.Columns.Add(0, timeNowHours & ":00")
-
-            Else
-                dgv.Columns.Add(0, timeNowHours & ":00")
-
-            End If
-            timeNowHours = timeNowHours + 1
+            dgv.Columns.Add(timeNowHours & ":00", timeNowHours + i & ":00")
 
         Next
 
@@ -439,81 +322,55 @@ Public Class GUIMain
 
     End Sub
 
-    Private Sub GUIMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        btnTaasta.Enabled = False
-    End Sub
+    Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
+        Dim openFileDialog As New OpenFileDialog()
+        'Filter to only show CSV files and all files
+        openFileDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*"
 
-    Private Sub tabApplianceCalc_Click(sender As Object, e As EventArgs) Handles tabApplianceCalc.Click
+        'If the user selects a file and presses OK
+        If openFileDialog.ShowDialog() = DialogResult.OK Then
+            'Reads data from the selected file
+            Using streamReader As New StreamReader(openFileDialog.FileName)
+                'Reads until the end of the file
+                While Not streamReader.EndOfStream
+                    'Variable "line" contains 1 line from the CSV file
+                    Dim line As String = streamReader.ReadLine()
 
-    End Sub
+                    'Data processing code goes here
 
-    Private Sub tabApplianceCalc_Enter(sender As Object, e As EventArgs) Handles tabApplianceCalc.Enter
-        If IsNothing(applianceID) Then
-            btnConfirm.Enabled = False
-
+                    'Currently just using console print for debugging
+                    Console.WriteLine(line)
+                End While
+            End Using
         End If
     End Sub
 
-    Private Sub cbColor_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbColor.SelectedIndexChanged
+    Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
+        Dim saveFileDialog As New SaveFileDialog()
 
-        Dim selectedItem As String = cbColor.SelectedItem
+        'Filter to only take CSV files
+        saveFileDialog.Filter = "CSV files (*.csv)|*.csv"
 
-        Select Case selectedItem 'change color based on the item the user choosed
-            Case "Punane"
-                Main.BackColor = Color.White
-                Me.BackColor = Color.Crimson
-                chrtFrontPage.Series(0).Color = Color.Red
-                Dim myColorLightRed As Color = Color.FromArgb(247, 176, 156)
-                myColor = myColorLightRed
-            Case "Sinine"
-                Main.BackColor = Color.White
-                Me.BackColor = Color.LightSkyBlue
-                chrtFrontPage.Series(0).Color = Color.Blue
-                Dim myColorLightBlue As Color = Color.FromArgb(190, 234, 252)
-                myColor = myColorLightBlue
-            Case "Roheline"
-                Main.BackColor = Color.White
-                Dim myColorDarkGreen As Color = Color.FromArgb(169, 213, 130)
-                chrtFrontPage.Series(0).Color = Color.Green
-                Me.BackColor = myColorDarkGreen
-                Dim myColorLightGreen As Color = Color.FromArgb(219, 246, 195)
-                myColor = myColorLightGreen
-            Case "Roosa"
-                Main.BackColor = Color.White
-                Me.BackColor = Color.Pink
-                Dim myColorDarkPink As Color = Color.FromArgb(252, 10, 167) 'creating dark pink color bc it does not exist
-                chrtFrontPage.Series(0).Color = myColorDarkPink 'change chart line color
-                Dim myColorLightPink As Color = Color.FromArgb(254, 210, 238)
-                myColor = myColorLightPink
-            Case "Tumehall"
-                Main.BackColor = Color.White
-                Me.BackColor = Color.LightSlateGray
-                chrtFrontPage.Series(0).Color = Color.Black
-                myColor = Color.White
-            Case "Valge"
-                Main.BackColor = Color.White
-                Me.BackColor = Color.White
-                chrtFrontPage.Series(0).Color = Color.Black
-                myColor = Color.White
-            Case Else
-                Me.BackColor = SystemColors.Control ' everything else is light grey
-                chrtFrontPage.Series(0).Color = Color.Red
-                myColor = Color.White
-                Main.BackColor = SystemColors.Control
-        End Select
+        'Initial directory and the name of the file
+        saveFileDialog.InitialDirectory = "C:\"
+        saveFileDialog.FileName = "exported_data.csv"
 
-        btnPackageHourlyRate.BackColor = myColor
-        btnApplianceCalc.BackColor = myColor
-        btnExchangePriceComparison.BackColor = myColor
-        btnConsumptionHistory.BackColor = myColor
-        btnPackageComparison.BackColor = myColor
+        'If the user presses OK
+        If saveFileDialog.ShowDialog() = DialogResult.OK Then
+            'Get the selected file name
+            Dim fileName As String = saveFileDialog.FileName
+
+            'Write the CSV data to the selected file
+            Using writer As New StreamWriter(fileName)
+                writer.WriteLine("Column1,Column2,Column3")
+                writer.WriteLine("Value1,Value2,Value3")
+                writer.WriteLine("Value4,Value5,Value6")
+            End Using
+
+            'Shows a message that the export was successful
+            MessageBox.Show("File exported successfully to " & fileName)
+        End If
     End Sub
-
-
-
-
-
-
 
     'Private Sub GUIMain_VisibleChanged(sender As Object, e As EventArgs) Handles Me.VisibleChanged
     '    Dim seriesName As String = "Börsihind"
