@@ -532,4 +532,8 @@ Public Class GUIMain
         btnPackageComparison.BackColor = myColor
 
     End Sub
+
+    Private Sub GUIMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
 End Class

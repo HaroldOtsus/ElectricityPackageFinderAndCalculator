@@ -154,6 +154,36 @@ Public Class CDatabase
         Return (consumptionPerHour, usageTime)
     End Function
 
+    Function datesOfStockPrice() As String() 'get stockprice dates from database
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+        Dim stringOfErrors() As String = Nothing
+        Try
+
+            Dim con As New MySqlConnection(connString)
+            con.Open()
+            Dim sDates() As String = New String(24) {}
+            sDates(0) = ""
+
+            Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 2;", con)
+            Dim read As MySqlDataReader = cmd.ExecuteReader()
+            If read IsNot Nothing Then
+                While read.Read() 'get all dates from database
+                    For i As Integer = 1 To 24
+                        sDates(i) = read.GetString(i)
+                    Next
+                End While
+                read.Close()
+                con.Close()
+
+            End If
+            Return sDates
+        Catch ex As Exception
+            '   stringOfErrors = {"error", "error", "error"}
+            '  Return stringOfErrors
+        End Try
+    End Function
+
 
     Function stockPrice() As (prices As String(), dates As String()) Implements IDatabaseAPI.stockPrice
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
@@ -175,50 +205,32 @@ Public Class CDatabase
             con.Open()
             Dim sPrices() As String = New String(24) {}
             sPrices(0) = ""
-            'If dateOfStockPrices = dateToday Then
-            '    '        ''need to return all prices from database
-            '    Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 1;", con)
-            '    Dim read As MySqlDataReader = cmd.ExecuteReader()
-            '    If read IsNot Nothing Then
-            '        While read.Read() 'with recursion got null exeptions :(
-            '            sPrices(1) = read.GetString(1)
-            '            sPrices(2) = read.GetString(2)
-            '            sPrices(3) = read.GetString(3)
-            '            sPrices(4) = read.GetString(4)
-            '            sPrices(5) = read.GetString(5)
-            '            sPrices(6) = read.GetString(6)
-            '            sPrices(7) = read.GetString(7)
-            '            sPrices(8) = read.GetString(8)
-            '            sPrices(9) = read.GetString(9)
-            '            sPrices(10) = read.GetString(10)
-            '            sPrices(11) = read.GetString(11)
-            '            sPrices(12) = read.GetString(12)
-            '            sPrices(13) = read.GetString(13)
-            '            sPrices(14) = read.GetString(14)
-            '            sPrices(15) = read.GetString(15)
-            '            sPrices(16) = read.GetString(16)
-            '            sPrices(17) = read.GetString(17)
-            '            sPrices(18) = read.GetString(18)
-            '            sPrices(19) = read.GetString(19)
-            '            sPrices(20) = read.GetString(20)
-            '            sPrices(21) = read.GetString(21)
-            '            sPrices(22) = read.GetString(22)
-            '            sPrices(23) = read.GetString(23)
-            '            sPrices(24) = read.GetString(24)
-            '        End While
-            '        read.Close()
-            '        con.Close()
+            If dateOfStockPrices = dateToday Then
+                '        ''need to return all prices from database
+                Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 1;", con)
+                Dim read As MySqlDataReader = cmd.ExecuteReader()
+                If read IsNot Nothing Then
+                    While read.Read() 'get all dates from database
+                        For i As Integer = 1 To 24
+                            sPrices(i) = read.GetString(i)
+                        Next
+                    End While
+                    read.Close()
+                    con.Close()
 
-            '        Return sPrices
-            '    End If
-            'Else
-            Dim stringOfPrices As String()
-            Dim stringOfDates As String()
-            stringOfPrices = insertStockPriceToDatabase()
-            stringOfDates = insertDatesToDatabase()
-            Return (stringOfPrices, stringOfDates)
-            '        ''we put the info to the database
-            'End If
+                    Dim stringOfDates As String()
+                    'stringOfDates = insertDatesToDatabase()
+                    stringOfDates = datesOfStockPrice()
+                    Return (sPrices, stringOfDates)
+                End If
+            Else
+                Dim stringOfPrices As String()
+                Dim stringOfDates As String()
+                stringOfPrices = insertStockPriceToDatabase()
+                stringOfDates = insertDatesToDatabase()
+                Return (stringOfPrices, stringOfDates)
+                '        ''we put the info to the database
+            End If
             conn.Close()
         Catch ex As Exception
             '   stringOfErrors = {"error", "error", "error"}
