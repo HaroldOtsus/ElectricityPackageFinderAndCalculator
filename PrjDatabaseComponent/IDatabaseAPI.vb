@@ -1,3 +1,3 @@
 ﻿Public Interface IDatabaseAPI
-    Function stockPrice() As String()
+    Function stockPrice() As (prices As String(), dates As String())
 End Interface
