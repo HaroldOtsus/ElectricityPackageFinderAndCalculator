@@ -341,7 +341,8 @@ Public Class GUIMain
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
         Dim sPrices As String()
         Dim sDates As String()
-        Dim dDates As Double()
+        Dim dDates As Double() = New Double(24) {}
+
         Dim dPrices As Double()
         Dim priceDateStruct As New PriceDateStruct()
 
@@ -364,14 +365,14 @@ Public Class GUIMain
 
         'UNIX NEEDS TO BE CONVERTED TO CONVENTIONAL TIMESTAMP DO BE USABLE
         'dDates = New Double(sDates.Length - 1) {}
-        For i As Integer = 1 To sDates.Length - 1
+        For i As Integer = 1 To 24 'sDates.Length - 1
             ' dDates(i) = Double.Parse(sDates(i))
 
             'in textbox get one time as string
             Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(sDates(i)) 'new datetimeoffset from sDate string
             Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
-            Dim hour As Integer = CInt(dateValue.Hour) 'convert to integer
-            TextBox1.Text = hour 'put hour to textbox for testing
+            dDates(i) = CDbl(dateValue.Hour) 'convert to integer
+            TextBox1.Text = dDates(i) 'put hour to textbox for testing
 
         Next
 
@@ -384,7 +385,7 @@ Public Class GUIMain
         For i As Integer = 0 To 23
 
             p.price = dPrices(i)
-            p.sDate = sDates(i)
+            p.sDate = dDates(i)
             records.Add(p)
             'records(i) = p
         Next
