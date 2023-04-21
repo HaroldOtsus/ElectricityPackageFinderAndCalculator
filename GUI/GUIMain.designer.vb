@@ -27,7 +27,7 @@ Partial Class GUIMain
         Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(GUIMain))
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblMenu = New System.Windows.Forms.Label()
         Me.btnPackageHourlyRate = New System.Windows.Forms.Button()
         Me.btnApplianceCalc = New System.Windows.Forms.Button()
         Me.btnExchangePriceComparison = New System.Windows.Forms.Button()
@@ -147,6 +147,10 @@ Partial Class GUIMain
         Me.lblPackage1 = New System.Windows.Forms.Label()
         Me.lblChoosePackages = New System.Windows.Forms.Label()
         Me.btnBack4 = New System.Windows.Forms.Button()
+        Me.lblChangeFontSize = New System.Windows.Forms.Label()
+        Me.btnFontIncrease = New System.Windows.Forms.Button()
+        Me.btnFontDecrease = New System.Windows.Forms.Button()
+        Me.btnRestoreFontSize = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -165,14 +169,14 @@ Partial Class GUIMain
         Me.tabPackageComparison.SuspendLayout()
         Me.SuspendLayout()
         '
-        'Label1
+        'lblMenu
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(30, 21)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(47, 13)
-        Me.Label1.TabIndex = 0
-        Me.Label1.Text = "MENÜÜ"
+        Me.lblMenu.AutoSize = True
+        Me.lblMenu.Location = New System.Drawing.Point(30, 21)
+        Me.lblMenu.Name = "lblMenu"
+        Me.lblMenu.Size = New System.Drawing.Size(47, 13)
+        Me.lblMenu.TabIndex = 0
+        Me.lblMenu.Text = "MENÜÜ"
         '
         'btnPackageHourlyRate
         '
@@ -247,7 +251,7 @@ Partial Class GUIMain
         Me.Main.Controls.Add(Me.btnExchangePriceComparison)
         Me.Main.Location = New System.Drawing.Point(4, 26)
         Me.Main.Name = "Main"
-        Me.Main.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.Main.Padding = New System.Windows.Forms.Padding(3)
         Me.Main.Size = New System.Drawing.Size(831, 583)
         Me.Main.TabIndex = 0
         Me.Main.Text = "Home"
@@ -294,7 +298,7 @@ Partial Class GUIMain
         Me.tabPackageHourlyRate.Controls.Add(Me.btnBack0)
         Me.tabPackageHourlyRate.Location = New System.Drawing.Point(4, 26)
         Me.tabPackageHourlyRate.Name = "tabPackageHourlyRate"
-        Me.tabPackageHourlyRate.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabPackageHourlyRate.Padding = New System.Windows.Forms.Padding(3)
         Me.tabPackageHourlyRate.Size = New System.Drawing.Size(831, 583)
         Me.tabPackageHourlyRate.TabIndex = 1
         Me.tabPackageHourlyRate.Text = "Paketijärgne tunnihind"
@@ -316,7 +320,7 @@ Partial Class GUIMain
         Legend2.Name = "Legend1"
         Me.chrtPackageHourlyRate.Legends.Add(Legend2)
         Me.chrtPackageHourlyRate.Location = New System.Drawing.Point(327, 186)
-        Me.chrtPackageHourlyRate.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.chrtPackageHourlyRate.Margin = New System.Windows.Forms.Padding(2)
         Me.chrtPackageHourlyRate.Name = "chrtPackageHourlyRate"
         Me.chrtPackageHourlyRate.Size = New System.Drawing.Size(472, 374)
         Me.chrtPackageHourlyRate.TabIndex = 14
@@ -460,7 +464,7 @@ Partial Class GUIMain
         Me.tabApplianceCalc.Controls.Add(Me.btnBack1)
         Me.tabApplianceCalc.Location = New System.Drawing.Point(4, 26)
         Me.tabApplianceCalc.Name = "tabApplianceCalc"
-        Me.tabApplianceCalc.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabApplianceCalc.Padding = New System.Windows.Forms.Padding(3)
         Me.tabApplianceCalc.Size = New System.Drawing.Size(831, 583)
         Me.tabApplianceCalc.TabIndex = 2
         Me.tabApplianceCalc.Text = "Kodumasina tarbimise hinna kalkulaator"
@@ -535,7 +539,7 @@ Partial Class GUIMain
         'btnTaasta
         '
         Me.btnTaasta.Location = New System.Drawing.Point(274, 11)
-        Me.btnTaasta.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnTaasta.Margin = New System.Windows.Forms.Padding(2)
         Me.btnTaasta.Name = "btnTaasta"
         Me.btnTaasta.Size = New System.Drawing.Size(56, 19)
         Me.btnTaasta.TabIndex = 44
@@ -545,7 +549,7 @@ Partial Class GUIMain
         'btnSisesta
         '
         Me.btnSisesta.Location = New System.Drawing.Point(194, 11)
-        Me.btnSisesta.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnSisesta.Margin = New System.Windows.Forms.Padding(2)
         Me.btnSisesta.Name = "btnSisesta"
         Me.btnSisesta.Size = New System.Drawing.Size(56, 19)
         Me.btnSisesta.TabIndex = 43
@@ -972,7 +976,7 @@ Partial Class GUIMain
         Me.tabExchangeComparison.Controls.Add(Me.btnBack2)
         Me.tabExchangeComparison.Location = New System.Drawing.Point(4, 26)
         Me.tabExchangeComparison.Name = "tabExchangeComparison"
-        Me.tabExchangeComparison.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabExchangeComparison.Padding = New System.Windows.Forms.Padding(3)
         Me.tabExchangeComparison.Size = New System.Drawing.Size(831, 583)
         Me.tabExchangeComparison.TabIndex = 3
         Me.tabExchangeComparison.Text = "Börsihinna võrdlus"
@@ -1113,7 +1117,7 @@ Partial Class GUIMain
         Me.tabConsumptionHistory.Controls.Add(Me.btnBack3)
         Me.tabConsumptionHistory.Location = New System.Drawing.Point(4, 26)
         Me.tabConsumptionHistory.Name = "tabConsumptionHistory"
-        Me.tabConsumptionHistory.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabConsumptionHistory.Padding = New System.Windows.Forms.Padding(3)
         Me.tabConsumptionHistory.Size = New System.Drawing.Size(831, 583)
         Me.tabConsumptionHistory.TabIndex = 4
         Me.tabConsumptionHistory.Text = "Tarbimise ajalugu"
@@ -1144,7 +1148,7 @@ Partial Class GUIMain
         '
         Me.tabBlank.Location = New System.Drawing.Point(4, 23)
         Me.tabBlank.Name = "tabBlank"
-        Me.tabBlank.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabBlank.Padding = New System.Windows.Forms.Padding(3)
         Me.tabBlank.Size = New System.Drawing.Size(827, 450)
         Me.tabBlank.TabIndex = 0
         Me.tabBlank.Text = "Blank"
@@ -1161,7 +1165,7 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblHistoryData)
         Me.tabClientConsumptionHistory.Location = New System.Drawing.Point(4, 23)
         Me.tabClientConsumptionHistory.Name = "tabClientConsumptionHistory"
-        Me.tabClientConsumptionHistory.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabClientConsumptionHistory.Padding = New System.Windows.Forms.Padding(3)
         Me.tabClientConsumptionHistory.Size = New System.Drawing.Size(827, 450)
         Me.tabClientConsumptionHistory.TabIndex = 1
         Me.tabClientConsumptionHistory.Text = "Simuleeri oma tarbimise ajalugu"
@@ -1244,7 +1248,7 @@ Partial Class GUIMain
         Me.tabSimulateExchangeHistory.Controls.Add(Me.Label10)
         Me.tabSimulateExchangeHistory.Location = New System.Drawing.Point(4, 23)
         Me.tabSimulateExchangeHistory.Name = "tabSimulateExchangeHistory"
-        Me.tabSimulateExchangeHistory.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabSimulateExchangeHistory.Padding = New System.Windows.Forms.Padding(3)
         Me.tabSimulateExchangeHistory.Size = New System.Drawing.Size(827, 450)
         Me.tabSimulateExchangeHistory.TabIndex = 2
         Me.tabSimulateExchangeHistory.Text = "Elektripakettide börsihindade ajalugu"
@@ -1354,7 +1358,7 @@ Partial Class GUIMain
         Me.tabPackageComparison.Controls.Add(Me.btnBack4)
         Me.tabPackageComparison.Location = New System.Drawing.Point(4, 26)
         Me.tabPackageComparison.Name = "tabPackageComparison"
-        Me.tabPackageComparison.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabPackageComparison.Padding = New System.Windows.Forms.Padding(3)
         Me.tabPackageComparison.Size = New System.Drawing.Size(831, 583)
         Me.tabPackageComparison.TabIndex = 5
         Me.tabPackageComparison.Text = "Elektripakettide võrdlus"
@@ -1430,13 +1434,53 @@ Partial Class GUIMain
         Me.btnBack4.Text = "Tagasi"
         Me.btnBack4.UseVisualStyleBackColor = True
         '
+        'lblChangeFontSize
+        '
+        Me.lblChangeFontSize.AutoSize = True
+        Me.lblChangeFontSize.Location = New System.Drawing.Point(299, 9)
+        Me.lblChangeFontSize.Name = "lblChangeFontSize"
+        Me.lblChangeFontSize.Size = New System.Drawing.Size(142, 13)
+        Me.lblChangeFontSize.TabIndex = 7
+        Me.lblChangeFontSize.Text = "MUUDA FONDI SUURUST:"
+        '
+        'btnFontIncrease
+        '
+        Me.btnFontIncrease.Location = New System.Drawing.Point(447, 4)
+        Me.btnFontIncrease.Name = "btnFontIncrease"
+        Me.btnFontIncrease.Size = New System.Drawing.Size(75, 23)
+        Me.btnFontIncrease.TabIndex = 8
+        Me.btnFontIncrease.Text = "+"
+        Me.btnFontIncrease.UseVisualStyleBackColor = True
+        '
+        'btnFontDecrease
+        '
+        Me.btnFontDecrease.Location = New System.Drawing.Point(528, 4)
+        Me.btnFontDecrease.Name = "btnFontDecrease"
+        Me.btnFontDecrease.Size = New System.Drawing.Size(75, 23)
+        Me.btnFontDecrease.TabIndex = 9
+        Me.btnFontDecrease.Text = "-"
+        Me.btnFontDecrease.UseVisualStyleBackColor = True
+        '
+        'btnRestoreFontSize
+        '
+        Me.btnRestoreFontSize.Location = New System.Drawing.Point(609, 4)
+        Me.btnRestoreFontSize.Name = "btnRestoreFontSize"
+        Me.btnRestoreFontSize.Size = New System.Drawing.Size(111, 23)
+        Me.btnRestoreFontSize.TabIndex = 10
+        Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
+        Me.btnRestoreFontSize.UseVisualStyleBackColor = True
+        '
         'GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(863, 662)
+        Me.Controls.Add(Me.btnRestoreFontSize)
+        Me.Controls.Add(Me.btnFontDecrease)
+        Me.Controls.Add(Me.btnFontIncrease)
+        Me.Controls.Add(Me.lblChangeFontSize)
         Me.Controls.Add(Me.TabControl1)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.lblMenu)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "GUIMain"
         Me.Text = "Elektri paketi kalkulaator"
@@ -1470,7 +1514,7 @@ Partial Class GUIMain
 
     End Sub
 
-    Friend WithEvents Label1 As Label
+    Friend WithEvents lblMenu As Label
     Friend WithEvents btnPackageHourlyRate As Button
     Friend WithEvents btnApplianceCalc As Button
     Friend WithEvents btnExchangePriceComparison As Button
@@ -1590,4 +1634,8 @@ Partial Class GUIMain
     Friend WithEvents cbColor As ComboBox
     Friend WithEvents btnExport As Button
     Friend WithEvents btnImport As Button
+    Friend WithEvents lblChangeFontSize As Label
+    Friend WithEvents btnFontIncrease As Button
+    Friend WithEvents btnFontDecrease As Button
+    Friend WithEvents btnRestoreFontSize As Button
 End Class

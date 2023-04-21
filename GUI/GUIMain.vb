@@ -12,7 +12,7 @@ Public Class GUIMain
     Dim sisend As String 'might be a leftover obsolete relic that could potentially be deleted
     Dim applianceID As String
     Dim myColor As Color
-
+    Dim fontSize As Double = 8.25
 
     Public answer As String
     Private Sub btnPackageHourlyRate_Click(sender As Object, e As EventArgs) Handles btnPackageHourlyRate.Click
@@ -679,6 +679,51 @@ Public Class GUIMain
     End Sub
 
 
+    Private Sub btnFontIncrease_Click(sender As Object, e As EventArgs) Handles btnFontIncrease.Click
+        fontSize = fontSize + 0.5
+        lblMenu.Font = New Font("Microsoft Sans Serif", fontSize)
+        Main.Font = New Font("Microsoft Sans Serif", fontSize)
+        tabPackageHourlyRate.Font = New Font("Microsoft Sans Serif", fontSize)
+        tabApplianceCalc.Font = New Font("Microsoft Sans Serif", fontSize)
+        tabExchangeComparison.Font = New Font("Microsoft Sans Serif", fontSize)
+        tabConsumptionHistory.Font = New Font("Microsoft Sans Serif", fontSize)
+        tabPackageComparison.Font = New Font("Microsoft Sans Serif", fontSize)
+        lblChangeFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
+        btnFontIncrease.Font = New Font("Microsoft Sans Serif", fontSize)
+        btnFontDecrease.Font = New Font("Microsoft Sans Serif", fontSize)
+        btnRestoreFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
 
+
+    End Sub
+
+    Private Sub btnFontDecrease_Click(sender As Object, e As EventArgs) Handles btnFontDecrease.Click
+        fontSize = fontSize - 0.5
+        lblMenu.Font = New Font("Microsoft Sans Serif", fontSize)
+        Main.Font = New Font("Microsoft Sans Serif", fontSize)
+        tabPackageHourlyRate.Font = New Font("Microsoft Sans Serif", fontSize)
+        tabApplianceCalc.Font = New Font("Microsoft Sans Serif", fontSize)
+        tabExchangeComparison.Font = New Font("Microsoft Sans Serif", fontSize)
+        tabConsumptionHistory.Font = New Font("Microsoft Sans Serif", fontSize)
+        tabPackageComparison.Font = New Font("Microsoft Sans Serif", fontSize)
+        lblChangeFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
+        btnFontIncrease.Font = New Font("Microsoft Sans Serif", fontSize)
+        btnFontDecrease.Font = New Font("Microsoft Sans Serif", fontSize)
+        btnRestoreFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
+    End Sub
+
+    Private Sub btnRestoreFontSize_Click(sender As Object, e As EventArgs) Handles btnRestoreFontSize.Click
+        fontSize = 8.25
+        lblMenu.Font = New Font("Microsoft Sans Serif", fontSize)
+        Main.Font = New Font("Microsoft Sans Serif", fontSize)
+        tabPackageHourlyRate.Font = New Font("Microsoft Sans Serif", fontSize)
+        tabApplianceCalc.Font = New Font("Microsoft Sans Serif", fontSize)
+        tabExchangeComparison.Font = New Font("Microsoft Sans Serif", fontSize)
+        tabConsumptionHistory.Font = New Font("Microsoft Sans Serif", fontSize)
+        tabPackageComparison.Font = New Font("Microsoft Sans Serif", fontSize)
+        lblChangeFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
+        btnFontIncrease.Font = New Font("Microsoft Sans Serif", fontSize)
+        btnFontDecrease.Font = New Font("Microsoft Sans Serif", fontSize)
+        btnRestoreFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
+    End Sub
 
 End Class
