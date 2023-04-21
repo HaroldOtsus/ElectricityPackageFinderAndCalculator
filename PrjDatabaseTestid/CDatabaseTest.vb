@@ -41,6 +41,12 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim count As Integer = getIn.electricityPackagesCount
         Assert.AreEqual(5, count)
     End Sub
+
+    <TestMethod()> Public Sub TestUniversalServicePrice()
+        Dim getIn As New PrjDatabaseComponent.CDatabase
+        Dim count As Double = getIn.universalServicePrice
+        Assert.AreEqual(5, count)
+    End Sub
     <TestMethod()> Public Sub TestpackagesNames()
         Dim getIn As New PrjDatabaseComponent.CDatabase
         '  Dim actualData As (String(), String()) = getIn.electricityPackages

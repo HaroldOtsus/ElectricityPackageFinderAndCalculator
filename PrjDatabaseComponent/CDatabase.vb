@@ -16,6 +16,28 @@ Public Class CDatabase
     End Function
 
 
+    Function universalServicePrice() As Double Implements IDatabase.universalServicePrice
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+        Dim price As Double
+        Try
+            conn.Open()
+            Dim command As New MySqlCommand("select pricePerKWh from electricitypackages where packageName = @universaalteenus", conn)
+            command.Parameters.AddWithValue("@universaalteenus", "Universaalteenus")
+            Dim reader As MySqlDataReader = command.ExecuteReader()
+            While reader.Read()
+                price = reader.GetString(0)
+
+            End While
+            conn.Close()
+            Return price
+        Catch ex As Exception
+            'Return False
+        End Try
+
+
+    End Function
+
     Function login(ByVal username As String, ByVal password As String) As Boolean Implements ILogin.login
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
