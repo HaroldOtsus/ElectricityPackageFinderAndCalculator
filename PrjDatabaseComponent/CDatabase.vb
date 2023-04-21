@@ -51,16 +51,19 @@ Public Class CDatabase
 
 
     Function checkIfUsernameExists(ByVal username As String) As Boolean
+        'we check is the username exists in database
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        Dim conn As New MySqlConnection(connString)
+        Dim conn As New MySqlConnection(connString) 'connect to database
         Dim cmd As New MySqlCommand("SELECT COUNT(*) FROM user WHERE username  = @username", conn)
         cmd.Parameters.AddWithValue("@username", username)
         Try
+            'search database
             conn.Open()
-            Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+            Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar()) 'find if username already exists
             If count > 0 Then
                 Return False
             Else
+                'if there isn't return true
                 Return True
             End If
 
@@ -76,14 +79,14 @@ Public Class CDatabase
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         ''call function that hashes password
-        ''right now it's not written
         Try
             conn.Open()
             Dim cool As Boolean
             cool = checkIfUsernameExists(username)
             If cool = True Then
-                ''will need to do work on password
+                'hash password
                 Dim pass = hashPassword(password)
+                'insert into database
                 Dim command As New MySqlCommand("INSERT INTO user (name, password, username, email)
             VALUES (@name, @password, @username, @email);", conn)
                 command.Parameters.AddWithValue("@username", username)
@@ -91,6 +94,7 @@ Public Class CDatabase
                 command.Parameters.AddWithValue("@name", name)
                 command.Parameters.AddWithValue("@email", email)
                 command.ExecuteNonQuery()
+                'if everything went well return true otherwise false
                 Return True
             End If
             conn.Close()
@@ -202,12 +206,14 @@ Public Class CDatabase
     End Function
     Function electricityPackagesNames(ByVal count As Integer) As (String(), String(), Double(), Double(), Boolean(), Boolean())
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        Dim conn As New MySqlConnection(connString)
+        Dim conn As New MySqlConnection(connString) ' connection to database
         Try
 
             conn.Open()
+            'get info about electricity packages from database
             Dim sqlCommand As New MySqlCommand("SELECT packageName,companyName, pricePerKWh, monthlyFeeForContract, usesMarketPRice, greenEnergy FROM electricityPackages;", conn)
             Dim reader As MySqlDataReader = sqlCommand.ExecuteReader()
+            'create arrays to hold database info
             Dim stringOfPackageNames(count - 1) As String
             Dim stringOfCompanyNames(count - 1) As String
             Dim pricePerKWh(count - 1) As Double
@@ -217,6 +223,7 @@ Public Class CDatabase
             Dim rowcount As Integer = 0
             Dim i As Integer = 0
             While reader.Read() AndAlso i < count
+                'insert data into arrays
                 stringOfPackageNames(i) = reader.GetString(0)
                 stringOfCompanyNames(i) = reader.GetString(1)
                 pricePerKWh(i) = reader.GetString(2)
@@ -227,28 +234,30 @@ Public Class CDatabase
             End While
 
             conn.Close()
+            'return arrays
             Return (stringOfPackageNames, stringOfCompanyNames, pricePerKWh, monthlyFeeForContract, usesMarketPrice, greenEnergy)
         Catch ex As Exception
+            'exception using database
             '   stringOfErrors = {"error", "error", "error"}
             '  Return stringOfErrors
         End Try
     End Function
     Function electricityPackagesCount() As Integer
+        'find how many electricity packages there are in the database
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Dim stringOfErrors() As String = Nothing
-        Dim dateToday
-        dateToday = Date.Today 'get what date it is today
         Try
 
             conn.Open() 'try to connect to database
             ' Create a SqlCommand to retrieve the distinct ID values from the table
             Dim sqlCommand As New MySqlCommand("SELECT DISTINCT id FROM electricityPackages", conn)
 
-            ' Execute the command and retrieve the distinct ID values using a SqlDataReader
+            ' get how many id values in database
             Dim reader As MySqlDataReader = sqlCommand.ExecuteReader()
             Dim count As Integer = 0
             While reader.Read()
+                'loop through id-s and raise count
                 count += 1
             End While
 
@@ -256,6 +265,7 @@ Public Class CDatabase
             Return count
 
         Catch ex As Exception
+            'database error 
             '   stringOfErrors = {"error", "error", "error"}
             '  Return stringOfErrors
         End Try
@@ -450,7 +460,7 @@ Public Class CDatabase
         api = New PrjAPIComponent.APIComponent
         Dim sDates As String()
         sDates = api.GetDataFromEleringAPI().Item2
-        '' sPrices()
+        'get info from API about dates
         Try
 
             conn.Open() 'try to connect to database
@@ -556,6 +566,7 @@ Public Class CDatabase
         Try
             conn.Open()
             conn.Close()
+            'if there is connection return false
             Return True
 
         Catch ex As Exception
