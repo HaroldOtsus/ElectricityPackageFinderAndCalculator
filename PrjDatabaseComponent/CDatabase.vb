@@ -268,7 +268,7 @@ Public Class CDatabase
             '  Return stringOfErrors
         End Try
     End Function
-    Function electricityPackagesCount() As Integer
+    Function electricityPackagesCount() As Integer Implements IDatabase.electricityPackagesCount
         'find how many electricity packages there are in the database
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)

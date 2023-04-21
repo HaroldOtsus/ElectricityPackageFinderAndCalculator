@@ -35,41 +35,46 @@ Partial Class SignUp
         '
         'tBoxUsername
         '
-        Me.tBoxUsername.Location = New System.Drawing.Point(366, 103)
+        Me.tBoxUsername.Location = New System.Drawing.Point(488, 127)
+        Me.tBoxUsername.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tBoxUsername.Name = "tBoxUsername"
-        Me.tBoxUsername.Size = New System.Drawing.Size(100, 20)
+        Me.tBoxUsername.Size = New System.Drawing.Size(132, 22)
         Me.tBoxUsername.TabIndex = 0
         '
         'tBoxPassword
         '
-        Me.tBoxPassword.Location = New System.Drawing.Point(366, 218)
+        Me.tBoxPassword.Location = New System.Drawing.Point(488, 268)
+        Me.tBoxPassword.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tBoxPassword.Name = "tBoxPassword"
-        Me.tBoxPassword.Size = New System.Drawing.Size(100, 20)
+        Me.tBoxPassword.Size = New System.Drawing.Size(132, 22)
         Me.tBoxPassword.TabIndex = 1
         '
         'lblEnterUsername
         '
         Me.lblEnterUsername.AutoSize = True
-        Me.lblEnterUsername.Location = New System.Drawing.Point(242, 106)
+        Me.lblEnterUsername.Location = New System.Drawing.Point(323, 130)
+        Me.lblEnterUsername.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblEnterUsername.Name = "lblEnterUsername"
-        Me.lblEnterUsername.Size = New System.Drawing.Size(105, 13)
+        Me.lblEnterUsername.Size = New System.Drawing.Size(140, 17)
         Me.lblEnterUsername.TabIndex = 2
         Me.lblEnterUsername.Text = "Sisesta kasutajanimi:"
         '
         'lblEnterPassword
         '
         Me.lblEnterPassword.AutoSize = True
-        Me.lblEnterPassword.Location = New System.Drawing.Point(271, 221)
+        Me.lblEnterPassword.Location = New System.Drawing.Point(361, 272)
+        Me.lblEnterPassword.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblEnterPassword.Name = "lblEnterPassword"
-        Me.lblEnterPassword.Size = New System.Drawing.Size(76, 13)
+        Me.lblEnterPassword.Size = New System.Drawing.Size(102, 17)
         Me.lblEnterPassword.TabIndex = 3
         Me.lblEnterPassword.Text = "Sisesta parool:"
         '
         'btnSignUp
         '
-        Me.btnSignUp.Location = New System.Drawing.Point(363, 264)
+        Me.btnSignUp.Location = New System.Drawing.Point(484, 325)
+        Me.btnSignUp.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnSignUp.Name = "btnSignUp"
-        Me.btnSignUp.Size = New System.Drawing.Size(103, 36)
+        Me.btnSignUp.Size = New System.Drawing.Size(137, 44)
         Me.btnSignUp.TabIndex = 4
         Me.btnSignUp.Text = "Registreeri"
         Me.btnSignUp.UseVisualStyleBackColor = True
@@ -77,40 +82,44 @@ Partial Class SignUp
         'lblEmail
         '
         Me.lblEmail.AutoSize = True
-        Me.lblEmail.Location = New System.Drawing.Point(240, 143)
+        Me.lblEmail.Location = New System.Drawing.Point(320, 176)
+        Me.lblEmail.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblEmail.Name = "lblEmail"
-        Me.lblEmail.Size = New System.Drawing.Size(107, 13)
+        Me.lblEmail.Size = New System.Drawing.Size(145, 17)
         Me.lblEmail.TabIndex = 6
         Me.lblEmail.Text = "Sisesta meili aadress:"
         '
         'tBoxEmail
         '
-        Me.tBoxEmail.Location = New System.Drawing.Point(366, 140)
+        Me.tBoxEmail.Location = New System.Drawing.Point(488, 172)
+        Me.tBoxEmail.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tBoxEmail.Name = "tBoxEmail"
-        Me.tBoxEmail.Size = New System.Drawing.Size(100, 20)
+        Me.tBoxEmail.Size = New System.Drawing.Size(132, 22)
         Me.tBoxEmail.TabIndex = 5
         '
         'lblName
         '
         Me.lblName.AutoSize = True
-        Me.lblName.Location = New System.Drawing.Point(197, 182)
+        Me.lblName.Location = New System.Drawing.Point(263, 224)
+        Me.lblName.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblName.Name = "lblName"
-        Me.lblName.Size = New System.Drawing.Size(150, 13)
+        Me.lblName.Size = New System.Drawing.Size(202, 17)
         Me.lblName.TabIndex = 8
         Me.lblName.Text = "Sisesta ees- ja perekonnanimi:"
         '
         'tBoxName
         '
-        Me.tBoxName.Location = New System.Drawing.Point(366, 179)
+        Me.tBoxName.Location = New System.Drawing.Point(488, 220)
+        Me.tBoxName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tBoxName.Name = "tBoxName"
-        Me.tBoxName.Size = New System.Drawing.Size(100, 20)
+        Me.tBoxName.Size = New System.Drawing.Size(132, 22)
         Me.tBoxName.TabIndex = 7
         '
         'SignUp
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(1067, 554)
         Me.Controls.Add(Me.lblName)
         Me.Controls.Add(Me.tBoxName)
         Me.Controls.Add(Me.lblEmail)
@@ -120,6 +129,7 @@ Partial Class SignUp
         Me.Controls.Add(Me.lblEnterUsername)
         Me.Controls.Add(Me.tBoxPassword)
         Me.Controls.Add(Me.tBoxUsername)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "SignUp"
         Me.Text = "SignUp"
         Me.ResumeLayout(False)

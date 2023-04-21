@@ -26,6 +26,8 @@ Partial Class GUIMain
         Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(GUIMain))
         Me.lblMenu = New System.Windows.Forms.Label()
         Me.btnPackageHourlyRate = New System.Windows.Forms.Button()
@@ -156,6 +158,8 @@ Partial Class GUIMain
         Me.tBoxMarginal = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.chartPackages = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.btnPackets = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -172,6 +176,7 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.SuspendLayout()
         Me.tabSimulateExchangeHistory.SuspendLayout()
         Me.tabPackageComparison.SuspendLayout()
+        CType(Me.chartPackages, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblMenu
@@ -1478,6 +1483,8 @@ Partial Class GUIMain
         '
         'tabPackageComparison
         '
+        Me.tabPackageComparison.Controls.Add(Me.btnPackets)
+        Me.tabPackageComparison.Controls.Add(Me.chartPackages)
         Me.tabPackageComparison.Controls.Add(Me.btnCompare)
         Me.tabPackageComparison.Controls.Add(Me.lblComparisonResult)
         Me.tabPackageComparison.Controls.Add(Me.ComboBox2)
@@ -1651,6 +1658,27 @@ Partial Class GUIMain
         Me.Label2.TabIndex = 46
         Me.Label2.Text = "s/kWh"
         '
+        'chartPackages
+        '
+        ChartArea3.Name = "ChartArea1"
+        Me.chartPackages.ChartAreas.Add(ChartArea3)
+        Legend3.Name = "Legend1"
+        Me.chartPackages.Legends.Add(Legend3)
+        Me.chartPackages.Location = New System.Drawing.Point(474, 145)
+        Me.chartPackages.Name = "chartPackages"
+        Me.chartPackages.Size = New System.Drawing.Size(595, 348)
+        Me.chartPackages.TabIndex = 9
+        '
+        'btnPackets
+        '
+        Me.btnPackets.Location = New System.Drawing.Point(40, 446)
+        Me.btnPackets.Margin = New System.Windows.Forms.Padding(4)
+        Me.btnPackets.Name = "btnPackets"
+        Me.btnPackets.Size = New System.Drawing.Size(100, 28)
+        Me.btnPackets.TabIndex = 10
+        Me.btnPackets.Text = "Paketid"
+        Me.btnPackets.UseVisualStyleBackColor = True
+        '
         'GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1691,6 +1719,7 @@ Partial Class GUIMain
         Me.tabSimulateExchangeHistory.PerformLayout()
         Me.tabPackageComparison.ResumeLayout(False)
         Me.tabPackageComparison.PerformLayout()
+        CType(Me.chartPackages, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1825,4 +1854,6 @@ Partial Class GUIMain
     Friend WithEvents lblMore As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
+    Friend WithEvents btnPackets As Button
+    Friend WithEvents chartPackages As DataVisualization.Charting.Chart
 End Class

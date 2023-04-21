@@ -9,4 +9,8 @@
         GUIMain.chartFrontPage()
         Me.Visible = False
     End Sub
+
+    Private Sub SignUp_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
 End Class

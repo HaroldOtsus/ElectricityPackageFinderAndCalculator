@@ -1,6 +1,7 @@
 ﻿
 
 Imports System.IO
+Imports System.Windows.Forms.DataVisualization.Charting
 
 Public Class GUIMain
     Public Structure PriceDateStruct
@@ -828,5 +829,39 @@ Public Class GUIMain
 
     Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
 
+    End Sub
+
+    Private Sub btnPackets_Click(sender As Object, e As EventArgs) Handles btnPackets.Click
+
+
+        Dim returnString As PrjDatabaseComponent.IDatabase
+        returnString = New PrjDatabaseComponent.CDatabase
+        Dim count As Integer
+        count = returnString.electricityPackagesCount 'find out how many packages there are
+        Dim packages = returnString.electricityPackagesInfo
+        'chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
+        Dim rand As New Random()
+        For j As Integer = 0 To (count - 1)
+            Dim series As New Series(packages.Item1(j)) ' create a new series with the package name
+            chartPackages.Series.Add(series)
+            chartPackages.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
+            chartPackages.ChartAreas(0).AxisY.Interval = 5 'more lines Y axis
+            series.ChartType = DataVisualization.Charting.SeriesChartType.StepLine
+            Dim r As Integer = rand.Next(0, 256)
+            Dim g As Integer = rand.Next(0, 256)
+            Dim b As Integer = rand.Next(0, 256)
+
+            ' Create a new color object using the random RGB values
+            Dim colorofLine As Color = Color.FromArgb(r, g, b)
+            series.Color = colorofLine
+            series.BorderWidth = 3
+            'all the packages are right except Muutuv 
+            For i As Integer = 0 To 23
+
+                series.Points.AddXY(i, packages.Item3(j))
+
+
+            Next
+        Next
     End Sub
 End Class

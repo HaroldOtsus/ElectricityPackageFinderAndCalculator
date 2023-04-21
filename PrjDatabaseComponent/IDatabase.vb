@@ -3,4 +3,5 @@
 
     Function electricityPackagesInfo() As (String(), String(), Double(), Double(), Boolean(), Boolean())
     Function universalServicePrice() As Double
+    Function electricityPackagesCount() As Integer
 End Interface
