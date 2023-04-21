@@ -203,7 +203,7 @@ Public Class CDatabase
 
 
     Function stockPrice() As (prices As String(), dates As String()) Implements IDatabaseAPI.stockPrice
-
+        Dim currentHour As Integer = DateTime.Now.Hour
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Dim dateOfStockPrices As String = ""
@@ -213,7 +213,7 @@ Public Class CDatabase
         Try
 
             conn.Open() 'try to connect to database
-            Dim command As New MySqlCommand("SELECT date FROM webdata WHERE idPacket = 1;", conn)
+            Dim command As New MySqlCommand("SELECT twentyFour FROM webdata WHERE idPacket = 2;", conn)
             Dim reader As MySqlDataReader = command.ExecuteReader()
             While reader.Read()
                 dateOfStockPrices = reader.GetString(0) 'get date from database
@@ -223,32 +223,45 @@ Public Class CDatabase
             con.Open()
             Dim sPrices() As String = New String(24) {}
             sPrices(0) = ""
-            'If dateOfStockPrices = dateToday Then
-            '    '        ''need to return all prices from database
-            '    Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 1;", con)
-            '    Dim read As MySqlDataReader = cmd.ExecuteReader()
-            '    If read IsNot Nothing Then
-            '        While read.Read() 'get all dates from database
-            '            For i As Integer = 1 To 24
-            '                sPrices(i) = read.GetString(i)
-            '            Next
-            '        End While
-            '        read.Close()
-            '        con.Close()
+            Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(dateOfStockPrices) 'new datetimeoffset from sDate string
+            Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
 
-            '        Dim stringOfDates As String()
-            '        'stringOfDates = insertDatesToDatabase()
-            '        stringOfDates = datesOfStockPrice()
-            '        Return (sPrices, stringOfDates)
-            '    End If
-            'Else
-            Dim stringOfPrices As String()
+
+            ' Get the UTC+2 time zone
+            Dim timeZone As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Israel Standard Time")
+
+            ' Convert DateTimeOffset object to UTC+3 timezone
+            Dim convertedTime As DateTimeOffset = TimeZoneInfo.ConvertTime(dateTimeOffset, timeZone)
+
+            Dim hour As Integer = convertedTime.Hour
+
+            If hour = currentHour Then
+
+                '        ''need to return all prices from database
+                Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 1;", con)
+                Dim read As MySqlDataReader = cmd.ExecuteReader()
+                If read IsNot Nothing Then
+                    While read.Read() 'get all dates from database
+                        For i As Integer = 1 To 24
+                            sPrices(i) = read.GetString(i)
+                        Next
+                    End While
+                    read.Close()
+                    con.Close()
+
+                    Dim stringOfDates As String()
+                    'stringOfDates = insertDatesToDatabase()
+                    stringOfDates = datesOfStockPrice()
+                    Return (sPrices, stringOfDates)
+                End If
+            Else
+                Dim stringOfPrices As String()
                 Dim stringOfDates As String()
                 stringOfPrices = insertStockPriceToDatabase()
                 stringOfDates = insertDatesToDatabase()
                 Return (stringOfPrices, stringOfDates)
-            '        ''we put the info to the database
-            'End If
+                '        ''we put the info to the database
+            End If
             conn.Close()
         Catch ex As Exception
             '   stringOfErrors = {"error", "error", "error"}
