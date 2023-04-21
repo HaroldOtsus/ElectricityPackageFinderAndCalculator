@@ -231,7 +231,8 @@ Public Class GUIMain
             Next
         End If
 
-
+        tblPriceTable.AllowUserToDeleteRows = False 'Allows user to delete rows
+        tblPriceTable.ReadOnly = True 'Allows user to edit cells within the data grid
         tblPriceTable.Controls.Add(dgv)
 
         chart(records)

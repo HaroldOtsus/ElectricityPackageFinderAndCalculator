@@ -327,6 +327,7 @@ Partial Class GUIMain
         Me.tblPriceTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.tblPriceTable.Location = New System.Drawing.Point(26, 333)
         Me.tblPriceTable.Name = "tblPriceTable"
+        Me.tblPriceTable.ReadOnly = True
         Me.tblPriceTable.RowHeadersWidth = 51
         Me.tblPriceTable.Size = New System.Drawing.Size(240, 150)
         Me.tblPriceTable.TabIndex = 13
