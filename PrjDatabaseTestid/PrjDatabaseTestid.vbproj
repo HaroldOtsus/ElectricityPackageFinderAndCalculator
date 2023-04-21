@@ -116,6 +116,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\APIComponent\PrjAPIComponent.vbproj">
+      <Project>{7f647ec6-613a-4eb9-9ff2-e2486ca61ba7}</Project>
+      <Name>PrjAPIComponent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PrjDatabaseComponent\PrjDatabaseComponent.vbproj">
       <Project>{76b300df-05d0-4686-a01e-cca64e1c9b80}</Project>
       <Name>PrjDatabaseComponent</Name>

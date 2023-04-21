@@ -223,32 +223,32 @@ Public Class CDatabase
             con.Open()
             Dim sPrices() As String = New String(24) {}
             sPrices(0) = ""
-            If dateOfStockPrices = dateToday Then
-                '        ''need to return all prices from database
-                Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 1;", con)
-                Dim read As MySqlDataReader = cmd.ExecuteReader()
-                If read IsNot Nothing Then
-                    While read.Read() 'get all dates from database
-                        For i As Integer = 1 To 24
-                            sPrices(i) = read.GetString(i)
-                        Next
-                    End While
-                    read.Close()
-                    con.Close()
+            'If dateOfStockPrices = dateToday Then
+            '    '        ''need to return all prices from database
+            '    Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 1;", con)
+            '    Dim read As MySqlDataReader = cmd.ExecuteReader()
+            '    If read IsNot Nothing Then
+            '        While read.Read() 'get all dates from database
+            '            For i As Integer = 1 To 24
+            '                sPrices(i) = read.GetString(i)
+            '            Next
+            '        End While
+            '        read.Close()
+            '        con.Close()
 
-                    Dim stringOfDates As String()
-                    'stringOfDates = insertDatesToDatabase()
-                    stringOfDates = datesOfStockPrice()
-                    Return (sPrices, stringOfDates)
-                End If
-            Else
-                Dim stringOfPrices As String()
+            '        Dim stringOfDates As String()
+            '        'stringOfDates = insertDatesToDatabase()
+            '        stringOfDates = datesOfStockPrice()
+            '        Return (sPrices, stringOfDates)
+            '    End If
+            'Else
+            Dim stringOfPrices As String()
                 Dim stringOfDates As String()
                 stringOfPrices = insertStockPriceToDatabase()
                 stringOfDates = insertDatesToDatabase()
                 Return (stringOfPrices, stringOfDates)
-                '        ''we put the info to the database
-            End If
+            '        ''we put the info to the database
+            'End If
             conn.Close()
         Catch ex As Exception
             '   stringOfErrors = {"error", "error", "error"}

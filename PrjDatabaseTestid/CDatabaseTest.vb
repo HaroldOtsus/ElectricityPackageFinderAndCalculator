@@ -3,7 +3,16 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
 <TestClass()> Public Class CDatabaseTest
 
+    <TestMethod()> Public Sub TestAPIReturn()
+        Dim getIn As New PrjAPIComponent.APIComponent
+        Dim actualData As (String(), String()) = getIn.GetDataFromEleringAPI()
+        'If vastus IsNot Nothing Then
+        ' Assert.AreEqual(expected.Length, vastus.Length)
+        ' Assert.AreEqual("6.00", actualData.Item1(1))
+        Assert.AreEqual("6.00", actualData.Item2(24))
+        ' End If
 
+    End Sub
 
     <TestMethod()> Public Sub TestConnection()
         Dim getIn As New PrjDatabaseComponent.CDatabase
