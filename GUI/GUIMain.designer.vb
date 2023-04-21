@@ -55,6 +55,7 @@ Partial Class GUIMain
         Me.btnBack0 = New System.Windows.Forms.Button()
         Me.tabApplianceCalc = New System.Windows.Forms.TabPage()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.radioStockPlusMore = New System.Windows.Forms.RadioButton()
         Me.rdioUniversalPackage = New System.Windows.Forms.RadioButton()
         Me.rdioFixedPrice1 = New System.Windows.Forms.RadioButton()
         Me.rdioExchangePrice = New System.Windows.Forms.RadioButton()
@@ -151,6 +152,10 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
+        Me.lblMore = New System.Windows.Forms.Label()
+        Me.tBoxMarginal = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -477,6 +482,10 @@ Partial Class GUIMain
         '
         'tabApplianceCalc
         '
+        Me.tabApplianceCalc.Controls.Add(Me.Label2)
+        Me.tabApplianceCalc.Controls.Add(Me.Label1)
+        Me.tabApplianceCalc.Controls.Add(Me.tBoxMarginal)
+        Me.tabApplianceCalc.Controls.Add(Me.lblMore)
         Me.tabApplianceCalc.Controls.Add(Me.Panel3)
         Me.tabApplianceCalc.Controls.Add(Me.Panel2)
         Me.tabApplianceCalc.Controls.Add(Me.Panel1)
@@ -498,6 +507,7 @@ Partial Class GUIMain
         '
         'Panel3
         '
+        Me.Panel3.Controls.Add(Me.radioStockPlusMore)
         Me.Panel3.Controls.Add(Me.rdioUniversalPackage)
         Me.Panel3.Controls.Add(Me.rdioFixedPrice1)
         Me.Panel3.Controls.Add(Me.rdioExchangePrice)
@@ -506,6 +516,18 @@ Partial Class GUIMain
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(315, 86)
         Me.Panel3.TabIndex = 41
+        '
+        'radioStockPlusMore
+        '
+        Me.radioStockPlusMore.AutoSize = True
+        Me.radioStockPlusMore.Location = New System.Drawing.Point(145, 4)
+        Me.radioStockPlusMore.Margin = New System.Windows.Forms.Padding(4)
+        Me.radioStockPlusMore.Name = "radioStockPlusMore"
+        Me.radioStockPlusMore.Size = New System.Drawing.Size(166, 21)
+        Me.radioStockPlusMore.TabIndex = 43
+        Me.radioStockPlusMore.TabStop = True
+        Me.radioStockPlusMore.Text = "Börsihind + marginaal"
+        Me.radioStockPlusMore.UseVisualStyleBackColor = True
         '
         'rdioUniversalPackage
         '
@@ -593,9 +615,9 @@ Partial Class GUIMain
         Me.Label11.Location = New System.Drawing.Point(425, 209)
         Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(66, 17)
+        Me.Label11.Size = New System.Drawing.Size(42, 17)
         Me.Label11.TabIndex = 42
-        Me.Label11.Text = "€ päevas"
+        Me.Label11.Text = "senti "
         '
         'Label7
         '
@@ -603,9 +625,9 @@ Partial Class GUIMain
         Me.Label7.Location = New System.Drawing.Point(425, 170)
         Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(36, 17)
+        Me.Label7.Size = New System.Drawing.Size(64, 17)
         Me.Label7.TabIndex = 41
-        Me.Label7.Text = "kWh"
+        Me.Label7.Text = "kWh 24h"
         '
         'Label5
         '
@@ -960,7 +982,7 @@ Partial Class GUIMain
         '
         'btnConfirm
         '
-        Me.btnConfirm.Location = New System.Drawing.Point(48, 649)
+        Me.btnConfirm.Location = New System.Drawing.Point(48, 688)
         Me.btnConfirm.Margin = New System.Windows.Forms.Padding(4)
         Me.btnConfirm.Name = "btnConfirm"
         Me.btnConfirm.Size = New System.Drawing.Size(100, 28)
@@ -1591,6 +1613,44 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
         '
+        'lblMore
+        '
+        Me.lblMore.AutoSize = True
+        Me.lblMore.Location = New System.Drawing.Point(52, 656)
+        Me.lblMore.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblMore.Name = "lblMore"
+        Me.lblMore.Size = New System.Drawing.Size(124, 17)
+        Me.lblMore.TabIndex = 42
+        Me.lblMore.Text = "Sisesta marginaal:"
+        '
+        'tBoxMarginal
+        '
+        Me.tBoxMarginal.Location = New System.Drawing.Point(260, 656)
+        Me.tBoxMarginal.Margin = New System.Windows.Forms.Padding(4)
+        Me.tBoxMarginal.Name = "tBoxMarginal"
+        Me.tBoxMarginal.Size = New System.Drawing.Size(132, 22)
+        Me.tBoxMarginal.TabIndex = 43
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(415, 661)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(47, 17)
+        Me.Label1.TabIndex = 45
+        Me.Label1.Text = "s/kWh"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(415, 612)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(47, 17)
+        Me.Label2.TabIndex = 46
+        Me.Label2.Text = "s/kWh"
+        '
         'GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1760,4 +1820,9 @@ Partial Class GUIMain
     Friend WithEvents btnFontIncrease As Button
     Friend WithEvents btnFontDecrease As Button
     Friend WithEvents btnRestoreFontSize As Button
+    Friend WithEvents radioStockPlusMore As RadioButton
+    Friend WithEvents tBoxMarginal As TextBox
+    Friend WithEvents lblMore As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
 End Class

@@ -58,31 +58,63 @@ Public Class GUIMain
         applianceID = "1"
     End Sub
 
+    Private Function checkIfTextBoxContainsLetters(textbox As TextBox) As Boolean
+        For Each i As Char In textbox.Text
+            If Not (Char.IsDigit(i) Or i = "." Or i = ",") Then
+                Return False
+            End If
+        Next
 
+        Return True
+
+
+    End Function
     Private Sub btnConfirm_Click(sender As Object, e As EventArgs) Handles btnConfirm.Click
+        Dim noneSelected As Boolean = True
+        Dim noneSelected2 As Boolean = True
+        ' Loop through all the radio buttons on the panel
+        For Each radioButton As RadioButton In Panel1.Controls.OfType(Of RadioButton)()
+            If radioButton.Checked Then
+                noneSelected = False
+                Exit For
+            End If
+        Next
+        For Each radioButton As RadioButton In Panel3.Controls.OfType(Of RadioButton)()
+            If radioButton.Checked Then
+                noneSelected2 = False
+                Exit For
+            End If
+        Next
+        If Not noneSelected And Not noneSelected2 Then 'do not proceed if nothing is checked
+            If tBoxPackagePrice.TextLength > 0 Or tBoxMarginal.TextLength > 0 Then 'do not proceed if text boxes are empty
+                Dim tb1Letters As Boolean = checkIfTextBoxContainsLetters(tBoxPackagePrice)
+                Dim tb2Letters As Boolean = checkIfTextBoxContainsLetters(tBoxMarginal)
+                If tb1Letters = True Then
+                    Dim returnString As PrjDatabaseComponent.IDatabase
+                    returnString = New PrjDatabaseComponent.CDatabase
+                    Dim actualOutput = returnString.stringReturn(applianceID)
 
-        Dim returnString As PrjDatabaseComponent.IDatabase
-        returnString = New PrjDatabaseComponent.CDatabase
-        Dim actualOutput = returnString.stringReturn(applianceID)
 
+                    tBoxConsumptionPerHour.Text = actualOutput.consumptionPerHour
+                    tBoxUsageTime.Text = actualOutput.usageTime
 
-        tBoxConsumptionPerHour.Text = actualOutput.consumptionPerHour
-        tBoxUsageTime.Text = actualOutput.usageTime
+                    Dim incoming As Computing_Component.ICalculating
+                    incoming = New Computing_Component.CCalculating
+                    Dim actualOutput2 = incoming.applianceConsumption(tBoxConsumptionPerHour.Text, tBoxUsageTime.Text, tBoxPackagePrice.Text)
 
-        Dim incoming As Computing_Component.ICalculating
-        incoming = New Computing_Component.CCalculating
-        Dim actualOutput2 = incoming.applianceConsumption(tBoxConsumptionPerHour.Text, tBoxUsageTime.Text, tBoxPackagePrice.Text)
+                    'Shows only 3 decimal spaces
+                    Dim cons As Decimal = actualOutput2.consumption
 
-        'Shows only 3 decimal spaces
-        Dim cons As Decimal = actualOutput2.consumption
+                    Dim consOut As String = cons.ToString("N3")
 
-        Dim consOut As String = cons.ToString("N3")
+                    Dim aprox As Decimal = actualOutput2.aproxPrice
+                    Dim aproxOut As String = aprox.ToString("N3")
 
-        Dim aprox As Decimal = actualOutput2.aproxPrice
-        Dim aproxOut As String = aprox.ToString("N3")
-
-        tBoxElectricityConsumptionRate.Text = consOut
-        tBoxApproxPrice.Text = aproxOut
+                    tBoxElectricityConsumptionRate.Text = consOut
+                    tBoxApproxPrice.Text = aproxOut
+                End If
+            End If
+            End If
 
     End Sub
 
@@ -411,14 +443,15 @@ Public Class GUIMain
         returnString = New PrjDatabaseComponent.CDatabase
         Dim sPrices As String()
         sPrices = returnString.stockPrice().prices
-        sPrices(1) = sPrices(1).Replace(".", ",")
 
 
         'Dim sPricesOut As String = sPrices(1)
-        Dim sPricesOut As Double
-        Double.TryParse(sPrices(1), sPricesOut)
+        'Double.TryParse(sPrices(1), sPricesOut)
+        sPrices(24) = sPrices(24).Replace(".", ",")
+        Dim calculateKWH As Double = Double.Parse(sPrices(24))
+        calculateKWH = (calculateKWH / 10) / 100
 
-        tBoxPackageHourlyRate.Text = sPricesOut & "€"
+        tBoxPackageHourlyRate.Text = calculateKWH
     End Sub
 
     Private Sub rdioFixedPrice_CheckedChanged(sender As Object, e As EventArgs) Handles rdioFixedPrice.CheckedChanged
@@ -439,8 +472,11 @@ Public Class GUIMain
         Dim sPrices As String()
         sPrices = returnString.stockPrice().prices
 
-        sPrices(1) = sPrices(1).Replace(".", ",")
-        tBoxPackagePrice.Text = sPrices(1) & "€"
+        sPrices(24) = sPrices(24).Replace(".", ",")
+        Dim calculateKWH As Double = Double.Parse(sPrices(24))
+        calculateKWH = (calculateKWH / 10) / 100
+
+        tBoxPackagePrice.Text = calculateKWH
     End Sub
 
 
@@ -735,6 +771,62 @@ Public Class GUIMain
     End Sub
 
     Private Sub tBoxPackagePrice_TextChanged(sender As Object, e As EventArgs) Handles tBoxPackagePrice.TextChanged
+
+    End Sub
+
+    Private Sub rdioStockPlusMore_CheckedChanged(sender As Object, e As EventArgs) Handles radioStockPlusMore.CheckedChanged
+        Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+        returnString = New PrjDatabaseComponent.CDatabase
+        Dim sPrices As String()
+        sPrices = returnString.stockPrice().prices
+
+        sPrices(24) = sPrices(24).Replace(".", ",")
+        Dim calculateKWH As Double = Double.Parse(sPrices(24))
+        calculateKWH = (calculateKWH / 10) / 100
+        If checkIfTextBoxContainsLetters(tBoxMarginal) = True Then
+            Dim sum As Integer = calculateKWH + Double.Parse(tBoxMarginal.Text)
+
+            ' Convert sum to a string and display the result
+            ' Dim result As String = sum.ToString()
+
+            tBoxPackagePrice.Text = sum
+        End If
+    End Sub
+
+    Private Sub tBoxMarginal_TextChanged(sender As Object, e As EventArgs) Handles tBoxMarginal.TextChanged
+        If tBoxMarginal.TextLength > 0 Then
+            If radioStockPlusMore.Enabled = True Then
+                Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+                returnString = New PrjDatabaseComponent.CDatabase
+                Dim sPrices As String()
+                sPrices = returnString.stockPrice().prices
+
+                sPrices(24) = sPrices(24).Replace(".", ",")
+                Dim calculateKWH As Double = Double.Parse(sPrices(24))
+                calculateKWH = (calculateKWH / 10) / 100
+                If checkIfTextBoxContainsLetters(tBoxMarginal) = True Then
+                    Dim sum As Integer = calculateKWH + Double.Parse(tBoxMarginal.Text)
+
+                    ' Convert sum to a string and display the result
+                    ' Dim result As String = sum.ToString()
+
+                    tBoxPackagePrice.Text = sum
+                End If
+            End If
+            radioStockPlusMore.Enabled = True
+        End If
+
+    End Sub
+
+    Private Sub GUIMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        radioStockPlusMore.Enabled = False
+    End Sub
+
+    Private Sub Label7_Click(sender As Object, e As EventArgs) Handles Label7.Click
+
+    End Sub
+
+    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
 
     End Sub
 End Class
