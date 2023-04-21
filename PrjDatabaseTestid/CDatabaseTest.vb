@@ -49,6 +49,10 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim count = getIn.electricityPackagesNames(5)
         Assert.AreEqual("Kindel 6", count.Item1(0))
         Assert.AreEqual("Eesti Energia", count.Item2(0))
+        Assert.AreEqual(14.99, count.Item3(0))
+        Assert.AreEqual(1.99, count.Item4(0))
+        Assert.IsFalse(count.Item5(0))
+        Assert.IsFalse(count.Item6(0))
     End Sub
 
 

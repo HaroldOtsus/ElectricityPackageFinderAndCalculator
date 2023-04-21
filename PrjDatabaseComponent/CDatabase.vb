@@ -200,26 +200,34 @@ Public Class CDatabase
         End Try
 
     End Function
-    Function electricityPackagesNames(ByVal count As Integer) As (String(), String())
+    Function electricityPackagesNames(ByVal count As Integer) As (String(), String(), Double(), Double(), Boolean(), Boolean())
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Try
 
             conn.Open()
-            Dim sqlCommand As New MySqlCommand("SELECT packageName,companyName FROM electricityPackages;", conn)
+            Dim sqlCommand As New MySqlCommand("SELECT packageName,companyName, pricePerKWh, monthlyFeeForContract, usesMarketPRice, greenEnergy FROM electricityPackages;", conn)
             Dim reader As MySqlDataReader = sqlCommand.ExecuteReader()
             Dim stringOfPackageNames(count - 1) As String
             Dim stringOfCompanyNames(count - 1) As String
+            Dim pricePerKWh(count - 1) As Double
+            Dim monthlyFeeForContract(count - 1) As Double
+            Dim usesMarketPrice(count - 1) As Boolean
+            Dim greenEnergy(count - 1) As Boolean
             Dim rowcount As Integer = 0
             Dim i As Integer = 0
             While reader.Read() AndAlso i < count
                 stringOfPackageNames(i) = reader.GetString(0)
                 stringOfCompanyNames(i) = reader.GetString(1)
+                pricePerKWh(i) = reader.GetString(2)
+                monthlyFeeForContract(i) = reader.GetString(3)
+                usesMarketPrice(i) = reader.GetString(4)
+                greenEnergy(i) = reader.GetString(5)
                 i += 1
             End While
 
             conn.Close()
-            Return (stringOfPackageNames, stringOfCompanyNames)
+            Return (stringOfPackageNames, stringOfCompanyNames, pricePerKWh, monthlyFeeForContract, usesMarketPrice, greenEnergy)
         Catch ex As Exception
             '   stringOfErrors = {"error", "error", "error"}
             '  Return stringOfErrors
