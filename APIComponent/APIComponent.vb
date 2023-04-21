@@ -79,7 +79,9 @@ Public Class APIComponent
                 'Convert string into double
                 Dim dstr As Double = Double.Parse(str)
                 'Create a new DateTime object from the converted double
-                Dim dateTimestr As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(dstr).ToLocalTime()
+                Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(str)
+                'Convert the object to local time
+                Dim dateTimestr = TimeZoneInfo.ConvertTime(dateTimeOffset.DateTime, TimeZoneInfo.Local)
                 'Convert the DateTime object into a string
                 str = dateTimestr.ToString("yyyy-MM-dd HH:mm:ss")
             End If
@@ -162,7 +164,9 @@ Public Class APIComponent
                 'Convert string into double
                 Dim dstr As Double = Double.Parse(str)
                 'Create a new DateTime object from the converted double
-                Dim dateTimestr As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(dstr).ToLocalTime()
+                Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(str)
+                'Convert the object to local time
+                Dim dateTimestr = TimeZoneInfo.ConvertTime(dateTimeOffset.DateTime, TimeZoneInfo.Local)
                 'Convert the DateTime object into a string
                 str = dateTimestr.ToString("yyyy-MM-dd HH:mm:ss")
             End If
