@@ -9,7 +9,7 @@ Public Class GUIMain
         Dim sDate As String
     End Structure
 
-    Dim sisend As String
+    Dim sisend As String 'might be a leftover obsolete relic that could potentially be deleted
     Dim applianceID As String
     Dim myColor As Color
 
@@ -160,31 +160,69 @@ Public Class GUIMain
 
 
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
-        returnString = New PrjDatabaseComponent.CDatabase
         Dim sPrices As String()
+        Dim sDates As String()
+        Dim dDates As Double() = New Double(24) {}
+
+        Dim dPrices As Double()
+        Dim priceDateStruct As New PriceDateStruct()
+
+
+        returnString = New PrjDatabaseComponent.CDatabase
+
         sPrices = returnString.stockPrice().prices
+        sDates = returnString.stockPrice().dates
 
         For i As Integer = 1 To 24
             sPrices(i) = sPrices(i).Replace(".", ",")
         Next
+        dPrices = New Double(sPrices.Length) {}
 
 
+        For i As Integer = 1 To sPrices.Length - 1
+            dPrices(i) = Double.Parse(sPrices(i))
+
+        Next
+
+        'UNIX NEEDS TO BE CONVERTED TO CONVENTIONAL TIMESTAMP DO BE USABLE
+        'dDates = New Double(sDates.Length - 1) {}
+        For i As Integer = 1 To 24 'sDates.Length - 1
+            ' dDates(i) = Double.Parse(sDates(i))
+
+            'in textbox get one time as string
+            Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(sDates(i)) 'new datetimeoffset from sDate string
+            Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
+            dDates(i) = CDbl(dateValue.Hour) 'convert to integer
+            'TextBox1.Text = dDates(i) 'put hour to textbox for testing
+
+        Next
+
+        'Dim priceAndDate As PriceDateStruct
+        Dim records As List(Of PriceDateStruct)
+        records = New List(Of PriceDateStruct)
+
+        Dim p As PriceDateStruct
+
+        For i As Integer = 1 To 24 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
+
+            p.price = dPrices(i)
+            p.sDate = dDates(i)
+            records.Add(p)
+            'records(i) = p
+        Next
 
         Dim dgv As New DataGridView()
 
         For i As Integer = 0 To 23
             'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
-            If timeNowHours >= 24 Then
-                timeNowHours = timeNowHours - 24
-                dgv.Columns.Add(0, timeNowHours & ":00")
+            TextBox1.Text = records(2).sDate
+            dgv.Columns.Add(0, records(i).sDate & ":00")
 
-            Else
-                dgv.Columns.Add(0, timeNowHours & ":00")
 
-            End If
-            timeNowHours = timeNowHours + 1
 
         Next
+
+
 
 
         If rdioFixedPrice.Checked Then
@@ -193,7 +231,7 @@ Public Class GUIMain
             Next
         Else
             For i As Integer = 0 To 23
-                dgv.Rows(0).Cells(i).Value = sPrices(i + 1) & "€" ' or any other number you want to insert
+                dgv.Rows(0).Cells(i).Value = records(i).price & "€" ' or any other number you want to insert
             Next
         End If
 
@@ -201,6 +239,54 @@ Public Class GUIMain
         tblPriceTable.Controls.Add(dgv)
 
         chart()
+        'OLD CODE THAT DIDNT USE A LIST OR STRUCT, NOW OBSOLETE LEFT HERE INCASE NEEDED WHEN CREATING DOCUMENTATION
+
+        'Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
+
+
+
+        'Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+        'returnString = New PrjDatabaseComponent.CDatabase
+        'Dim sPrices As String()
+        'sPrices = returnString.stockPrice().prices
+
+        'For i As Integer = 1 To 24
+        '    sPrices(i) = sPrices(i).Replace(".", ",")
+        'Next
+
+
+
+        'Dim dgv As New DataGridView()
+
+        'For i As Integer = 0 To 23
+        '    'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
+        '    If timeNowHours >= 24 Then
+        '        timeNowHours = timeNowHours - 24
+        '        dgv.Columns.Add(0, timeNowHours & ":00")
+
+        '    Else
+        '        dgv.Columns.Add(0, timeNowHours & ":00")
+
+        '    End If
+        '    timeNowHours = timeNowHours + 1
+
+        'Next
+
+
+        'If rdioFixedPrice.Checked Then
+        '    For i As Integer = 0 To 23
+        '        dgv.Rows(0).Cells(i).Value = tboxMonthlyCost.Text & "€" ' or any other number you want to insert
+        '    Next
+        'Else
+        '    For i As Integer = 0 To 23
+        '        dgv.Rows(0).Cells(i).Value = sPrices(i + 1) & "€" ' or any other number you want to insert
+        '    Next
+        'End If
+
+
+        'tblPriceTable.Controls.Add(dgv)
+
+
 
 
     End Sub
@@ -355,7 +441,7 @@ Public Class GUIMain
         For i As Integer = 1 To 24
             sPrices(i) = sPrices(i).Replace(".", ",")
         Next
-        dPrices = New Double(sPrices.Length - 1) {}
+        dPrices = New Double(sPrices.Length) {}
 
 
         For i As Integer = 1 To sPrices.Length - 1
@@ -372,7 +458,7 @@ Public Class GUIMain
             Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(sDates(i)) 'new datetimeoffset from sDate string
             Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
             dDates(i) = CDbl(dateValue.Hour) 'convert to integer
-            TextBox1.Text = dDates(i) 'put hour to textbox for testing
+            'TextBox1.Text = dDates(i) 'put hour to textbox for testing
 
         Next
 
@@ -382,7 +468,7 @@ Public Class GUIMain
 
         Dim p As PriceDateStruct
 
-        For i As Integer = 0 To 23
+        For i As Integer = 1 To 24 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
 
             p.price = dPrices(i)
             p.sDate = dDates(i)
@@ -397,7 +483,7 @@ Public Class GUIMain
 
         For i As Integer = 0 To 23
             'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
-
+            TextBox1.Text = records(2).sDate
             dgv.Columns.Add(0, records(i).sDate & ":00")
 
 
@@ -419,15 +505,15 @@ Public Class GUIMain
         'Next
 
 
-        'If rdioFixedPrice.Checked Then
-        '    For i As Integer = 0 To 23
-        '        dgv.Rows(0).Cells(i).Value = tboxMonthlyCost.Text & "€" ' or any other number you want to insert
-        '    Next
-        'Else
-        '    For i As Integer = 0 To 23
-        '        dgv.Rows(0).Cells(i).Value = dPricesToBeSorted(i + 1) & "€" ' or any other number you want to insert
-        '    Next
-        'End If
+        If rdioFixedPrice.Checked Then
+            For i As Integer = 0 To 23
+                dgv.Rows(0).Cells(i).Value = tboxMonthlyCost.Text & "€" ' or any other number you want to insert
+            Next
+        Else
+            For i As Integer = 0 To 23
+                dgv.Rows(0).Cells(i).Value = records(i).price & "€" ' or any other number you want to insert
+            Next
+        End If
 
 
         tblPriceTable.Controls.Add(dgv)
@@ -540,9 +626,7 @@ Public Class GUIMain
 
     End Sub
 
-    Private Sub GUIMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-    End Sub
 
 
 End Class
