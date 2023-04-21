@@ -155,7 +155,7 @@ Public Class GUIMain
     Private Sub btnConfirmInput_Click(sender As Object, e As EventArgs) Handles btnConfirmInput.Click
         tblPriceTable.Controls.Clear()
         chrtPackageHourlyRate.Series.Clear()
-        Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
+        'Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
 
 
 
@@ -215,11 +215,7 @@ Public Class GUIMain
 
         For i As Integer = 0 To 23
             'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
-            TextBox1.Text = records(2).sDate
             dgv.Columns.Add(0, records(i).sDate & ":00")
-
-
-
         Next
 
 
@@ -238,7 +234,7 @@ Public Class GUIMain
 
         tblPriceTable.Controls.Add(dgv)
 
-        chart()
+        chart(records)
         'OLD CODE THAT DIDNT USE A LIST OR STRUCT, NOW OBSOLETE LEFT HERE INCASE NEEDED WHEN CREATING DOCUMENTATION
 
         'Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
@@ -290,7 +286,8 @@ Public Class GUIMain
 
 
     End Sub
-    Public Function chart()
+    Public Function chart(records)
+
         Dim seriesName As String = "Börsihind"
         chrtPackageHourlyRate.Series.Add(seriesName)
         'chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
@@ -299,28 +296,69 @@ Public Class GUIMain
         chrtPackageHourlyRate.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.StepLine
         chrtPackageHourlyRate.Series(0).Color = Color.Red
         chrtPackageHourlyRate.Series(0).BorderWidth = 3
-        Dim returnString1 As PrjDatabaseComponent.IDatabaseAPI
-        returnString1 = New PrjDatabaseComponent.CDatabase
-        Dim sPrices1 As String()
-        sPrices1 = returnString1.stockPrice().prices
-        Dim dblValues(sPrices1.Length - 1) As Double
-        For i As Integer = 1 To sPrices1.Length - 1
-            Double.TryParse(sPrices1(i), dblValues(i))
+
+
+        For i As Integer = 0 To 23
+
+            chrtPackageHourlyRate.Series(seriesName).Points.AddXY(records(i).sDate, records(i).price)
+
         Next
 
-        ' Add some data points to the series
-        'Dim values() As Double = {10, 20, 30, 40, 50}
-        For i As Integer = 0 To dblValues.Length - 1
-            If i <> 0 Then 'there is no info from -1 to 0
-                chrtPackageHourlyRate.Series(seriesName).Points.AddXY(i - 1, sPrices1(i))
-            End If
-        Next
-        Dim hour23 As Integer = dblValues.Length
-        chrtPackageHourlyRate.Series(seriesName).Points.AddXY(hour23 - 1, sPrices1(hour23 - 1)) ' so 23 value would last entire hour
     End Function
 
     Public Function chartFrontPage()
 
+        Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+        Dim sPrices As String()
+        Dim sDates As String()
+        Dim dDates As Double() = New Double(24) {}
+
+        Dim dPrices As Double()
+        Dim priceDateStruct As New PriceDateStruct()
+
+
+        returnString = New PrjDatabaseComponent.CDatabase
+
+        sPrices = returnString.stockPrice().prices
+        sDates = returnString.stockPrice().dates
+
+        For i As Integer = 1 To 24
+            sPrices(i) = sPrices(i).Replace(".", ",")
+        Next
+        dPrices = New Double(sPrices.Length) {}
+
+
+        For i As Integer = 1 To sPrices.Length - 1
+            dPrices(i) = Double.Parse(sPrices(i))
+
+        Next
+
+        'UNIX NEEDS TO BE CONVERTED TO CONVENTIONAL TIMESTAMP DO BE USABLE
+        'dDates = New Double(sDates.Length - 1) {}
+        For i As Integer = 1 To 24 'sDates.Length - 1
+            ' dDates(i) = Double.Parse(sDates(i))
+
+            'in textbox get one time as string
+            Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(sDates(i)) 'new datetimeoffset from sDate string
+            Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
+            dDates(i) = CDbl(dateValue.Hour) 'convert to integer
+            'TextBox1.Text = dDates(i) 'put hour to textbox for testing
+
+        Next
+
+        'Dim priceAndDate As PriceDateStruct
+        Dim records As List(Of PriceDateStruct)
+        records = New List(Of PriceDateStruct)
+
+        Dim p As PriceDateStruct
+
+        For i As Integer = 1 To 24 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
+
+            p.price = dPrices(i)
+            p.sDate = dDates(i)
+            records.Add(p)
+            'records(i) = p
+        Next
         Dim seriesName As String = "Börsihind"
         chrtFrontPage.Series.Add(seriesName)
         'chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
@@ -329,24 +367,41 @@ Public Class GUIMain
         chrtFrontPage.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.StepLine
         chrtFrontPage.Series(0).Color = Color.Red
         chrtFrontPage.Series(0).BorderWidth = 3
-        Dim returnString1 As PrjDatabaseComponent.IDatabaseAPI
-        returnString1 = New PrjDatabaseComponent.CDatabase
-        Dim sPrices1 As String()
-        sPrices1 = returnString1.stockPrice().prices
-        Dim dblValues(sPrices1.Length - 1) As Double
-        For i As Integer = 1 To sPrices1.Length - 1
-            Double.TryParse(sPrices1(i), dblValues(i))
+
+
+        For i As Integer = 0 To 23
+
+            chrtFrontPage.Series(seriesName).Points.AddXY(records(i).sDate, records(i).price)
+
         Next
 
-        ' Add some data points to the series
-        'Dim values() As Double = {10, 20, 30, 40, 50}
-        For i As Integer = 0 To dblValues.Length - 1
-            If i <> 0 Then 'there is no info from -1 to 0
-                chrtFrontPage.Series(seriesName).Points.AddXY(i - 1, sPrices1(i))
-            End If
-        Next
-        Dim hour23 As Integer = dblValues.Length
-        chrtFrontPage.Series(seriesName).Points.AddXY(hour23 - 1, sPrices1(hour23 - 1)) ' so 23 value would last entire hour
+
+        'Dim seriesName As String = "Börsihind"
+        'chrtFrontPage.Series.Add(seriesName)
+        ''chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
+        'chrtFrontPage.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
+        'chrtFrontPage.ChartAreas(0).AxisY.Interval = 5 'more lines Y axis
+        'chrtFrontPage.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.StepLine
+        'chrtFrontPage.Series(0).Color = Color.Red
+        'chrtFrontPage.Series(0).BorderWidth = 3
+        'Dim returnString1 As PrjDatabaseComponent.IDatabaseAPI
+        'returnString1 = New PrjDatabaseComponent.CDatabase
+        'Dim sPrices1 As String()
+        'sPrices1 = returnString1.stockPrice().prices
+        'Dim dblValues(sPrices1.Length - 1) As Double
+        'For i As Integer = 1 To sPrices1.Length - 1
+        '    Double.TryParse(sPrices1(i), dblValues(i))
+        'Next
+
+        '' Add some data points to the series
+        ''Dim values() As Double = {10, 20, 30, 40, 50}
+        'For i As Integer = 0 To dblValues.Length - 1
+        '    If i <> 0 Then 'there is no info from -1 to 0
+        '        chrtFrontPage.Series(seriesName).Points.AddXY(i - 1, sPrices1(i))
+        '    End If
+        'Next
+        'Dim hour23 As Integer = dblValues.Length
+        'chrtFrontPage.Series(seriesName).Points.AddXY(hour23 - 1, sPrices1(hour23 - 1)) ' so 23 value would last entire hour
     End Function
     Private Sub rdioExchange_CheckedChanged(sender As Object, e As EventArgs) Handles rdioExchange.CheckedChanged
         tboxMonthlyCost.Enabled = False
@@ -483,11 +538,7 @@ Public Class GUIMain
 
         For i As Integer = 0 To 23
             'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
-            TextBox1.Text = records(2).sDate
             dgv.Columns.Add(0, records(i).sDate & ":00")
-
-
-
         Next
 
         'For i As Integer = 0 To 23
