@@ -182,7 +182,7 @@ Partial Class GUIMain
         'btnPackageHourlyRate
         '
         Me.btnPackageHourlyRate.Location = New System.Drawing.Point(23, 26)
-        Me.btnPackageHourlyRate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnPackageHourlyRate.Margin = New System.Windows.Forms.Padding(4)
         Me.btnPackageHourlyRate.Name = "btnPackageHourlyRate"
         Me.btnPackageHourlyRate.Size = New System.Drawing.Size(224, 113)
         Me.btnPackageHourlyRate.TabIndex = 1
@@ -192,7 +192,7 @@ Partial Class GUIMain
         'btnApplianceCalc
         '
         Me.btnApplianceCalc.Location = New System.Drawing.Point(255, 26)
-        Me.btnApplianceCalc.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnApplianceCalc.Margin = New System.Windows.Forms.Padding(4)
         Me.btnApplianceCalc.Name = "btnApplianceCalc"
         Me.btnApplianceCalc.Size = New System.Drawing.Size(224, 113)
         Me.btnApplianceCalc.TabIndex = 2
@@ -202,7 +202,7 @@ Partial Class GUIMain
         'btnExchangePriceComparison
         '
         Me.btnExchangePriceComparison.Location = New System.Drawing.Point(487, 26)
-        Me.btnExchangePriceComparison.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnExchangePriceComparison.Margin = New System.Windows.Forms.Padding(4)
         Me.btnExchangePriceComparison.Name = "btnExchangePriceComparison"
         Me.btnExchangePriceComparison.Size = New System.Drawing.Size(224, 113)
         Me.btnExchangePriceComparison.TabIndex = 3
@@ -212,7 +212,7 @@ Partial Class GUIMain
         'btnConsumptionHistory
         '
         Me.btnConsumptionHistory.Location = New System.Drawing.Point(23, 146)
-        Me.btnConsumptionHistory.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnConsumptionHistory.Margin = New System.Windows.Forms.Padding(4)
         Me.btnConsumptionHistory.Name = "btnConsumptionHistory"
         Me.btnConsumptionHistory.Size = New System.Drawing.Size(224, 113)
         Me.btnConsumptionHistory.TabIndex = 4
@@ -222,7 +222,7 @@ Partial Class GUIMain
         'btnPackageComparison
         '
         Me.btnPackageComparison.Location = New System.Drawing.Point(255, 146)
-        Me.btnPackageComparison.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnPackageComparison.Margin = New System.Windows.Forms.Padding(4)
         Me.btnPackageComparison.Name = "btnPackageComparison"
         Me.btnPackageComparison.Size = New System.Drawing.Size(224, 113)
         Me.btnPackageComparison.TabIndex = 5
@@ -240,7 +240,7 @@ Partial Class GUIMain
         Me.TabControl1.Controls.Add(Me.tabPackageComparison)
         Me.TabControl1.ItemSize = New System.Drawing.Size(0, 22)
         Me.TabControl1.Location = New System.Drawing.Point(16, 46)
-        Me.TabControl1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TabControl1.Margin = New System.Windows.Forms.Padding(4)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
         Me.TabControl1.Size = New System.Drawing.Size(1119, 754)
@@ -257,9 +257,9 @@ Partial Class GUIMain
         Me.Main.Controls.Add(Me.btnConsumptionHistory)
         Me.Main.Controls.Add(Me.btnExchangePriceComparison)
         Me.Main.Location = New System.Drawing.Point(4, 26)
-        Me.Main.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Main.Margin = New System.Windows.Forms.Padding(4)
         Me.Main.Name = "Main"
-        Me.Main.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Main.Padding = New System.Windows.Forms.Padding(4)
         Me.Main.Size = New System.Drawing.Size(1111, 724)
         Me.Main.TabIndex = 0
         Me.Main.Text = "Home"
@@ -270,7 +270,7 @@ Partial Class GUIMain
         Me.cbColor.FormattingEnabled = True
         Me.cbColor.Items.AddRange(New Object() {"Punane", "Sinine", "Roheline", "Roosa", "Valge", "Tumehall", "Helehall"})
         Me.cbColor.Location = New System.Drawing.Point(881, 57)
-        Me.cbColor.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cbColor.Margin = New System.Windows.Forms.Padding(4)
         Me.cbColor.Name = "cbColor"
         Me.cbColor.Size = New System.Drawing.Size(160, 24)
         Me.cbColor.TabIndex = 9
@@ -283,7 +283,7 @@ Partial Class GUIMain
         Legend1.Name = "Legend1"
         Me.chrtFrontPage.Legends.Add(Legend1)
         Me.chrtFrontPage.Location = New System.Drawing.Point(23, 298)
-        Me.chrtFrontPage.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.chrtFrontPage.Margin = New System.Windows.Forms.Padding(4)
         Me.chrtFrontPage.Name = "chrtFrontPage"
         Me.chrtFrontPage.Size = New System.Drawing.Size(1020, 416)
         Me.chrtFrontPage.TabIndex = 8
@@ -307,9 +307,9 @@ Partial Class GUIMain
         Me.tabPackageHourlyRate.Controls.Add(Me.lblPackageHourly)
         Me.tabPackageHourlyRate.Controls.Add(Me.btnBack0)
         Me.tabPackageHourlyRate.Location = New System.Drawing.Point(4, 26)
-        Me.tabPackageHourlyRate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabPackageHourlyRate.Margin = New System.Windows.Forms.Padding(4)
         Me.tabPackageHourlyRate.Name = "tabPackageHourlyRate"
-        Me.tabPackageHourlyRate.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabPackageHourlyRate.Padding = New System.Windows.Forms.Padding(4)
         Me.tabPackageHourlyRate.Size = New System.Drawing.Size(1111, 724)
         Me.tabPackageHourlyRate.TabIndex = 1
         Me.tabPackageHourlyRate.Text = "Paketijärgne tunnihind"
@@ -318,7 +318,7 @@ Partial Class GUIMain
         'btnChartAsc
         '
         Me.btnChartAsc.Location = New System.Drawing.Point(35, 298)
-        Me.btnChartAsc.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnChartAsc.Margin = New System.Windows.Forms.Padding(4)
         Me.btnChartAsc.Name = "btnChartAsc"
         Me.btnChartAsc.Size = New System.Drawing.Size(195, 39)
         Me.btnChartAsc.TabIndex = 15
@@ -342,7 +342,7 @@ Partial Class GUIMain
         '
         Me.tblPriceTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.tblPriceTable.Location = New System.Drawing.Point(35, 410)
-        Me.tblPriceTable.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tblPriceTable.Margin = New System.Windows.Forms.Padding(4)
         Me.tblPriceTable.Name = "tblPriceTable"
         Me.tblPriceTable.ReadOnly = True
         Me.tblPriceTable.RowHeadersWidth = 51
@@ -357,7 +357,7 @@ Partial Class GUIMain
         Me.tBoxPackageHourlyRate.Enabled = False
         Me.tBoxPackageHourlyRate.ForeColor = System.Drawing.SystemColors.MenuText
         Me.tBoxPackageHourlyRate.Location = New System.Drawing.Point(887, 151)
-        Me.tBoxPackageHourlyRate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tBoxPackageHourlyRate.Margin = New System.Windows.Forms.Padding(4)
         Me.tBoxPackageHourlyRate.Name = "tBoxPackageHourlyRate"
         Me.tBoxPackageHourlyRate.ReadOnly = True
         Me.tBoxPackageHourlyRate.Size = New System.Drawing.Size(133, 22)
@@ -406,7 +406,7 @@ Partial Class GUIMain
         'btnConfirmInput
         '
         Me.btnConfirmInput.Location = New System.Drawing.Point(263, 229)
-        Me.btnConfirmInput.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnConfirmInput.Margin = New System.Windows.Forms.Padding(4)
         Me.btnConfirmInput.Name = "btnConfirmInput"
         Me.btnConfirmInput.Size = New System.Drawing.Size(100, 28)
         Me.btnConfirmInput.TabIndex = 6
@@ -416,7 +416,7 @@ Partial Class GUIMain
         'tboxMonthlyCost
         '
         Me.tboxMonthlyCost.Location = New System.Drawing.Point(252, 174)
-        Me.tboxMonthlyCost.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tboxMonthlyCost.Margin = New System.Windows.Forms.Padding(4)
         Me.tboxMonthlyCost.Name = "tboxMonthlyCost"
         Me.tboxMonthlyCost.Size = New System.Drawing.Size(132, 22)
         Me.tboxMonthlyCost.TabIndex = 5
@@ -435,7 +435,7 @@ Partial Class GUIMain
         '
         Me.rdioFixedPrice.AutoSize = True
         Me.rdioFixedPrice.Location = New System.Drawing.Point(253, 107)
-        Me.rdioFixedPrice.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioFixedPrice.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioFixedPrice.Name = "rdioFixedPrice"
         Me.rdioFixedPrice.Size = New System.Drawing.Size(129, 21)
         Me.rdioFixedPrice.TabIndex = 3
@@ -447,7 +447,7 @@ Partial Class GUIMain
         '
         Me.rdioExchange.AutoSize = True
         Me.rdioExchange.Location = New System.Drawing.Point(48, 107)
-        Me.rdioExchange.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioExchange.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioExchange.Name = "rdioExchange"
         Me.rdioExchange.Size = New System.Drawing.Size(88, 21)
         Me.rdioExchange.TabIndex = 2
@@ -468,7 +468,7 @@ Partial Class GUIMain
         'btnBack0
         '
         Me.btnBack0.Location = New System.Drawing.Point(23, 21)
-        Me.btnBack0.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnBack0.Margin = New System.Windows.Forms.Padding(4)
         Me.btnBack0.Name = "btnBack0"
         Me.btnBack0.Size = New System.Drawing.Size(100, 28)
         Me.btnBack0.TabIndex = 0
@@ -488,9 +488,9 @@ Partial Class GUIMain
         Me.tabApplianceCalc.Controls.Add(Me.lblApplianceChoice)
         Me.tabApplianceCalc.Controls.Add(Me.btnBack1)
         Me.tabApplianceCalc.Location = New System.Drawing.Point(4, 26)
-        Me.tabApplianceCalc.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabApplianceCalc.Margin = New System.Windows.Forms.Padding(4)
         Me.tabApplianceCalc.Name = "tabApplianceCalc"
-        Me.tabApplianceCalc.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabApplianceCalc.Padding = New System.Windows.Forms.Padding(4)
         Me.tabApplianceCalc.Size = New System.Drawing.Size(1111, 724)
         Me.tabApplianceCalc.TabIndex = 2
         Me.tabApplianceCalc.Text = "Kodumasina tarbimise hinna kalkulaator"
@@ -502,7 +502,7 @@ Partial Class GUIMain
         Me.Panel3.Controls.Add(Me.rdioFixedPrice1)
         Me.Panel3.Controls.Add(Me.rdioExchangePrice)
         Me.Panel3.Location = New System.Drawing.Point(48, 503)
-        Me.Panel3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Panel3.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(315, 86)
         Me.Panel3.TabIndex = 41
@@ -511,7 +511,7 @@ Partial Class GUIMain
         '
         Me.rdioUniversalPackage.AutoSize = True
         Me.rdioUniversalPackage.Location = New System.Drawing.Point(33, 60)
-        Me.rdioUniversalPackage.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioUniversalPackage.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioUniversalPackage.Name = "rdioUniversalPackage"
         Me.rdioUniversalPackage.Size = New System.Drawing.Size(139, 21)
         Me.rdioUniversalPackage.TabIndex = 42
@@ -523,7 +523,7 @@ Partial Class GUIMain
         '
         Me.rdioFixedPrice1.AutoSize = True
         Me.rdioFixedPrice1.Location = New System.Drawing.Point(33, 32)
-        Me.rdioFixedPrice1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioFixedPrice1.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioFixedPrice1.Name = "rdioFixedPrice1"
         Me.rdioFixedPrice1.Size = New System.Drawing.Size(129, 21)
         Me.rdioFixedPrice1.TabIndex = 12
@@ -535,7 +535,7 @@ Partial Class GUIMain
         '
         Me.rdioExchangePrice.AutoSize = True
         Me.rdioExchangePrice.Location = New System.Drawing.Point(33, 4)
-        Me.rdioExchangePrice.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioExchangePrice.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioExchangePrice.Name = "rdioExchangePrice"
         Me.rdioExchangePrice.Size = New System.Drawing.Size(88, 21)
         Me.rdioExchangePrice.TabIndex = 11
@@ -562,7 +562,7 @@ Partial Class GUIMain
         Me.Panel2.Controls.Add(Me.lblConsumptionPerHour)
         Me.Panel2.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.Panel2.Location = New System.Drawing.Point(501, 69)
-        Me.Panel2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Panel2.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(516, 332)
         Me.Panel2.TabIndex = 40
@@ -593,9 +593,9 @@ Partial Class GUIMain
         Me.Label11.Location = New System.Drawing.Point(425, 209)
         Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(16, 17)
+        Me.Label11.Size = New System.Drawing.Size(66, 17)
         Me.Label11.TabIndex = 42
-        Me.Label11.Text = "€"
+        Me.Label11.Text = "€ päevas"
         '
         'Label7
         '
@@ -653,7 +653,7 @@ Partial Class GUIMain
         Me.tBoxUsageTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.tBoxUsageTime.HideSelection = False
         Me.tBoxUsageTime.Location = New System.Drawing.Point(284, 101)
-        Me.tBoxUsageTime.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tBoxUsageTime.Margin = New System.Windows.Forms.Padding(4)
         Me.tBoxUsageTime.Name = "tBoxUsageTime"
         Me.tBoxUsageTime.ReadOnly = True
         Me.tBoxUsageTime.Size = New System.Drawing.Size(133, 22)
@@ -677,7 +677,7 @@ Partial Class GUIMain
         Me.tBoxConsumptionPerHour.ForeColor = System.Drawing.SystemColors.WindowText
         Me.tBoxConsumptionPerHour.HideSelection = False
         Me.tBoxConsumptionPerHour.Location = New System.Drawing.Point(284, 62)
-        Me.tBoxConsumptionPerHour.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tBoxConsumptionPerHour.Margin = New System.Windows.Forms.Padding(4)
         Me.tBoxConsumptionPerHour.Name = "tBoxConsumptionPerHour"
         Me.tBoxConsumptionPerHour.ReadOnly = True
         Me.tBoxConsumptionPerHour.Size = New System.Drawing.Size(133, 22)
@@ -690,7 +690,7 @@ Partial Class GUIMain
         Me.tBoxElectricityConsumptionRate.Enabled = False
         Me.tBoxElectricityConsumptionRate.ForeColor = System.Drawing.Color.Black
         Me.tBoxElectricityConsumptionRate.Location = New System.Drawing.Point(284, 166)
-        Me.tBoxElectricityConsumptionRate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tBoxElectricityConsumptionRate.Margin = New System.Windows.Forms.Padding(4)
         Me.tBoxElectricityConsumptionRate.Name = "tBoxElectricityConsumptionRate"
         Me.tBoxElectricityConsumptionRate.ReadOnly = True
         Me.tBoxElectricityConsumptionRate.Size = New System.Drawing.Size(133, 22)
@@ -713,7 +713,7 @@ Partial Class GUIMain
         Me.tBoxApproxPrice.Enabled = False
         Me.tBoxApproxPrice.ForeColor = System.Drawing.Color.Black
         Me.tBoxApproxPrice.Location = New System.Drawing.Point(284, 206)
-        Me.tBoxApproxPrice.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tBoxApproxPrice.Margin = New System.Windows.Forms.Padding(4)
         Me.tBoxApproxPrice.Name = "tBoxApproxPrice"
         Me.tBoxApproxPrice.ReadOnly = True
         Me.tBoxApproxPrice.Size = New System.Drawing.Size(133, 22)
@@ -749,7 +749,7 @@ Partial Class GUIMain
         Me.Panel1.Controls.Add(Me.rdioHairDryer)
         Me.Panel1.Controls.Add(Me.rdioComputer)
         Me.Panel1.Location = New System.Drawing.Point(48, 69)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(315, 338)
         Me.Panel1.TabIndex = 39
@@ -758,7 +758,7 @@ Partial Class GUIMain
         '
         Me.rdioFridge.AutoSize = True
         Me.rdioFridge.Location = New System.Drawing.Point(168, 32)
-        Me.rdioFridge.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioFridge.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioFridge.Name = "rdioFridge"
         Me.rdioFridge.Size = New System.Drawing.Size(91, 21)
         Me.rdioFridge.TabIndex = 27
@@ -770,7 +770,7 @@ Partial Class GUIMain
         '
         Me.rdioCoffeeMaker.AutoSize = True
         Me.rdioCoffeeMaker.Location = New System.Drawing.Point(33, 32)
-        Me.rdioCoffeeMaker.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioCoffeeMaker.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioCoffeeMaker.Name = "rdioCoffeeMaker"
         Me.rdioCoffeeMaker.Size = New System.Drawing.Size(101, 21)
         Me.rdioCoffeeMaker.TabIndex = 18
@@ -782,7 +782,7 @@ Partial Class GUIMain
         '
         Me.rdioToaster.AutoSize = True
         Me.rdioToaster.Location = New System.Drawing.Point(33, 60)
-        Me.rdioToaster.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioToaster.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioToaster.Name = "rdioToaster"
         Me.rdioToaster.Size = New System.Drawing.Size(71, 21)
         Me.rdioToaster.TabIndex = 19
@@ -794,7 +794,7 @@ Partial Class GUIMain
         '
         Me.rdioVacuum.AutoSize = True
         Me.rdioVacuum.Location = New System.Drawing.Point(33, 89)
-        Me.rdioVacuum.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioVacuum.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioVacuum.Name = "rdioVacuum"
         Me.rdioVacuum.Size = New System.Drawing.Size(101, 21)
         Me.rdioVacuum.TabIndex = 20
@@ -806,7 +806,7 @@ Partial Class GUIMain
         '
         Me.rdioMixer.AutoSize = True
         Me.rdioMixer.Location = New System.Drawing.Point(33, 117)
-        Me.rdioMixer.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioMixer.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioMixer.Name = "rdioMixer"
         Me.rdioMixer.Size = New System.Drawing.Size(70, 21)
         Me.rdioMixer.TabIndex = 21
@@ -818,7 +818,7 @@ Partial Class GUIMain
         '
         Me.rdioMicrowave.AutoSize = True
         Me.rdioMicrowave.Location = New System.Drawing.Point(168, 230)
-        Me.rdioMicrowave.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioMicrowave.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioMicrowave.Name = "rdioMicrowave"
         Me.rdioMicrowave.Size = New System.Drawing.Size(112, 21)
         Me.rdioMicrowave.TabIndex = 34
@@ -830,7 +830,7 @@ Partial Class GUIMain
         '
         Me.rdioElecStove.AutoSize = True
         Me.rdioElecStove.Location = New System.Drawing.Point(33, 145)
-        Me.rdioElecStove.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioElecStove.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioElecStove.Name = "rdioElecStove"
         Me.rdioElecStove.Size = New System.Drawing.Size(89, 21)
         Me.rdioElecStove.TabIndex = 22
@@ -842,7 +842,7 @@ Partial Class GUIMain
         '
         Me.rdioRouter.AutoSize = True
         Me.rdioRouter.Location = New System.Drawing.Point(168, 202)
-        Me.rdioRouter.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioRouter.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioRouter.Name = "rdioRouter"
         Me.rdioRouter.Size = New System.Drawing.Size(72, 21)
         Me.rdioRouter.TabIndex = 33
@@ -854,7 +854,7 @@ Partial Class GUIMain
         '
         Me.rdioFoodProcessor.AutoSize = True
         Me.rdioFoodProcessor.Location = New System.Drawing.Point(33, 174)
-        Me.rdioFoodProcessor.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioFoodProcessor.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioFoodProcessor.Name = "rdioFoodProcessor"
         Me.rdioFoodProcessor.Size = New System.Drawing.Size(118, 21)
         Me.rdioFoodProcessor.TabIndex = 23
@@ -866,7 +866,7 @@ Partial Class GUIMain
         '
         Me.rdioSewingMachine.AutoSize = True
         Me.rdioSewingMachine.Location = New System.Drawing.Point(168, 174)
-        Me.rdioSewingMachine.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioSewingMachine.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioSewingMachine.Name = "rdioSewingMachine"
         Me.rdioSewingMachine.Size = New System.Drawing.Size(114, 21)
         Me.rdioSewingMachine.TabIndex = 32
@@ -878,7 +878,7 @@ Partial Class GUIMain
         '
         Me.rdioTV.AutoSize = True
         Me.rdioTV.Location = New System.Drawing.Point(33, 202)
-        Me.rdioTV.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioTV.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioTV.Name = "rdioTV"
         Me.rdioTV.Size = New System.Drawing.Size(47, 21)
         Me.rdioTV.TabIndex = 24
@@ -890,7 +890,7 @@ Partial Class GUIMain
         '
         Me.rdioLED.AutoSize = True
         Me.rdioLED.Location = New System.Drawing.Point(168, 145)
-        Me.rdioLED.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioLED.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioLED.Name = "rdioLED"
         Me.rdioLED.Size = New System.Drawing.Size(132, 21)
         Me.rdioLED.TabIndex = 31
@@ -902,7 +902,7 @@ Partial Class GUIMain
         '
         Me.rdioRadio.AutoSize = True
         Me.rdioRadio.Location = New System.Drawing.Point(33, 230)
-        Me.rdioRadio.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioRadio.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioRadio.Name = "rdioRadio"
         Me.rdioRadio.Size = New System.Drawing.Size(74, 21)
         Me.rdioRadio.TabIndex = 25
@@ -914,7 +914,7 @@ Partial Class GUIMain
         '
         Me.rdioPrinter.AutoSize = True
         Me.rdioPrinter.Location = New System.Drawing.Point(168, 117)
-        Me.rdioPrinter.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioPrinter.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioPrinter.Name = "rdioPrinter"
         Me.rdioPrinter.Size = New System.Drawing.Size(71, 21)
         Me.rdioPrinter.TabIndex = 30
@@ -926,7 +926,7 @@ Partial Class GUIMain
         '
         Me.rdioEggCooker.AutoSize = True
         Me.rdioEggCooker.Location = New System.Drawing.Point(33, 258)
-        Me.rdioEggCooker.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioEggCooker.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioEggCooker.Name = "rdioEggCooker"
         Me.rdioEggCooker.Size = New System.Drawing.Size(102, 21)
         Me.rdioEggCooker.TabIndex = 26
@@ -938,7 +938,7 @@ Partial Class GUIMain
         '
         Me.rdioHairDryer.AutoSize = True
         Me.rdioHairDryer.Location = New System.Drawing.Point(168, 89)
-        Me.rdioHairDryer.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioHairDryer.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioHairDryer.Name = "rdioHairDryer"
         Me.rdioHairDryer.Size = New System.Drawing.Size(61, 21)
         Me.rdioHairDryer.TabIndex = 29
@@ -950,7 +950,7 @@ Partial Class GUIMain
         '
         Me.rdioComputer.AutoSize = True
         Me.rdioComputer.Location = New System.Drawing.Point(168, 60)
-        Me.rdioComputer.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.rdioComputer.Margin = New System.Windows.Forms.Padding(4)
         Me.rdioComputer.Name = "rdioComputer"
         Me.rdioComputer.Size = New System.Drawing.Size(65, 21)
         Me.rdioComputer.TabIndex = 28
@@ -961,7 +961,7 @@ Partial Class GUIMain
         'btnConfirm
         '
         Me.btnConfirm.Location = New System.Drawing.Point(48, 649)
-        Me.btnConfirm.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnConfirm.Margin = New System.Windows.Forms.Padding(4)
         Me.btnConfirm.Name = "btnConfirm"
         Me.btnConfirm.Size = New System.Drawing.Size(100, 28)
         Me.btnConfirm.TabIndex = 15
@@ -971,7 +971,7 @@ Partial Class GUIMain
         'tBoxPackagePrice
         '
         Me.tBoxPackagePrice.Location = New System.Drawing.Point(260, 612)
-        Me.tBoxPackagePrice.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tBoxPackagePrice.Margin = New System.Windows.Forms.Padding(4)
         Me.tBoxPackagePrice.Name = "tBoxPackagePrice"
         Me.tBoxPackagePrice.Size = New System.Drawing.Size(132, 22)
         Me.tBoxPackagePrice.TabIndex = 14
@@ -1019,7 +1019,7 @@ Partial Class GUIMain
         'btnBack1
         '
         Me.btnBack1.Location = New System.Drawing.Point(23, 21)
-        Me.btnBack1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnBack1.Margin = New System.Windows.Forms.Padding(4)
         Me.btnBack1.Name = "btnBack1"
         Me.btnBack1.Size = New System.Drawing.Size(100, 28)
         Me.btnBack1.TabIndex = 1
@@ -1044,9 +1044,9 @@ Partial Class GUIMain
         Me.tabExchangeComparison.Controls.Add(Me.lblTimePeriodSelection)
         Me.tabExchangeComparison.Controls.Add(Me.btnBack2)
         Me.tabExchangeComparison.Location = New System.Drawing.Point(4, 26)
-        Me.tabExchangeComparison.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabExchangeComparison.Margin = New System.Windows.Forms.Padding(4)
         Me.tabExchangeComparison.Name = "tabExchangeComparison"
-        Me.tabExchangeComparison.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabExchangeComparison.Padding = New System.Windows.Forms.Padding(4)
         Me.tabExchangeComparison.Size = New System.Drawing.Size(1111, 724)
         Me.tabExchangeComparison.TabIndex = 3
         Me.tabExchangeComparison.Text = "Börsihinna võrdlus"
@@ -1055,7 +1055,7 @@ Partial Class GUIMain
         'btnExport
         '
         Me.btnExport.Location = New System.Drawing.Point(316, 295)
-        Me.btnExport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnExport.Margin = New System.Windows.Forms.Padding(4)
         Me.btnExport.Name = "btnExport"
         Me.btnExport.Size = New System.Drawing.Size(101, 28)
         Me.btnExport.TabIndex = 18
@@ -1065,7 +1065,7 @@ Partial Class GUIMain
         'btnImport
         '
         Me.btnImport.Location = New System.Drawing.Point(171, 295)
-        Me.btnImport.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnImport.Margin = New System.Windows.Forms.Padding(4)
         Me.btnImport.Name = "btnImport"
         Me.btnImport.Size = New System.Drawing.Size(100, 28)
         Me.btnImport.TabIndex = 17
@@ -1085,7 +1085,7 @@ Partial Class GUIMain
         'TextBox6
         '
         Me.TextBox6.Location = New System.Drawing.Point(245, 194)
-        Me.TextBox6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TextBox6.Margin = New System.Windows.Forms.Padding(4)
         Me.TextBox6.Name = "TextBox6"
         Me.TextBox6.Size = New System.Drawing.Size(132, 22)
         Me.TextBox6.TabIndex = 14
@@ -1093,7 +1093,7 @@ Partial Class GUIMain
         'TextBox5
         '
         Me.TextBox5.Location = New System.Drawing.Point(245, 162)
-        Me.TextBox5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TextBox5.Margin = New System.Windows.Forms.Padding(4)
         Me.TextBox5.Name = "TextBox5"
         Me.TextBox5.Size = New System.Drawing.Size(132, 22)
         Me.TextBox5.TabIndex = 13
@@ -1101,7 +1101,7 @@ Partial Class GUIMain
         'TextBox4
         '
         Me.TextBox4.Location = New System.Drawing.Point(245, 96)
-        Me.TextBox4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TextBox4.Margin = New System.Windows.Forms.Padding(4)
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.Size = New System.Drawing.Size(132, 22)
         Me.TextBox4.TabIndex = 12
@@ -1109,7 +1109,7 @@ Partial Class GUIMain
         'TextBox2
         '
         Me.TextBox2.Location = New System.Drawing.Point(245, 64)
-        Me.TextBox2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TextBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(132, 22)
         Me.TextBox2.TabIndex = 11
@@ -1187,7 +1187,7 @@ Partial Class GUIMain
         'btnBack2
         '
         Me.btnBack2.Location = New System.Drawing.Point(23, 21)
-        Me.btnBack2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnBack2.Margin = New System.Windows.Forms.Padding(4)
         Me.btnBack2.Name = "btnBack2"
         Me.btnBack2.Size = New System.Drawing.Size(100, 28)
         Me.btnBack2.TabIndex = 1
@@ -1201,9 +1201,9 @@ Partial Class GUIMain
         Me.tabConsumptionHistory.Controls.Add(Me.btnClientConsumptionHistory)
         Me.tabConsumptionHistory.Controls.Add(Me.btnBack3)
         Me.tabConsumptionHistory.Location = New System.Drawing.Point(4, 26)
-        Me.tabConsumptionHistory.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabConsumptionHistory.Margin = New System.Windows.Forms.Padding(4)
         Me.tabConsumptionHistory.Name = "tabConsumptionHistory"
-        Me.tabConsumptionHistory.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabConsumptionHistory.Padding = New System.Windows.Forms.Padding(4)
         Me.tabConsumptionHistory.Size = New System.Drawing.Size(1111, 724)
         Me.tabConsumptionHistory.TabIndex = 4
         Me.tabConsumptionHistory.Text = "Tarbimise ajalugu"
@@ -1212,7 +1212,7 @@ Partial Class GUIMain
         'btnSimulateConsumptionHistory
         '
         Me.btnSimulateConsumptionHistory.Location = New System.Drawing.Point(359, 21)
-        Me.btnSimulateConsumptionHistory.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnSimulateConsumptionHistory.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSimulateConsumptionHistory.Name = "btnSimulateConsumptionHistory"
         Me.btnSimulateConsumptionHistory.Size = New System.Drawing.Size(173, 98)
         Me.btnSimulateConsumptionHistory.TabIndex = 1
@@ -1226,7 +1226,7 @@ Partial Class GUIMain
         Me.TabControl2.Controls.Add(Me.tabSimulateExchangeHistory)
         Me.TabControl2.ItemSize = New System.Drawing.Size(42, 19)
         Me.TabControl2.Location = New System.Drawing.Point(0, 130)
-        Me.TabControl2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TabControl2.Margin = New System.Windows.Forms.Padding(4)
         Me.TabControl2.Name = "TabControl2"
         Me.TabControl2.SelectedIndex = 0
         Me.TabControl2.Size = New System.Drawing.Size(1113, 587)
@@ -1235,9 +1235,9 @@ Partial Class GUIMain
         'tabBlank
         '
         Me.tabBlank.Location = New System.Drawing.Point(4, 23)
-        Me.tabBlank.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabBlank.Margin = New System.Windows.Forms.Padding(4)
         Me.tabBlank.Name = "tabBlank"
-        Me.tabBlank.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabBlank.Padding = New System.Windows.Forms.Padding(4)
         Me.tabBlank.Size = New System.Drawing.Size(1105, 560)
         Me.tabBlank.TabIndex = 0
         Me.tabBlank.Text = "Blank"
@@ -1253,9 +1253,9 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblUploadClientHistoryCSV)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblHistoryData)
         Me.tabClientConsumptionHistory.Location = New System.Drawing.Point(4, 23)
-        Me.tabClientConsumptionHistory.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabClientConsumptionHistory.Margin = New System.Windows.Forms.Padding(4)
         Me.tabClientConsumptionHistory.Name = "tabClientConsumptionHistory"
-        Me.tabClientConsumptionHistory.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabClientConsumptionHistory.Padding = New System.Windows.Forms.Padding(4)
         Me.tabClientConsumptionHistory.Size = New System.Drawing.Size(1105, 560)
         Me.tabClientConsumptionHistory.TabIndex = 1
         Me.tabClientConsumptionHistory.Text = "Simuleeri oma tarbimise ajalugu"
@@ -1344,9 +1344,9 @@ Partial Class GUIMain
         Me.tabSimulateExchangeHistory.Controls.Add(Me.RadioButton4)
         Me.tabSimulateExchangeHistory.Controls.Add(Me.Label10)
         Me.tabSimulateExchangeHistory.Location = New System.Drawing.Point(4, 23)
-        Me.tabSimulateExchangeHistory.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabSimulateExchangeHistory.Margin = New System.Windows.Forms.Padding(4)
         Me.tabSimulateExchangeHistory.Name = "tabSimulateExchangeHistory"
-        Me.tabSimulateExchangeHistory.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabSimulateExchangeHistory.Padding = New System.Windows.Forms.Padding(4)
         Me.tabSimulateExchangeHistory.Size = New System.Drawing.Size(1105, 560)
         Me.tabSimulateExchangeHistory.TabIndex = 2
         Me.tabSimulateExchangeHistory.Text = "Elektripakettide börsihindade ajalugu"
@@ -1375,7 +1375,7 @@ Partial Class GUIMain
         'btnSeeHistory
         '
         Me.btnSeeHistory.Location = New System.Drawing.Point(267, 297)
-        Me.btnSeeHistory.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnSeeHistory.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSeeHistory.Name = "btnSeeHistory"
         Me.btnSeeHistory.Size = New System.Drawing.Size(100, 28)
         Me.btnSeeHistory.TabIndex = 18
@@ -1385,7 +1385,7 @@ Partial Class GUIMain
         'TextBox8
         '
         Me.TextBox8.Location = New System.Drawing.Point(233, 245)
-        Me.TextBox8.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TextBox8.Margin = New System.Windows.Forms.Padding(4)
         Me.TextBox8.Name = "TextBox8"
         Me.TextBox8.Size = New System.Drawing.Size(132, 22)
         Me.TextBox8.TabIndex = 17
@@ -1404,7 +1404,7 @@ Partial Class GUIMain
         '
         Me.RadioButton3.AutoSize = True
         Me.RadioButton3.Location = New System.Drawing.Point(235, 178)
-        Me.RadioButton3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RadioButton3.Margin = New System.Windows.Forms.Padding(4)
         Me.RadioButton3.Name = "RadioButton3"
         Me.RadioButton3.Size = New System.Drawing.Size(129, 21)
         Me.RadioButton3.TabIndex = 15
@@ -1416,7 +1416,7 @@ Partial Class GUIMain
         '
         Me.RadioButton4.AutoSize = True
         Me.RadioButton4.Location = New System.Drawing.Point(68, 178)
-        Me.RadioButton4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RadioButton4.Margin = New System.Windows.Forms.Padding(4)
         Me.RadioButton4.Name = "RadioButton4"
         Me.RadioButton4.Size = New System.Drawing.Size(88, 21)
         Me.RadioButton4.TabIndex = 14
@@ -1437,7 +1437,7 @@ Partial Class GUIMain
         'btnClientConsumptionHistory
         '
         Me.btnClientConsumptionHistory.Location = New System.Drawing.Point(177, 21)
-        Me.btnClientConsumptionHistory.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnClientConsumptionHistory.Margin = New System.Windows.Forms.Padding(4)
         Me.btnClientConsumptionHistory.Name = "btnClientConsumptionHistory"
         Me.btnClientConsumptionHistory.Size = New System.Drawing.Size(173, 98)
         Me.btnClientConsumptionHistory.TabIndex = 0
@@ -1447,7 +1447,7 @@ Partial Class GUIMain
         'btnBack3
         '
         Me.btnBack3.Location = New System.Drawing.Point(23, 21)
-        Me.btnBack3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnBack3.Margin = New System.Windows.Forms.Padding(4)
         Me.btnBack3.Name = "btnBack3"
         Me.btnBack3.Size = New System.Drawing.Size(100, 28)
         Me.btnBack3.TabIndex = 1
@@ -1465,9 +1465,9 @@ Partial Class GUIMain
         Me.tabPackageComparison.Controls.Add(Me.lblChoosePackages)
         Me.tabPackageComparison.Controls.Add(Me.btnBack4)
         Me.tabPackageComparison.Location = New System.Drawing.Point(4, 26)
-        Me.tabPackageComparison.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabPackageComparison.Margin = New System.Windows.Forms.Padding(4)
         Me.tabPackageComparison.Name = "tabPackageComparison"
-        Me.tabPackageComparison.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabPackageComparison.Padding = New System.Windows.Forms.Padding(4)
         Me.tabPackageComparison.Size = New System.Drawing.Size(1111, 724)
         Me.tabPackageComparison.TabIndex = 5
         Me.tabPackageComparison.Text = "Elektripakettide võrdlus"
@@ -1476,7 +1476,7 @@ Partial Class GUIMain
         'btnCompare
         '
         Me.btnCompare.Location = New System.Drawing.Point(183, 446)
-        Me.btnCompare.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnCompare.Margin = New System.Windows.Forms.Padding(4)
         Me.btnCompare.Name = "btnCompare"
         Me.btnCompare.Size = New System.Drawing.Size(161, 28)
         Me.btnCompare.TabIndex = 8
@@ -1497,7 +1497,7 @@ Partial Class GUIMain
         '
         Me.ComboBox2.FormattingEnabled = True
         Me.ComboBox2.Location = New System.Drawing.Point(183, 346)
-        Me.ComboBox2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ComboBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.ComboBox2.Name = "ComboBox2"
         Me.ComboBox2.Size = New System.Drawing.Size(160, 24)
         Me.ComboBox2.TabIndex = 6
@@ -1506,7 +1506,7 @@ Partial Class GUIMain
         '
         Me.ComboBox1.FormattingEnabled = True
         Me.ComboBox1.Location = New System.Drawing.Point(183, 193)
-        Me.ComboBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ComboBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(160, 24)
         Me.ComboBox1.TabIndex = 5
@@ -1544,7 +1544,7 @@ Partial Class GUIMain
         'btnBack4
         '
         Me.btnBack4.Location = New System.Drawing.Point(23, 21)
-        Me.btnBack4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnBack4.Margin = New System.Windows.Forms.Padding(4)
         Me.btnBack4.Name = "btnBack4"
         Me.btnBack4.Size = New System.Drawing.Size(100, 28)
         Me.btnBack4.TabIndex = 1
@@ -1564,7 +1564,7 @@ Partial Class GUIMain
         'btnFontIncrease
         '
         Me.btnFontIncrease.Location = New System.Drawing.Point(596, 5)
-        Me.btnFontIncrease.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnFontIncrease.Margin = New System.Windows.Forms.Padding(4)
         Me.btnFontIncrease.Name = "btnFontIncrease"
         Me.btnFontIncrease.Size = New System.Drawing.Size(100, 28)
         Me.btnFontIncrease.TabIndex = 8
@@ -1574,7 +1574,7 @@ Partial Class GUIMain
         'btnFontDecrease
         '
         Me.btnFontDecrease.Location = New System.Drawing.Point(704, 5)
-        Me.btnFontDecrease.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnFontDecrease.Margin = New System.Windows.Forms.Padding(4)
         Me.btnFontDecrease.Name = "btnFontDecrease"
         Me.btnFontDecrease.Size = New System.Drawing.Size(100, 28)
         Me.btnFontDecrease.TabIndex = 9
@@ -1584,7 +1584,7 @@ Partial Class GUIMain
         'btnRestoreFontSize
         '
         Me.btnRestoreFontSize.Location = New System.Drawing.Point(812, 5)
-        Me.btnRestoreFontSize.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnRestoreFontSize.Margin = New System.Windows.Forms.Padding(4)
         Me.btnRestoreFontSize.Name = "btnRestoreFontSize"
         Me.btnRestoreFontSize.Size = New System.Drawing.Size(148, 28)
         Me.btnRestoreFontSize.TabIndex = 10
@@ -1603,7 +1603,7 @@ Partial Class GUIMain
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.lblMenu)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "GUIMain"
         Me.Text = "Elektri paketi kalkulaator"
         Me.TabControl1.ResumeLayout(False)
