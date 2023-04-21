@@ -200,24 +200,26 @@ Public Class CDatabase
         End Try
 
     End Function
-    Function electricityPackagesNames(ByVal count As Integer) As String()
+    Function electricityPackagesNames(ByVal count As Integer) As (String(), String())
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Try
 
             conn.Open()
-            Dim sqlCommand As New MySqlCommand("SELECT packageName FROM electricityPackages;", conn)
+            Dim sqlCommand As New MySqlCommand("SELECT packageName,companyName FROM electricityPackages;", conn)
             Dim reader As MySqlDataReader = sqlCommand.ExecuteReader()
             Dim stringOfPackageNames(count - 1) As String
+            Dim stringOfCompanyNames(count - 1) As String
             Dim rowcount As Integer = 0
             Dim i As Integer = 0
             While reader.Read() AndAlso i < count
                 stringOfPackageNames(i) = reader.GetString(0)
+                stringOfCompanyNames(i) = reader.GetString(1)
                 i += 1
             End While
 
             conn.Close()
-            Return stringOfPackageNames
+            Return (stringOfPackageNames, stringOfCompanyNames)
         Catch ex As Exception
             '   stringOfErrors = {"error", "error", "error"}
             '  Return stringOfErrors

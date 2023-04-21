@@ -46,8 +46,9 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         '  Dim actualData As (String(), String()) = getIn.electricityPackages
         '  Assert.AreEqual("Kindel 6", actualData.Item1(0))
         ' Assert.AreEqual("Eesti Energia", actualData.Item2(0))
-        Dim count As String() = getIn.electricityPackagesNames(5)
-        Assert.AreEqual("Kindel 6", count(0))
+        Dim count = getIn.electricityPackagesNames(5)
+        Assert.AreEqual("Kindel 6", count.Item1(0))
+        Assert.AreEqual("Eesti Energia", count.Item2(0))
     End Sub
 
 
