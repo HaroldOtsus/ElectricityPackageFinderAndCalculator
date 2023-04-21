@@ -206,7 +206,9 @@ Public Class CDatabase
         End Try
 
     End Function
-    Function electricityPackagesNames(ByVal count As Integer) As (String(), String(), Double(), Double(), Boolean(), Boolean())
+    Function electricityPackagesInfo() As (String(), String(), Double(), Double(), Boolean(), Boolean()) Implements IDatabase.electricityPackagesInfo
+        Dim count As Integer
+        count = electricityPackagesCount()
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString) ' connection to database
         Try
