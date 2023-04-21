@@ -726,4 +726,15 @@ Public Class GUIMain
         btnRestoreFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
     End Sub
 
+    Private Sub rdioUniversalPackage_CheckedChanged(sender As Object, e As EventArgs) Handles rdioUniversalPackage.CheckedChanged
+        Dim returnString As PrjDatabaseComponent.IDatabase
+        returnString = New PrjDatabaseComponent.CDatabase
+        Dim universalPrice As Double = returnString.universalServicePrice
+        tBoxPackagePrice.Text = universalPrice
+        tBoxPackagePrice.Enabled = False
+    End Sub
+
+    Private Sub tBoxPackagePrice_TextChanged(sender As Object, e As EventArgs) Handles tBoxPackagePrice.TextChanged
+
+    End Sub
 End Class
