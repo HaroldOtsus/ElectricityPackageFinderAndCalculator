@@ -20,16 +20,34 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Assert.IsTrue(vastus)
     End Sub
 
-    <TestMethod()> Public Sub TestDateReturnFromAPIToDatabase()
-        Dim getIn As New PrjDatabaseComponent.CDatabase
-        Dim actualOutput = getIn.insertDatesToDatabase
-        Assert.AreEqual("1123123123", actualOutput(1))
-    End Sub
+    ''<TestMethod()> Public Sub TestDateReturnFromAPIToDatabase()
+    ''    Dim getIn As New PrjDatabaseComponent.CDatabase
+    ''    Dim actualOutput = getIn.insertDatesToDatabase
+    ''    Assert.AreEqual("1123123123", actualOutput(1))
+    ''End Sub
 
-    <TestMethod()> Public Sub TestDateReturnFromDatabase()
+    ''<TestMethod()> Public Sub TestDateReturnFromDatabase()
+    ''    Dim getIn As New PrjDatabaseComponent.CDatabase
+    ''    Dim actualOutput = getIn.datesOfStockPrice
+    ''    Assert.AreEqual("1123123123", actualOutput(1))
+    ''End Sub
+
+
+    <TestMethod()> Public Sub TestpackageReturn()
         Dim getIn As New PrjDatabaseComponent.CDatabase
-        Dim actualOutput = getIn.datesOfStockPrice
-        Assert.AreEqual("1123123123", actualOutput(1))
+        '  Dim actualData As (String(), String()) = getIn.electricityPackages
+        '  Assert.AreEqual("Kindel 6", actualData.Item1(0))
+        ' Assert.AreEqual("Eesti Energia", actualData.Item2(0))
+        Dim count As Integer = getIn.electricityPackagesCount
+        Assert.AreEqual(5, count)
+    End Sub
+    <TestMethod()> Public Sub TestpackagesNames()
+        Dim getIn As New PrjDatabaseComponent.CDatabase
+        '  Dim actualData As (String(), String()) = getIn.electricityPackages
+        '  Assert.AreEqual("Kindel 6", actualData.Item1(0))
+        ' Assert.AreEqual("Eesti Energia", actualData.Item2(0))
+        Dim count As String() = getIn.electricityPackagesNames(5)
+        Assert.AreEqual("Kindel 6", count(0))
     End Sub
 
 

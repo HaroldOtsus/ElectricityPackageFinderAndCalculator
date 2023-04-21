@@ -200,7 +200,56 @@ Public Class CDatabase
         End Try
 
     End Function
+    Function electricityPackagesNames(ByVal count As Integer) As String()
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+        Try
 
+            conn.Open()
+            Dim sqlCommand As New MySqlCommand("SELECT packageName FROM electricityPackages;", conn)
+            Dim reader As MySqlDataReader = sqlCommand.ExecuteReader()
+            Dim stringOfPackageNames(count - 1) As String
+            Dim rowcount As Integer = 0
+            Dim i As Integer = 0
+            While reader.Read() AndAlso i < count
+                stringOfPackageNames(i) = reader.GetString(0)
+                i += 1
+            End While
+
+            conn.Close()
+            Return stringOfPackageNames
+        Catch ex As Exception
+            '   stringOfErrors = {"error", "error", "error"}
+            '  Return stringOfErrors
+        End Try
+    End Function
+    Function electricityPackagesCount() As Integer
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+        Dim stringOfErrors() As String = Nothing
+        Dim dateToday
+        dateToday = Date.Today 'get what date it is today
+        Try
+
+            conn.Open() 'try to connect to database
+            ' Create a SqlCommand to retrieve the distinct ID values from the table
+            Dim sqlCommand As New MySqlCommand("SELECT DISTINCT id FROM electricityPackages", conn)
+
+            ' Execute the command and retrieve the distinct ID values using a SqlDataReader
+            Dim reader As MySqlDataReader = sqlCommand.ExecuteReader()
+            Dim count As Integer = 0
+            While reader.Read()
+                count += 1
+            End While
+
+            conn.Close()
+            Return count
+
+        Catch ex As Exception
+            '   stringOfErrors = {"error", "error", "error"}
+            '  Return stringOfErrors
+        End Try
+    End Function
 
     Function stockPrice() As (prices As String(), dates As String()) Implements IDatabaseAPI.stockPrice
         Dim currentHour As Integer = DateTime.Now.Hour
