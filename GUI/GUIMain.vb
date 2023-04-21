@@ -856,12 +856,38 @@ Public Class GUIMain
             series.Color = colorofLine
             series.BorderWidth = 3
             'all the packages are right except Muutuv 
-            For i As Integer = 0 To 23
+            If Not packages.Item5(j) Then
+                'get local time
+                ' Dim currentHour As Integer = DateTime.Now.Hour
+                For i As Integer = 0 To 23
 
-                series.Points.AddXY(i, packages.Item3(j))
+                    series.Points.AddXY(i, packages.Item3(j))
 
 
-            Next
+                Next 'the packet does not have fixed price
+            Else
+                Dim returnString2 As PrjDatabaseComponent.IDatabaseAPI
+                returnString2 = New PrjDatabaseComponent.CDatabase
+                Dim data = returnString2.stockPrice
+                For i As Integer = 1 To 24
+                    Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.dates(i)) 'new datetimeoffset from sDate string
+                    Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
+
+
+                    ' Get the UTC+2 time zone
+                    Dim timeZone As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Israel Standard Time")
+
+                    ' Convert DateTimeOffset object to UTC+3 timezone
+                    Dim convertedTime As DateTimeOffset = TimeZoneInfo.ConvertTime(dateTimeOffset, timeZone)
+
+                    Dim hour As Integer = convertedTime.Hour
+                    Dim price As Integer
+                    price = data.prices(i) + packages.Item3(j)
+
+                    series.Points.AddXY(hour, price)
+
+                Next
+            End If
         Next
     End Sub
 End Class
