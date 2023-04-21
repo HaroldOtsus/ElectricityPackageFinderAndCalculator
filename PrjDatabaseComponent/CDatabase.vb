@@ -22,19 +22,21 @@ Public Class CDatabase
         Dim pass As String = ""
         Try
             conn.Open()
-            Dim checkIfUsername As Boolean
+            Dim checkIfUsername As Boolean ' check is username exists
             checkIfUsername = checkIfUsernameExists(username)
-            If checkIfUsername = False Then
+            If checkIfUsername = False Then 'if it exists then
+
                 Dim command As New MySqlCommand("SELECT password FROM user
             WHERE username = @username;", conn)
                 command.Parameters.AddWithValue("@username", username)
+
                 Dim reader As MySqlDataReader = command.ExecuteReader()
-                Dim passW = hashPassword(password)
+                Dim passW = hashPassword(password) 'hash password
                 While reader.Read()
-                    pass = reader.GetString(0)
+                    pass = reader.GetString(0) 'get password
 
                 End While
-                If String.Compare(pass, passW) = 0 Then
+                If String.Compare(pass, passW) = 0 Then 'check is hashes password is same as in the database
                     Return True
                 Else
                     Return False
@@ -369,9 +371,24 @@ Public Class CDatabase
                 seven = @colSeven, 
                 eight = @colEight, 
                 nine = @colNine, 
-                ten = @colTen
+                ten = @colTen,
+                eleven = @colEleven,
+                twelve = @colTwelve, 
+                thirteen = @colThirteen,
+                fourteen = @colFourteen,
+                fiveteen = @colFifteen, 
+                sixteen = @colSixteen, 
+                seventeen = @colSeventeen,
+                eighteen = @colEighteen,
+                nineteen = @col19, 
+                twenty = @col20, 
+                twentyOne = @col21, 
+                twentyTwo = @col22, 
+                twentyThree = @col23, 
+                twentyFour = @col24, 
+                Date = @colDate
             WHERE 
-                idPacket = 1", conn) ''four = @colFour, five = @colFive, six = @colSix, seven = @colSeven, eight = @colEight, nine = @colNine, ten = @colTen, eleven = @colEleven, twelve = @col12, thirteen = @col13, fourteen = @col14, fifteen = @col15, sixteen = @col16, seventeen = @col17, eighteen = @col18, nineteen = @col19, twenty = @col20, twentyOne = @col21, twentyTwo = @col22, twentyThree = @col23, twentyFour = @col24, date = @colDate
+                idPacket = 1", conn)
             command.Parameters.AddWithValue("@colOne", sPrices(1))
             command.Parameters.AddWithValue("@colTwo", sPrices(2))
             command.Parameters.AddWithValue("@colThree", sPrices(3))
@@ -382,64 +399,79 @@ Public Class CDatabase
             command.Parameters.AddWithValue("@colEight", sPrices(8))
             command.Parameters.AddWithValue("@colNine", sPrices(9))
             command.Parameters.AddWithValue("@colTen", sPrices(10))
+            command.Parameters.AddWithValue("@colEleven", sPrices(11))
+            command.Parameters.AddWithValue("@colTwelve", sPrices(12))
+            command.Parameters.AddWithValue("@colThirteen", sPrices(13))
+            command.Parameters.AddWithValue("@colFourteen", sPrices(14))
+            command.Parameters.AddWithValue("@colFifteen", sPrices(15))
+            command.Parameters.AddWithValue("@colSixteen", sPrices(16))
+            command.Parameters.AddWithValue("@colSeventeen", sPrices(17))
+            command.Parameters.AddWithValue("@colEighteen", sPrices(18))
+            command.Parameters.AddWithValue("@col19", sPrices(19))
+            command.Parameters.AddWithValue("@col20", sPrices(20))
+            command.Parameters.AddWithValue("@col21", sPrices(21))
+            command.Parameters.AddWithValue("@col22", sPrices(22))
+            command.Parameters.AddWithValue("@col23", sPrices(23))
+            command.Parameters.AddWithValue("@col24", sPrices(24))
+            command.Parameters.AddWithValue("@colDate", dateToday)
             command.ExecuteNonQuery()
 
-            Dim com As New MySqlCommand("
-    UPDATE webdata 
-    SET  
-        eleven = @colEleven,
-        twelve = @colTwelve, 
-        thirteen = @colThirteen,
-        fourteen = @colFourteen
-    WHERE 
-        idPacket = 1", conn)
-            com.Parameters.AddWithValue("@colEleven", sPrices(11))
-            com.Parameters.AddWithValue("@colTwelve", sPrices(12))
-            com.Parameters.AddWithValue("@colThirteen", sPrices(13))
-            com.Parameters.AddWithValue("@colFourteen", sPrices(14))
-            ' com.Parameters.AddWithValue("@colFifteen", sPrices(15))
-            'com.Parameters.AddWithValue("@colSixteen", sPrices(16))
-            'com.Parameters.AddWithValue("@colSeventeen", sPrices(17))
-            'com.Parameters.AddWithValue("@colEighteen", sPrices(18))
-            com.ExecuteNonQuery()
-            Dim cmd As New MySqlCommand("
-    UPDATE webdata 
-    SET  
-             fiveteen = @colFifteen, 
-             sixteen = @colSixteen, 
-            seventeen = @colSeventeen,
-            eighteen = @colEighteen
-    WHERE 
-        idPacket = 1", conn)
+            '        Dim com As New MySqlCommand("
+            'UPDATE webdata 
+            'SET  
+            '    eleven = @colEleven,
+            '    twelve = @colTwelve, 
+            '    thirteen = @colThirteen,
+            '    fourteen = @colFourteen
+            'WHERE 
+            '    idPacket = 1", conn)
+            '        com.Parameters.AddWithValue("@colEleven", sPrices(11))
+            '        com.Parameters.AddWithValue("@colTwelve", sPrices(12))
+            '        com.Parameters.AddWithValue("@colThirteen", sPrices(13))
+            '        com.Parameters.AddWithValue("@colFourteen", sPrices(14))
+            '        ' com.Parameters.AddWithValue("@colFifteen", sPrices(15))
+            '        'com.Parameters.AddWithValue("@colSixteen", sPrices(16))
+            '        'com.Parameters.AddWithValue("@colSeventeen", sPrices(17))
+            '        'com.Parameters.AddWithValue("@colEighteen", sPrices(18))
+            '        '        com.ExecuteNonQuery()
+            '        Dim cmd As New MySqlCommand("
+            'UPDATE webdata 
+            'SET  
+            '         fiveteen = @colFifteen, 
+            '         sixteen = @colSixteen, 
+            '        seventeen = @colSeventeen,
+            '        eighteen = @colEighteen
+            'WHERE 
+            '    idPacket = 1", conn)
 
-            cmd.Parameters.AddWithValue("@colFifteen", sPrices(15))
-            cmd.Parameters.AddWithValue("@colSixteen", sPrices(16))
-            cmd.Parameters.AddWithValue("@colSeventeen", sPrices(17))
-            cmd.Parameters.AddWithValue("@colEighteen", sPrices(18))
-            cmd.ExecuteNonQuery()
+            '        cmd.Parameters.AddWithValue("@colFifteen", sPrices(15))
+            '        cmd.Parameters.AddWithValue("@colSixteen", sPrices(16))
+            '        cmd.Parameters.AddWithValue("@colSeventeen", sPrices(17))
+            '        cmd.Parameters.AddWithValue("@colEighteen", sPrices(18))
+            '        cmd.ExecuteNonQuery()
 
 
-            Dim comm As New MySqlCommand("
-            UPDATE webdata 
-            SET 
-               nineteen = @col19, 
-                twenty = @col20, 
-                twentyOne = @col21, 
-                twentyTwo = @col22, 
-                twentyThree = @col23, 
-                twentyFour = @col24, 
-                Date = @colDate
-            WHERE 
-                idPacket = 1", conn)
+            '        Dim comm As New MySqlCommand("
+            '        UPDATE webdata 
+            '        SET 
+            '           nineteen = @col19, 
+            '            twenty = @col20, 
+            '            twentyOne = @col21, 
+            '            twentyTwo = @col22, 
+            '            twentyThree = @col23, 
+            '            twentyFour = @col24, 
+            '            Date = @colDate
+            '        WHERE 
+            '            idPacket = 1", conn)
 
-            comm.Parameters.AddWithValue("@col19", sPrices(19))
-            comm.Parameters.AddWithValue("@col20", sPrices(20))
-            comm.Parameters.AddWithValue("@col21", sPrices(21))
-            comm.Parameters.AddWithValue("@col22", sPrices(22))
-            comm.Parameters.AddWithValue("@col23", sPrices(23))
-            comm.Parameters.AddWithValue("@col24", sPrices(24))
-            comm.Parameters.AddWithValue("@colDate", dateToday)
-            comm.ExecuteNonQuery()
+            '        comm.Parameters.AddWithValue("@col19", sPrices(19))
+            '        comm.Parameters.AddWithValue("@col20", sPrices(20))
+            '        comm.Parameters.AddWithValue("@col21", sPrices(21))
+            '        comm.Parameters.AddWithValue("@col22", sPrices(22))
+            '        comm.Parameters.AddWithValue("@col23", sPrices(23))
+            '        comm.Parameters.AddWithValue("@col24", sPrices(24))
+            '        comm.Parameters.AddWithValue("@colDate", dateToday)
+            '        comm.ExecuteNonQuery()
             conn.Close()
             Return sPrices
         Catch ex As Exception
@@ -480,9 +512,24 @@ Public Class CDatabase
                 seven = @colSeven, 
                 eight = @colEight, 
                 nine = @colNine, 
-                ten = @colTen
+                ten = @colTen,
+                eleven = @colEleven,
+                twelve = @colTwelve, 
+                thirteen = @colThirteen,
+                fourteen = @colFourteen,
+                fiveteen = @colFifteen, 
+                sixteen = @colSixteen, 
+                seventeen = @colSeventeen,
+                eighteen = @colEighteen,
+                nineteen = @col19, 
+                twenty = @col20, 
+                twentyOne = @col21, 
+                twentyTwo = @col22, 
+                twentyThree = @col23, 
+                twentyFour = @col24, 
+                Date = @colDate
             WHERE 
-                idPacket = 2", conn) ''four = @colFour, five = @colFive, six = @colSix, seven = @colSeven, eight = @colEight, nine = @colNine, ten = @colTen, eleven = @colEleven, twelve = @col12, thirteen = @col13, fourteen = @col14, fifteen = @col15, sixteen = @col16, seventeen = @col17, eighteen = @col18, nineteen = @col19, twenty = @col20, twentyOne = @col21, twentyTwo = @col22, twentyThree = @col23, twentyFour = @col24, date = @colDate
+                idPacket = 2", conn)
             command.Parameters.AddWithValue("@colOne", sDates(1))
             command.Parameters.AddWithValue("@colTwo", sDates(2))
             command.Parameters.AddWithValue("@colThree", sDates(3))
@@ -493,65 +540,80 @@ Public Class CDatabase
             command.Parameters.AddWithValue("@colEight", sDates(8))
             command.Parameters.AddWithValue("@colNine", sDates(9))
             command.Parameters.AddWithValue("@colTen", sDates(10))
+            command.Parameters.AddWithValue("@colEleven", sDates(11))
+            command.Parameters.AddWithValue("@colTwelve", sDates(12))
+            command.Parameters.AddWithValue("@colThirteen", sDates(13))
+            command.Parameters.AddWithValue("@colFourteen", sDates(14))
+            command.Parameters.AddWithValue("@colFifteen", sDates(15))
+            command.Parameters.AddWithValue("@colSixteen", sDates(16))
+            command.Parameters.AddWithValue("@colSeventeen", sDates(17))
+            command.Parameters.AddWithValue("@colEighteen", sDates(18))
+            command.Parameters.AddWithValue("@col19", sDates(19))
+            command.Parameters.AddWithValue("@col20", sDates(20))
+            command.Parameters.AddWithValue("@col21", sDates(21))
+            command.Parameters.AddWithValue("@col22", sDates(22))
+            command.Parameters.AddWithValue("@col23", sDates(23))
+            command.Parameters.AddWithValue("@col24", sDates(24))
+            command.Parameters.AddWithValue("@colDate", dateToday)
             command.ExecuteNonQuery()
 
-            Dim com As New MySqlCommand("
-    UPDATE webdata 
-    SET 
-        eleven = @colEleven,
-        twelve = @colTwelve, 
-        thirteen = @colThirteen,
-        fourteen = @colFourteen
-    WHERE 
-        idPacket = 2", conn)
-            com.Parameters.AddWithValue("@colEleven", sDates(11))
-            com.Parameters.AddWithValue("@colTwelve", sDates(12))
-            com.Parameters.AddWithValue("@colThirteen", sDates(13))
-            com.Parameters.AddWithValue("@colFourteen", sDates(14))
-            ' com.Parameters.AddWithValue("@colFifteen", sPrices(15))
-            'com.Parameters.AddWithValue("@colSixteen", sPrices(16))
-            'com.Parameters.AddWithValue("@colSeventeen", sPrices(17))
-            'com.Parameters.AddWithValue("@colEighteen", sPrices(18))
-            com.ExecuteNonQuery()
-            Dim cmd As New MySqlCommand("
-    UPDATE webdata 
-    SET  
-             fiveteen = @colFifteen, 
-             sixteen = @colSixteen, 
-            seventeen = @colSeventeen,
-            eighteen = @colEighteen
-    WHERE 
-        idPacket = 2", conn)
+            '        Dim com As New MySqlCommand("
+            'UPDATE webdata 
+            'SET 
+            '    eleven = @colEleven,
+            '    twelve = @colTwelve, 
+            '    thirteen = @colThirteen,
+            '    fourteen = @colFourteen
+            'WHERE 
+            '    idPacket = 2", conn)
+            '        com.Parameters.AddWithValue("@colEleven", sDates(11))
+            '        com.Parameters.AddWithValue("@colTwelve", sDates(12))
+            '        com.Parameters.AddWithValue("@colThirteen", sDates(13))
+            '        com.Parameters.AddWithValue("@colFourteen", sDates(14))
+            '        ' com.Parameters.AddWithValue("@colFifteen", sPrices(15))
+            '        'com.Parameters.AddWithValue("@colSixteen", sPrices(16))
+            '        'com.Parameters.AddWithValue("@colSeventeen", sPrices(17))
+            '        'com.Parameters.AddWithValue("@colEighteen", sPrices(18))
+            '        com.ExecuteNonQuery()
+            '        Dim cmd As New MySqlCommand("
+            'UPDATE webdata 
+            'SET  
+            '         fiveteen = @colFifteen, 
+            '         sixteen = @colSixteen, 
+            '        seventeen = @colSeventeen,
+            '        eighteen = @colEighteen
+            'WHERE 
+            '    idPacket = 2", conn)
 
-            cmd.Parameters.AddWithValue("@colFifteen", sDates(15))
-            cmd.Parameters.AddWithValue("@colSixteen", sDates(16))
-            cmd.Parameters.AddWithValue("@colSeventeen", sDates(17))
-            cmd.Parameters.AddWithValue("@colEighteen", sDates(18))
-            cmd.ExecuteNonQuery()
+            '        cmd.Parameters.AddWithValue("@colFifteen", sDates(15))
+            '        cmd.Parameters.AddWithValue("@colSixteen", sDates(16))
+            '        cmd.Parameters.AddWithValue("@colSeventeen", sDates(17))
+            '        cmd.Parameters.AddWithValue("@colEighteen", sDates(18))
+            '        cmd.ExecuteNonQuery()
 
 
-            Dim comm As New MySqlCommand("
-            UPDATE webdata 
-            SET 
-               nineteen = @col19, 
-                twenty = @col20, 
-                twentyOne = @col21, 
-                twentyTwo = @col22, 
-                twentyThree = @col23, 
-                twentyFour = @col24, 
-                Date = @colDate
-            WHERE 
-                idPacket = 2", conn)
+            '        Dim comm As New MySqlCommand("
+            '        UPDATE webdata 
+            '        SET 
+            '           nineteen = @col19, 
+            '            twenty = @col20, 
+            '            twentyOne = @col21, 
+            '            twentyTwo = @col22, 
+            '            twentyThree = @col23, 
+            '            twentyFour = @col24, 
+            '            Date = @colDate
+            '        WHERE 
+            '            idPacket = 2", conn)
 
-            comm.Parameters.AddWithValue("@col19", sDates(19))
-            comm.Parameters.AddWithValue("@col20", sDates(20))
-            comm.Parameters.AddWithValue("@col21", sDates(21))
-            comm.Parameters.AddWithValue("@col22", sDates(22))
-            comm.Parameters.AddWithValue("@col23", sDates(23))
-            comm.Parameters.AddWithValue("@col24", sDates(24))
-            comm.Parameters.AddWithValue("@colDate", dateToday)
-            comm.ExecuteNonQuery()
-            conn.Close()
+            '        comm.Parameters.AddWithValue("@col19", sDates(19))
+            '        comm.Parameters.AddWithValue("@col20", sDates(20))
+            '        comm.Parameters.AddWithValue("@col21", sDates(21))
+            '        comm.Parameters.AddWithValue("@col22", sDates(22))
+            '        comm.Parameters.AddWithValue("@col23", sDates(23))
+            '        comm.Parameters.AddWithValue("@col24", sDates(24))
+            '        comm.Parameters.AddWithValue("@colDate", dateToday)
+            '        comm.ExecuteNonQuery()
+            '        conn.Close()
             Return sDates
         Catch ex As Exception
             stringOfErrors = {"error", "error", "error"}
