@@ -648,117 +648,124 @@ Public Class GUIMain
                     parser.ReadLine()
                 Next
                 ' Read the header row and add the columns to the table
+                Dim column As Integer = 0
                 Dim headerRow As String() = parser.ReadFields()
                 For Each header As String In headerRow
                     table.Columns.Add(header)
+                    column += 1
                 Next
+                If column > 2 Then
 
 
-                ' Read the data rows and add them to the table
-                While Not parser.EndOfData
-                    Dim fields As String() = parser.ReadFields()
-                    table.Rows.Add(fields)
-                    'p.dateAndTime = fields(0)
-                    'p.wattage = fields(2)
 
-                End While
-                'chrtCSV.Titles.Add("My Chart")
+                    ' Read the data rows and add them to the table
+                    While Not parser.EndOfData
+                        Dim fields As String() = parser.ReadFields()
+                        table.Rows.Add(fields)
+                        'p.dateAndTime = fields(0)
+                        'p.wattage = fields(2)
 
-                'Add a new series to the chart
-                Dim series As New Series()
-                series.Name = "Aeg/Võimsus"
-                series.ChartType = SeriesChartType.Line
-                chrtCSV.Series.Add(series)
+                    End While
+                    'chrtCSV.Titles.Add("My Chart")
 
-                'Loop through the rows of the DataTable and add data points to the chart series
-                'For Each row As DataRow In table.Rows
-                '    Dim xValue As String = row("Algus").ToString()
-                '    Dim yValue As String = row("Kogus (kWh)").ToString()
-                '    series.Points.AddXY(xValue, yValue)
-                'Next
-                Dim rowCount As Integer = table.Rows.Count
-                Dim rowCountInForEach As Integer = 0
+                    'Add a new series to the chart
+                    Dim series As New Series()
+                    series.Name = "Aeg/Võimsus"
+                    series.ChartType = SeriesChartType.Line
+                    chrtCSV.Series.Add(series)
 
-                If table.Columns(0).ColumnName = "Algus" And table.Columns(2).ColumnName = "Kogus (kWh)" Then
+                    'Loop through the rows of the DataTable and add data points to the chart series
+                    'For Each row As DataRow In table.Rows
+                    '    Dim xValue As String = row("Algus").ToString()
+                    '    Dim yValue As String = row("Kogus (kWh)").ToString()
+                    '    series.Points.AddXY(xValue, yValue)
+                    'Next
+                    Dim rowCount As Integer = table.Rows.Count
+                    Dim rowCountInForEach As Integer = 0
 
-                    'For i As Integer = 0 To 9
-                    For Each row As DataRow In table.Rows
-                        rowCountInForEach += 1
-                        If rowCountInForEach = 24 * 3 Then
-                            Exit For
-                        End If
-                        'Dim row As DataRow = table.Rows(i)
+                    If table.Columns(0).ColumnName = "Algus" And table.Columns(2).ColumnName = "Kogus (kWh)" Then
 
-                        Dim xValue As String = row("Algus").ToString()
-                        Dim yValue As String = row("Kogus (kWh)").ToString()
-                        series.Points.AddXY(xValue, yValue)
-                        Dim xAxis As Axis = chrtCSV.ChartAreas(0).AxisX
+                        'For i As Integer = 0 To 9
+                        For Each row As DataRow In table.Rows
+                            rowCountInForEach += 1
+                            If rowCountInForEach = 24 * 3 Then
+                                Exit For
+                            End If
+                            'Dim row As DataRow = table.Rows(i)
 
-                        'Set the width of the axis labels
+                            Dim xValue As String = row("Algus").ToString()
+                            Dim yValue As String = row("Kogus (kWh)").ToString()
+                            series.Points.AddXY(xValue, yValue)
+                            Dim xAxis As Axis = chrtCSV.ChartAreas(0).AxisX
 
-                        chrtFrontPage.ChartAreas(0).AxisX.Interval = 5
+                            'Set the width of the axis labels
+
+                            chrtCSV.ChartAreas(0).AxisX.Interval = 1
 
 
-                        'xAxis.LabelStyle.Font = New Font(xAxis.LabelStyle.Font.Name, 8.25)
-                        xAxis.LabelStyle.Angle = 90
-                    Next
+                            'xAxis.LabelStyle.Font = New Font(xAxis.LabelStyle.Font.Name, 8.25)
+                            xAxis.LabelStyle.Angle = 90
+                        Next
 
+                    Else
+                        MessageBox.Show("VALE FORMAAT LOHH!")
+                    End If
+
+                    'tblCSVfile.Controls.Add(table)
+                    'Dim myArray(tblCSVfile.Rows.Count - 1) As String
+                    'Dim check As String = (tblCSVfile.Rows.Count - 1).ToString
+                    'tbControl11.Text = check
+
+                    'For i As Integer = 0 To tblCSVfile.Rows.Count - 1
+                    '    ' Get the value of the cell in the desired column for this row
+                    '    myArray(i) = tblCSVfile.Rows(i).Cells("Algus").Value.ToString()
+                    '    ' tbControl11.Text = myArray(i)
+                    '    tbControl11.Text = "check"
+                    'Next
+
+
+
+                    'GRAPH
+                    'Dim seriesName As String = "CSV hind"
+                    'chrtCSV.Series.Add(seriesName)
+
+                    'chrtCSV.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
+                    'chrtCSV.ChartAreas(0).AxisY.Interval = 5 'more lines Y axis
+                    'chrtCSV.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.StepLine
+                    'chrtCSV.Series(0).Color = Color.Red
+                    'chrtCSV.Series(0).BorderWidth = 3
+
+
+                    'For Each row As DataGridViewRow In tblCSVfile.Rows
+                    '    TextBox1 += row
+                    '    chrtCSV.Series(seriesName).Points.AddXY(row)
+                    'Next
+
+                    ' Dim j As Integer = 0
+                    'For Each row As DataGridViewRow In tblCSVfile.Rows
+                    '    ' Cast the row to a DataGridViewRow object to access its properties
+                    '    Dim dgvRow As DataGridViewRow = CType(row, DataGridViewRow)
+
+                    '    ' Access the values of the cells in the row using the cell indices
+                    '    Dim cell1Value As String = dgvRow.Cells(0).Value.ToString()
+                    '    Dim cell3Value As Double = Convert.ToDouble(dgvRow.Cells(3).Value)
+                    '    chrtCSV.Series(seriesName).Points.AddXY(j, cell3Value)
+                    '    j += 1
+                    '    ' ...
+                    'Next
+
+
+
+                    'tblCSVfile.DefaultCellStyle.WrapMode = DataGridViewTriState.True 'set word wrap to true
+                    'tblCSVfile.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells 'adjust row height based on content
+
+                    'tblCSVfile.Columns(1).Width = 100 'set the width of the first column
+                    'tblCSVfile.Columns(2).Width = 150 'set the width of the second column
+                    'tblCSVfile.Columns(3).Width = 200 'set the width of the third column
+                    'tblCSVfile.Columns(4).Width = 200 'set the width of the third column
                 Else
-                    MessageBox.Show("VALE FORMAAT LOHH!")
+                    MessageBox.Show("VALE FORMAAT!")
                 End If
-
-                'tblCSVfile.Controls.Add(table)
-                'Dim myArray(tblCSVfile.Rows.Count - 1) As String
-                'Dim check As String = (tblCSVfile.Rows.Count - 1).ToString
-                'tbControl11.Text = check
-
-                'For i As Integer = 0 To tblCSVfile.Rows.Count - 1
-                '    ' Get the value of the cell in the desired column for this row
-                '    myArray(i) = tblCSVfile.Rows(i).Cells("Algus").Value.ToString()
-                '    ' tbControl11.Text = myArray(i)
-                '    tbControl11.Text = "check"
-                'Next
-
-
-
-                'GRAPH
-                'Dim seriesName As String = "CSV hind"
-                'chrtCSV.Series.Add(seriesName)
-
-                'chrtCSV.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
-                'chrtCSV.ChartAreas(0).AxisY.Interval = 5 'more lines Y axis
-                'chrtCSV.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.StepLine
-                'chrtCSV.Series(0).Color = Color.Red
-                'chrtCSV.Series(0).BorderWidth = 3
-
-
-                'For Each row As DataGridViewRow In tblCSVfile.Rows
-                '    TextBox1 += row
-                '    chrtCSV.Series(seriesName).Points.AddXY(row)
-                'Next
-
-                ' Dim j As Integer = 0
-                'For Each row As DataGridViewRow In tblCSVfile.Rows
-                '    ' Cast the row to a DataGridViewRow object to access its properties
-                '    Dim dgvRow As DataGridViewRow = CType(row, DataGridViewRow)
-
-                '    ' Access the values of the cells in the row using the cell indices
-                '    Dim cell1Value As String = dgvRow.Cells(0).Value.ToString()
-                '    Dim cell3Value As Double = Convert.ToDouble(dgvRow.Cells(3).Value)
-                '    chrtCSV.Series(seriesName).Points.AddXY(j, cell3Value)
-                '    j += 1
-                '    ' ...
-                'Next
-
-
-
-                'tblCSVfile.DefaultCellStyle.WrapMode = DataGridViewTriState.True 'set word wrap to true
-                'tblCSVfile.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells 'adjust row height based on content
-
-                'tblCSVfile.Columns(1).Width = 100 'set the width of the first column
-                'tblCSVfile.Columns(2).Width = 150 'set the width of the second column
-                'tblCSVfile.Columns(3).Width = 200 'set the width of the third column
-                'tblCSVfile.Columns(4).Width = 200 'set the width of the third column
             End Using
 
 
@@ -779,6 +786,9 @@ Public Class GUIMain
             '    End While
             'End Using
         End If
+
+
+
     End Sub
 
     Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
