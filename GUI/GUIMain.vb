@@ -116,7 +116,7 @@ Public Class GUIMain
                     tBoxApproxPrice.Text = aproxOut
                 End If
             End If
-            End If
+        End If
 
     End Sub
 
@@ -622,7 +622,7 @@ Public Class GUIMain
             Dim selectedFileName As String = openFileDialog.FileName
 
             'TABLE
-            Dim table As New DataGridView()
+            Dim table As New DataTable()
 
             Using parser As New Microsoft.VisualBasic.FileIO.TextFieldParser(selectedFileName)
                 parser.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited
@@ -633,12 +633,11 @@ Public Class GUIMain
                     parser.ReadLine()
                 Next
                 ' Read the header row and add the columns to the table
-                Dim header As String() = parser.ReadFields()
-
-                For Each columnName As String In header
-                    table.Columns.Add(0, columnName)
-
+                Dim headerRow As String() = parser.ReadFields()
+                For Each header As String In headerRow
+                    table.Columns.Add(header)
                 Next
+
 
                 ' Read the data rows and add them to the table
                 While Not parser.EndOfData
@@ -646,15 +645,32 @@ Public Class GUIMain
                     table.Rows.Add(fields)
 
                 End While
+                chrtCSV.Titles.Add("My Chart")
 
-                tblCSVfile.Controls.Add(table)
-                Dim myArray(tblCSVfile.Rows.Count - 1) As String
+                'Add a new series to the chart
+                Dim series As New Series()
+                series.Name = "My Series"
+                series.ChartType = SeriesChartType.Line
+                chrtCSV.Series.Add(series)
 
-                For i As Integer = 0 To tblCSVfile.Rows.Count - 1
-                    ' Get the value of the cell in the desired column for this row
-                    myArray(i) = tblCSVfile.Rows(i).Cells("Algus").Value.ToString()
-                    TextBox1.Text = myArray(i)
+                'Loop through the rows of the DataTable and add data points to the chart series
+                For Each row As DataRow In table.Rows
+                    Dim xValue As String = row("Algus").ToString()
+                    Dim yValue As String = row("Kogus (kWh)").ToString()
+                    series.Points.AddXY(xValue, yValue)
                 Next
+
+                'tblCSVfile.Controls.Add(table)
+                'Dim myArray(tblCSVfile.Rows.Count - 1) As String
+                'Dim check As String = (tblCSVfile.Rows.Count - 1).ToString
+                'tbControl11.Text = check
+
+                'For i As Integer = 0 To tblCSVfile.Rows.Count - 1
+                '    ' Get the value of the cell in the desired column for this row
+                '    myArray(i) = tblCSVfile.Rows(i).Cells("Algus").Value.ToString()
+                '    ' tbControl11.Text = myArray(i)
+                '    tbControl11.Text = "check"
+                'Next
 
 
 
@@ -674,7 +690,7 @@ Public Class GUIMain
                 '    chrtCSV.Series(seriesName).Points.AddXY(row)
                 'Next
 
-                Dim j As Integer = 0
+                ' Dim j As Integer = 0
                 'For Each row As DataGridViewRow In tblCSVfile.Rows
                 '    ' Cast the row to a DataGridViewRow object to access its properties
                 '    Dim dgvRow As DataGridViewRow = CType(row, DataGridViewRow)
