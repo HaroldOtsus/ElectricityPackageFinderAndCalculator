@@ -160,7 +160,6 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
-        Me.tboxFontSizeTest = New System.Windows.Forms.TextBox()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1554,19 +1553,11 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
         '
-        'tboxFontSizeTest
-        '
-        Me.tboxFontSizeTest.Location = New System.Drawing.Point(752, 10)
-        Me.tboxFontSizeTest.Name = "tboxFontSizeTest"
-        Me.tboxFontSizeTest.Size = New System.Drawing.Size(100, 20)
-        Me.tboxFontSizeTest.TabIndex = 11
-        '
         'GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(888, 676)
-        Me.Controls.Add(Me.tboxFontSizeTest)
         Me.Controls.Add(Me.btnRestoreFontSize)
         Me.Controls.Add(Me.btnFontDecrease)
         Me.Controls.Add(Me.btnFontIncrease)
@@ -1738,5 +1729,4 @@ Partial Class GUIMain
     Friend WithEvents Label2 As Label
     Friend WithEvents btnPackets As Button
     Friend WithEvents chartPackages As DataVisualization.Charting.Chart
-    Friend WithEvents tboxFontSizeTest As TextBox
 End Class

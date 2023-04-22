@@ -719,7 +719,7 @@ Public Class GUIMain
     Private Sub btnFontIncrease_Click(sender As Object, e As EventArgs) Handles btnFontIncrease.Click
         If fontSize < 11.25 Then
             fontSize = fontSize + 0.5
-            tboxFontSizeTest.Text = fontSize
+            'tboxFontSizeTest.Text = fontSize 'REMOVED THIS 
             lblMenu.Font = New Font("Microsoft Sans Serif", fontSize)
             Main.Font = New Font("Microsoft Sans Serif", fontSize)
             tabPackageHourlyRate.Font = New Font("Microsoft Sans Serif", fontSize)
@@ -740,7 +740,7 @@ Public Class GUIMain
     Private Sub btnFontDecrease_Click(sender As Object, e As EventArgs) Handles btnFontDecrease.Click
         If fontSize > 8.5 Then
             fontSize = fontSize - 0.5
-            tboxFontSizeTest.Text = fontSize
+            'tboxFontSizeTest.Text = fontSize 'REMOVED THIS 
             lblMenu.Font = New Font("Microsoft Sans Serif", fontSize)
             Main.Font = New Font("Microsoft Sans Serif", fontSize)
             tabPackageHourlyRate.Font = New Font("Microsoft Sans Serif", fontSize)
@@ -758,7 +758,7 @@ Public Class GUIMain
 
     Private Sub btnRestoreFontSize_Click(sender As Object, e As EventArgs) Handles btnRestoreFontSize.Click
         fontSize = 8.25
-        tboxFontSizeTest.Text = fontSize
+        'tboxFontSizeTest.Text = fontSize 'REMOVED THIS 
         lblMenu.Font = New Font("Microsoft Sans Serif", fontSize)
         Main.Font = New Font("Microsoft Sans Serif", fontSize)
         tabPackageHourlyRate.Font = New Font("Microsoft Sans Serif", fontSize)
