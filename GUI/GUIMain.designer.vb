@@ -26,6 +26,8 @@ Partial Class GUIMain
         Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend4 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(GUIMain))
@@ -160,7 +162,9 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.tblCSVfile = New System.Windows.Forms.DataGridView()
+        Me.chrtCSV = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -178,7 +182,8 @@ Partial Class GUIMain
         Me.tabSimulateExchangeHistory.SuspendLayout()
         Me.tabPackageComparison.SuspendLayout()
         CType(Me.chartPackages, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tblCSVfile, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chrtCSV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblMenu
@@ -1021,7 +1026,9 @@ Partial Class GUIMain
         '
         'tabExchangeComparison
         '
-        Me.tabExchangeComparison.Controls.Add(Me.DataGridView1)
+        Me.tabExchangeComparison.Controls.Add(Me.TextBox1)
+        Me.tabExchangeComparison.Controls.Add(Me.chrtCSV)
+        Me.tabExchangeComparison.Controls.Add(Me.tblCSVfile)
         Me.tabExchangeComparison.Controls.Add(Me.btnExport)
         Me.tabExchangeComparison.Controls.Add(Me.btnImport)
         Me.tabExchangeComparison.Controls.Add(Me.lblExchangeComparisonResult)
@@ -1040,7 +1047,7 @@ Partial Class GUIMain
         Me.tabExchangeComparison.Location = New System.Drawing.Point(4, 26)
         Me.tabExchangeComparison.Name = "tabExchangeComparison"
         Me.tabExchangeComparison.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
-        Me.tabExchangeComparison.Size = New System.Drawing.Size(912, 618)
+        Me.tabExchangeComparison.Size = New System.Drawing.Size(938, 619)
         Me.tabExchangeComparison.TabIndex = 3
         Me.tabExchangeComparison.Text = "Börsihinna võrdlus"
         Me.tabExchangeComparison.UseVisualStyleBackColor = True
@@ -1440,10 +1447,10 @@ Partial Class GUIMain
         '
         'chartPackages
         '
-        ChartArea3.Name = "ChartArea1"
-        Me.chartPackages.ChartAreas.Add(ChartArea3)
-        Legend3.Name = "Legend1"
-        Me.chartPackages.Legends.Add(Legend3)
+        ChartArea4.Name = "ChartArea1"
+        Me.chartPackages.ChartAreas.Add(ChartArea4)
+        Legend4.Name = "Legend1"
+        Me.chartPackages.Legends.Add(Legend4)
         Me.chartPackages.Location = New System.Drawing.Point(441, 112)
         Me.chartPackages.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.chartPackages.Name = "chartPackages"
@@ -1556,13 +1563,33 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
         '
-        'DataGridView1
+        'tblCSVfile
         '
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(414, 52)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(387, 222)
-        Me.DataGridView1.TabIndex = 19
+        Me.tblCSVfile.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.tblCSVfile.Location = New System.Drawing.Point(414, 52)
+        Me.tblCSVfile.Name = "tblCSVfile"
+        Me.tblCSVfile.Size = New System.Drawing.Size(407, 222)
+        Me.tblCSVfile.TabIndex = 19
+        '
+        'chrtCSV
+        '
+        ChartArea3.Name = "ChartArea1"
+        Me.chrtCSV.ChartAreas.Add(ChartArea3)
+        Legend3.Name = "Legend1"
+        Me.chrtCSV.Legends.Add(Legend3)
+        Me.chrtCSV.Location = New System.Drawing.Point(414, 290)
+        Me.chrtCSV.Name = "chrtCSV"
+        Me.chrtCSV.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None
+        Me.chrtCSV.Size = New System.Drawing.Size(407, 306)
+        Me.chrtCSV.TabIndex = 20
+        Me.chrtCSV.Text = "CSV"
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(197, 423)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(191, 20)
+        Me.TextBox1.TabIndex = 21
         '
         'GUIMain
         '
@@ -1604,7 +1631,8 @@ Partial Class GUIMain
         Me.tabPackageComparison.ResumeLayout(False)
         Me.tabPackageComparison.PerformLayout()
         CType(Me.chartPackages, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tblCSVfile, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chrtCSV, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1741,5 +1769,7 @@ Partial Class GUIMain
     Friend WithEvents lblSKwh1 As Label
     Friend WithEvents btnPackets As Button
     Friend WithEvents chartPackages As DataVisualization.Charting.Chart
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents tblCSVfile As DataGridView
+    Friend WithEvents chrtCSV As DataVisualization.Charting.Chart
+    Friend WithEvents TextBox1 As TextBox
 End Class

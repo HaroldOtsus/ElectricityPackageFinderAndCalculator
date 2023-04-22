@@ -2,6 +2,7 @@
 
 Imports System.IO
 Imports System.Windows.Forms.DataVisualization.Charting
+Imports Microsoft.VisualBasic.FileIO.TextFieldParser
 
 Public Class GUIMain
     Public Structure PriceDateStruct
@@ -614,21 +615,106 @@ Public Class GUIMain
         'Filter to only show CSV files and all files
         openFileDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*"
 
+
         'If the user selects a file and presses OK
         If openFileDialog.ShowDialog() = DialogResult.OK Then
-            'Reads data from the selected file
-            Using streamReader As New StreamReader(openFileDialog.FileName)
-                'Reads until the end of the file
-                While Not streamReader.EndOfStream
-                    'Variable "line" contains 1 line from the CSV file
-                    Dim line As String = streamReader.ReadLine()
 
-                    'Data processing code goes here
+            Dim selectedFileName As String = openFileDialog.FileName
 
-                    'Currently just using console print for debugging
-                    Console.WriteLine(line)
+            'TABLE
+            Dim table As New DataGridView()
+
+            Using parser As New Microsoft.VisualBasic.FileIO.TextFieldParser(selectedFileName)
+                parser.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited
+                parser.SetDelimiters(";")
+
+                Dim headerLinesToSkip As Integer = 9
+                For i As Integer = 1 To headerLinesToSkip
+                    parser.ReadLine()
+                Next
+                ' Read the header row and add the columns to the table
+                Dim header As String() = parser.ReadFields()
+
+                For Each columnName As String In header
+                    table.Columns.Add(0, columnName)
+
+                Next
+
+                ' Read the data rows and add them to the table
+                While Not parser.EndOfData
+                    Dim fields As String() = parser.ReadFields()
+                    table.Rows.Add(fields)
+
                 End While
+
+                tblCSVfile.Controls.Add(table)
+                Dim myArray(tblCSVfile.Rows.Count - 1) As String
+
+                For i As Integer = 0 To tblCSVfile.Rows.Count - 1
+                    ' Get the value of the cell in the desired column for this row
+                    myArray(i) = tblCSVfile.Rows(i).Cells("Algus").Value.ToString()
+                    TextBox1.Text = myArray(i)
+                Next
+
+
+
+                'GRAPH
+                'Dim seriesName As String = "CSV hind"
+                'chrtCSV.Series.Add(seriesName)
+
+                'chrtCSV.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
+                'chrtCSV.ChartAreas(0).AxisY.Interval = 5 'more lines Y axis
+                'chrtCSV.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.StepLine
+                'chrtCSV.Series(0).Color = Color.Red
+                'chrtCSV.Series(0).BorderWidth = 3
+
+
+                'For Each row As DataGridViewRow In tblCSVfile.Rows
+                '    TextBox1 += row
+                '    chrtCSV.Series(seriesName).Points.AddXY(row)
+                'Next
+
+                Dim j As Integer = 0
+                'For Each row As DataGridViewRow In tblCSVfile.Rows
+                '    ' Cast the row to a DataGridViewRow object to access its properties
+                '    Dim dgvRow As DataGridViewRow = CType(row, DataGridViewRow)
+
+                '    ' Access the values of the cells in the row using the cell indices
+                '    Dim cell1Value As String = dgvRow.Cells(0).Value.ToString()
+                '    Dim cell3Value As Double = Convert.ToDouble(dgvRow.Cells(3).Value)
+                '    chrtCSV.Series(seriesName).Points.AddXY(j, cell3Value)
+                '    j += 1
+                '    ' ...
+                'Next
+
+
+
+                'tblCSVfile.DefaultCellStyle.WrapMode = DataGridViewTriState.True 'set word wrap to true
+                'tblCSVfile.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells 'adjust row height based on content
+
+                'tblCSVfile.Columns(1).Width = 100 'set the width of the first column
+                'tblCSVfile.Columns(2).Width = 150 'set the width of the second column
+                'tblCSVfile.Columns(3).Width = 200 'set the width of the third column
+                'tblCSVfile.Columns(4).Width = 200 'set the width of the third column
             End Using
+
+
+
+
+
+            'Using streamReader As New StreamReader(openFileDialog.FileName)
+            '    'Reads until the end of the file
+            '    While Not streamReader.EndOfStream
+            '        'Variable "line" contains 1 line from the CSV file
+            '        Dim line As String = streamReader.ReadLine()
+
+            '        'Data processing code goes here
+
+            '        'Currently just using console print for debugging
+            '        'Console.WriteLine(line)
+            '        tBoxCSVout.Text += line
+            '    End While
+            'End Using
         End If
     End Sub
 
