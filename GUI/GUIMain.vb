@@ -10,6 +10,11 @@ Public Class GUIMain
         Dim price As Double
         Dim sDate As String
     End Structure
+    Public Structure DateWattageStruct
+
+        Dim dateAndTime As String
+        Dim wattage As Double
+    End Structure
 
     Dim sisend As String 'might be a leftover obsolete relic that could potentially be deleted
     Dim applianceID As String
@@ -611,6 +616,16 @@ Public Class GUIMain
     End Sub
 
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
+        'tblCSVfile.Controls.Clear()
+        chrtCSV.Series.Clear()
+
+        Dim records As List(Of DateWattageStruct)
+        records = New List(Of DateWattageStruct)
+
+        Dim p As DateWattageStruct
+
+
+
         Dim openFileDialog As New OpenFileDialog()
         'Filter to only show CSV files and all files
         openFileDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*"
@@ -643,22 +658,54 @@ Public Class GUIMain
                 While Not parser.EndOfData
                     Dim fields As String() = parser.ReadFields()
                     table.Rows.Add(fields)
+                    'p.dateAndTime = fields(0)
+                    'p.wattage = fields(2)
 
                 End While
-                chrtCSV.Titles.Add("My Chart")
+                'chrtCSV.Titles.Add("My Chart")
 
                 'Add a new series to the chart
                 Dim series As New Series()
-                series.Name = "My Series"
+                series.Name = "Aeg/Võimsus"
                 series.ChartType = SeriesChartType.Line
                 chrtCSV.Series.Add(series)
 
                 'Loop through the rows of the DataTable and add data points to the chart series
-                For Each row As DataRow In table.Rows
-                    Dim xValue As String = row("Algus").ToString()
-                    Dim yValue As String = row("Kogus (kWh)").ToString()
-                    series.Points.AddXY(xValue, yValue)
-                Next
+                'For Each row As DataRow In table.Rows
+                '    Dim xValue As String = row("Algus").ToString()
+                '    Dim yValue As String = row("Kogus (kWh)").ToString()
+                '    series.Points.AddXY(xValue, yValue)
+                'Next
+                Dim rowCount As Integer = table.Rows.Count
+                Dim rowCountInForEach As Integer = 0
+
+                If table.Columns(0).ColumnName = "Algus" And table.Columns(2).ColumnName = "Kogus (kWh)" Then
+
+                    'For i As Integer = 0 To 9
+                    For Each row As DataRow In table.Rows
+                        rowCountInForEach += 1
+                        If rowCountInForEach = 24 * 3 Then
+                            Exit For
+                        End If
+                        'Dim row As DataRow = table.Rows(i)
+
+                        Dim xValue As String = row("Algus").ToString()
+                        Dim yValue As String = row("Kogus (kWh)").ToString()
+                        series.Points.AddXY(xValue, yValue)
+                        Dim xAxis As Axis = chrtCSV.ChartAreas(0).AxisX
+
+                        'Set the width of the axis labels
+
+                        chrtFrontPage.ChartAreas(0).AxisX.Interval = 5
+
+
+                        'xAxis.LabelStyle.Font = New Font(xAxis.LabelStyle.Font.Name, 8.25)
+                        xAxis.LabelStyle.Angle = 90
+                    Next
+
+                Else
+                    MessageBox.Show("VALE FORMAAT LOHH!")
+                End If
 
                 'tblCSVfile.Controls.Add(table)
                 'Dim myArray(tblCSVfile.Rows.Count - 1) As String
