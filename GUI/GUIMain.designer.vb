@@ -56,8 +56,8 @@ Partial Class GUIMain
         Me.lblPackageHourly = New System.Windows.Forms.Label()
         Me.btnBack0 = New System.Windows.Forms.Button()
         Me.tabApplianceCalc = New System.Windows.Forms.TabPage()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblSKwh1 = New System.Windows.Forms.Label()
+        Me.lblSKwh2 = New System.Windows.Forms.Label()
         Me.tBoxMarginal = New System.Windows.Forms.TextBox()
         Me.lblMore = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
@@ -68,10 +68,10 @@ Partial Class GUIMain
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.btnTaasta = New System.Windows.Forms.Button()
         Me.btnSisesta = New System.Windows.Forms.Button()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
+        Me.lblCents = New System.Windows.Forms.Label()
+        Me.lblKwh24h = New System.Windows.Forms.Label()
+        Me.lblMin = New System.Windows.Forms.Label()
+        Me.lblWatt = New System.Windows.Forms.Label()
         Me.lblApplianceResult = New System.Windows.Forms.Label()
         Me.lblElectricityConsumptionRate = New System.Windows.Forms.Label()
         Me.tBoxUsageTime = New System.Windows.Forms.TextBox()
@@ -110,10 +110,10 @@ Partial Class GUIMain
         Me.btnExport = New System.Windows.Forms.Button()
         Me.btnImport = New System.Windows.Forms.Button()
         Me.lblExchangeComparisonResult = New System.Windows.Forms.Label()
-        Me.TextBox6 = New System.Windows.Forms.TextBox()
-        Me.TextBox5 = New System.Windows.Forms.TextBox()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.tBoxCondition2 = New System.Windows.Forms.TextBox()
+        Me.tBoxCondition1 = New System.Windows.Forms.TextBox()
+        Me.tBoxEndTime = New System.Windows.Forms.TextBox()
+        Me.tboxStartTime = New System.Windows.Forms.TextBox()
         Me.lblExchangeChoice = New System.Windows.Forms.Label()
         Me.lblCase2 = New System.Windows.Forms.Label()
         Me.lblCase1 = New System.Windows.Forms.Label()
@@ -138,7 +138,7 @@ Partial Class GUIMain
         Me.lblExchangePackageHistory = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.btnSeeHistory = New System.Windows.Forms.Button()
-        Me.TextBox8 = New System.Windows.Forms.TextBox()
+        Me.tBoxMonthlyCost2 = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.RadioButton3 = New System.Windows.Forms.RadioButton()
         Me.RadioButton4 = New System.Windows.Forms.RadioButton()
@@ -150,8 +150,8 @@ Partial Class GUIMain
         Me.chartPackages = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.btnCompare = New System.Windows.Forms.Button()
         Me.lblComparisonResult = New System.Windows.Forms.Label()
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.cBoxPackage2 = New System.Windows.Forms.ComboBox()
+        Me.cBoxPackage1 = New System.Windows.Forms.ComboBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.lblPackage1 = New System.Windows.Forms.Label()
         Me.lblChoosePackages = New System.Windows.Forms.Label()
@@ -160,6 +160,7 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -177,6 +178,7 @@ Partial Class GUIMain
         Me.tabSimulateExchangeHistory.SuspendLayout()
         Me.tabPackageComparison.SuspendLayout()
         CType(Me.chartPackages, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblMenu
@@ -246,7 +248,7 @@ Partial Class GUIMain
         Me.TabControl1.Location = New System.Drawing.Point(12, 37)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(864, 627)
+        Me.TabControl1.Size = New System.Drawing.Size(946, 649)
         Me.TabControl1.TabIndex = 6
         '
         'Main
@@ -262,7 +264,7 @@ Partial Class GUIMain
         Me.Main.Location = New System.Drawing.Point(4, 26)
         Me.Main.Name = "Main"
         Me.Main.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
-        Me.Main.Size = New System.Drawing.Size(847, 587)
+        Me.Main.Size = New System.Drawing.Size(856, 597)
         Me.Main.TabIndex = 0
         Me.Main.Text = "Home"
         '
@@ -309,7 +311,7 @@ Partial Class GUIMain
         Me.tabPackageHourlyRate.Location = New System.Drawing.Point(4, 26)
         Me.tabPackageHourlyRate.Name = "tabPackageHourlyRate"
         Me.tabPackageHourlyRate.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
-        Me.tabPackageHourlyRate.Size = New System.Drawing.Size(847, 587)
+        Me.tabPackageHourlyRate.Size = New System.Drawing.Size(912, 618)
         Me.tabPackageHourlyRate.TabIndex = 1
         Me.tabPackageHourlyRate.Text = "Paketijärgne tunnihind"
         Me.tabPackageHourlyRate.UseVisualStyleBackColor = True
@@ -406,7 +408,7 @@ Partial Class GUIMain
         '
         'tboxMonthlyCost
         '
-        Me.tboxMonthlyCost.Location = New System.Drawing.Point(189, 141)
+        Me.tboxMonthlyCost.Location = New System.Drawing.Point(129, 141)
         Me.tboxMonthlyCost.Name = "tboxMonthlyCost"
         Me.tboxMonthlyCost.Size = New System.Drawing.Size(100, 20)
         Me.tboxMonthlyCost.TabIndex = 5
@@ -462,8 +464,8 @@ Partial Class GUIMain
         '
         'tabApplianceCalc
         '
-        Me.tabApplianceCalc.Controls.Add(Me.Label2)
-        Me.tabApplianceCalc.Controls.Add(Me.Label1)
+        Me.tabApplianceCalc.Controls.Add(Me.lblSKwh1)
+        Me.tabApplianceCalc.Controls.Add(Me.lblSKwh2)
         Me.tabApplianceCalc.Controls.Add(Me.tBoxMarginal)
         Me.tabApplianceCalc.Controls.Add(Me.lblMore)
         Me.tabApplianceCalc.Controls.Add(Me.Panel3)
@@ -479,28 +481,28 @@ Partial Class GUIMain
         Me.tabApplianceCalc.Location = New System.Drawing.Point(4, 26)
         Me.tabApplianceCalc.Name = "tabApplianceCalc"
         Me.tabApplianceCalc.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
-        Me.tabApplianceCalc.Size = New System.Drawing.Size(856, 597)
+        Me.tabApplianceCalc.Size = New System.Drawing.Size(938, 619)
         Me.tabApplianceCalc.TabIndex = 2
         Me.tabApplianceCalc.Text = "Kodumasina tarbimise hinna kalkulaator"
         Me.tabApplianceCalc.UseVisualStyleBackColor = True
         '
-        'Label2
+        'lblSKwh1
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(311, 497)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(40, 13)
-        Me.Label2.TabIndex = 46
-        Me.Label2.Text = "s/kWh"
+        Me.lblSKwh1.AutoSize = True
+        Me.lblSKwh1.Location = New System.Drawing.Point(311, 497)
+        Me.lblSKwh1.Name = "lblSKwh1"
+        Me.lblSKwh1.Size = New System.Drawing.Size(40, 13)
+        Me.lblSKwh1.TabIndex = 46
+        Me.lblSKwh1.Text = "s/kWh"
         '
-        'Label1
+        'lblSKwh2
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(311, 537)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(40, 13)
-        Me.Label1.TabIndex = 45
-        Me.Label1.Text = "s/kWh"
+        Me.lblSKwh2.AutoSize = True
+        Me.lblSKwh2.Location = New System.Drawing.Point(311, 537)
+        Me.lblSKwh2.Name = "lblSKwh2"
+        Me.lblSKwh2.Size = New System.Drawing.Size(40, 13)
+        Me.lblSKwh2.TabIndex = 45
+        Me.lblSKwh2.Text = "s/kWh"
         '
         'tBoxMarginal
         '
@@ -577,10 +579,10 @@ Partial Class GUIMain
         '
         Me.Panel2.Controls.Add(Me.btnTaasta)
         Me.Panel2.Controls.Add(Me.btnSisesta)
-        Me.Panel2.Controls.Add(Me.Label11)
-        Me.Panel2.Controls.Add(Me.Label7)
-        Me.Panel2.Controls.Add(Me.Label5)
-        Me.Panel2.Controls.Add(Me.Label4)
+        Me.Panel2.Controls.Add(Me.lblCents)
+        Me.Panel2.Controls.Add(Me.lblKwh24h)
+        Me.Panel2.Controls.Add(Me.lblMin)
+        Me.Panel2.Controls.Add(Me.lblWatt)
         Me.Panel2.Controls.Add(Me.lblApplianceResult)
         Me.Panel2.Controls.Add(Me.lblElectricityConsumptionRate)
         Me.Panel2.Controls.Add(Me.tBoxUsageTime)
@@ -591,9 +593,9 @@ Partial Class GUIMain
         Me.Panel2.Controls.Add(Me.tBoxApproxPrice)
         Me.Panel2.Controls.Add(Me.lblConsumptionPerHour)
         Me.Panel2.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.Panel2.Location = New System.Drawing.Point(393, 56)
+        Me.Panel2.Location = New System.Drawing.Point(409, 56)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(442, 275)
+        Me.Panel2.Size = New System.Drawing.Size(523, 275)
         Me.Panel2.TabIndex = 40
         '
         'btnTaasta
@@ -616,41 +618,41 @@ Partial Class GUIMain
         Me.btnSisesta.Text = "Sisesta"
         Me.btnSisesta.UseVisualStyleBackColor = True
         '
-        'Label11
+        'lblCents
         '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(380, 171)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(32, 13)
-        Me.Label11.TabIndex = 42
-        Me.Label11.Text = "senti "
+        Me.lblCents.AutoSize = True
+        Me.lblCents.Location = New System.Drawing.Point(380, 171)
+        Me.lblCents.Name = "lblCents"
+        Me.lblCents.Size = New System.Drawing.Size(32, 13)
+        Me.lblCents.TabIndex = 42
+        Me.lblCents.Text = "senti "
         '
-        'Label7
+        'lblKwh24h
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(380, 139)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(51, 13)
-        Me.Label7.TabIndex = 41
-        Me.Label7.Text = "kWh 24h"
+        Me.lblKwh24h.AutoSize = True
+        Me.lblKwh24h.Location = New System.Drawing.Point(380, 139)
+        Me.lblKwh24h.Name = "lblKwh24h"
+        Me.lblKwh24h.Size = New System.Drawing.Size(51, 13)
+        Me.lblKwh24h.TabIndex = 41
+        Me.lblKwh24h.Text = "kWh 24h"
         '
-        'Label5
+        'lblMin
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(380, 85)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(23, 13)
-        Me.Label5.TabIndex = 40
-        Me.Label5.Text = "min"
+        Me.lblMin.AutoSize = True
+        Me.lblMin.Location = New System.Drawing.Point(380, 85)
+        Me.lblMin.Name = "lblMin"
+        Me.lblMin.Size = New System.Drawing.Size(23, 13)
+        Me.lblMin.TabIndex = 40
+        Me.lblMin.Text = "min"
         '
-        'Label4
+        'lblWatt
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(380, 53)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(18, 13)
-        Me.Label4.TabIndex = 39
-        Me.Label4.Text = "W"
+        Me.lblWatt.AutoSize = True
+        Me.lblWatt.Location = New System.Drawing.Point(380, 53)
+        Me.lblWatt.Name = "lblWatt"
+        Me.lblWatt.Size = New System.Drawing.Size(18, 13)
+        Me.lblWatt.TabIndex = 39
+        Me.lblWatt.Text = "W"
         '
         'lblApplianceResult
         '
@@ -1019,13 +1021,14 @@ Partial Class GUIMain
         '
         'tabExchangeComparison
         '
+        Me.tabExchangeComparison.Controls.Add(Me.DataGridView1)
         Me.tabExchangeComparison.Controls.Add(Me.btnExport)
         Me.tabExchangeComparison.Controls.Add(Me.btnImport)
         Me.tabExchangeComparison.Controls.Add(Me.lblExchangeComparisonResult)
-        Me.tabExchangeComparison.Controls.Add(Me.TextBox6)
-        Me.tabExchangeComparison.Controls.Add(Me.TextBox5)
-        Me.tabExchangeComparison.Controls.Add(Me.TextBox4)
-        Me.tabExchangeComparison.Controls.Add(Me.TextBox2)
+        Me.tabExchangeComparison.Controls.Add(Me.tBoxCondition2)
+        Me.tabExchangeComparison.Controls.Add(Me.tBoxCondition1)
+        Me.tabExchangeComparison.Controls.Add(Me.tBoxEndTime)
+        Me.tabExchangeComparison.Controls.Add(Me.tboxStartTime)
         Me.tabExchangeComparison.Controls.Add(Me.lblExchangeChoice)
         Me.tabExchangeComparison.Controls.Add(Me.lblCase2)
         Me.tabExchangeComparison.Controls.Add(Me.lblCase1)
@@ -1037,7 +1040,7 @@ Partial Class GUIMain
         Me.tabExchangeComparison.Location = New System.Drawing.Point(4, 26)
         Me.tabExchangeComparison.Name = "tabExchangeComparison"
         Me.tabExchangeComparison.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
-        Me.tabExchangeComparison.Size = New System.Drawing.Size(856, 597)
+        Me.tabExchangeComparison.Size = New System.Drawing.Size(912, 618)
         Me.tabExchangeComparison.TabIndex = 3
         Me.tabExchangeComparison.Text = "Börsihinna võrdlus"
         Me.tabExchangeComparison.UseVisualStyleBackColor = True
@@ -1069,33 +1072,33 @@ Partial Class GUIMain
         Me.lblExchangeComparisonResult.TabIndex = 15
         Me.lblExchangeComparisonResult.Text = "Tulemus:"
         '
-        'TextBox6
+        'tBoxCondition2
         '
-        Me.TextBox6.Location = New System.Drawing.Point(197, 158)
-        Me.TextBox6.Name = "TextBox6"
-        Me.TextBox6.Size = New System.Drawing.Size(100, 20)
-        Me.TextBox6.TabIndex = 14
+        Me.tBoxCondition2.Location = New System.Drawing.Point(197, 158)
+        Me.tBoxCondition2.Name = "tBoxCondition2"
+        Me.tBoxCondition2.Size = New System.Drawing.Size(100, 20)
+        Me.tBoxCondition2.TabIndex = 14
         '
-        'TextBox5
+        'tBoxCondition1
         '
-        Me.TextBox5.Location = New System.Drawing.Point(197, 132)
-        Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.Size = New System.Drawing.Size(100, 20)
-        Me.TextBox5.TabIndex = 13
+        Me.tBoxCondition1.Location = New System.Drawing.Point(197, 132)
+        Me.tBoxCondition1.Name = "tBoxCondition1"
+        Me.tBoxCondition1.Size = New System.Drawing.Size(100, 20)
+        Me.tBoxCondition1.TabIndex = 13
         '
-        'TextBox4
+        'tBoxEndTime
         '
-        Me.TextBox4.Location = New System.Drawing.Point(197, 78)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(100, 20)
-        Me.TextBox4.TabIndex = 12
+        Me.tBoxEndTime.Location = New System.Drawing.Point(197, 78)
+        Me.tBoxEndTime.Name = "tBoxEndTime"
+        Me.tBoxEndTime.Size = New System.Drawing.Size(100, 20)
+        Me.tBoxEndTime.TabIndex = 12
         '
-        'TextBox2
+        'tboxStartTime
         '
-        Me.TextBox2.Location = New System.Drawing.Point(197, 52)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(100, 20)
-        Me.TextBox2.TabIndex = 11
+        Me.tboxStartTime.Location = New System.Drawing.Point(197, 52)
+        Me.tboxStartTime.Name = "tboxStartTime"
+        Me.tboxStartTime.Size = New System.Drawing.Size(100, 20)
+        Me.tboxStartTime.TabIndex = 11
         '
         'lblExchangeChoice
         '
@@ -1178,7 +1181,7 @@ Partial Class GUIMain
         Me.tabConsumptionHistory.Location = New System.Drawing.Point(4, 26)
         Me.tabConsumptionHistory.Name = "tabConsumptionHistory"
         Me.tabConsumptionHistory.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
-        Me.tabConsumptionHistory.Size = New System.Drawing.Size(856, 597)
+        Me.tabConsumptionHistory.Size = New System.Drawing.Size(912, 618)
         Me.tabConsumptionHistory.TabIndex = 4
         Me.tabConsumptionHistory.Text = "Tarbimise ajalugu"
         Me.tabConsumptionHistory.UseVisualStyleBackColor = True
@@ -1201,7 +1204,7 @@ Partial Class GUIMain
         Me.TabControl2.Location = New System.Drawing.Point(0, 106)
         Me.TabControl2.Name = "TabControl2"
         Me.TabControl2.SelectedIndex = 0
-        Me.TabControl2.Size = New System.Drawing.Size(835, 477)
+        Me.TabControl2.Size = New System.Drawing.Size(875, 494)
         Me.TabControl2.TabIndex = 2
         '
         'tabBlank
@@ -1301,7 +1304,7 @@ Partial Class GUIMain
         Me.tabSimulateExchangeHistory.Controls.Add(Me.lblExchangePackageHistory)
         Me.tabSimulateExchangeHistory.Controls.Add(Me.Label8)
         Me.tabSimulateExchangeHistory.Controls.Add(Me.btnSeeHistory)
-        Me.tabSimulateExchangeHistory.Controls.Add(Me.TextBox8)
+        Me.tabSimulateExchangeHistory.Controls.Add(Me.tBoxMonthlyCost2)
         Me.tabSimulateExchangeHistory.Controls.Add(Me.Label9)
         Me.tabSimulateExchangeHistory.Controls.Add(Me.RadioButton3)
         Me.tabSimulateExchangeHistory.Controls.Add(Me.RadioButton4)
@@ -1309,7 +1312,7 @@ Partial Class GUIMain
         Me.tabSimulateExchangeHistory.Location = New System.Drawing.Point(4, 23)
         Me.tabSimulateExchangeHistory.Name = "tabSimulateExchangeHistory"
         Me.tabSimulateExchangeHistory.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
-        Me.tabSimulateExchangeHistory.Size = New System.Drawing.Size(827, 450)
+        Me.tabSimulateExchangeHistory.Size = New System.Drawing.Size(867, 467)
         Me.tabSimulateExchangeHistory.TabIndex = 2
         Me.tabSimulateExchangeHistory.Text = "Elektripakettide börsihindade ajalugu"
         Me.tabSimulateExchangeHistory.UseVisualStyleBackColor = True
@@ -1341,12 +1344,12 @@ Partial Class GUIMain
         Me.btnSeeHistory.Text = "Kuva ajalugu"
         Me.btnSeeHistory.UseVisualStyleBackColor = True
         '
-        'TextBox8
+        'tBoxMonthlyCost2
         '
-        Me.TextBox8.Location = New System.Drawing.Point(175, 199)
-        Me.TextBox8.Name = "TextBox8"
-        Me.TextBox8.Size = New System.Drawing.Size(100, 20)
-        Me.TextBox8.TabIndex = 17
+        Me.tBoxMonthlyCost2.Location = New System.Drawing.Point(175, 199)
+        Me.tBoxMonthlyCost2.Name = "tBoxMonthlyCost2"
+        Me.tBoxMonthlyCost2.Size = New System.Drawing.Size(100, 20)
+        Me.tBoxMonthlyCost2.TabIndex = 17
         '
         'Label9
         '
@@ -1412,8 +1415,8 @@ Partial Class GUIMain
         Me.tabPackageComparison.Controls.Add(Me.chartPackages)
         Me.tabPackageComparison.Controls.Add(Me.btnCompare)
         Me.tabPackageComparison.Controls.Add(Me.lblComparisonResult)
-        Me.tabPackageComparison.Controls.Add(Me.ComboBox2)
-        Me.tabPackageComparison.Controls.Add(Me.ComboBox1)
+        Me.tabPackageComparison.Controls.Add(Me.cBoxPackage2)
+        Me.tabPackageComparison.Controls.Add(Me.cBoxPackage1)
         Me.tabPackageComparison.Controls.Add(Me.Label6)
         Me.tabPackageComparison.Controls.Add(Me.lblPackage1)
         Me.tabPackageComparison.Controls.Add(Me.lblChoosePackages)
@@ -1421,7 +1424,7 @@ Partial Class GUIMain
         Me.tabPackageComparison.Location = New System.Drawing.Point(4, 26)
         Me.tabPackageComparison.Name = "tabPackageComparison"
         Me.tabPackageComparison.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
-        Me.tabPackageComparison.Size = New System.Drawing.Size(856, 597)
+        Me.tabPackageComparison.Size = New System.Drawing.Size(938, 619)
         Me.tabPackageComparison.TabIndex = 5
         Me.tabPackageComparison.Text = "Elektripakettide võrdlus"
         Me.tabPackageComparison.UseVisualStyleBackColor = True
@@ -1441,7 +1444,7 @@ Partial Class GUIMain
         Me.chartPackages.ChartAreas.Add(ChartArea3)
         Legend3.Name = "Legend1"
         Me.chartPackages.Legends.Add(Legend3)
-        Me.chartPackages.Location = New System.Drawing.Point(356, 118)
+        Me.chartPackages.Location = New System.Drawing.Point(441, 112)
         Me.chartPackages.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.chartPackages.Name = "chartPackages"
         Me.chartPackages.Size = New System.Drawing.Size(446, 283)
@@ -1465,21 +1468,21 @@ Partial Class GUIMain
         Me.lblComparisonResult.TabIndex = 7
         Me.lblComparisonResult.Text = "Tulemus:"
         '
-        'ComboBox2
+        'cBoxPackage2
         '
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Location = New System.Drawing.Point(178, 281)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(121, 21)
-        Me.ComboBox2.TabIndex = 6
+        Me.cBoxPackage2.FormattingEnabled = True
+        Me.cBoxPackage2.Location = New System.Drawing.Point(178, 281)
+        Me.cBoxPackage2.Name = "cBoxPackage2"
+        Me.cBoxPackage2.Size = New System.Drawing.Size(121, 21)
+        Me.cBoxPackage2.TabIndex = 6
         '
-        'ComboBox1
+        'cBoxPackage1
         '
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(178, 157)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(121, 21)
-        Me.ComboBox1.TabIndex = 5
+        Me.cBoxPackage1.FormattingEnabled = True
+        Me.cBoxPackage1.Location = New System.Drawing.Point(178, 157)
+        Me.cBoxPackage1.Name = "cBoxPackage1"
+        Me.cBoxPackage1.Size = New System.Drawing.Size(121, 21)
+        Me.cBoxPackage1.TabIndex = 5
         '
         'Label6
         '
@@ -1553,11 +1556,19 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
         '
+        'DataGridView1
+        '
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Location = New System.Drawing.Point(414, 52)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.Size = New System.Drawing.Size(387, 222)
+        Me.DataGridView1.TabIndex = 19
+        '
         'GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(888, 676)
+        Me.ClientSize = New System.Drawing.Size(981, 698)
         Me.Controls.Add(Me.btnRestoreFontSize)
         Me.Controls.Add(Me.btnFontDecrease)
         Me.Controls.Add(Me.btnFontIncrease)
@@ -1593,6 +1604,7 @@ Partial Class GUIMain
         Me.tabPackageComparison.ResumeLayout(False)
         Me.tabPackageComparison.PerformLayout()
         CType(Me.chartPackages, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1664,10 +1676,10 @@ Partial Class GUIMain
     Friend WithEvents lblEndTime As Label
     Friend WithEvents lblStartTime As Label
     Friend WithEvents lblTimePeriodSelection As Label
-    Friend WithEvents TextBox6 As TextBox
-    Friend WithEvents TextBox5 As TextBox
-    Friend WithEvents TextBox4 As TextBox
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents tBoxCondition2 As TextBox
+    Friend WithEvents tBoxCondition1 As TextBox
+    Friend WithEvents tBoxEndTime As TextBox
+    Friend WithEvents tboxStartTime As TextBox
     Friend WithEvents lblExchangeComparisonResult As Label
     Friend WithEvents btnSimulateConsumptionHistory As Button
     Friend WithEvents TabControl2 As TabControl
@@ -1683,7 +1695,7 @@ Partial Class GUIMain
     Friend WithEvents lblHistoryData As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents btnSeeHistory As Button
-    Friend WithEvents TextBox8 As TextBox
+    Friend WithEvents tBoxMonthlyCost2 As TextBox
     Friend WithEvents Label9 As Label
     Friend WithEvents RadioButton3 As RadioButton
     Friend WithEvents RadioButton4 As RadioButton
@@ -1695,18 +1707,18 @@ Partial Class GUIMain
     Friend WithEvents lblChoosePackages As Label
     Friend WithEvents btnCompare As Button
     Friend WithEvents lblComparisonResult As Label
-    Friend WithEvents ComboBox2 As ComboBox
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents cBoxPackage2 As ComboBox
+    Friend WithEvents cBoxPackage1 As ComboBox
     Friend WithEvents tBoxUsageTime As TextBox
     Friend WithEvents lblUsageTime As Label
     Friend WithEvents lblConsumptionPerHour As Label
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Panel2 As Panel
     Friend WithEvents tBoxConsumptionPerHour As TextBox
-    Friend WithEvents Label11 As Label
-    Friend WithEvents Label7 As Label
-    Friend WithEvents Label5 As Label
-    Friend WithEvents Label4 As Label
+    Friend WithEvents lblCents As Label
+    Friend WithEvents lblKwh24h As Label
+    Friend WithEvents lblMin As Label
+    Friend WithEvents lblWatt As Label
     Friend WithEvents tblPriceTable As DataGridView
     Friend WithEvents chrtPackageHourlyRate As DataVisualization.Charting.Chart
     Friend WithEvents chrtFrontPage As DataVisualization.Charting.Chart
@@ -1725,8 +1737,9 @@ Partial Class GUIMain
     Friend WithEvents radioStockPlusMore As RadioButton
     Friend WithEvents tBoxMarginal As TextBox
     Friend WithEvents lblMore As Label
-    Friend WithEvents Label1 As Label
-    Friend WithEvents Label2 As Label
+    Friend WithEvents lblSKwh2 As Label
+    Friend WithEvents lblSKwh1 As Label
     Friend WithEvents btnPackets As Button
     Friend WithEvents chartPackages As DataVisualization.Charting.Chart
+    Friend WithEvents DataGridView1 As DataGridView
 End Class

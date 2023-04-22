@@ -731,6 +731,30 @@ Public Class GUIMain
             btnFontIncrease.Font = New Font("Microsoft Sans Serif", fontSize)
             btnFontDecrease.Font = New Font("Microsoft Sans Serif", fontSize)
             btnRestoreFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
+
+            tboxMonthlyCost.Width += 10
+            tBoxPackageHourlyRate.Width += 10
+            tBoxPackagePrice.Width += 10
+            tBoxMarginal.Width += 10
+            tBoxConsumptionPerHour.Width += 10
+            tBoxUsageTime.Width += 10
+            tBoxElectricityConsumptionRate.Width += 10
+            tBoxApproxPrice.Width += 10
+            tboxStartTime.Width += 10
+            tBoxEndTime.Width += 10
+            tBoxCondition1.Width += 10
+            tBoxCondition2.Width += 10
+            tBoxMonthlyCost2.Width += 10
+            cBoxPackage1.Width += 10
+            cBoxPackage2.Width += 10
+
+
+            lblSKwh1.Location = New Point(lblSKwh1.Location.X + 10, lblSKwh1.Location.Y)
+            lblSKwh2.Location = New Point(lblSKwh2.Location.X + 10, lblSKwh2.Location.Y)
+            lblWatt.Location = New Point(lblWatt.Location.X + 10, lblWatt.Location.Y)
+            lblMin.Location = New Point(lblMin.Location.X + 10, lblMin.Location.Y)
+            lblKwh24h.Location = New Point(lblKwh24h.Location.X + 10, lblKwh24h.Location.Y)
+            lblCents.Location = New Point(lblCents.Location.X + 10, lblCents.Location.Y)
         End If
 
 
@@ -752,6 +776,22 @@ Public Class GUIMain
             btnFontIncrease.Font = New Font("Microsoft Sans Serif", fontSize)
             btnFontDecrease.Font = New Font("Microsoft Sans Serif", fontSize)
             btnRestoreFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
+
+            tboxMonthlyCost.Width -= 10
+            tBoxPackageHourlyRate.Width -= 10
+            tBoxPackagePrice.Width -= 10
+            tBoxMarginal.Width -= 10
+            tBoxConsumptionPerHour.Width -= 10
+            tBoxUsageTime.Width -= 10
+            tBoxElectricityConsumptionRate.Width -= 10
+            tBoxApproxPrice.Width -= 10
+            tboxStartTime.Width -= 10
+            tBoxEndTime.Width -= 10
+            tBoxCondition1.Width -= 10
+            tBoxCondition2.Width -= 10
+            tBoxMonthlyCost2.Width -= 10
+            cBoxPackage1.Width -= 10
+            cBoxPackage2.Width -= 10
         End If
 
     End Sub
@@ -770,6 +810,22 @@ Public Class GUIMain
         btnFontIncrease.Font = New Font("Microsoft Sans Serif", fontSize)
         btnFontDecrease.Font = New Font("Microsoft Sans Serif", fontSize)
         btnRestoreFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
+
+        tboxMonthlyCost.Width -= 60
+        tBoxPackageHourlyRate.Width -= 60
+        tBoxPackagePrice.Width -= 60
+        tBoxMarginal.Width -= 60
+        tBoxConsumptionPerHour.Width -= 60
+        tBoxUsageTime.Width -= 60
+        tBoxElectricityConsumptionRate.Width -= 60
+        tBoxApproxPrice.Width -= 60
+        tboxStartTime.Width -= 60
+        tBoxEndTime.Width -= 60
+        tBoxCondition1.Width -= 60
+        tBoxCondition2.Width -= 60
+        tBoxMonthlyCost2.Width -= 60
+        cBoxPackage1.Width -= 60
+        cBoxPackage2.Width -= 60
     End Sub
 
     Private Sub rdioUniversalPackage_CheckedChanged(sender As Object, e As EventArgs) Handles rdioUniversalPackage.CheckedChanged
@@ -832,11 +888,11 @@ Public Class GUIMain
         radioStockPlusMore.Enabled = False
     End Sub
 
-    Private Sub Label7_Click(sender As Object, e As EventArgs) Handles Label7.Click
+    Private Sub Label7_Click(sender As Object, e As EventArgs) Handles lblKwh24h.Click
 
     End Sub
 
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
+    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles lblSKwh2.Click
 
     End Sub
 
