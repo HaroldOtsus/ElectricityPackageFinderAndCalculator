@@ -170,6 +170,7 @@ Partial Class GUIMain
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
         Me.lblSKwh3 = New System.Windows.Forms.Label()
         Me.lblSKwh4 = New System.Windows.Forms.Label()
+        Me.lblTableState = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -302,6 +303,7 @@ Partial Class GUIMain
         '
         'tabPackageHourlyRate
         '
+        Me.tabPackageHourlyRate.Controls.Add(Me.lblTableState)
         Me.tabPackageHourlyRate.Controls.Add(Me.lblSKwh4)
         Me.tabPackageHourlyRate.Controls.Add(Me.lblSKwh3)
         Me.tabPackageHourlyRate.Controls.Add(Me.Label1)
@@ -335,7 +337,7 @@ Partial Class GUIMain
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(27, 119)
+        Me.Label1.Location = New System.Drawing.Point(27, 168)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(92, 13)
         Me.Label1.TabIndex = 20
@@ -343,7 +345,7 @@ Partial Class GUIMain
         '
         'btnTableDesc
         '
-        Me.btnTableDesc.Location = New System.Drawing.Point(26, 266)
+        Me.btnTableDesc.Location = New System.Drawing.Point(30, 303)
         Me.btnTableDesc.Name = "btnTableDesc"
         Me.btnTableDesc.Size = New System.Drawing.Size(146, 32)
         Me.btnTableDesc.TabIndex = 19
@@ -352,7 +354,7 @@ Partial Class GUIMain
         '
         'tbMarginalOfStock
         '
-        Me.tbMarginalOfStock.Location = New System.Drawing.Point(125, 116)
+        Me.tbMarginalOfStock.Location = New System.Drawing.Point(125, 165)
         Me.tbMarginalOfStock.Name = "tbMarginalOfStock"
         Me.tbMarginalOfStock.Size = New System.Drawing.Size(100, 20)
         Me.tbMarginalOfStock.TabIndex = 18
@@ -372,7 +374,7 @@ Partial Class GUIMain
         'rdioBtnUniversalP
         '
         Me.rdioBtnUniversalP.AutoSize = True
-        Me.rdioBtnUniversalP.Location = New System.Drawing.Point(209, 70)
+        Me.rdioBtnUniversalP.Location = New System.Drawing.Point(30, 139)
         Me.rdioBtnUniversalP.Name = "rdioBtnUniversalP"
         Me.rdioBtnUniversalP.Size = New System.Drawing.Size(95, 17)
         Me.rdioBtnUniversalP.TabIndex = 16
@@ -382,7 +384,7 @@ Partial Class GUIMain
         '
         'btnTableAsc
         '
-        Me.btnTableAsc.Location = New System.Drawing.Point(26, 228)
+        Me.btnTableAsc.Location = New System.Drawing.Point(30, 265)
         Me.btnTableAsc.Name = "btnTableAsc"
         Me.btnTableAsc.Size = New System.Drawing.Size(146, 32)
         Me.btnTableAsc.TabIndex = 15
@@ -395,7 +397,7 @@ Partial Class GUIMain
         Me.chrtPackageHourlyRate.ChartAreas.Add(ChartArea2)
         Legend2.Name = "Legend1"
         Me.chrtPackageHourlyRate.Legends.Add(Legend2)
-        Me.chrtPackageHourlyRate.Location = New System.Drawing.Point(327, 186)
+        Me.chrtPackageHourlyRate.Location = New System.Drawing.Point(365, 186)
         Me.chrtPackageHourlyRate.Margin = New System.Windows.Forms.Padding(2)
         Me.chrtPackageHourlyRate.Name = "chrtPackageHourlyRate"
         Me.chrtPackageHourlyRate.Size = New System.Drawing.Size(472, 374)
@@ -405,7 +407,7 @@ Partial Class GUIMain
         'tblPriceTable
         '
         Me.tblPriceTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.tblPriceTable.Location = New System.Drawing.Point(26, 333)
+        Me.tblPriceTable.Location = New System.Drawing.Point(30, 410)
         Me.tblPriceTable.Name = "tblPriceTable"
         Me.tblPriceTable.ReadOnly = True
         Me.tblPriceTable.RowHeadersWidth = 51
@@ -428,7 +430,7 @@ Partial Class GUIMain
         'lblPriceGraph
         '
         Me.lblPriceGraph.AutoSize = True
-        Me.lblPriceGraph.Location = New System.Drawing.Point(324, 151)
+        Me.lblPriceGraph.Location = New System.Drawing.Point(362, 151)
         Me.lblPriceGraph.Name = "lblPriceGraph"
         Me.lblPriceGraph.Size = New System.Drawing.Size(70, 13)
         Me.lblPriceGraph.TabIndex = 10
@@ -437,7 +439,7 @@ Partial Class GUIMain
         'lblPriceTable
         '
         Me.lblPriceTable.AutoSize = True
-        Me.lblPriceTable.Location = New System.Drawing.Point(23, 306)
+        Me.lblPriceTable.Location = New System.Drawing.Point(27, 343)
         Me.lblPriceTable.Name = "lblPriceTable"
         Me.lblPriceTable.Size = New System.Drawing.Size(61, 13)
         Me.lblPriceTable.TabIndex = 9
@@ -463,7 +465,7 @@ Partial Class GUIMain
         '
         'btnConfirmInput
         '
-        Me.btnConfirmInput.Location = New System.Drawing.Point(26, 190)
+        Me.btnConfirmInput.Location = New System.Drawing.Point(30, 227)
         Me.btnConfirmInput.Name = "btnConfirmInput"
         Me.btnConfirmInput.Size = New System.Drawing.Size(146, 32)
         Me.btnConfirmInput.TabIndex = 6
@@ -472,7 +474,7 @@ Partial Class GUIMain
         '
         'tboxMonthlyCost
         '
-        Me.tboxMonthlyCost.Location = New System.Drawing.Point(125, 147)
+        Me.tboxMonthlyCost.Location = New System.Drawing.Point(125, 196)
         Me.tboxMonthlyCost.Name = "tboxMonthlyCost"
         Me.tboxMonthlyCost.Size = New System.Drawing.Size(100, 20)
         Me.tboxMonthlyCost.TabIndex = 5
@@ -480,7 +482,7 @@ Partial Class GUIMain
         'lblMonthlyCost
         '
         Me.lblMonthlyCost.AutoSize = True
-        Me.lblMonthlyCost.Location = New System.Drawing.Point(27, 150)
+        Me.lblMonthlyCost.Location = New System.Drawing.Point(27, 199)
         Me.lblMonthlyCost.Name = "lblMonthlyCost"
         Me.lblMonthlyCost.Size = New System.Drawing.Size(46, 13)
         Me.lblMonthlyCost.TabIndex = 4
@@ -489,7 +491,7 @@ Partial Class GUIMain
         'rdioFixedPrice
         '
         Me.rdioFixedPrice.AutoSize = True
-        Me.rdioFixedPrice.Location = New System.Drawing.Point(104, 70)
+        Me.rdioFixedPrice.Location = New System.Drawing.Point(30, 116)
         Me.rdioFixedPrice.Name = "rdioFixedPrice"
         Me.rdioFixedPrice.Size = New System.Drawing.Size(99, 17)
         Me.rdioFixedPrice.TabIndex = 3
@@ -1636,7 +1638,7 @@ Partial Class GUIMain
         'lblSKwh3
         '
         Me.lblSKwh3.AutoSize = True
-        Me.lblSKwh3.Location = New System.Drawing.Point(231, 119)
+        Me.lblSKwh3.Location = New System.Drawing.Point(231, 168)
         Me.lblSKwh3.Name = "lblSKwh3"
         Me.lblSKwh3.Size = New System.Drawing.Size(40, 13)
         Me.lblSKwh3.TabIndex = 21
@@ -1645,11 +1647,20 @@ Partial Class GUIMain
         'lblSKwh4
         '
         Me.lblSKwh4.AutoSize = True
-        Me.lblSKwh4.Location = New System.Drawing.Point(231, 150)
+        Me.lblSKwh4.Location = New System.Drawing.Point(231, 199)
         Me.lblSKwh4.Name = "lblSKwh4"
         Me.lblSKwh4.Size = New System.Drawing.Size(40, 13)
         Me.lblSKwh4.TabIndex = 22
         Me.lblSKwh4.Text = "s/kWh"
+        '
+        'lblTableState
+        '
+        Me.lblTableState.AutoSize = True
+        Me.lblTableState.Location = New System.Drawing.Point(27, 383)
+        Me.lblTableState.Name = "lblTableState"
+        Me.lblTableState.Size = New System.Drawing.Size(33, 13)
+        Me.lblTableState.TabIndex = 23
+        Me.lblTableState.Text = "nuffin"
         '
         'GUIMain
         '
@@ -1836,4 +1847,5 @@ Partial Class GUIMain
     Friend WithEvents Label1 As Label
     Friend WithEvents lblSKwh4 As Label
     Friend WithEvents lblSKwh3 As Label
+    Friend WithEvents lblTableState As Label
 End Class

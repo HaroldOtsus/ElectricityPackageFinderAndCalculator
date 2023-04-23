@@ -323,7 +323,8 @@ Public Class GUIMain
         'tblPriceTable.Controls.Add(dgv)
 
 
-
+        lblTableState.Visible = True
+        lblTableState.Text = "Börsihind"
 
     End Sub
     Public Function chart(records)
@@ -494,6 +495,7 @@ Public Class GUIMain
 
     Private Sub tabPackageHourlyRate_Enter(sender As Object, e As EventArgs) Handles tabPackageHourlyRate.Enter
         rdioExchange.Checked = True
+        lblTableState.Visible = False
     End Sub
 
 
@@ -617,6 +619,8 @@ Public Class GUIMain
 
         tblPriceTable.Controls.Add(dgv)
 
+        lblTableState.Visible = True
+        lblTableState.Text = "Börsihind kasvavalt järjestatud (odavaim -> kalleim)"
     End Sub
 
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
@@ -911,7 +915,10 @@ Public Class GUIMain
             tBoxMonthlyCost2.Width += 10
             cBoxPackage1.Width += 10
             cBoxPackage2.Width += 10
-
+            rdioFixedPrice.Width += 10
+            rdioBtnUniversalP.Width += 10
+            lblSKwh3.Width += 10
+            lblSKwh4.Width += 10
 
             lblSKwh1.Location = New Point(lblSKwh1.Location.X + 10, lblSKwh1.Location.Y)
             lblSKwh2.Location = New Point(lblSKwh2.Location.X + 10, lblSKwh2.Location.Y)
@@ -919,6 +926,14 @@ Public Class GUIMain
             lblMin.Location = New Point(lblMin.Location.X + 10, lblMin.Location.Y)
             lblKwh24h.Location = New Point(lblKwh24h.Location.X + 10, lblKwh24h.Location.Y)
             lblCents.Location = New Point(lblCents.Location.X + 10, lblCents.Location.Y)
+            'rdioFixedPrice.Location = New Point(rdioFixedPrice.Location.X + 10, rdioFixedPrice.Location.Y)
+            'rdioBtnUniversalP.Location = New Point(rdioBtnUniversalP.Location.X + 14, rdioBtnUniversalP.Location.Y)
+            lblSKwh3.Location = New Point(lblSKwh3.Location.X + 20, lblSKwh3.Location.Y)
+            lblSKwh4.Location = New Point(lblSKwh4.Location.X + 20, lblSKwh4.Location.Y)
+            lblPriceGraph.Location = New Point(lblPriceGraph.Location.X + 13, lblPriceGraph.Location.Y)
+            chrtPackageHourlyRate.Location = New Point(chrtPackageHourlyRate.Location.X + 10, chrtPackageHourlyRate.Location.Y)
+            tbMarginalOfStock.Location = New Point(tbMarginalOfStock.Location.X + 11, tbMarginalOfStock.Location.Y)
+            tboxMonthlyCost.Location = New Point(tboxMonthlyCost.Location.X + 11, tboxMonthlyCost.Location.Y)
         End If
 
 
@@ -957,41 +972,90 @@ Public Class GUIMain
             tBoxMonthlyCost2.Width -= 10
             cBoxPackage1.Width -= 10
             cBoxPackage2.Width -= 10
+            rdioFixedPrice.Width -= 10
+            rdioBtnUniversalP.Width -= 10
+            lblSKwh3.Width -= 10
+            lblSKwh4.Width -= 10
+
+            lblSKwh1.Location = New Point(lblSKwh1.Location.X - 10, lblSKwh1.Location.Y)
+            lblSKwh2.Location = New Point(lblSKwh2.Location.X - 10, lblSKwh2.Location.Y)
+            lblWatt.Location = New Point(lblWatt.Location.X - 10, lblWatt.Location.Y)
+            lblMin.Location = New Point(lblMin.Location.X - 10, lblMin.Location.Y)
+            lblKwh24h.Location = New Point(lblKwh24h.Location.X - 10, lblKwh24h.Location.Y)
+            lblCents.Location = New Point(lblCents.Location.X - 10, lblCents.Location.Y)
+            'rdioFixedPrice.Location = New Point(rdioFixedPrice.Location.X - 10, rdioFixedPrice.Location.Y)
+            'rdioBtnUniversalP.Location = New Point(rdioBtnUniversalP.Location.X - 10, rdioBtnUniversalP.Location.Y)
+            lblSKwh3.Location = New Point(lblSKwh3.Location.X - 20, lblSKwh3.Location.Y)
+            lblSKwh4.Location = New Point(lblSKwh4.Location.X - 20, lblSKwh4.Location.Y)
+            lblPriceGraph.Location = New Point(lblPriceGraph.Location.X - 13, lblPriceGraph.Location.Y)
+            chrtPackageHourlyRate.Location = New Point(chrtPackageHourlyRate.Location.X - 10, chrtPackageHourlyRate.Location.Y)
+            tbMarginalOfStock.Location = New Point(tbMarginalOfStock.Location.X - 11, tbMarginalOfStock.Location.Y)
+            tboxMonthlyCost.Location = New Point(tboxMonthlyCost.Location.X - 11, tboxMonthlyCost.Location.Y)
         End If
 
     End Sub
 
     Private Sub btnRestoreFontSize_Click(sender As Object, e As EventArgs) Handles btnRestoreFontSize.Click
-        fontSize = 8.25
-        'tboxFontSizeTest.Text = fontSize 'REMOVED THIS 
-        lblMenu.Font = New Font("Microsoft Sans Serif", fontSize)
-        Main.Font = New Font("Microsoft Sans Serif", fontSize)
-        tabPackageHourlyRate.Font = New Font("Microsoft Sans Serif", fontSize)
-        tabApplianceCalc.Font = New Font("Microsoft Sans Serif", fontSize)
-        tabExchangeComparison.Font = New Font("Microsoft Sans Serif", fontSize)
-        tabConsumptionHistory.Font = New Font("Microsoft Sans Serif", fontSize)
-        tabPackageComparison.Font = New Font("Microsoft Sans Serif", fontSize)
-        lblChangeFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
-        btnFontIncrease.Font = New Font("Microsoft Sans Serif", fontSize)
-        btnFontDecrease.Font = New Font("Microsoft Sans Serif", fontSize)
-        btnRestoreFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
+        If fontSize > 8.25 Then
 
-        tboxMonthlyCost.Width -= 60
-        tbMarginalOfStock.Width -= 60
-        tBoxPackageHourlyRate.Width -= 60
-        tBoxPackagePrice.Width -= 60
-        tBoxMarginal.Width -= 60
-        tBoxConsumptionPerHour.Width -= 60
-        tBoxUsageTime.Width -= 60
-        tBoxElectricityConsumptionRate.Width -= 60
-        tBoxApproxPrice.Width -= 60
-        tboxStartTime.Width -= 60
-        tBoxEndTime.Width -= 60
-        tBoxCondition1.Width -= 60
-        tBoxCondition2.Width -= 60
-        tBoxMonthlyCost2.Width -= 60
-        cBoxPackage1.Width -= 60
-        cBoxPackage2.Width -= 60
+            Dim fontSizeDiff As Double = fontSize
+            fontSizeDiff -= 8.25
+            fontSizeDiff = fontSizeDiff * 10 '=30
+            'max 6 increments
+            Dim coef As Double = (fontSizeDiff / 5)
+
+
+            fontSize = 8.25
+            'tboxFontSizeTest.Text = fontSize 'REMOVED THIS 
+            lblMenu.Font = New Font("Microsoft Sans Serif", fontSize)
+            Main.Font = New Font("Microsoft Sans Serif", fontSize)
+            tabPackageHourlyRate.Font = New Font("Microsoft Sans Serif", fontSize)
+            tabApplianceCalc.Font = New Font("Microsoft Sans Serif", fontSize)
+            tabExchangeComparison.Font = New Font("Microsoft Sans Serif", fontSize)
+            tabConsumptionHistory.Font = New Font("Microsoft Sans Serif", fontSize)
+            tabPackageComparison.Font = New Font("Microsoft Sans Serif", fontSize)
+            lblChangeFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
+            btnFontIncrease.Font = New Font("Microsoft Sans Serif", fontSize)
+            btnFontDecrease.Font = New Font("Microsoft Sans Serif", fontSize)
+            btnRestoreFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
+
+            tboxMonthlyCost.Width -= 10 * coef
+            tbMarginalOfStock.Width -= 10 * coef
+            tBoxPackageHourlyRate.Width -= 10 * coef
+            tBoxPackagePrice.Width -= 10 * coef
+            tBoxMarginal.Width -= 10 * coef
+            tBoxConsumptionPerHour.Width -= 10 * coef
+            tBoxUsageTime.Width -= 10 * coef
+            tBoxElectricityConsumptionRate.Width -= 10 * coef
+            tBoxApproxPrice.Width -= 10 * coef
+            tboxStartTime.Width -= 10 * coef
+            tBoxEndTime.Width -= 10 * coef
+            tBoxCondition1.Width -= 10 * coef
+            tBoxCondition2.Width -= 10 * coef
+            tBoxMonthlyCost2.Width -= 10 * coef
+            cBoxPackage1.Width -= 10 * coef
+            cBoxPackage2.Width -= 10 * coef
+            rdioFixedPrice.Width -= 10 * coef
+            rdioBtnUniversalP.Width -= 10 * coef
+            lblSKwh3.Width -= 10 * coef
+            lblSKwh4.Width -= 10 * coef
+
+            lblSKwh1.Location = New Point(lblSKwh1.Location.X - 10 * coef, lblSKwh1.Location.Y)
+            lblSKwh2.Location = New Point(lblSKwh2.Location.X - 10 * coef, lblSKwh2.Location.Y)
+            lblWatt.Location = New Point(lblWatt.Location.X - 10 * coef, lblWatt.Location.Y)
+            lblMin.Location = New Point(lblMin.Location.X - 10 * coef, lblMin.Location.Y)
+            lblKwh24h.Location = New Point(lblKwh24h.Location.X - 10 * coef, lblKwh24h.Location.Y)
+            lblCents.Location = New Point(lblCents.Location.X - 10 * coef, lblCents.Location.Y)
+            'rdioFixedPrice.Location = New Point(rdioFixedPrice.Location.X - 10 * coef, rdioFixedPrice.Location.Y)
+            'rdioBtnUniversalP.Location = New Point(rdioBtnUniversalP.Location.X - 10 * coef, rdioBtnUniversalP.Location.Y)
+            lblSKwh3.Location = New Point(lblSKwh3.Location.X - 20 * coef, lblSKwh3.Location.Y)
+            lblSKwh4.Location = New Point(lblSKwh4.Location.X - 20 * coef, lblSKwh4.Location.Y)
+            lblPriceGraph.Location = New Point(lblPriceGraph.Location.X - 13 * coef, lblPriceGraph.Location.Y)
+            chrtPackageHourlyRate.Location = New Point(chrtPackageHourlyRate.Location.X - 10 * coef, chrtPackageHourlyRate.Location.Y)
+            tbMarginalOfStock.Location = New Point(tbMarginalOfStock.Location.X - 11 * coef, tbMarginalOfStock.Location.Y)
+            tboxMonthlyCost.Location = New Point(tboxMonthlyCost.Location.X - 11 * coef, tboxMonthlyCost.Location.Y)
+
+        End If
     End Sub
 
     Private Sub rdioUniversalPackage_CheckedChanged(sender As Object, e As EventArgs) Handles rdioUniversalPackage.CheckedChanged
@@ -1201,6 +1265,9 @@ Public Class GUIMain
 
 
         tblPriceTable.Controls.Add(dgv)
+
+        lblTableState.Visible = True
+        lblTableState.Text = "Börsihind kahanevalt järjestatud (kalleim -> odavaim)"
     End Sub
 
     Private Sub rdiobtnStockPlussMarginal_CheckedChanged(sender As Object, e As EventArgs) Handles rdiobtnStockPlussMarginal.CheckedChanged
@@ -1269,5 +1336,9 @@ Public Class GUIMain
         Else
             rdiobtnStockPlussMarginal.Enabled = False
         End If
+    End Sub
+
+    Private Sub tabPackageHourlyRate_Click(sender As Object, e As EventArgs) Handles tabPackageHourlyRate.Click
+
     End Sub
 End Class
