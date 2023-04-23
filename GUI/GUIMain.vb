@@ -448,10 +448,22 @@ Public Class GUIMain
         tboxMonthlyCost.Enabled = False
         tboxMonthlyCost.Clear()
 
-        Dim returnString As PrjDatabaseComponent.IDatabaseAPI
-        returnString = New PrjDatabaseComponent.CDatabase
+        ' Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+        'returnString = New PrjDatabaseComponent.CDatabase
+        Dim returnString As PrjAPIComponent.APIInterface
+        returnString = New PrjAPIComponent.APIComponent
         Dim sPrices As String()
-        sPrices = returnString.stockPrice().prices
+        Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+
+        ' Dim strStartTime As String = startTime.ToString("yyyy-MM-dd HH:mm:ss")
+        ' Dim strEndTime As String = endTime.ToString("yyyy-MM-dd HH:mm:ss")
+        Dim futureDate As DateTime = DateTime.Now.AddHours(24)
+        Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
+
+
+        sPrices = returnString.GetDataFromEleringAPIWithDates(currentDate, futureDateString).Item1
+        ' GetDataFromEleringAPIWithDates(ByVal strStartDate As String, ByVal strEndDate As String) As (String(), String())
+        ' sPrices = returnString.stockPrice().prices
 
 
         'Dim sPricesOut As String = sPrices(1)

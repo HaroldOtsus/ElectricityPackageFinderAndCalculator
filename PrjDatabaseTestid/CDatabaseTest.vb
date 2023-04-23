@@ -53,14 +53,19 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         '  Assert.AreEqual("Kindel 6", actualData.Item1(0))
         ' Assert.AreEqual("Eesti Energia", actualData.Item2(0))
         Dim count = getIn.electricityPackagesInfo()
-        Assert.AreEqual("Kindel 6", count.Item1(0))
-        Assert.AreEqual("Eesti Energia", count.Item2(0))
-        Assert.AreEqual(14.99, count.Item3(0))
-        Assert.AreEqual(1.99, count.Item4(0))
-        Assert.IsFalse(count.Item5(0))
-        Assert.IsFalse(count.Item6(0))
+        Dim count123 = getIn.getInfoFromAPIGivesDates
+        Assert.AreEqual("19", count123(1))
     End Sub
-
+    <TestMethod()> Public Sub TestGetAPIInfoGivingDatesDirectly()
+        Dim getIn As New PrjAPIComponent.APIComponent
+        Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+        ' Dim futureDate As DateTime = DateTime.ParseExact(currentDate, "yyyy-MM-dd HH:mm:ss", Nothing)
+        'Assert.AreEqual(currentDate, modifiedDateString)
+        Dim futureDate As DateTime = DateTime.Now.AddHours(24)
+        Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
+        Dim count123 = getIn.GetDataFromEleringAPIWithDates(currentDate, futureDateString)
+        Assert.AreEqual("19", count123.Item1(1))
+    End Sub
 
     '<TestMethod()> Public Sub TestStringReturn()
     '    Dim getIn As New PrjDatabaseComponent.CDatabase

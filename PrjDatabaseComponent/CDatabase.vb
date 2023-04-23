@@ -297,6 +297,22 @@ Public Class CDatabase
         End Try
     End Function
 
+
+    Function getInfoFromAPIGivesDates() As String()
+        Dim returnString As PrjAPIComponent.APIInterface
+        returnString = New PrjAPIComponent.APIComponent
+        Dim sPrices(24) As String
+        Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+
+        ' Dim strStartTime As String = startTime.ToString("yyyy-MM-dd HH:mm:ss")
+        ' Dim strEndTime As String = endTime.ToString("yyyy-MM-dd HH:mm:ss")
+        Dim futureDate As DateTime = DateTime.Now.AddHours(24)
+        Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
+
+
+        sPrices = returnString.GetDataFromEleringAPIWithDates(currentDate, futureDateString).Item1
+    End Function
+
     Function stockPrice() As (prices As String(), dates As String()) Implements IDatabaseAPI.stockPrice
         Dim currentHour As Integer = DateTime.Now.Hour
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"

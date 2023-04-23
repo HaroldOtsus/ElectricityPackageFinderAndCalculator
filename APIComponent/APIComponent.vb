@@ -11,6 +11,13 @@ Public Class APIComponent
         Dim strStartTime As String = startTime.ToString("yyyy-MM-dd HH:mm:ss")
         Dim strEndTime As String = endTime.ToString("yyyy-MM-dd HH:mm:ss")
 
+        Dim futureDate As DateTime = DateTime.ParseExact(strStartTime, "yyyy-MM-dd HH:mm:ss", Nothing)
+        Dim modifiedDate As DateTime = futureDate.AddHours(-4)
+        strStartTime = modifiedDate.ToString("yyyy-MM-dd HH:mm:ss")
+        Dim futureDate2 As DateTime = DateTime.ParseExact(strEndTime, "yyyy-MM-dd HH:mm:ss", Nothing)
+        Dim modifiedDate2 As DateTime = futureDate2.AddHours(-4)
+        strEndTime = modifiedDate2.ToString("yyyy-MM-dd HH:mm:ss")
+
 #Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance 
 
         'HttpWebRequest object sends a request to url specified
@@ -96,7 +103,12 @@ Public Class APIComponent
         Implements APIInterface.GetDataFromEleringAPIWithDates
 
 #Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
-
+        Dim futureDate As DateTime = DateTime.ParseExact(strStartDate, "yyyy-MM-dd HH:mm:ss", Nothing)
+        Dim modifiedDate As DateTime = futureDate.AddHours(-4)
+        strStartDate = modifiedDate.ToString("yyyy-MM-dd HH:mm:ss")
+        Dim futureDate2 As DateTime = DateTime.ParseExact(strEndDate, "yyyy-MM-dd HH:mm:ss", Nothing)
+        Dim modifiedDate2 As DateTime = futureDate2.AddHours(-4)
+        strEndDate = modifiedDate2.ToString("yyyy-MM-dd HH:mm:ss")
         'HttpWebRequest object sends a request to url specified
         Dim webRequest As HttpWebRequest = CType(webRequest.Create("https://dashboard.elering.ee/api/nps/price?start=" + strStartDate _
         + "&end=" + strEndDate), HttpWebRequest)
