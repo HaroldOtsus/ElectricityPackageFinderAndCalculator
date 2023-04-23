@@ -204,7 +204,7 @@ Public Class GUIMain
         Dim dDates As Double() = New Double(24) {}
 
         Dim dPrices As Double()
-        Dim priceDateStruct As New PriceDateStruct()
+        'Dim priceDateStruct As New PriceDateStruct() if the code works then this can be deleted
 
 
         returnString = New PrjDatabaseComponent.CDatabase
@@ -517,7 +517,7 @@ Public Class GUIMain
 
 
 
-    Private Sub btnChartAsc_Click(sender As Object, e As EventArgs) Handles btnChartAsc.Click
+    Private Sub btnChartAsc_Click(sender As Object, e As EventArgs) Handles btnTableAsc.Click
         tblPriceTable.Controls.Clear()
         Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
 
@@ -1113,5 +1113,93 @@ Public Class GUIMain
                 Next
             End If
         Next
+    End Sub
+
+    Private Sub btnTableDesc_Click(sender As Object, e As EventArgs) Handles btnTableDesc.Click
+        tblPriceTable.Controls.Clear()
+
+        Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+        Dim sPrices As String()
+        Dim sDates As String()
+        Dim dDates As Double() = New Double(24) {}
+
+        Dim dPrices As Double()
+        Dim priceDateStruct As New PriceDateStruct()
+
+
+        returnString = New PrjDatabaseComponent.CDatabase
+
+        sPrices = returnString.stockPrice().prices
+        sDates = returnString.stockPrice().dates
+
+        For i As Integer = 1 To 24
+            sPrices(i) = sPrices(i).Replace(".", ",")
+        Next
+        dPrices = New Double(sPrices.Length) {}
+
+
+        For i As Integer = 1 To sPrices.Length - 1
+            dPrices(i) = Double.Parse(sPrices(i))
+
+        Next
+
+        'UNIX NEEDS TO BE CONVERTED TO CONVENTIONAL TIMESTAMP DO BE USABLE
+        'dDates = New Double(sDates.Length - 1) {}
+        For i As Integer = 1 To 24 'sDates.Length - 1
+            ' dDates(i) = Double.Parse(sDates(i))
+
+            'in textbox get one time as string
+            Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(sDates(i)) 'new datetimeoffset from sDate string
+            Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
+            dDates(i) = CDbl(dateValue.Hour) 'convert to integer
+            'TextBox1.Text = dDates(i) 'put hour to textbox for testing
+
+        Next
+
+        'Dim priceAndDate As PriceDateStruct
+        Dim records As List(Of PriceDateStruct)
+        records = New List(Of PriceDateStruct)
+
+        Dim p As PriceDateStruct
+
+        For i As Integer = 1 To 24 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
+
+            p.price = dPrices(i)
+            p.sDate = dDates(i)
+            records.Add(p)
+            'records(i) = p
+        Next
+
+        'Array.Sort(dPrices) 'dPricesToBeSorted is now sorted ascending:-)
+        records.Sort(Function(x, y) y.price.CompareTo(x.price))
+
+        Dim dgv As New DataGridView()
+
+        For i As Integer = 0 To 23
+            'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
+            dgv.Columns.Add(0, records(i).sDate & ":00")
+        Next
+
+
+        If rdioFixedPrice.Checked Then
+            For i As Integer = 0 To 23
+                dgv.Rows(0).Cells(i).Value = tboxMonthlyCost.Text & "€" ' or any other number you want to insert
+            Next
+        Else
+            For i As Integer = 0 To 23
+                dgv.Rows(0).Cells(i).Value = records(i).price & "€" ' or any other number you want to insert
+            Next
+        End If
+
+
+        tblPriceTable.Controls.Add(dgv)
+    End Sub
+
+    Private Sub rdiobtnStockPlussMarginal_CheckedChanged(sender As Object, e As EventArgs) Handles rdiobtnStockPlussMarginal.CheckedChanged
+
+    End Sub
+
+    Private Sub rdioBtnUniversalP_CheckedChanged(sender As Object, e As EventArgs) Handles rdioBtnUniversalP.CheckedChanged
+
     End Sub
 End Class
