@@ -47,6 +47,20 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim count As Double = getIn.universalServicePrice
         Assert.AreEqual(5, count)
     End Sub
+    <TestMethod()> Public Sub TestinsertUserPref()
+        Dim getIn As New PrjDatabaseComponent.CDatabase
+        Dim count As Double = getIn.updateUserPrefernces("laura", "Punane")
+
+    End Sub
+
+    <TestMethod()> Public Sub userPref()
+        Dim getIn As New PrjDatabaseComponent.CDatabase
+        Dim isRes As String = ""
+        Dim color As String = ""
+        Dim count = getIn.userPrefernces("laura", isRes, color)
+        Assert.AreEqual(isRes, "8.250")
+        Assert.AreEqual(color, "Roosa")
+    End Sub
 
     <TestMethod()> Public Sub TestGetAPIInfoGivingDatesDirectly()
         Dim getIn As New PrjAPIComponent.APIComponent

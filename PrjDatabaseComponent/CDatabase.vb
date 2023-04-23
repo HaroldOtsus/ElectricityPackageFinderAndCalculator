@@ -5,6 +5,45 @@ Public Class CDatabase
     Implements IDatabaseAPI
     Implements ISignup
     Implements ILogin
+
+    Function userPrefernces(ByVal username, ByRef size, ByRef color) Implements ILogin.userPrefernces
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+
+        Try
+            conn.Open()
+            Dim command As New MySqlCommand("select isResolutionBig, color from user where username = @username", conn)
+            command.Parameters.AddWithValue("@username", username)
+            Dim reader As MySqlDataReader = command.ExecuteReader()
+            While reader.Read()
+                size = reader.GetString(0)
+                color = reader.GetString(1)
+            End While
+
+        Catch ex As Exception
+            'Return False
+        End Try
+
+
+    End Function
+
+    Function updateUserPrefernces(ByVal username, ByVal update) Implements ILogin.updateUserPrefernces
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+
+        Try
+            conn.Open()
+            Dim command As New MySqlCommand("UPDATE user SET color = @update  WHERE username = @username;", conn)
+            command.Parameters.AddWithValue("@username", username)
+            command.Parameters.AddWithValue("@update", update)
+            command.ExecuteNonQuery()
+
+        Catch ex As Exception
+            'Return False
+        End Try
+        conn.Close()
+
+    End Function
     Function hashPassword(ByVal password As String) As String
         Dim sha256 As SHA256 = SHA256.Create() 'use create method that returns best available implementation of SHA256
         'convert password to bytes

@@ -33,7 +33,7 @@ Partial Class LoginWindow
         'btnLogin
         '
         Me.btnLogin.Location = New System.Drawing.Point(467, 225)
-        Me.btnLogin.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnLogin.Margin = New System.Windows.Forms.Padding(4)
         Me.btnLogin.Name = "btnLogin"
         Me.btnLogin.Size = New System.Drawing.Size(100, 28)
         Me.btnLogin.TabIndex = 0
@@ -63,7 +63,7 @@ Partial Class LoginWindow
         'tBoxUsername
         '
         Me.tBoxUsername.Location = New System.Drawing.Point(452, 138)
-        Me.tBoxUsername.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tBoxUsername.Margin = New System.Windows.Forms.Padding(4)
         Me.tBoxUsername.Name = "tBoxUsername"
         Me.tBoxUsername.Size = New System.Drawing.Size(132, 22)
         Me.tBoxUsername.TabIndex = 3
@@ -71,7 +71,7 @@ Partial Class LoginWindow
         'tBoxPassword
         '
         Me.tBoxPassword.Location = New System.Drawing.Point(452, 175)
-        Me.tBoxPassword.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tBoxPassword.Margin = New System.Windows.Forms.Padding(4)
         Me.tBoxPassword.Name = "tBoxPassword"
         Me.tBoxPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.tBoxPassword.Size = New System.Drawing.Size(132, 22)
@@ -80,7 +80,7 @@ Partial Class LoginWindow
         'btnSignUp
         '
         Me.btnSignUp.Location = New System.Drawing.Point(467, 277)
-        Me.btnSignUp.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnSignUp.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSignUp.Name = "btnSignUp"
         Me.btnSignUp.Size = New System.Drawing.Size(100, 28)
         Me.btnSignUp.TabIndex = 5
@@ -98,7 +98,7 @@ Partial Class LoginWindow
         Me.Controls.Add(Me.lblPassword)
         Me.Controls.Add(Me.lblUsername)
         Me.Controls.Add(Me.btnLogin)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "LoginWindow"
         Me.Text = "LoginWindow"
         Me.ResumeLayout(False)

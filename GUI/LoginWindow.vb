@@ -9,7 +9,9 @@
         If sumtin = True Then
 
 
+            Dim username As String = tBoxUsername.Text
             GUIMain.Show()
+            GUIMain.userPrefernces(username)
             Me.Visible = False
             GUIMain.chartFrontPage()
         End If
@@ -19,4 +21,6 @@
     Private Sub btnSignUp_Click(sender As Object, e As EventArgs) Handles btnSignUp.Click
         SignUp.Show()
     End Sub
+
+
 End Class

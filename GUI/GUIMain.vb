@@ -22,6 +22,7 @@ Public Class GUIMain
     Dim fontSize As Double = 8.25
 
     Public answer As String
+    Public usernameOfUser As String
     Private Sub btnPackageHourlyRate_Click(sender As Object, e As EventArgs) Handles btnPackageHourlyRate.Click
         TabControl1.SelectedTab = tabPackageHourlyRate
     End Sub
@@ -396,6 +397,15 @@ Public Class GUIMain
 
     End Function
 
+    Public Function userPrefernces(username As String) 'get user prefences from database
+        Dim userInfo As PrjDatabaseComponent.ILogin
+        userInfo = New PrjDatabaseComponent.CDatabase
+        Dim colorOfInterface As String = ""
+        Dim sizeofText As Double
+        userInfo.userPrefernces(username, sizeofText, colorOfInterface) 'get color and sizeOfText from database
+        usernameOfUser = username
+        cbColor.Text = colorOfInterface ' right now only set color
+    End Function
     Public Function chartFrontPage()
 
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
@@ -492,6 +502,38 @@ Public Class GUIMain
         'Next
         'Dim hour23 As Integer = dblValues.Length
         'chrtFrontPage.Series(seriesName).Points.AddXY(hour23 - 1, sPrices1(hour23 - 1)) ' so 23 value would last entire hour
+        Dim selectedItem As String = cbColor.SelectedItem
+
+
+        Select Case selectedItem 'change color based on the item the user choosed
+            Case "Punane"
+                chrtFrontPage.Series(0).Color = Color.Red
+
+            Case "Sinine"
+
+                chrtFrontPage.Series(0).Color = Color.Blue
+
+            Case "Roheline"
+
+                chrtFrontPage.Series(0).Color = Color.Green
+
+            Case "Roosa"
+                Dim myColorDarkPink As Color = Color.FromArgb(252, 10, 167) 'creating dark pink color bc it does not exist
+                chrtFrontPage.Series(0).Color = myColorDarkPink 'change chart line color
+
+            Case "Tumehall"
+
+                chrtFrontPage.Series(0).Color = Color.Black
+
+            Case "Valge"
+
+                chrtFrontPage.Series(0).Color = Color.Black
+
+            Case Else
+
+                chrtFrontPage.Series(0).Color = Color.Red
+
+        End Select
     End Function
     Private Sub rdioExchange_CheckedChanged(sender As Object, e As EventArgs) Handles rdioExchange.CheckedChanged
         tboxMonthlyCost.Enabled = False
@@ -929,57 +971,59 @@ Public Class GUIMain
     Private Sub cbColor_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbColor.SelectedIndexChanged
 
         Dim selectedItem As String = cbColor.SelectedItem
-
-
-        Select Case selectedItem 'change color based on the item the user choosed
-            Case "Punane"
-                Main.BackColor = Color.White
-                Me.BackColor = Color.Crimson
-                chrtFrontPage.Series(0).Color = Color.Red
-                Dim myColorLightRed As Color = Color.FromArgb(247, 176, 156)
-                myColor = myColorLightRed
-            Case "Sinine"
-                Main.BackColor = Color.White
-                Me.BackColor = Color.LightSkyBlue
-                chrtFrontPage.Series(0).Color = Color.Blue
-                Dim myColorLightBlue As Color = Color.FromArgb(190, 234, 252)
-                myColor = myColorLightBlue
-            Case "Roheline"
-                Main.BackColor = Color.White
-                Dim myColorDarkGreen As Color = Color.FromArgb(169, 213, 130)
-                chrtFrontPage.Series(0).Color = Color.Green
-                Me.BackColor = myColorDarkGreen
-                Dim myColorLightGreen As Color = Color.FromArgb(219, 246, 195)
-                myColor = myColorLightGreen
-            Case "Roosa"
-                Main.BackColor = Color.White
-                Me.BackColor = Color.Pink
-                Dim myColorDarkPink As Color = Color.FromArgb(252, 10, 167) 'creating dark pink color bc it does not exist
-                chrtFrontPage.Series(0).Color = myColorDarkPink 'change chart line color
-                Dim myColorLightPink As Color = Color.FromArgb(254, 210, 238)
-                myColor = myColorLightPink
-            Case "Tumehall"
-                Main.BackColor = Color.White
-                Me.BackColor = Color.LightSlateGray
-                chrtFrontPage.Series(0).Color = Color.Black
-                myColor = Color.White
-            Case "Valge"
-                Main.BackColor = Color.White
-                Me.BackColor = Color.White
-                chrtFrontPage.Series(0).Color = Color.Black
-                myColor = Color.White
-            Case Else
-                Me.BackColor = SystemColors.Control ' everything else is light grey
-                chrtFrontPage.Series(0).Color = Color.Red
-                myColor = Color.White
-                Main.BackColor = SystemColors.Control
-        End Select
-        btnPackageHourlyRate.BackColor = myColor
-        btnApplianceCalc.BackColor = myColor
-        btnExchangePriceComparison.BackColor = myColor
-        btnConsumptionHistory.BackColor = myColor
-        btnPackageComparison.BackColor = myColor
-
+        If selectedItem.Length > 0 Then ' if someone who hasnt chosen a color logs in do not change color
+            Dim returnString As PrjDatabaseComponent.ILogin
+            returnString = New PrjDatabaseComponent.CDatabase
+            returnString.updateUserPrefernces(usernameOfUser, selectedItem)
+            Select Case selectedItem 'change color based on the item the user choosed
+                Case "Punane"
+                    Main.BackColor = Color.White
+                    Me.BackColor = Color.Crimson
+                    'chrtFrontPage.Series(0).Color = Color.Red
+                    Dim myColorLightRed As Color = Color.FromArgb(247, 176, 156)
+                    myColor = myColorLightRed
+                Case "Sinine"
+                    Main.BackColor = Color.White
+                    Me.BackColor = Color.LightSkyBlue
+                    'chrtFrontPage.Series(0).Color = Color.Blue
+                    Dim myColorLightBlue As Color = Color.FromArgb(190, 234, 252)
+                    myColor = myColorLightBlue
+                Case "Roheline"
+                    Main.BackColor = Color.White
+                    Dim myColorDarkGreen As Color = Color.FromArgb(169, 213, 130)
+                    'chrtFrontPage.Series(0).Color = Color.Green
+                    Me.BackColor = myColorDarkGreen
+                    Dim myColorLightGreen As Color = Color.FromArgb(219, 246, 195)
+                    myColor = myColorLightGreen
+                Case "Roosa"
+                    Main.BackColor = Color.White
+                    Me.BackColor = Color.Pink
+                    Dim myColorDarkPink As Color = Color.FromArgb(252, 10, 167) 'creating dark pink color bc it does not exist
+                    'chrtFrontPage.Series(0).Color = myColorDarkPink 'change chart line color
+                    Dim myColorLightPink As Color = Color.FromArgb(254, 210, 238)
+                    myColor = myColorLightPink
+                Case "Tumehall"
+                    Main.BackColor = Color.White
+                    Me.BackColor = Color.LightSlateGray
+                    'chrtFrontPage.Series(0).Color = Color.Black
+                    myColor = Color.White
+                Case "Valge"
+                    Main.BackColor = Color.White
+                    Me.BackColor = Color.White
+                    'chrtFrontPage.Series(0).Color = Color.Black
+                    myColor = Color.White
+                Case Else
+                    Me.BackColor = SystemColors.Control ' everything else is light grey
+                    'chrtFrontPage.Series(0).Color = Color.Red
+                    myColor = Color.White
+                    Main.BackColor = SystemColors.Control
+            End Select
+            btnPackageHourlyRate.BackColor = myColor
+            btnApplianceCalc.BackColor = myColor
+            btnExchangePriceComparison.BackColor = myColor
+            btnConsumptionHistory.BackColor = myColor
+            btnPackageComparison.BackColor = myColor
+        End If
     End Sub
 
 
