@@ -1159,6 +1159,7 @@ Public Class GUIMain
 
     Private Sub GUIMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         radioStockPlusMore.Enabled = False
+        System.Threading.Thread.CurrentThread.CurrentUICulture = New System.Globalization.CultureInfo("en-EN")
     End Sub
 
     Private Sub Label7_Click(sender As Object, e As EventArgs) Handles lblKwh24h.Click
@@ -1219,15 +1220,15 @@ Public Class GUIMain
                     Dim convertedTime As DateTimeOffset = TimeZoneInfo.ConvertTime(dateTimeOffset, timeZone)
 
                     Dim hour As Integer = convertedTime.Hour
-                    Dim price As Integer
+                    Dim price As Double
                     Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
                     Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-                    'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
-                    '    data.prices(i) = data.prices(i).Replace(".-", ",")
-                    '    packages.Item3(j) = packages.Item3(j).Replace(".-", ",")
-                    'End If
-
-                    price = data.prices(i) + packages.Item3(j)
+                    If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
+                        data.prices(i) = data.prices(i).Replace(".", ",")
+                        'packages.Item3(j) = packages.Item3(j).Replace(".-", ",")
+                    End If
+                    Dim pricesD As Double = Double.Parse(data.prices(i))
+                    price = pricesD + packages.Item3(j)
 
                     series.Points.AddXY(hour, price)
 
