@@ -445,6 +445,7 @@ Public Class GUIMain
     End Function
     Private Sub rdioExchange_CheckedChanged(sender As Object, e As EventArgs) Handles rdioExchange.CheckedChanged
         tboxMonthlyCost.Enabled = False
+        tboxMonthlyCost.Clear()
 
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
         returnString = New PrjDatabaseComponent.CDatabase
@@ -456,14 +457,16 @@ Public Class GUIMain
         'Double.TryParse(sPrices(1), sPricesOut)
         sPrices(24) = sPrices(24).Replace(".", ",")
         Dim calculateKWH As Double = Double.Parse(sPrices(24))
-        calculateKWH = (calculateKWH / 10) / 100
+        'calculateKWH = (calculateKWH / 10) / 100
+        calculateKWH = (calculateKWH / 1000) * 100
 
-        tBoxPackageHourlyRate.Text = calculateKWH
+        tBoxPackageHourlyRate.Text = calculateKWH & " [s/kWh]"
     End Sub
 
     Private Sub rdioFixedPrice_CheckedChanged(sender As Object, e As EventArgs) Handles rdioFixedPrice.CheckedChanged
         tboxMonthlyCost.Enabled = True
         tBoxPackageHourlyRate.Clear()
+        tboxMonthlyCost.Clear()
     End Sub
 
     Private Sub rdioFixedPrice1_CheckedChanged(sender As Object, e As EventArgs) Handles rdioFixedPrice1.CheckedChanged
@@ -481,7 +484,8 @@ Public Class GUIMain
 
         sPrices(24) = sPrices(24).Replace(".", ",")
         Dim calculateKWH As Double = Double.Parse(sPrices(24))
-        calculateKWH = (calculateKWH / 10) / 100
+        'calculateKWH = (calculateKWH / 10) / 100
+        calculateKWH = (calculateKWH / 1000) * 100
 
         tBoxPackagePrice.Text = calculateKWH
     End Sub
@@ -892,6 +896,7 @@ Public Class GUIMain
             btnRestoreFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
 
             tboxMonthlyCost.Width += 10
+            tbMarginalOfStock.Width += 10
             tBoxPackageHourlyRate.Width += 10
             tBoxPackagePrice.Width += 10
             tBoxMarginal.Width += 10
@@ -937,6 +942,7 @@ Public Class GUIMain
             btnRestoreFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
 
             tboxMonthlyCost.Width -= 10
+            tbMarginalOfStock.Width -= 10
             tBoxPackageHourlyRate.Width -= 10
             tBoxPackagePrice.Width -= 10
             tBoxMarginal.Width -= 10
@@ -971,6 +977,7 @@ Public Class GUIMain
         btnRestoreFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
 
         tboxMonthlyCost.Width -= 60
+        tbMarginalOfStock.Width -= 60
         tBoxPackageHourlyRate.Width -= 60
         tBoxPackagePrice.Width -= 60
         tBoxMarginal.Width -= 60
@@ -995,9 +1002,7 @@ Public Class GUIMain
         tBoxPackagePrice.Enabled = False
     End Sub
 
-    Private Sub tBoxPackagePrice_TextChanged(sender As Object, e As EventArgs) Handles tBoxPackagePrice.TextChanged
 
-    End Sub
 
     Private Sub rdioStockPlusMore_CheckedChanged(sender As Object, e As EventArgs) Handles radioStockPlusMore.CheckedChanged
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
@@ -1007,9 +1012,11 @@ Public Class GUIMain
 
         sPrices(24) = sPrices(24).Replace(".", ",")
         Dim calculateKWH As Double = Double.Parse(sPrices(24))
-        calculateKWH = (calculateKWH / 10) / 100
+        'calculateKWH = (calculateKWH / 10) / 100 'Old one by laura
+        calculateKWH = (calculateKWH / 1000) * 100 'takes the MWh/€ value from the database
+        'divides by a 1000 to get kWh and multiplies by a 100 to get cents
         If checkIfTextBoxContainsLetters(tBoxMarginal) = True Then
-            Dim sum As Integer = calculateKWH + Double.Parse(tBoxMarginal.Text)
+            Dim sum As Double = calculateKWH + Double.Parse(tBoxMarginal.Text)
 
             ' Convert sum to a string and display the result
             ' Dim result As String = sum.ToString()
@@ -1028,9 +1035,10 @@ Public Class GUIMain
 
                 sPrices(24) = sPrices(24).Replace(".", ",")
                 Dim calculateKWH As Double = Double.Parse(sPrices(24))
-                calculateKWH = (calculateKWH / 10) / 100
+                'calculateKWH = (calculateKWH / 10) / 100
+                calculateKWH = (calculateKWH / 1000) * 100
                 If checkIfTextBoxContainsLetters(tBoxMarginal) = True Then
-                    Dim sum As Integer = calculateKWH + Double.Parse(tBoxMarginal.Text)
+                    Dim sum As Double = calculateKWH + Double.Parse(tBoxMarginal.Text)
 
                     ' Convert sum to a string and display the result
                     ' Dim result As String = sum.ToString()
@@ -1196,10 +1204,70 @@ Public Class GUIMain
     End Sub
 
     Private Sub rdiobtnStockPlussMarginal_CheckedChanged(sender As Object, e As EventArgs) Handles rdiobtnStockPlussMarginal.CheckedChanged
+        tboxMonthlyCost.Clear()
+        Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+        returnString = New PrjDatabaseComponent.CDatabase
+        Dim sPrices As String()
+        sPrices = returnString.stockPrice().prices
 
+        sPrices(24) = sPrices(24).Replace(".", ",")
+        Dim calculateKWH As Double = Double.Parse(sPrices(24))
+        'calculateKWH = (calculateKWH / 10) / 100 'Old one by laura
+        calculateKWH = (calculateKWH / 1000) * 100 'takes the MWh/€ value from the database
+        'divides by a 1000 to get kWh and multiplies by a 100 to get cents
+        If checkIfTextBoxContainsLetters(tbMarginalOfStock) = True Then
+
+            If tbMarginalOfStock.Text = "" Then
+                Dim sum1 As Double = calculateKWH + 0
+                tBoxPackageHourlyRate.Text = sum1 & " [s/kWh]"
+            Else
+                Dim sum2 As Double = calculateKWH + Double.Parse(tbMarginalOfStock.Text)
+                tBoxPackageHourlyRate.Text = sum2 & " [s/kWh]"
+            End If
+
+
+            ' Convert sum to a string and display the result
+            ' Dim result As String = sum.ToString()
+
+
+
+        End If
     End Sub
 
     Private Sub rdioBtnUniversalP_CheckedChanged(sender As Object, e As EventArgs) Handles rdioBtnUniversalP.CheckedChanged
+        tboxMonthlyCost.Clear()
+        Dim returnString As PrjDatabaseComponent.IDatabase
+        returnString = New PrjDatabaseComponent.CDatabase
+        Dim universalPrice As Double = returnString.universalServicePrice
+        tboxMonthlyCost.Text = universalPrice & " [s/kWh]"
+        tboxMonthlyCost.Enabled = False
+    End Sub
 
+    Private Sub tbMarginalOfStock_TextChanged(sender As Object, e As EventArgs) Handles tbMarginalOfStock.TextChanged
+        If tbMarginalOfStock.TextLength > 0 Then
+            rdiobtnStockPlussMarginal.Enabled = True
+            If rdiobtnStockPlussMarginal.Checked = True Then
+                Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+                returnString = New PrjDatabaseComponent.CDatabase
+                Dim sPrices As String()
+                sPrices = returnString.stockPrice().prices
+
+                sPrices(24) = sPrices(24).Replace(".", ",")
+                Dim calculateKWH As Double = Double.Parse(sPrices(24))
+                'calculateKWH = (calculateKWH / 10) / 100
+                calculateKWH = (calculateKWH / 1000) * 100
+                If checkIfTextBoxContainsLetters(tBoxMarginal) = True Then
+                    Dim sum As Double = calculateKWH + Double.Parse(tbMarginalOfStock.Text)
+
+                    ' Convert sum to a string and display the result
+                    ' Dim result As String = sum.ToString()
+
+                    tBoxPackageHourlyRate.Text = sum & " [s/kWh]"
+                End If
+            End If
+
+        Else
+            rdiobtnStockPlussMarginal.Enabled = False
+        End If
     End Sub
 End Class
