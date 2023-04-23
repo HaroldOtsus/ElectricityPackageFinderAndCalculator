@@ -214,9 +214,10 @@ Public Class GUIMain
 
         sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
         sDates = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item2
+
         Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
         Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-        If language Is "et" Then 'do not do this if language is english
+        If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
             For i As Integer = 1 To 24
                 sPrices(i) = sPrices(i).Replace(".", ",")
             Next
@@ -478,7 +479,7 @@ Public Class GUIMain
         'Double.TryParse(sPrices(1), sPricesOut)
         Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
         Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-        If language Is "et" Then 'do not do this if language is english
+        If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
             sPrices(1) = sPrices(1).Replace(".", ",")
         End If
         Dim calculateKWH As Double = Double.Parse(sPrices(1))
@@ -575,7 +576,7 @@ Public Class GUIMain
         sDates = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item2
         Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
         Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-        If language Is "et" Then 'do not do this if language is english
+        If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
 
             For i As Integer = 1 To 24
                 sPrices(i) = sPrices(i).Replace(".", ",")
@@ -1133,7 +1134,12 @@ Public Class GUIMain
                 Dim sPrices As String()
                 sPrices = returnString.stockPrice().prices
 
-                sPrices(24) = sPrices(24).Replace(".", ",")
+                Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+                Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+                If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
+                    sPrices(24) = sPrices(24).Replace(".", ",")
+                End If
+
                 Dim calculateKWH As Double = Double.Parse(sPrices(24))
                 'calculateKWH = (calculateKWH / 10) / 100
                 calculateKWH = (calculateKWH / 1000) * 100
@@ -1214,6 +1220,13 @@ Public Class GUIMain
 
                     Dim hour As Integer = convertedTime.Hour
                     Dim price As Integer
+                    Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+                    Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+                    'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
+                    '    data.prices(i) = data.prices(i).Replace(".-", ",")
+                    '    packages.Item3(j) = packages.Item3(j).Replace(".-", ",")
+                    'End If
+
                     price = data.prices(i) + packages.Item3(j)
 
                     series.Points.AddXY(hour, price)
@@ -1245,12 +1258,12 @@ Public Class GUIMain
         sDates = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item2
         Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
         Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-        If language Is "et" Then 'do not do this if language is english
+        If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
             For i As Integer = 1 To 24
                 sPrices(i) = sPrices(i).Replace(".", ",")
             Next
-            End If 
-            dPrices = New Double(sPrices.Length) {}
+        End If
+        dPrices = New Double(sPrices.Length) {}
 
 
         For i As Integer = 1 To sPrices.Length - 1
@@ -1329,23 +1342,24 @@ Public Class GUIMain
 
 
         sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
+
         Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
         Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-        If language Is "et" Then 'do not do this if language is english
-            sPrices(24) = sPrices(24).Replace(".", ",")
+        If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
+            sPrices(1) = sPrices(1).Replace(".", ",")
         End If
-        Dim calculateKWH As Double = Double.Parse(sPrices(24))
+        Dim calculateKWH As Double = Double.Parse(sPrices(1))
         'calculateKWH = (calculateKWH / 10) / 100 'Old one by laura
         calculateKWH = (calculateKWH / 1000) * 100 'takes the MWh/€ value from the database
         'divides by a 1000 to get kWh and multiplies by a 100 to get cents
         If checkIfTextBoxContainsLetters(tbMarginalOfStock) = True Then
 
             If tbMarginalOfStock.Text = "" Then
-                Dim sum1 As Double = calculateKWH + 0
-                tBoxPackageHourlyRate.Text = sum1 & " [s/kWh]"
+                Dim sum1 As String = calculateKWH + 0
+                tBoxPackageHourlyRate.Text = sum1
             Else
-                Dim sum2 As Double = calculateKWH + Double.Parse(tbMarginalOfStock.Text)
-                tBoxPackageHourlyRate.Text = sum2 & " [s/kWh]"
+                Dim sum2 As String = calculateKWH + Double.Parse(tbMarginalOfStock.Text)
+                tBoxPackageHourlyRate.Text = sum2
             End If
 
 
@@ -1374,8 +1388,13 @@ Public Class GUIMain
                 returnString = New PrjDatabaseComponent.CDatabase
                 Dim sPrices As String()
                 sPrices = returnString.stockPrice().prices
+                Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+                Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
 
-                sPrices(24) = sPrices(24).Replace(".", ",")
+                If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
+                    sPrices(24) = sPrices(24).Replace(".", ",")
+                End If
+
                 Dim calculateKWH As Double = Double.Parse(sPrices(24))
                 'calculateKWH = (calculateKWH / 10) / 100
                 calculateKWH = (calculateKWH / 1000) * 100
@@ -1385,7 +1404,7 @@ Public Class GUIMain
                     ' Convert sum to a string and display the result
                     ' Dim result As String = sum.ToString()
 
-                    tBoxPackageHourlyRate.Text = sum & " [s/kWh]"
+                    tBoxPackageHourlyRate.Text = sum
                 End If
             End If
 
