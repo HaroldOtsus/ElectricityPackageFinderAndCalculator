@@ -228,6 +228,53 @@ Public Class CDatabase
         End Try
 
     End Function
+
+    Function datesOfStockPriceFuture() As String() 'get stockprice dates from database
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+        Dim dateOfStockPrices As String = ""
+        Dim stringOfErrors() As String = Nothing
+        Dim dateToday
+        dateToday = Date.Today 'get what date it is today
+        Try
+
+            conn.Open() 'try to connect to database
+            Dim command As New MySqlCommand("SELECT date FROM webdata WHERE idPacket = 4;", conn)
+            Dim reader As MySqlDataReader = command.ExecuteReader()
+            While reader.Read()
+                dateOfStockPrices = reader.GetString(0) 'get date from database
+            End While
+            conn.Close()
+            Dim con As New MySqlConnection(connString)
+            con.Open()
+            Dim sPrices() As String = New String(25) {}
+            sPrices(0) = ""
+            If dateOfStockPrices = dateToday Then
+                '        ''need to return all prices from database
+                Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 4;", con)
+                Dim read As MySqlDataReader = cmd.ExecuteReader()
+                If read IsNot Nothing Then
+                    While read.Read() 'get all dates from database
+                        For i As Integer = 1 To 24
+                            sPrices(i) = read.GetString(i)
+                        Next
+                    End While
+                    read.Close()
+                    con.Close()
+
+                    'Dim stringOfDates As String()
+                    'stringOfDates = insertDatesToDatabase()
+
+                    Return sPrices
+                End If
+            End If
+            conn.Close()
+        Catch ex As Exception
+            stringOfErrors = {"error", "error", "error"}
+            Return stringOfErrors
+        End Try
+
+    End Function
     Function electricityPackagesInfo() As (String(), String(), Double(), Double(), Boolean(), Boolean()) Implements IDatabase.electricityPackagesInfo
         Dim count As Integer
         count = electricityPackagesCount()
@@ -298,20 +345,7 @@ Public Class CDatabase
     End Function
 
 
-    Function getInfoFromAPIGivesDates() As String()
-        Dim returnString As PrjAPIComponent.APIInterface
-        returnString = New PrjAPIComponent.APIComponent
-        Dim sPrices(24) As String
-        Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
 
-        ' Dim strStartTime As String = startTime.ToString("yyyy-MM-dd HH:mm:ss")
-        ' Dim strEndTime As String = endTime.ToString("yyyy-MM-dd HH:mm:ss")
-        Dim futureDate As DateTime = DateTime.Now.AddHours(24)
-        Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
-
-
-        sPrices = returnString.GetDataFromEleringAPIWithDates(currentDate, futureDateString).Item1
-    End Function
 
     Function stockPrice() As (prices As String(), dates As String()) Implements IDatabaseAPI.stockPrice
         Dim currentHour As Integer = DateTime.Now.Hour
@@ -370,6 +404,75 @@ Public Class CDatabase
                 Dim stringOfDates As String()
                 stringOfPrices = insertStockPriceToDatabase()
                 stringOfDates = insertDatesToDatabase()
+                Return (stringOfPrices, stringOfDates)
+                '        ''we put the info to the database
+            End If
+            conn.Close()
+        Catch ex As Exception
+            '   stringOfErrors = {"error", "error", "error"}
+            '  Return stringOfErrors
+        End Try
+
+    End Function
+
+    Function getStockPriceAndDatesFromDatabaseFuture(ByVal strStartDate As String, ByVal strEndDate As String) As (String(), String()) _
+        Implements IDatabase.getStockPriceAndDatesFromDatabaseFuture
+        Dim currentHour As Integer = DateTime.Now.Hour
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+        Dim dateOfStockPrices As String = ""
+        Dim stringOfErrors() As String = Nothing
+        Dim dateToday
+        dateToday = Date.Today 'get what date it is today
+        Try
+
+            conn.Open() 'try to connect to database
+            Dim command As New MySqlCommand("SELECT one FROM webdata WHERE idPacket = 4;", conn)
+            Dim reader As MySqlDataReader = command.ExecuteReader()
+            While reader.Read()
+                dateOfStockPrices = reader.GetString(0) 'get date from database
+            End While
+            conn.Close()
+            Dim con As New MySqlConnection(connString)
+            con.Open()
+            Dim sPrices() As String = New String(24) {}
+            sPrices(0) = ""
+            Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(dateOfStockPrices) 'new datetimeoffset from sDate string
+            Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
+
+
+            ' Get the UTC+2 time zone
+            Dim timeZone As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Israel Standard Time")
+
+            ' Convert DateTimeOffset object to UTC+3 timezone
+            Dim convertedTime As DateTimeOffset = TimeZoneInfo.ConvertTime(dateTimeOffset, timeZone)
+
+            Dim hour As Integer = convertedTime.Hour
+
+            If hour = currentHour Then
+
+                '        ''need to return all prices from database
+                Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 3;", con)
+                Dim read As MySqlDataReader = cmd.ExecuteReader()
+                If read IsNot Nothing Then
+                    While read.Read() 'get all dates from database
+                        For i As Integer = 1 To 24
+                            sPrices(i) = read.GetString(i)
+                        Next
+                    End While
+                    read.Close()
+                    con.Close()
+
+                    Dim stringOfDates As String()
+                    'stringOfDates = insertDatesToDatabase()
+                    stringOfDates = datesOfStockPriceFuture()
+                    Return (sPrices, stringOfDates)
+                End If
+            Else
+                Dim stringOfPrices As String()
+                Dim stringOfDates As String()
+                stringOfPrices = insertStockPriceToDatabaseFuture(strStartDate, strEndDate)
+                stringOfDates = insertDatesToDatabaseFuture(strStartDate, strEndDate)
                 Return (stringOfPrices, stringOfDates)
                 '        ''we put the info to the database
             End If
@@ -455,63 +558,6 @@ Public Class CDatabase
             command.Parameters.AddWithValue("@col24", sPrices(24))
             command.Parameters.AddWithValue("@colDate", dateToday)
             command.ExecuteNonQuery()
-
-            '        Dim com As New MySqlCommand("
-            'UPDATE webdata 
-            'SET  
-            '    eleven = @colEleven,
-            '    twelve = @colTwelve, 
-            '    thirteen = @colThirteen,
-            '    fourteen = @colFourteen
-            'WHERE 
-            '    idPacket = 1", conn)
-            '        com.Parameters.AddWithValue("@colEleven", sPrices(11))
-            '        com.Parameters.AddWithValue("@colTwelve", sPrices(12))
-            '        com.Parameters.AddWithValue("@colThirteen", sPrices(13))
-            '        com.Parameters.AddWithValue("@colFourteen", sPrices(14))
-            '        ' com.Parameters.AddWithValue("@colFifteen", sPrices(15))
-            '        'com.Parameters.AddWithValue("@colSixteen", sPrices(16))
-            '        'com.Parameters.AddWithValue("@colSeventeen", sPrices(17))
-            '        'com.Parameters.AddWithValue("@colEighteen", sPrices(18))
-            '        '        com.ExecuteNonQuery()
-            '        Dim cmd As New MySqlCommand("
-            'UPDATE webdata 
-            'SET  
-            '         fiveteen = @colFifteen, 
-            '         sixteen = @colSixteen, 
-            '        seventeen = @colSeventeen,
-            '        eighteen = @colEighteen
-            'WHERE 
-            '    idPacket = 1", conn)
-
-            '        cmd.Parameters.AddWithValue("@colFifteen", sPrices(15))
-            '        cmd.Parameters.AddWithValue("@colSixteen", sPrices(16))
-            '        cmd.Parameters.AddWithValue("@colSeventeen", sPrices(17))
-            '        cmd.Parameters.AddWithValue("@colEighteen", sPrices(18))
-            '        cmd.ExecuteNonQuery()
-
-
-            '        Dim comm As New MySqlCommand("
-            '        UPDATE webdata 
-            '        SET 
-            '           nineteen = @col19, 
-            '            twenty = @col20, 
-            '            twentyOne = @col21, 
-            '            twentyTwo = @col22, 
-            '            twentyThree = @col23, 
-            '            twentyFour = @col24, 
-            '            Date = @colDate
-            '        WHERE 
-            '            idPacket = 1", conn)
-
-            '        comm.Parameters.AddWithValue("@col19", sPrices(19))
-            '        comm.Parameters.AddWithValue("@col20", sPrices(20))
-            '        comm.Parameters.AddWithValue("@col21", sPrices(21))
-            '        comm.Parameters.AddWithValue("@col22", sPrices(22))
-            '        comm.Parameters.AddWithValue("@col23", sPrices(23))
-            '        comm.Parameters.AddWithValue("@col24", sPrices(24))
-            '        comm.Parameters.AddWithValue("@colDate", dateToday)
-            '        comm.ExecuteNonQuery()
             conn.Close()
             Return sPrices
         Catch ex As Exception
@@ -521,6 +567,172 @@ Public Class CDatabase
 
     End Function
 
+
+    Function insertStockPriceToDatabaseFuture(ByVal strStartDate As String, ByVal strEndDate As String) As String() ''get data from API and insert it into database
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+        Dim dateToday
+        Dim stringOfErrors() As String = Nothing
+        dateToday = Date.Today 'get what date it is today
+        Dim api As PrjAPIComponent.APIInterface
+        api = New PrjAPIComponent.APIComponent
+        Dim sPrices As String()
+        sPrices = api.GetDataFromEleringAPIWithDates(strStartDate, strEndDate).Item1
+        '' sPrices()
+        Try
+
+            conn.Open() 'try to connect to database
+
+            '' Dim command As New MySqlCommand("UPDATE webdata SET one = @colOne, two = @colTwo, three = @colThree WHERE idPacket = 1 ", conn)
+            '' broke command into several commands because it didn't update database and thougth there was a bug
+            '' actually didn't update because one column name was written wrongly
+            Dim command As New MySqlCommand("
+            UPDATE webdata 
+            SET 
+                one = @colOne, 
+                two = @colTwo, 
+                three = @colThree, 
+                four = @colFour, 
+                five = @colFive, 
+                six = @colSix, 
+                seven = @colSeven, 
+                eight = @colEight, 
+                nine = @colNine, 
+                ten = @colTen,
+                eleven = @colEleven,
+                twelve = @colTwelve, 
+                thirteen = @colThirteen,
+                fourteen = @colFourteen,
+                fiveteen = @colFifteen, 
+                sixteen = @colSixteen, 
+                seventeen = @colSeventeen,
+                eighteen = @colEighteen,
+                nineteen = @col19, 
+                twenty = @col20, 
+                twentyOne = @col21, 
+                twentyTwo = @col22, 
+                twentyThree = @col23, 
+                twentyFour = @col24, 
+                Date = @colDate
+            WHERE 
+                idPacket = 3", conn)
+            command.Parameters.AddWithValue("@colOne", sPrices(1))
+            command.Parameters.AddWithValue("@colTwo", sPrices(2))
+            command.Parameters.AddWithValue("@colThree", sPrices(3))
+            command.Parameters.AddWithValue("@colFour", sPrices(4))
+            command.Parameters.AddWithValue("@colFive", sPrices(5))
+            command.Parameters.AddWithValue("@colSix", sPrices(6))
+            command.Parameters.AddWithValue("@colSeven", sPrices(7))
+            command.Parameters.AddWithValue("@colEight", sPrices(8))
+            command.Parameters.AddWithValue("@colNine", sPrices(9))
+            command.Parameters.AddWithValue("@colTen", sPrices(10))
+            command.Parameters.AddWithValue("@colEleven", sPrices(11))
+            command.Parameters.AddWithValue("@colTwelve", sPrices(12))
+            command.Parameters.AddWithValue("@colThirteen", sPrices(13))
+            command.Parameters.AddWithValue("@colFourteen", sPrices(14))
+            command.Parameters.AddWithValue("@colFifteen", sPrices(15))
+            command.Parameters.AddWithValue("@colSixteen", sPrices(16))
+            command.Parameters.AddWithValue("@colSeventeen", sPrices(17))
+            command.Parameters.AddWithValue("@colEighteen", sPrices(18))
+            command.Parameters.AddWithValue("@col19", sPrices(19))
+            command.Parameters.AddWithValue("@col20", sPrices(20))
+            command.Parameters.AddWithValue("@col21", sPrices(21))
+            command.Parameters.AddWithValue("@col22", sPrices(22))
+            command.Parameters.AddWithValue("@col23", sPrices(23))
+            command.Parameters.AddWithValue("@col24", sPrices(24))
+            command.Parameters.AddWithValue("@colDate", dateToday)
+            command.ExecuteNonQuery()
+            conn.Close()
+            Return sPrices
+        Catch ex As Exception
+            stringOfErrors = {"error", "error", "error"}
+            Return stringOfErrors
+        End Try
+
+    End Function
+
+    Function insertDatesToDatabaseFuture(ByVal strStartDate As String, ByVal strEndDate As String) As String() ''get data from API and insert it into database
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+        Dim dateToday
+        Dim stringOfErrors() As String = Nothing
+        dateToday = Date.Today 'get what date it is today
+        Dim api As PrjAPIComponent.APIInterface
+        api = New PrjAPIComponent.APIComponent
+        Dim sDates As String()
+        sDates = api.GetDataFromEleringAPIWithDates(strStartDate, strEndDate).Item2
+        'get info from API about dates
+        Try
+
+            conn.Open() 'try to connect to database
+
+            '' Dim command As New MySqlCommand("UPDATE webdata SET one = @colOne, two = @colTwo, three = @colThree WHERE idPacket = 1 ", conn)
+            '' broke command into several commands because it didn't update database and thougth there was a bug
+            '' actually didn't update because one column name was written wrongly
+            Dim command As New MySqlCommand("
+            UPDATE webdata 
+            SET 
+                one = @colOne, 
+                two = @colTwo, 
+                three = @colThree, 
+                four = @colFour, 
+                five = @colFive, 
+                six = @colSix, 
+                seven = @colSeven, 
+                eight = @colEight, 
+                nine = @colNine, 
+                ten = @colTen,
+                eleven = @colEleven,
+                twelve = @colTwelve, 
+                thirteen = @colThirteen,
+                fourteen = @colFourteen,
+                fiveteen = @colFifteen, 
+                sixteen = @colSixteen, 
+                seventeen = @colSeventeen,
+                eighteen = @colEighteen,
+                nineteen = @col19, 
+                twenty = @col20, 
+                twentyOne = @col21, 
+                twentyTwo = @col22, 
+                twentyThree = @col23, 
+                twentyFour = @col24, 
+                Date = @colDate
+            WHERE 
+                idPacket = 4", conn)
+            command.Parameters.AddWithValue("@colOne", sDates(1))
+            command.Parameters.AddWithValue("@colTwo", sDates(2))
+            command.Parameters.AddWithValue("@colThree", sDates(3))
+            command.Parameters.AddWithValue("@colFour", sDates(4))
+            command.Parameters.AddWithValue("@colFive", sDates(5))
+            command.Parameters.AddWithValue("@colSix", sDates(6))
+            command.Parameters.AddWithValue("@colSeven", sDates(7))
+            command.Parameters.AddWithValue("@colEight", sDates(8))
+            command.Parameters.AddWithValue("@colNine", sDates(9))
+            command.Parameters.AddWithValue("@colTen", sDates(10))
+            command.Parameters.AddWithValue("@colEleven", sDates(11))
+            command.Parameters.AddWithValue("@colTwelve", sDates(12))
+            command.Parameters.AddWithValue("@colThirteen", sDates(13))
+            command.Parameters.AddWithValue("@colFourteen", sDates(14))
+            command.Parameters.AddWithValue("@colFifteen", sDates(15))
+            command.Parameters.AddWithValue("@colSixteen", sDates(16))
+            command.Parameters.AddWithValue("@colSeventeen", sDates(17))
+            command.Parameters.AddWithValue("@colEighteen", sDates(18))
+            command.Parameters.AddWithValue("@col19", sDates(19))
+            command.Parameters.AddWithValue("@col20", sDates(20))
+            command.Parameters.AddWithValue("@col21", sDates(21))
+            command.Parameters.AddWithValue("@col22", sDates(22))
+            command.Parameters.AddWithValue("@col23", sDates(23))
+            command.Parameters.AddWithValue("@col24", sDates(24))
+            command.Parameters.AddWithValue("@colDate", dateToday)
+            command.ExecuteNonQuery()
+
+            Return sDates
+        Catch ex As Exception
+            stringOfErrors = {"error", "error", "error"}
+            Return stringOfErrors
+        End Try
+
+    End Function
 
     Function insertDatesToDatabase() As String() ''get data from API and insert it into database
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
@@ -597,63 +809,6 @@ Public Class CDatabase
             command.Parameters.AddWithValue("@colDate", dateToday)
             command.ExecuteNonQuery()
 
-            '        Dim com As New MySqlCommand("
-            'UPDATE webdata 
-            'SET 
-            '    eleven = @colEleven,
-            '    twelve = @colTwelve, 
-            '    thirteen = @colThirteen,
-            '    fourteen = @colFourteen
-            'WHERE 
-            '    idPacket = 2", conn)
-            '        com.Parameters.AddWithValue("@colEleven", sDates(11))
-            '        com.Parameters.AddWithValue("@colTwelve", sDates(12))
-            '        com.Parameters.AddWithValue("@colThirteen", sDates(13))
-            '        com.Parameters.AddWithValue("@colFourteen", sDates(14))
-            '        ' com.Parameters.AddWithValue("@colFifteen", sPrices(15))
-            '        'com.Parameters.AddWithValue("@colSixteen", sPrices(16))
-            '        'com.Parameters.AddWithValue("@colSeventeen", sPrices(17))
-            '        'com.Parameters.AddWithValue("@colEighteen", sPrices(18))
-            '        com.ExecuteNonQuery()
-            '        Dim cmd As New MySqlCommand("
-            'UPDATE webdata 
-            'SET  
-            '         fiveteen = @colFifteen, 
-            '         sixteen = @colSixteen, 
-            '        seventeen = @colSeventeen,
-            '        eighteen = @colEighteen
-            'WHERE 
-            '    idPacket = 2", conn)
-
-            '        cmd.Parameters.AddWithValue("@colFifteen", sDates(15))
-            '        cmd.Parameters.AddWithValue("@colSixteen", sDates(16))
-            '        cmd.Parameters.AddWithValue("@colSeventeen", sDates(17))
-            '        cmd.Parameters.AddWithValue("@colEighteen", sDates(18))
-            '        cmd.ExecuteNonQuery()
-
-
-            '        Dim comm As New MySqlCommand("
-            '        UPDATE webdata 
-            '        SET 
-            '           nineteen = @col19, 
-            '            twenty = @col20, 
-            '            twentyOne = @col21, 
-            '            twentyTwo = @col22, 
-            '            twentyThree = @col23, 
-            '            twentyFour = @col24, 
-            '            Date = @colDate
-            '        WHERE 
-            '            idPacket = 2", conn)
-
-            '        comm.Parameters.AddWithValue("@col19", sDates(19))
-            '        comm.Parameters.AddWithValue("@col20", sDates(20))
-            '        comm.Parameters.AddWithValue("@col21", sDates(21))
-            '        comm.Parameters.AddWithValue("@col22", sDates(22))
-            '        comm.Parameters.AddWithValue("@col23", sDates(23))
-            '        comm.Parameters.AddWithValue("@col24", sDates(24))
-            '        comm.Parameters.AddWithValue("@colDate", dateToday)
-            '        comm.ExecuteNonQuery()
-            '        conn.Close()
             Return sDates
         Catch ex As Exception
             stringOfErrors = {"error", "error", "error"}

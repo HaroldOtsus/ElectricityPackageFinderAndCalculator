@@ -47,15 +47,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim count As Double = getIn.universalServicePrice
         Assert.AreEqual(5, count)
     End Sub
-    <TestMethod()> Public Sub TestpackagesNames()
-        Dim getIn As New PrjDatabaseComponent.CDatabase
-        '  Dim actualData As (String(), String()) = getIn.electricityPackages
-        '  Assert.AreEqual("Kindel 6", actualData.Item1(0))
-        ' Assert.AreEqual("Eesti Energia", actualData.Item2(0))
-        Dim count = getIn.electricityPackagesInfo()
-        Dim count123 = getIn.getInfoFromAPIGivesDates
-        Assert.AreEqual("19", count123(1))
-    End Sub
+
     <TestMethod()> Public Sub TestGetAPIInfoGivingDatesDirectly()
         Dim getIn As New PrjAPIComponent.APIComponent
         Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
@@ -66,7 +58,38 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim count123 = getIn.GetDataFromEleringAPIWithDates(currentDate, futureDateString)
         Assert.AreEqual("19", count123.Item1(1))
     End Sub
+    <TestMethod()> Public Sub TestInsertAPIFutureToDatabase()
+        Dim getIn As New PrjDatabaseComponent.CDatabase
+        Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+        ' Dim futureDate As DateTime = DateTime.ParseExact(currentDate, "yyyy-MM-dd HH:mm:ss", Nothing)
+        'Assert.AreEqual(currentDate, modifiedDateString)
+        Dim futureDate As DateTime = DateTime.Now.AddHours(24)
+        Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
+        Dim count123 = getIn.insertStockPriceToDatabaseFuture(currentDate, futureDateString)
+        Assert.AreEqual("19", count123(1))
+    End Sub
 
+    <TestMethod()> Public Sub TestInsertAPIFutureToDatabaseDates()
+        Dim getIn As New PrjDatabaseComponent.CDatabase
+        Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+        ' Dim futureDate As DateTime = DateTime.ParseExact(currentDate, "yyyy-MM-dd HH:mm:ss", Nothing)
+        'Assert.AreEqual(currentDate, modifiedDateString)
+        Dim futureDate As DateTime = DateTime.Now.AddHours(24)
+        Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
+        Dim count123 = getIn.insertDatesToDatabaseFuture(currentDate, futureDateString)
+        Assert.AreEqual("19", count123(1))
+    End Sub
+
+    <TestMethod()> Public Sub getDateandPriceFuture()
+        Dim getIn As New PrjDatabaseComponent.CDatabase
+        Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+        ' Dim futureDate As DateTime = DateTime.ParseExact(currentDate, "yyyy-MM-dd HH:mm:ss", Nothing)
+        'Assert.AreEqual(currentDate, modifiedDateString)
+        Dim futureDate As DateTime = DateTime.Now.AddHours(24)
+        Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
+        Dim count123 = getIn.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString)
+        Assert.AreEqual("19", count123.Item1(1))
+    End Sub
     '<TestMethod()> Public Sub TestStringReturn()
     '    Dim getIn As New PrjDatabaseComponent.CDatabase
     '    Dim id As String

@@ -198,7 +198,7 @@ Public Class GUIMain
 
 
 
-        Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+        Dim returnString As PrjDatabaseComponent.IDatabase
         Dim sPrices As String()
         Dim sDates As String()
         Dim dDates As Double() = New Double(24) {}
@@ -208,13 +208,19 @@ Public Class GUIMain
 
 
         returnString = New PrjDatabaseComponent.CDatabase
+        Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+        Dim futureDate As DateTime = DateTime.Now.AddHours(24)
+        Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
 
-        sPrices = returnString.stockPrice().prices
-        sDates = returnString.stockPrice().dates
-
-        For i As Integer = 1 To 24
-            sPrices(i) = sPrices(i).Replace(".", ",")
-        Next
+        sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
+        sDates = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item2
+        Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+        Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+        If language Is "et" Then 'do not do this if language is english
+            For i As Integer = 1 To 24
+                sPrices(i) = sPrices(i).Replace(".", ",")
+            Next
+        End If
         dPrices = New Double(sPrices.Length) {}
 
 
@@ -447,11 +453,13 @@ Public Class GUIMain
     Private Sub rdioExchange_CheckedChanged(sender As Object, e As EventArgs) Handles rdioExchange.CheckedChanged
         tboxMonthlyCost.Enabled = False
         tboxMonthlyCost.Clear()
+        btnTableAsc.Enabled = True
+        btnTableDesc.Enabled = True
 
         ' Dim returnString As PrjDatabaseComponent.IDatabaseAPI
         'returnString = New PrjDatabaseComponent.CDatabase
-        Dim returnString As PrjAPIComponent.APIInterface
-        returnString = New PrjAPIComponent.APIComponent
+        Dim returnString As PrjDatabaseComponent.IDatabase
+        returnString = New PrjDatabaseComponent.CDatabase
         Dim sPrices As String()
         Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
 
@@ -461,25 +469,32 @@ Public Class GUIMain
         Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
 
 
-        sPrices = returnString.GetDataFromEleringAPIWithDates(currentDate, futureDateString).Item1
+        sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
         ' GetDataFromEleringAPIWithDates(ByVal strStartDate As String, ByVal strEndDate As String) As (String(), String())
         ' sPrices = returnString.stockPrice().prices
 
 
         'Dim sPricesOut As String = sPrices(1)
         'Double.TryParse(sPrices(1), sPricesOut)
-        sPrices(24) = sPrices(24).Replace(".", ",")
-        Dim calculateKWH As Double = Double.Parse(sPrices(24))
+        Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+        Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+        If language Is "et" Then 'do not do this if language is english
+            sPrices(1) = sPrices(1).Replace(".", ",")
+        End If
+        Dim calculateKWH As Double = Double.Parse(sPrices(1))
         'calculateKWH = (calculateKWH / 10) / 100
         calculateKWH = (calculateKWH / 1000) * 100
 
         tBoxPackageHourlyRate.Text = calculateKWH & " [s/kWh]"
+
     End Sub
 
     Private Sub rdioFixedPrice_CheckedChanged(sender As Object, e As EventArgs) Handles rdioFixedPrice.CheckedChanged
         tboxMonthlyCost.Enabled = True
         tBoxPackageHourlyRate.Clear()
         tboxMonthlyCost.Clear()
+        btnTableAsc.Enabled = False
+        btnTableDesc.Enabled = False
     End Sub
 
     Private Sub rdioFixedPrice1_CheckedChanged(sender As Object, e As EventArgs) Handles rdioFixedPrice1.CheckedChanged
@@ -541,7 +556,7 @@ Public Class GUIMain
 
 
 
-        Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+        Dim returnString As PrjDatabaseComponent.IDatabase
         Dim sPrices As String()
         Dim sDates As String()
         Dim dDates As Double() = New Double(24) {}
@@ -552,12 +567,21 @@ Public Class GUIMain
 
         returnString = New PrjDatabaseComponent.CDatabase
 
-        sPrices = returnString.stockPrice().prices
-        sDates = returnString.stockPrice().dates
+        Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+        Dim futureDate As DateTime = DateTime.Now.AddHours(24)
+        Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
 
-        For i As Integer = 1 To 24
-            sPrices(i) = sPrices(i).Replace(".", ",")
-        Next
+        sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
+        sDates = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item2
+        Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+        Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+        If language Is "et" Then 'do not do this if language is english
+
+            For i As Integer = 1 To 24
+                sPrices(i) = sPrices(i).Replace(".", ",")
+            Next
+        End If
+
         dPrices = New Double(sPrices.Length) {}
 
 
@@ -1202,7 +1226,7 @@ Public Class GUIMain
     Private Sub btnTableDesc_Click(sender As Object, e As EventArgs) Handles btnTableDesc.Click
         tblPriceTable.Controls.Clear()
 
-        Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+        Dim returnString As PrjDatabaseComponent.IDatabase
         Dim sPrices As String()
         Dim sDates As String()
         Dim dDates As Double() = New Double(24) {}
@@ -1213,13 +1237,20 @@ Public Class GUIMain
 
         returnString = New PrjDatabaseComponent.CDatabase
 
-        sPrices = returnString.stockPrice().prices
-        sDates = returnString.stockPrice().dates
+        Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+        Dim futureDate As DateTime = DateTime.Now.AddHours(24)
+        Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
 
-        For i As Integer = 1 To 24
-            sPrices(i) = sPrices(i).Replace(".", ",")
-        Next
-        dPrices = New Double(sPrices.Length) {}
+        sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
+        sDates = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item2
+        Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+        Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+        If language Is "et" Then 'do not do this if language is english
+            For i As Integer = 1 To 24
+                sPrices(i) = sPrices(i).Replace(".", ",")
+            Next
+            End If 
+            dPrices = New Double(sPrices.Length) {}
 
 
         For i As Integer = 1 To sPrices.Length - 1
@@ -1283,13 +1314,26 @@ Public Class GUIMain
     End Sub
 
     Private Sub rdiobtnStockPlussMarginal_CheckedChanged(sender As Object, e As EventArgs) Handles rdiobtnStockPlussMarginal.CheckedChanged
+        btnTableAsc.Enabled = True
+        btnTableDesc.Enabled = True
         tboxMonthlyCost.Clear()
-        Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+        Dim returnString As PrjDatabaseComponent.IDatabase
         returnString = New PrjDatabaseComponent.CDatabase
         Dim sPrices As String()
-        sPrices = returnString.stockPrice().prices
+        Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
 
-        sPrices(24) = sPrices(24).Replace(".", ",")
+        ' Dim strStartTime As String = startTime.ToString("yyyy-MM-dd HH:mm:ss")
+        ' Dim strEndTime As String = endTime.ToString("yyyy-MM-dd HH:mm:ss")
+        Dim futureDate As DateTime = DateTime.Now.AddHours(24)
+        Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
+
+
+        sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
+        Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+        Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+        If language Is "et" Then 'do not do this if language is english
+            sPrices(24) = sPrices(24).Replace(".", ",")
+        End If
         Dim calculateKWH As Double = Double.Parse(sPrices(24))
         'calculateKWH = (calculateKWH / 10) / 100 'Old one by laura
         calculateKWH = (calculateKWH / 1000) * 100 'takes the MWh/€ value from the database
