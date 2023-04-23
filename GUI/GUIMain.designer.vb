@@ -42,6 +42,9 @@ Partial Class GUIMain
         Me.cbColor = New System.Windows.Forms.ComboBox()
         Me.chrtFrontPage = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.tabPackageHourlyRate = New System.Windows.Forms.TabPage()
+        Me.lblTableState = New System.Windows.Forms.Label()
+        Me.lblSKwh4 = New System.Windows.Forms.Label()
+        Me.lblSKwh3 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnTableDesc = New System.Windows.Forms.Button()
         Me.tbMarginalOfStock = New System.Windows.Forms.TextBox()
@@ -168,9 +171,7 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
-        Me.lblSKwh3 = New System.Windows.Forms.Label()
-        Me.lblSKwh4 = New System.Windows.Forms.Label()
-        Me.lblTableState = New System.Windows.Forms.Label()
+        Me.lblBestTime = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -303,6 +304,7 @@ Partial Class GUIMain
         '
         'tabPackageHourlyRate
         '
+        Me.tabPackageHourlyRate.Controls.Add(Me.lblBestTime)
         Me.tabPackageHourlyRate.Controls.Add(Me.lblTableState)
         Me.tabPackageHourlyRate.Controls.Add(Me.lblSKwh4)
         Me.tabPackageHourlyRate.Controls.Add(Me.lblSKwh3)
@@ -333,6 +335,33 @@ Partial Class GUIMain
         Me.tabPackageHourlyRate.TabIndex = 1
         Me.tabPackageHourlyRate.Text = "Paketijärgne tunnihind"
         Me.tabPackageHourlyRate.UseVisualStyleBackColor = True
+        '
+        'lblTableState
+        '
+        Me.lblTableState.AutoSize = True
+        Me.lblTableState.Location = New System.Drawing.Point(27, 383)
+        Me.lblTableState.Name = "lblTableState"
+        Me.lblTableState.Size = New System.Drawing.Size(33, 13)
+        Me.lblTableState.TabIndex = 23
+        Me.lblTableState.Text = "nuffin"
+        '
+        'lblSKwh4
+        '
+        Me.lblSKwh4.AutoSize = True
+        Me.lblSKwh4.Location = New System.Drawing.Point(231, 199)
+        Me.lblSKwh4.Name = "lblSKwh4"
+        Me.lblSKwh4.Size = New System.Drawing.Size(40, 13)
+        Me.lblSKwh4.TabIndex = 22
+        Me.lblSKwh4.Text = "s/kWh"
+        '
+        'lblSKwh3
+        '
+        Me.lblSKwh3.AutoSize = True
+        Me.lblSKwh3.Location = New System.Drawing.Point(231, 168)
+        Me.lblSKwh3.Name = "lblSKwh3"
+        Me.lblSKwh3.Size = New System.Drawing.Size(40, 13)
+        Me.lblSKwh3.TabIndex = 21
+        Me.lblSKwh3.Text = "s/kWh"
         '
         'Label1
         '
@@ -1635,32 +1664,14 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
         '
-        'lblSKwh3
+        'lblBestTime
         '
-        Me.lblSKwh3.AutoSize = True
-        Me.lblSKwh3.Location = New System.Drawing.Point(231, 168)
-        Me.lblSKwh3.Name = "lblSKwh3"
-        Me.lblSKwh3.Size = New System.Drawing.Size(40, 13)
-        Me.lblSKwh3.TabIndex = 21
-        Me.lblSKwh3.Text = "s/kWh"
-        '
-        'lblSKwh4
-        '
-        Me.lblSKwh4.AutoSize = True
-        Me.lblSKwh4.Location = New System.Drawing.Point(231, 199)
-        Me.lblSKwh4.Name = "lblSKwh4"
-        Me.lblSKwh4.Size = New System.Drawing.Size(40, 13)
-        Me.lblSKwh4.TabIndex = 22
-        Me.lblSKwh4.Text = "s/kWh"
-        '
-        'lblTableState
-        '
-        Me.lblTableState.AutoSize = True
-        Me.lblTableState.Location = New System.Drawing.Point(27, 383)
-        Me.lblTableState.Name = "lblTableState"
-        Me.lblTableState.Size = New System.Drawing.Size(33, 13)
-        Me.lblTableState.TabIndex = 23
-        Me.lblTableState.Text = "nuffin"
+        Me.lblBestTime.AutoSize = True
+        Me.lblBestTime.Location = New System.Drawing.Point(27, 573)
+        Me.lblBestTime.Name = "lblBestTime"
+        Me.lblBestTime.Size = New System.Drawing.Size(33, 13)
+        Me.lblBestTime.TabIndex = 24
+        Me.lblBestTime.Text = "nuffin"
         '
         'GUIMain
         '
@@ -1848,4 +1859,5 @@ Partial Class GUIMain
     Friend WithEvents lblSKwh4 As Label
     Friend WithEvents lblSKwh3 As Label
     Friend WithEvents lblTableState As Label
+    Friend WithEvents lblBestTime As Label
 End Class

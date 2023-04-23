@@ -194,172 +194,191 @@ Public Class GUIMain
     Private Sub btnConfirmInput_Click(sender As Object, e As EventArgs) Handles btnConfirmInput.Click
         tblPriceTable.Controls.Clear()
         chrtPackageHourlyRate.Series.Clear()
-        'Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
+        lblBestTime.Visible = False
 
+        Dim tbMarginalOfStockLetters As Boolean = checkIfTextBoxContainsLetters(tbMarginalOfStock)
+        Dim tboxMonthlyCostLetters As Boolean = checkIfTextBoxContainsLetters(tboxMonthlyCost)
 
+        If tbMarginalOfStockLetters = False Or tboxMonthlyCostLetters = False Then
 
-        Dim returnString As PrjDatabaseComponent.IDatabase
-        Dim sPrices As String()
-        Dim sDates As String()
-        Dim dDates As Double() = New Double(24) {}
-
-        Dim dPrices As Double()
-        'Dim priceDateStruct As New PriceDateStruct() if the code works then this can be deleted
-
-
-        returnString = New PrjDatabaseComponent.CDatabase
-        Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-        Dim futureDate As DateTime = DateTime.Now.AddHours(24)
-        Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
-        sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
-        sDates = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item2
-
-        Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
-        Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-        If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
-            For i As Integer = 1 To 24
-                sPrices(i) = sPrices(i).Replace(".", ",")
-            Next
-        End If
-        dPrices = New Double(sPrices.Length) {}
-
-
-        For i As Integer = 1 To sPrices.Length - 1
-            dPrices(i) = Double.Parse(sPrices(i))
-
-        Next
-
-        'UNIX NEEDS TO BE CONVERTED TO CONVENTIONAL TIMESTAMP DO BE USABLE
-        'dDates = New Double(sDates.Length - 1) {}
-        For i As Integer = 1 To 24 'sDates.Length - 1
-            ' dDates(i) = Double.Parse(sDates(i))
-
-            'in textbox get one time as string
-            Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(sDates(i)) 'new datetimeoffset from sDate string
-            Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
-            dDates(i) = CDbl(dateValue.Hour) 'convert to integer
-            'TextBox1.Text = dDates(i) 'put hour to textbox for testing
-
-        Next
-        If rdioFixedPrice.Checked Then 'universal price t odraw chart
-            If tboxMonthlyCost.Text = "" Then
-                tboxMonthlyCost.Text = "0"
-            End If
-            For i As Integer = 1 To 24
-                dPrices(i) = tboxMonthlyCost.Text
-            Next
-        End If
-
-        If rdioBtnUniversalP.Checked Then
-            Dim universalPrice As Double
-            universalPrice = returnString.universalServicePrice()
-            For i As Integer = 1 To 24
-                dPrices(i) = universalPrice
-            Next
-        End If
-
-        If rdiobtnStockPlussMarginal.Checked Then
-            Dim mar As Double
-            mar = Double.Parse(tbMarginalOfStock.Text)
-            For i As Integer = 1 To 24
-                dPrices(i) = dPrices(i) + mar
-            Next
-        End If
-
-        'Dim priceAndDate As PriceDateStruct
-        Dim records As List(Of PriceDateStruct)
-        records = New List(Of PriceDateStruct)
-
-        Dim p As PriceDateStruct
-
-        For i As Integer = 1 To 24 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
-
-            p.price = dPrices(i)
-            p.sDate = dDates(i)
-            records.Add(p)
-            'records(i) = p
-        Next
-
-        Dim dgv As New DataGridView()
-
-        For i As Integer = 0 To 23
-            'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
-            dgv.Columns.Add(0, records(i).sDate & ":00")
-        Next
-
-
-
-
-        If rdioFixedPrice.Checked Then
-            For i As Integer = 0 To 23
-                dgv.Rows(0).Cells(i).Value = tboxMonthlyCost.Text & "€" ' or any other number you want to insert
-            Next
         Else
-            For i As Integer = 0 To 23
-                dgv.Rows(0).Cells(i).Value = records(i).price & "€" ' or any other number you want to insert
+
+
+
+
+            Dim returnString As PrjDatabaseComponent.IDatabase
+            Dim sPrices As String()
+            Dim sDates As String()
+            Dim dDates As Double() = New Double(24) {}
+
+            Dim dPrices As Double()
+            'Dim priceDateStruct As New PriceDateStruct() if the code works then this can be deleted
+
+
+            returnString = New PrjDatabaseComponent.CDatabase
+            Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+            Dim futureDate As DateTime = DateTime.Now.AddHours(24)
+            Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
+            sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
+            sDates = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item2
+
+            Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+            Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+            If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
+                For i As Integer = 1 To 24
+                    sPrices(i) = sPrices(i).Replace(".", ",")
+                Next
+            End If
+            dPrices = New Double(sPrices.Length) {}
+
+
+            For i As Integer = 1 To sPrices.Length - 1
+                dPrices(i) = Double.Parse(sPrices(i))
+
             Next
+
+            'UNIX NEEDS TO BE CONVERTED TO CONVENTIONAL TIMESTAMP DO BE USABLE
+            'dDates = New Double(sDates.Length - 1) {}
+            For i As Integer = 1 To 24 'sDates.Length - 1
+                ' dDates(i) = Double.Parse(sDates(i))
+
+                'in textbox get one time as string
+                Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(sDates(i)) 'new datetimeoffset from sDate string
+                Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
+                dDates(i) = CDbl(dateValue.Hour) 'convert to integer
+                'TextBox1.Text = dDates(i) 'put hour to textbox for testing
+
+            Next
+            If rdioFixedPrice.Checked Then 'universal price t odraw chart
+                If tboxMonthlyCost.Text = "" Then
+                    tboxMonthlyCost.Text = "0"
+                End If
+                For i As Integer = 1 To 24
+                    dPrices(i) = tboxMonthlyCost.Text
+                Next
+            End If
+
+            If rdioBtnUniversalP.Checked Then
+                Dim universalPrice As Double
+                universalPrice = returnString.universalServicePrice()
+                For i As Integer = 1 To 24
+                    dPrices(i) = universalPrice
+                Next
+            End If
+
+            If rdiobtnStockPlussMarginal.Checked Then
+                Dim mar As Double
+                mar = Double.Parse(tbMarginalOfStock.Text)
+                For i As Integer = 1 To 24
+                    dPrices(i) = dPrices(i) + mar
+                Next
+            End If
+
+            'Dim priceAndDate As PriceDateStruct
+            Dim records As List(Of PriceDateStruct)
+            records = New List(Of PriceDateStruct)
+
+            Dim p As PriceDateStruct
+
+            For i As Integer = 1 To 24 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
+
+                p.price = dPrices(i)
+                p.sDate = dDates(i)
+                records.Add(p)
+                'records(i) = p
+            Next
+
+            Dim dgv As New DataGridView()
+
+            For i As Integer = 0 To 23
+                'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
+                dgv.Columns.Add(0, records(i).sDate & ":00")
+            Next
+
+
+
+
+            If rdioFixedPrice.Checked Then
+                For i As Integer = 0 To 23
+                    dgv.Rows(0).Cells(i).Value = tboxMonthlyCost.Text & " s/kWh" ' or any other number you want to insert
+                Next
+            Else
+                For i As Integer = 0 To 23
+                    dgv.Rows(0).Cells(i).Value = (records(i).price / 1000) * 100 & " s/kWh" ' or any other number you want to insert
+                Next
+            End If
+
+            tblPriceTable.AllowUserToDeleteRows = False 'Allows user to delete rows
+            tblPriceTable.ReadOnly = True 'Allows user to edit cells within the data grid
+            tblPriceTable.Controls.Add(dgv)
+
+            chart(records)
+            'OLD CODE THAT DIDNT USE A LIST OR STRUCT, NOW OBSOLETE LEFT HERE INCASE NEEDED WHEN CREATING DOCUMENTATION
+
+            'Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
+
+
+
+            'Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+            'returnString = New PrjDatabaseComponent.CDatabase
+            'Dim sPrices As String()
+            'sPrices = returnString.stockPrice().prices
+
+            'For i As Integer = 1 To 24
+            '    sPrices(i) = sPrices(i).Replace(".", ",")
+            'Next
+
+
+
+            'Dim dgv As New DataGridView()
+
+            'For i As Integer = 0 To 23
+            '    'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
+            '    If timeNowHours >= 24 Then
+            '        timeNowHours = timeNowHours - 24
+            '        dgv.Columns.Add(0, timeNowHours & ":00")
+
+            '    Else
+            '        dgv.Columns.Add(0, timeNowHours & ":00")
+
+            '    End If
+            '    timeNowHours = timeNowHours + 1
+
+            'Next
+
+
+            'If rdioFixedPrice.Checked Then
+            '    For i As Integer = 0 To 23
+            '        dgv.Rows(0).Cells(i).Value = tboxMonthlyCost.Text & "€" ' or any other number you want to insert
+            '    Next
+            'Else
+            '    For i As Integer = 0 To 23
+            '        dgv.Rows(0).Cells(i).Value = sPrices(i + 1) & "€" ' or any other number you want to insert
+            '    Next
+            'End If
+
+
+            'tblPriceTable.Controls.Add(dgv)
+
+
+            lblTableState.Visible = False
+            lblTableState.Text = "Börsihind"
+
+
         End If
-
-        tblPriceTable.AllowUserToDeleteRows = False 'Allows user to delete rows
-        tblPriceTable.ReadOnly = True 'Allows user to edit cells within the data grid
-        tblPriceTable.Controls.Add(dgv)
-
-        chart(records)
-        'OLD CODE THAT DIDNT USE A LIST OR STRUCT, NOW OBSOLETE LEFT HERE INCASE NEEDED WHEN CREATING DOCUMENTATION
-
-        'Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
-
-
-
-        'Dim returnString As PrjDatabaseComponent.IDatabaseAPI
-        'returnString = New PrjDatabaseComponent.CDatabase
-        'Dim sPrices As String()
-        'sPrices = returnString.stockPrice().prices
-
-        'For i As Integer = 1 To 24
-        '    sPrices(i) = sPrices(i).Replace(".", ",")
-        'Next
-
-
-
-        'Dim dgv As New DataGridView()
-
-        'For i As Integer = 0 To 23
-        '    'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
-        '    If timeNowHours >= 24 Then
-        '        timeNowHours = timeNowHours - 24
-        '        dgv.Columns.Add(0, timeNowHours & ":00")
-
-        '    Else
-        '        dgv.Columns.Add(0, timeNowHours & ":00")
-
-        '    End If
-        '    timeNowHours = timeNowHours + 1
-
-        'Next
-
-
-        'If rdioFixedPrice.Checked Then
-        '    For i As Integer = 0 To 23
-        '        dgv.Rows(0).Cells(i).Value = tboxMonthlyCost.Text & "€" ' or any other number you want to insert
-        '    Next
-        'Else
-        '    For i As Integer = 0 To 23
-        '        dgv.Rows(0).Cells(i).Value = sPrices(i + 1) & "€" ' or any other number you want to insert
-        '    Next
-        'End If
-
-
-        'tblPriceTable.Controls.Add(dgv)
-
-
-        lblTableState.Visible = True
-        lblTableState.Text = "Börsihind"
-
     End Sub
     Public Function chart(records)
+        Dim seriesName As String
+        If rdioExchange.Checked = True Then
+            seriesName = "Börsihind"
+        ElseIf rdiobtnStockPlussMarginal.Checked = True Then
+            seriesName = "Börsihind + marginaal"
+        ElseIf rdioFixedPrice.Checked = True Then
+            seriesName = "Fikseeritud hind"
+        ElseIf rdioBtnUniversalP.Checked = True Then
+            seriesName = "Universaalhind"
+        End If
 
-        Dim seriesName As String = "Börsihind"
         chrtPackageHourlyRate.Series.Add(seriesName)
         'chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
         chrtPackageHourlyRate.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
@@ -547,6 +566,7 @@ Public Class GUIMain
     Private Sub tabPackageHourlyRate_Enter(sender As Object, e As EventArgs) Handles tabPackageHourlyRate.Enter
         rdioExchange.Checked = True
         lblTableState.Visible = False
+        lblBestTime.Visible = False
     End Sub
 
 
@@ -576,111 +596,131 @@ Public Class GUIMain
 
     Private Sub btnChartAsc_Click(sender As Object, e As EventArgs) Handles btnTableAsc.Click
         tblPriceTable.Controls.Clear()
-        Dim timeNowHours As Integer = DateTime.Now.ToString("HH")
+        Dim tbMarginalOfStockLetters As Boolean = checkIfTextBoxContainsLetters(tbMarginalOfStock)
+        Dim tboxMonthlyCostLetters As Boolean = checkIfTextBoxContainsLetters(tboxMonthlyCost)
 
+        If tbMarginalOfStockLetters = False Or tboxMonthlyCostLetters = False Then
 
-
-        Dim returnString As PrjDatabaseComponent.IDatabase
-        Dim sPrices As String()
-        Dim sDates As String()
-        Dim dDates As Double() = New Double(24) {}
-
-        Dim dPrices As Double()
-        Dim priceDateStruct As New PriceDateStruct()
-
-
-        returnString = New PrjDatabaseComponent.CDatabase
-
-        Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-        Dim futureDate As DateTime = DateTime.Now.AddHours(24)
-        Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
-
-        sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
-        sDates = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item2
-        Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
-        Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-        If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
-
-            For i As Integer = 1 To 24
-                sPrices(i) = sPrices(i).Replace(".", ",")
-            Next
-        End If
-
-        dPrices = New Double(sPrices.Length) {}
-
-
-        For i As Integer = 1 To sPrices.Length - 1
-            dPrices(i) = Double.Parse(sPrices(i))
-
-        Next
-
-        'UNIX NEEDS TO BE CONVERTED TO CONVENTIONAL TIMESTAMP DO BE USABLE
-        'dDates = New Double(sDates.Length - 1) {}
-        For i As Integer = 1 To 24 'sDates.Length - 1
-            ' dDates(i) = Double.Parse(sDates(i))
-
-            'in textbox get one time as string
-            Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(sDates(i)) 'new datetimeoffset from sDate string
-            Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
-            dDates(i) = CDbl(dateValue.Hour) 'convert to integer
-            'TextBox1.Text = dDates(i) 'put hour to textbox for testing
-
-        Next
-
-        'Dim priceAndDate As PriceDateStruct
-        Dim records As List(Of PriceDateStruct)
-        records = New List(Of PriceDateStruct)
-
-        Dim p As PriceDateStruct
-
-        For i As Integer = 1 To 24 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
-
-            p.price = dPrices(i)
-            p.sDate = dDates(i)
-            records.Add(p)
-            'records(i) = p
-        Next
-
-        'Array.Sort(dPrices) 'dPricesToBeSorted is now sorted :-)
-        records.Sort(Function(x, y) x.price.CompareTo(y.price))
-
-        Dim dgv As New DataGridView()
-
-        For i As Integer = 0 To 23
-            'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
-            dgv.Columns.Add(0, records(i).sDate & ":00")
-        Next
-
-        'For i As Integer = 0 To 23
-        '    'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
-        '    If timeNowHours >= 24 Then
-        '        timeNowHours = timeNowHours - 24
-        '        dgv.Columns.Add(0, timeNowHours & ":00")
-
-        '    Else
-        '        dgv.Columns.Add(0, timeNowHours & ":00")
-
-        '    End If
-        '    timeNowHours = timeNowHours + 1
-
-        'Next
-
-
-        If rdioFixedPrice.Checked Then
-            For i As Integer = 0 To 23
-                dgv.Rows(0).Cells(i).Value = tboxMonthlyCost.Text & "€" ' or any other number you want to insert
-            Next
         Else
-            For i As Integer = 0 To 23
-                dgv.Rows(0).Cells(i).Value = records(i).price & "€" ' or any other number you want to insert
+
+
+
+            Dim returnString As PrjDatabaseComponent.IDatabase
+            Dim sPrices As String()
+            Dim sDates As String()
+            Dim dDates As Double() = New Double(24) {}
+
+            Dim dPrices As Double()
+            Dim priceDateStruct As New PriceDateStruct()
+
+
+            returnString = New PrjDatabaseComponent.CDatabase
+
+            Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+            Dim futureDate As DateTime = DateTime.Now.AddHours(24)
+            Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
+
+            sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
+            sDates = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item2
+            Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+            Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+            If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
+
+                For i As Integer = 1 To 24
+                    sPrices(i) = sPrices(i).Replace(".", ",")
+                Next
+            End If
+
+            dPrices = New Double(sPrices.Length) {}
+
+            If rdiobtnStockPlussMarginal.Checked Then
+                Dim mar As Double
+                mar = Double.Parse(tbMarginalOfStock.Text)
+                For i As Integer = 1 To 24
+                    dPrices(i) = Double.Parse(sPrices(i)) + mar
+                Next
+            Else
+                For i As Integer = 1 To sPrices.Length - 1
+                    dPrices(i) = Double.Parse(sPrices(i))
+
+                Next
+            End If
+
+
+            'UNIX NEEDS TO BE CONVERTED TO CONVENTIONAL TIMESTAMP DO BE USABLE
+            'dDates = New Double(sDates.Length - 1) {}
+            For i As Integer = 1 To 24 'sDates.Length - 1
+                ' dDates(i) = Double.Parse(sDates(i))
+
+                'in textbox get one time as string
+                Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(sDates(i)) 'new datetimeoffset from sDate string
+                Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
+                dDates(i) = CDbl(dateValue.Hour) 'convert to integer
+                'TextBox1.Text = dDates(i) 'put hour to textbox for testing
+
             Next
+
+            'Dim priceAndDate As PriceDateStruct
+            Dim records As List(Of PriceDateStruct)
+            records = New List(Of PriceDateStruct)
+
+            Dim p As PriceDateStruct
+
+            For i As Integer = 1 To 24 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
+
+                p.price = dPrices(i)
+                p.sDate = dDates(i)
+                records.Add(p)
+                'records(i) = p
+            Next
+
+            'Array.Sort(dPrices) 'dPricesToBeSorted is now sorted :-)
+            records.Sort(Function(x, y) x.price.CompareTo(y.price))
+
+            Dim dgv As New DataGridView()
+
+            For i As Integer = 0 To 23
+                'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
+                dgv.Columns.Add(0, records(i).sDate & ":00")
+            Next
+
+            'For i As Integer = 0 To 23
+            '    'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
+            '    If timeNowHours >= 24 Then
+            '        timeNowHours = timeNowHours - 24
+            '        dgv.Columns.Add(0, timeNowHours & ":00")
+
+            '    Else
+            '        dgv.Columns.Add(0, timeNowHours & ":00")
+
+            '    End If
+            '    timeNowHours = timeNowHours + 1
+
+            'Next
+
+
+            If rdioFixedPrice.Checked Then
+                For i As Integer = 0 To 23
+                    dgv.Rows(0).Cells(i).Value = tboxMonthlyCost.Text & " s/kWh" ' or any other number you want to insert
+                Next
+            Else
+                For i As Integer = 0 To 23
+                    dgv.Rows(0).Cells(i).Value = (records(i).price / 1000) * 100 & " s/kWh" ' or any other number you want to insert
+                Next
+            End If
+
+
+            tblPriceTable.Controls.Add(dgv)
+
+            lblTableState.Visible = True
+            lblTableState.Text = "Börsihind kasvavalt järjestatud (odavaim -> kalleim)"
+
+            lblBestTime.Visible = True
+
+            lblBestTime.Text = "Kõige odavam tarbimisaeg on " & records(0).sDate & ":00."
+
         End If
 
-
-        tblPriceTable.Controls.Add(dgv)
-
-        lblTableState.Visible = True
-        lblTableState.Text = "Börsihind kasvavalt järjestatud (odavaim -> kalleim)"
     End Sub
 
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
@@ -1263,91 +1303,112 @@ Public Class GUIMain
     Private Sub btnTableDesc_Click(sender As Object, e As EventArgs) Handles btnTableDesc.Click
         tblPriceTable.Controls.Clear()
 
-        Dim returnString As PrjDatabaseComponent.IDatabase
-        Dim sPrices As String()
-        Dim sDates As String()
-        Dim dDates As Double() = New Double(24) {}
+        Dim tbMarginalOfStockLetters As Boolean = checkIfTextBoxContainsLetters(tbMarginalOfStock)
+        Dim tboxMonthlyCostLetters As Boolean = checkIfTextBoxContainsLetters(tboxMonthlyCost)
 
-        Dim dPrices As Double()
-        Dim priceDateStruct As New PriceDateStruct()
+        If tbMarginalOfStockLetters = False Or tboxMonthlyCostLetters = False Then
 
-
-        returnString = New PrjDatabaseComponent.CDatabase
-
-        Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-        Dim futureDate As DateTime = DateTime.Now.AddHours(24)
-        Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
-
-        sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
-        sDates = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item2
-        Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
-        Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-        If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
-            For i As Integer = 1 To 24
-                sPrices(i) = sPrices(i).Replace(".", ",")
-            Next
-        End If
-        dPrices = New Double(sPrices.Length) {}
-
-
-        For i As Integer = 1 To sPrices.Length - 1
-            dPrices(i) = Double.Parse(sPrices(i))
-
-        Next
-
-        'UNIX NEEDS TO BE CONVERTED TO CONVENTIONAL TIMESTAMP DO BE USABLE
-        'dDates = New Double(sDates.Length - 1) {}
-        For i As Integer = 1 To 24 'sDates.Length - 1
-            ' dDates(i) = Double.Parse(sDates(i))
-
-            'in textbox get one time as string
-            Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(sDates(i)) 'new datetimeoffset from sDate string
-            Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
-            dDates(i) = CDbl(dateValue.Hour) 'convert to integer
-            'TextBox1.Text = dDates(i) 'put hour to textbox for testing
-
-        Next
-
-        'Dim priceAndDate As PriceDateStruct
-        Dim records As List(Of PriceDateStruct)
-        records = New List(Of PriceDateStruct)
-
-        Dim p As PriceDateStruct
-
-        For i As Integer = 1 To 24 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
-
-            p.price = dPrices(i)
-            p.sDate = dDates(i)
-            records.Add(p)
-            'records(i) = p
-        Next
-
-        'Array.Sort(dPrices) 'dPricesToBeSorted is now sorted ascending:-)
-        records.Sort(Function(x, y) y.price.CompareTo(x.price))
-
-        Dim dgv As New DataGridView()
-
-        For i As Integer = 0 To 23
-            'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
-            dgv.Columns.Add(0, records(i).sDate & ":00")
-        Next
-
-
-        If rdioFixedPrice.Checked Then
-            For i As Integer = 0 To 23
-                dgv.Rows(0).Cells(i).Value = tboxMonthlyCost.Text & "€" ' or any other number you want to insert
-            Next
         Else
-            For i As Integer = 0 To 23
-                dgv.Rows(0).Cells(i).Value = records(i).price & "€" ' or any other number you want to insert
+
+            Dim returnString As PrjDatabaseComponent.IDatabase
+            Dim sPrices As String()
+            Dim sDates As String()
+            Dim dDates As Double() = New Double(24) {}
+
+            Dim dPrices As Double()
+            Dim priceDateStruct As New PriceDateStruct()
+
+
+            returnString = New PrjDatabaseComponent.CDatabase
+
+            Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+            Dim futureDate As DateTime = DateTime.Now.AddHours(24)
+            Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
+
+            sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
+            sDates = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item2
+            Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+            Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+            If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
+                For i As Integer = 1 To 24
+                    sPrices(i) = sPrices(i).Replace(".", ",")
+                Next
+            End If
+            dPrices = New Double(sPrices.Length) {}
+
+
+            If rdiobtnStockPlussMarginal.Checked Then
+                Dim mar As Double
+                mar = Double.Parse(tbMarginalOfStock.Text)
+                For i As Integer = 1 To 24
+                    dPrices(i) = Double.Parse(sPrices(i)) + mar
+                Next
+            Else
+                For i As Integer = 1 To sPrices.Length - 1
+                    dPrices(i) = Double.Parse(sPrices(i))
+
+                Next
+            End If
+
+            'UNIX NEEDS TO BE CONVERTED TO CONVENTIONAL TIMESTAMP DO BE USABLE
+            'dDates = New Double(sDates.Length - 1) {}
+            For i As Integer = 1 To 24 'sDates.Length - 1
+                ' dDates(i) = Double.Parse(sDates(i))
+
+                'in textbox get one time as string
+                Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(sDates(i)) 'new datetimeoffset from sDate string
+                Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
+                dDates(i) = CDbl(dateValue.Hour) 'convert to integer
+                'TextBox1.Text = dDates(i) 'put hour to textbox for testing
+
             Next
+
+            'Dim priceAndDate As PriceDateStruct
+            Dim records As List(Of PriceDateStruct)
+            records = New List(Of PriceDateStruct)
+
+            Dim p As PriceDateStruct
+
+            For i As Integer = 1 To 24 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
+
+                p.price = dPrices(i)
+                p.sDate = dDates(i)
+                records.Add(p)
+                'records(i) = p
+            Next
+
+            'Array.Sort(dPrices) 'dPricesToBeSorted is now sorted ascending:-)
+            records.Sort(Function(x, y) y.price.CompareTo(x.price))
+
+            Dim dgv As New DataGridView()
+
+            For i As Integer = 0 To 23
+                'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
+                dgv.Columns.Add(0, records(i).sDate & ":00")
+            Next
+
+
+            If rdioFixedPrice.Checked Then
+                For i As Integer = 0 To 23
+                    dgv.Rows(0).Cells(i).Value = tboxMonthlyCost.Text & " s/kWh" ' or any other number you want to insert
+                Next
+            Else
+                For i As Integer = 0 To 23
+                    dgv.Rows(0).Cells(i).Value = (records(i).price / 1000) * 100 & " s/kWh" ' or any other number you want to insert
+                Next
+            End If
+
+
+            tblPriceTable.Controls.Add(dgv)
+
+            lblTableState.Visible = True
+            lblTableState.Text = "Börsihind kahanevalt järjestatud (kalleim -> odavaim)"
+
+            lblBestTime.Visible = True
+
+            lblBestTime.Text = "Kõige kalleim tarbimisaeg on " & records(0).sDate & ":00."
+
         End If
-
-
-        tblPriceTable.Controls.Add(dgv)
-
-        lblTableState.Visible = True
-        lblTableState.Text = "Börsihind kahanevalt järjestatud (kalleim -> odavaim)"
     End Sub
 
     Private Sub rdiobtnStockPlussMarginal_CheckedChanged(sender As Object, e As EventArgs) Handles rdiobtnStockPlussMarginal.CheckedChanged
