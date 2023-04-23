@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports System.Globalization
+Imports System.IO
 Imports System.Net
 
 Public Class APIComponent
@@ -6,7 +7,7 @@ Public Class APIComponent
     Public Function GetDataFromEleringAPI() As (String(), String()) Implements APIInterface.GetDataFromEleringAPI
 
         'DateTime variables to get the 24 hour NordPool prices
-        Dim endTime As DateTime = DateTime.Now
+        Dim endTime As DateTime = DateTime.UtcNow
         Dim startTime As DateTime = endTime.AddDays(-1)
         Dim strStartTime As String = startTime.ToString("yyyy-MM-dd HH:mm:ss")
         Dim strEndTime As String = endTime.ToString("yyyy-MM-dd HH:mm:ss")
@@ -73,17 +74,20 @@ Public Class APIComponent
         endResultTimestamp(1) = endResultTimestamp(1).Substring(14)
 
         'Cycle that converts UNIX timestamp into a datetime string
-        For Each str As String In endResultTimestamp
+        For i As Integer = 0 To endResultTimestamp.Length - 1
             'Checks if string is null or empty
-            If Not String.IsNullOrEmpty(str) Then
+            If Not String.IsNullOrEmpty(endResultTimestamp(i)) Then
                 'Convert string into double
-                Dim dstr As Double = Double.Parse(str)
+                Dim dstr As Double = Double.Parse(endResultTimestamp(i))
                 'Create a new DateTime object from the converted double
-                Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(str)
+                Dim DateTime As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(dstr)
+                Dim utcDateTime As DateTime = DateTime.UtcDateTime
+                Dim estonianTimeZone As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("FLE Standard Time")
+                Dim estonianTime As DateTime = TimeZoneInfo.ConvertTimeFromUtc(utcDateTime, estonianTimeZone)
                 'Convert the object to local time
-                Dim dateTimestr = TimeZoneInfo.ConvertTime(dateTimeOffset.DateTime, TimeZoneInfo.Local)
+                'Dim dateTimestr = TimeZoneInfo.ConvertTime(dateTimeOffset.DateTime, TimeZoneInfo.Local)
                 'Convert the DateTime object into a string
-                str = dateTimestr.ToString("yyyy-MM-dd HH:mm:ss")
+                endResultTimestamp(i) = estonianTime.ToString("yyyy-MM-dd HH:mm:ss")
             End If
         Next
 
@@ -94,6 +98,15 @@ Public Class APIComponent
 
     Public Function GetDataFromEleringAPIWithDates(ByVal strStartDate As String, ByVal strEndDate As String) As (String(), String()) _
         Implements APIInterface.GetDataFromEleringAPIWithDates
+
+        'DateTime variables to get the 24 hour NordPool prices
+        Dim format As String = "yyyy-MM-dd HH:mm:ss"
+        Dim startDate As DateTime = DateTime.ParseExact(strStartDate, format, CultureInfo.InvariantCulture)
+        startDate = startDate.ToUniversalTime()
+        Dim endDate As DateTime = DateTime.ParseExact(strEndDate, format, CultureInfo.InvariantCulture)
+        endDate = endDate.ToUniversalTime()
+        strStartDate = startDate.ToString("yyyy-MM-dd HH:mm:ss")
+        strEndDate = endDate.ToString("yyyy-MM-dd HH:mm:ss")
 
 #Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
 
@@ -158,17 +171,20 @@ Public Class APIComponent
         endResultTimestamp(1) = endResultTimestamp(1).Substring(14)
 
         'Cycle that converts UNIX timestamp into a datetime string
-        For Each str As String In endResultTimestamp
+        For i As Integer = 0 To endResultTimestamp.Length - 1
             'Checks if string is null or empty
-            If Not String.IsNullOrEmpty(str) Then
+            If Not String.IsNullOrEmpty(endResultTimestamp(i)) Then
                 'Convert string into double
-                Dim dstr As Double = Double.Parse(str)
+                Dim dstr As Double = Double.Parse(endResultTimestamp(i))
                 'Create a new DateTime object from the converted double
-                Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(str)
+                Dim DateTime As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(dstr)
+                Dim utcDateTime As DateTime = DateTime.UtcDateTime
+                Dim estonianTimeZone As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("FLE Standard Time")
+                Dim estonianTime As DateTime = TimeZoneInfo.ConvertTimeFromUtc(utcDateTime, estonianTimeZone)
                 'Convert the object to local time
-                Dim dateTimestr = TimeZoneInfo.ConvertTime(dateTimeOffset.DateTime, TimeZoneInfo.Local)
+                'Dim dateTimestr = TimeZoneInfo.ConvertTime(dateTimeOffset.DateTime, TimeZoneInfo.Local)
                 'Convert the DateTime object into a string
-                str = dateTimestr.ToString("yyyy-MM-dd HH:mm:ss")
+                endResultTimestamp(i) = estonianTime.ToString("yyyy-MM-dd HH:mm:ss")
             End If
         Next
 
