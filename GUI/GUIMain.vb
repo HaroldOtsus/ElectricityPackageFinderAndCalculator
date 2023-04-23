@@ -211,7 +211,6 @@ Public Class GUIMain
         Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
         Dim futureDate As DateTime = DateTime.Now.AddHours(24)
         Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
-
         sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
         sDates = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item2
 
@@ -242,6 +241,30 @@ Public Class GUIMain
             'TextBox1.Text = dDates(i) 'put hour to textbox for testing
 
         Next
+        If rdioFixedPrice.Checked Then 'universal price t odraw chart
+            If tboxMonthlyCost.Text = "" Then
+                tboxMonthlyCost.Text = "0"
+            End If
+            For i As Integer = 1 To 24
+                dPrices(i) = tboxMonthlyCost.Text
+            Next
+        End If
+
+        If rdioBtnUniversalP.Checked Then
+            Dim universalPrice As Double
+            universalPrice = returnString.universalServicePrice()
+            For i As Integer = 1 To 24
+                dPrices(i) = universalPrice
+            Next
+        End If
+
+        If rdiobtnStockPlussMarginal.Checked Then
+            Dim mar As Double
+            mar = Double.Parse(tbMarginalOfStock.Text)
+            For i As Integer = 1 To 24
+                dPrices(i) = dPrices(i) + mar
+            Next
+        End If
 
         'Dim priceAndDate As PriceDateStruct
         Dim records As List(Of PriceDateStruct)
@@ -1377,7 +1400,7 @@ Public Class GUIMain
         Dim returnString As PrjDatabaseComponent.IDatabase
         returnString = New PrjDatabaseComponent.CDatabase
         Dim universalPrice As Double = returnString.universalServicePrice
-        tboxMonthlyCost.Text = universalPrice & " [s/kWh]"
+        'tboxMonthlyCost.Text = universalPrice & " [s/kWh]"
         tboxMonthlyCost.Enabled = False
     End Sub
 
