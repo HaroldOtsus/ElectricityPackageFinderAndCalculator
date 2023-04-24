@@ -9,7 +9,7 @@ Public Class CDatabase
     Private Shared conn As MySqlConnection
 
     Public Sub New()
-        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;Pooling=true;"
         conn = New MySqlConnection(connString)
     End Sub
 
