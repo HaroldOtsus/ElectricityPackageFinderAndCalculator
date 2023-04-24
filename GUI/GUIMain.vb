@@ -1276,7 +1276,7 @@ Public Class GUIMain
 
     Private Sub btnPackets_Click(sender As Object, e As EventArgs) Handles btnPackets.Click
 
-
+        chartPackages.Series.Clear()
         Dim returnString As PrjDatabaseComponent.IDatabase
         returnString = New PrjDatabaseComponent.CDatabase
         Dim count As Integer
