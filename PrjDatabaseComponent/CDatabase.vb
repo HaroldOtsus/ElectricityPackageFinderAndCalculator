@@ -14,8 +14,6 @@ Public Class CDatabase
     End Sub
 
     Function userPrefernces(ByVal username, ByRef size, ByRef color) Implements ILogin.userPrefernces
-        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        Dim conn As New MySqlConnection(connString)
 
         Try
             conn.Open()
@@ -35,8 +33,6 @@ Public Class CDatabase
     End Function
 
     Function updateUserPrefernces(ByVal username, ByVal update) Implements ILogin.updateUserPrefernces
-        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        Dim conn As New MySqlConnection(connString)
 
         Try
             conn.Open()
@@ -48,7 +44,6 @@ Public Class CDatabase
         Catch ex As Exception
             'Return False
         End Try
-        conn.Close()
 
     End Function
     Function hashPassword(ByVal password As String) As String
@@ -63,8 +58,6 @@ Public Class CDatabase
 
 
     Function universalServicePrice() As Double Implements IDatabase.universalServicePrice
-        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        Dim conn As New MySqlConnection(connString)
         Dim price As Double
         Try
             conn.Open()
@@ -75,7 +68,7 @@ Public Class CDatabase
                 price = reader.GetString(0)
 
             End While
-            conn.Close()
+
             Return price
         Catch ex As Exception
             'Return False
@@ -108,7 +101,6 @@ Public Class CDatabase
                     Return False
                 End If
             End If
-            conn.Close()
             Return False
 
         Catch ex As Exception
@@ -133,7 +125,6 @@ Public Class CDatabase
                 Return True
             End If
 
-            conn.Close()
 
         Catch ex As Exception
             Return False
@@ -161,7 +152,6 @@ Public Class CDatabase
                 'if everything went well return true otherwise false
                 Return True
             End If
-            conn.Close()
             Return False
 
         Catch ex As Exception
@@ -198,7 +188,6 @@ Public Class CDatabase
             End While
             reader.Close()
 
-            conn.Close()
         Catch ex As MySqlException ''code for troubleshooting will have to change it if want to use with GUI
             ' Handle MySqlException here
             strVar = "MySqlException:"
@@ -312,8 +301,7 @@ Public Class CDatabase
     Function electricityPackagesInfo() As (String(), String(), Double(), Double(), Boolean(), Boolean(), Boolean(), Double()) Implements IDatabase.electricityPackagesInfo
         Dim count As Integer
         count = electricityPackagesCount()
-        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        Dim conn As New MySqlConnection(connString) ' connection to database
+
         Try
 
             conn.Open()
@@ -344,7 +332,7 @@ Public Class CDatabase
                 i += 1
             End While
 
-            conn.Close()
+
             'return arrays
             Return (stringOfPackageNames, stringOfCompanyNames, pricePerKWh, monthlyFeeForContract, usesMarketPrice, greenEnergy, isNightPriceDifferent, nightPrice)
         Catch ex As Exception
