@@ -547,9 +547,6 @@ Public Class GUIMain
         returnString = New PrjDatabaseComponent.CDatabase
         Dim sPrices As String()
         Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-
-        ' Dim strStartTime As String = startTime.ToString("yyyy-MM-dd HH:mm:ss")
-        ' Dim strEndTime As String = endTime.ToString("yyyy-MM-dd HH:mm:ss")
         Dim futureDate As DateTime = DateTime.Now.AddHours(24)
         Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
 
@@ -1288,8 +1285,10 @@ Public Class GUIMain
         'chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
         Dim rand As New Random()
         For j As Integer = 0 To (count - 1)
+
             Dim series As New Series(packages.Item1(j)) ' create a new series with the package name
             chartPackages.Series.Add(series)
+            Dim currentHour As Integer = DateTime.Now.Hour
             chartPackages.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
             chartPackages.ChartAreas(0).AxisY.Interval = 5 'more lines Y axis
             series.ChartType = DataVisualization.Charting.SeriesChartType.StepLine
@@ -1302,31 +1301,48 @@ Public Class GUIMain
             series.Color = colorofLine
             series.BorderWidth = 3
             'all the packages are right except Muutuv 
+            Dim returnString2 As PrjDatabaseComponent.IDatabaseAPI
+            returnString2 = New PrjDatabaseComponent.CDatabase
+            Dim data = returnString2.stockPrice
             If Not packages.Item5(j) Then
-                'get local time
-                ' Dim currentHour As Integer = DateTime.Now.Hour
+                Dim hour2(24) As Integer
+
+                For k As Integer = 1 To 24
+                    Dim unixTimestamp As Long = Long.Parse(data.dates(k))
+
+                    Dim dateTime As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTimestamp)
+                    hour2(k) = dateTime.Hour
+                    chartPackages.ChartAreas(0).AxisX.Minimum = hour2(1)
+                Next
                 For i As Integer = 0 To 23
 
-                    series.Points.AddXY(i, packages.Item3(j))
+                    series.Points.AddXY(hour2(i), packages.Item3(j))
 
 
                 Next 'the packet does not have fixed price
             Else
-                Dim returnString2 As PrjDatabaseComponent.IDatabaseAPI
-                returnString2 = New PrjDatabaseComponent.CDatabase
-                Dim data = returnString2.stockPrice
+
+
+                'Dim hour2(24) As Integer
+
+                'For k As Integer = 1 To 24
+                '    Dim unixTimestamp As Long = Long.Parse(data.dates(k))
+
+                '    Dim dateTime As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTimestamp)
+                '    hour2(k) = dateTime.Hour
+                'Next
                 For i As Integer = 1 To 24
                     Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.dates(i)) 'new datetimeoffset from sDate string
                     Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
 
 
                     ' Get the UTC+2 time zone
-                    Dim timeZone As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Israel Standard Time")
+                    '  Dim timeZone As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Israel Standard Time")
 
                     ' Convert DateTimeOffset object to UTC+3 timezone
-                    Dim convertedTime As DateTimeOffset = TimeZoneInfo.ConvertTime(dateTimeOffset, timeZone)
+                    ' Dim convertedTime As DateTimeOffset = TimeZoneInfo.ConvertTime(dateTimeOffset, timeZone)
 
-                    Dim hour As Integer = convertedTime.Hour
+                    Dim hour As Integer = dateValue.Hour
                     Dim price As Double
                     Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
                     Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
@@ -1337,7 +1353,8 @@ Public Class GUIMain
                     Dim pricesD As Double = Double.Parse(data.prices(i))
                     price = pricesD + packages.Item3(j)
 
-                    series.Points.AddXY(hour, price)
+                    ' series.Points.AddXY(hour, price)
+                    chartPackages.Series(j).Points.AddXY(hour, price)
 
                 Next
             End If

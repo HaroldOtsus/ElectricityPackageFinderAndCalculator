@@ -496,14 +496,13 @@ Public Class CDatabase
                 If read IsNot Nothing Then
                     While read.Read() 'get all dates from database
                         For i As Integer = 1 To 24
-                            sPrices(i) = read.GetString(i)
+                            sPrices(i) = read.GetString(0)
                         Next
                     End While
                     read.Close()
                     con.Close()
 
                     Dim stringOfDates As String()
-                    'stringOfDates = insertDatesToDatabase()
                     stringOfDates = datesOfStockPriceFuture()
                     Return (sPrices, stringOfDates)
                 End If
@@ -531,8 +530,9 @@ Public Class CDatabase
         dateToday = Date.Today 'get what date it is today
         Dim api As PrjAPIComponent.APIInterface
         api = New PrjAPIComponent.APIComponent
-        Dim sPrices As String()
+        Dim sPrices(24) As String
         sPrices = api.GetDataFromEleringAPI().Item1
+        'Return sPrices
         '' sPrices()
         Try
 
@@ -617,7 +617,7 @@ Public Class CDatabase
         api = New PrjAPIComponent.APIComponent
         Dim sPrices As String()
         sPrices = api.GetDataFromEleringAPIWithDates(strStartDate, strEndDate).Item1
-        '' sPrices()
+
         Try
 
             conn.Open() 'try to connect to database
@@ -682,12 +682,12 @@ Public Class CDatabase
             command.Parameters.AddWithValue("@colDate", dateToday)
             command.ExecuteNonQuery()
             conn.Close()
-            Return sPrices
-        Catch ex As Exception
-            stringOfErrors = {"error", "error", "error"}
-            Return stringOfErrors
-        End Try
 
+        Catch ex As Exception
+            'stringOfErrors = {"error", "error", "error"}
+            'Return stringOfErrors
+        End Try
+        Return sPrices
     End Function
 
     Function insertDatesToDatabaseFuture(ByVal strStartDate As String, ByVal strEndDate As String) As String() ''get data from API and insert it into database
@@ -701,10 +701,11 @@ Public Class CDatabase
         Dim sDates As String()
         sDates = api.GetDataFromEleringAPIWithDates(strStartDate, strEndDate).Item2
         'get info from API about dates
+
         Try
 
             conn.Open() 'try to connect to database
-
+            Return sDates
             '' Dim command As New MySqlCommand("UPDATE webdata SET one = @colOne, two = @colTwo, three = @colThree WHERE idPacket = 1 ", conn)
             '' broke command into several commands because it didn't update database and thougth there was a bug
             '' actually didn't update because one column name was written wrongly
@@ -765,9 +766,9 @@ Public Class CDatabase
             command.Parameters.AddWithValue("@colDate", dateToday)
             command.ExecuteNonQuery()
 
-            Return sDates
         Catch ex As Exception
             stringOfErrors = {"error", "error", "error"}
+            Return sDates
             Return stringOfErrors
         End Try
 

@@ -94,15 +94,29 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Assert.AreEqual("19", count123(1))
     End Sub
 
+    <TestMethod()> Public Sub getDateFutureAPI()
+        Dim getIn As New PrjAPIComponent.APIComponent
+        Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+        'Dim currentDateString As String = currentDate.ToString("yyyy-MM-dd HH:mm:ss")
+        Dim currentDateString2 As String = "2023-04-24 12:20:00"
+        'Assert.AreEqual("2023-04-23 13:04:02", currentDate)
+        'Dim futureDate As DateTime = DateTime.ParseExact(currentDate, "yyyy-MM-dd HH:mm:ss", Nothing)
+        'Assert.AreEqual(currentDate, modifiedDateString)
+        Dim futureDate As DateTime = DateTime.Now.AddHours(24)
+        'Assert.AreEqual("2023-04-23 13:04:02", futureDate)
+        Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
+        ' Dim futureDateString As String = "2023-04-25 12:20:00"
+        Dim count123 = getIn.GetDataFromEleringAPIWithDates(currentDate, futureDateString)
+        Assert.AreEqual("cool", count123.Item1(1))
+    End Sub
+
     <TestMethod()> Public Sub getDateandPriceFuture()
         Dim getIn As New PrjDatabaseComponent.CDatabase
         Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-        ' Dim futureDate As DateTime = DateTime.ParseExact(currentDate, "yyyy-MM-dd HH:mm:ss", Nothing)
-        'Assert.AreEqual(currentDate, modifiedDateString)
         Dim futureDate As DateTime = DateTime.Now.AddHours(24)
         Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
         Dim count123 = getIn.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString)
-        Assert.AreEqual("19", count123.Item1(1))
+        Assert.AreEqual("cool", count123.Item1(1))
     End Sub
     '<TestMethod()> Public Sub TestStringReturn()
     '    Dim getIn As New PrjDatabaseComponent.CDatabase
