@@ -177,6 +177,7 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
+        Me.btnConfirmSimuCSV = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1342,6 +1343,7 @@ Partial Class GUIMain
         '
         'tabClientConsumptionHistory
         '
+        Me.tabClientConsumptionHistory.Controls.Add(Me.btnConfirmSimuCSV)
         Me.tabClientConsumptionHistory.Controls.Add(Me.tbDebug)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblToDateTime)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblFromDateTime)
@@ -1367,6 +1369,7 @@ Partial Class GUIMain
         Me.tbDebug.Multiline = True
         Me.tbDebug.Name = "tbDebug"
         Me.tbDebug.ReadOnly = True
+        Me.tbDebug.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.tbDebug.Size = New System.Drawing.Size(431, 348)
         Me.tbDebug.TabIndex = 15
         '
@@ -1410,7 +1413,7 @@ Partial Class GUIMain
         Me.chrt.ChartAreas.Add(ChartArea4)
         Legend4.Name = "Legend1"
         Me.chrt.Legends.Add(Legend4)
-        Me.chrt.Location = New System.Drawing.Point(26, 322)
+        Me.chrt.Location = New System.Drawing.Point(29, 350)
         Me.chrt.Name = "chrt"
         Me.chrt.Size = New System.Drawing.Size(244, 90)
         Me.chrt.TabIndex = 10
@@ -1592,7 +1595,7 @@ Partial Class GUIMain
         '
         'btnPackets
         '
-        Me.btnPackets.Location = New System.Drawing.Point(163, 416)
+        Me.btnPackets.Location = New System.Drawing.Point(164, 352)
         Me.btnPackets.Name = "btnPackets"
         Me.btnPackets.Size = New System.Drawing.Size(152, 52)
         Me.btnPackets.TabIndex = 10
@@ -1605,16 +1608,16 @@ Partial Class GUIMain
         Me.chartPackages.ChartAreas.Add(ChartArea5)
         Legend5.Name = "Legend1"
         Me.chartPackages.Legends.Add(Legend5)
-        Me.chartPackages.Location = New System.Drawing.Point(365, 105)
+        Me.chartPackages.Location = New System.Drawing.Point(441, 112)
         Me.chartPackages.Margin = New System.Windows.Forms.Padding(2)
         Me.chartPackages.Name = "chartPackages"
-        Me.chartPackages.Size = New System.Drawing.Size(550, 363)
+        Me.chartPackages.Size = New System.Drawing.Size(446, 283)
         Me.chartPackages.TabIndex = 9
         '
         'lblComparisonResult
         '
         Me.lblComparisonResult.AutoSize = True
-        Me.lblComparisonResult.Location = New System.Drawing.Point(362, 64)
+        Me.lblComparisonResult.Location = New System.Drawing.Point(438, 64)
         Me.lblComparisonResult.Name = "lblComparisonResult"
         Me.lblComparisonResult.Size = New System.Drawing.Size(50, 13)
         Me.lblComparisonResult.TabIndex = 7
@@ -1707,6 +1710,15 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.TabIndex = 10
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
+        '
+        'btnConfirmSimuCSV
+        '
+        Me.btnConfirmSimuCSV.Location = New System.Drawing.Point(51, 293)
+        Me.btnConfirmSimuCSV.Name = "btnConfirmSimuCSV"
+        Me.btnConfirmSimuCSV.Size = New System.Drawing.Size(150, 34)
+        Me.btnConfirmSimuCSV.TabIndex = 16
+        Me.btnConfirmSimuCSV.Text = "Kinnita andmed"
+        Me.btnConfirmSimuCSV.UseVisualStyleBackColor = True
         '
         'GUIMain
         '
@@ -1899,4 +1911,5 @@ Partial Class GUIMain
     Friend WithEvents dtpEnd As DateTimePicker
     Friend WithEvents dtpBeginning As DateTimePicker
     Friend WithEvents tbDebug As TextBox
+    Friend WithEvents btnConfirmSimuCSV As Button
 End Class
