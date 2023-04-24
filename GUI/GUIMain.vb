@@ -1221,6 +1221,8 @@ Public Class GUIMain
         Dim packages = returnString.electricityPackagesInfo
         'chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
         Dim rand As New Random()
+        chartPackages.Width = 600 ' set the width to 800 pixels
+        chartPackages.Height = 400
         For j As Integer = 0 To (count - 1)
 
             Dim series As New Series(packages.Item1(j)) ' create a new series with the package name
@@ -1232,12 +1234,6 @@ Public Class GUIMain
             Dim r As Integer = rand.Next(0, 256)
             Dim g As Integer = rand.Next(0, 256)
             Dim b As Integer = rand.Next(0, 256)
-            chartPackages.ChartAreas(0).AxisX.LabelStyle.Format = "t"
-            'Chart1.ChartAreas("ChartArea1").AxisX.Interval = interval
-            'Chart1.ChartAreas("ChartArea1").AxisX.Minimum = startDate
-            'Chart1.ChartAreas("ChartArea1").AxisX.Maximum = endDate
-
-            ' Create a new color object using the random RGB values
             Dim colorofLine As Color = Color.FromArgb(r, g, b)
             series.Color = colorofLine
             series.BorderWidth = 3
@@ -1263,24 +1259,10 @@ Public Class GUIMain
             Else
 
 
-                'Dim hour2(24) As Integer
 
-                'For k As Integer = 1 To 24
-                '    Dim unixTimestamp As Long = Long.Parse(data.dates(k))
-
-                '    Dim dateTime As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTimestamp)
-                '    hour2(k) = dateTime.Hour
-                'Next
                 For i As Integer = 1 To 24
                     Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.dates(i)) 'new datetimeoffset from sDate string
                     Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
-
-
-                    ' Get the UTC+2 time zone
-                    '  Dim timeZone As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Israel Standard Time")
-
-                    ' Convert DateTimeOffset object to UTC+3 timezone
-                    ' Dim convertedTime As DateTimeOffset = TimeZoneInfo.ConvertTime(dateTimeOffset, timeZone)
 
                     Dim hour As Integer = dateValue.Hour
                     Dim price As Double

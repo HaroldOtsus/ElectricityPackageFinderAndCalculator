@@ -141,6 +141,11 @@ Partial Class GUIMain
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.tabBlank = New System.Windows.Forms.TabPage()
         Me.tabClientConsumptionHistory = New System.Windows.Forms.TabPage()
+        Me.tbDebug = New System.Windows.Forms.TextBox()
+        Me.lblToDateTime = New System.Windows.Forms.Label()
+        Me.lblFromDateTime = New System.Windows.Forms.Label()
+        Me.dtpEnd = New System.Windows.Forms.DateTimePicker()
+        Me.dtpBeginning = New System.Windows.Forms.DateTimePicker()
         Me.chrt = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btnImportCSVFileSimu = New System.Windows.Forms.Button()
@@ -172,11 +177,6 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
-        Me.dtpBeginning = New System.Windows.Forms.DateTimePicker()
-        Me.dtpEnd = New System.Windows.Forms.DateTimePicker()
-        Me.lblFromDateTime = New System.Windows.Forms.Label()
-        Me.lblToDateTime = New System.Windows.Forms.Label()
-        Me.tbDebug = New System.Windows.Forms.TextBox()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1361,6 +1361,49 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.Text = "Simuleeri oma tarbimise ajalugu"
         Me.tabClientConsumptionHistory.UseVisualStyleBackColor = True
         '
+        'tbDebug
+        '
+        Me.tbDebug.Location = New System.Drawing.Point(347, 64)
+        Me.tbDebug.Multiline = True
+        Me.tbDebug.Name = "tbDebug"
+        Me.tbDebug.ReadOnly = True
+        Me.tbDebug.Size = New System.Drawing.Size(431, 348)
+        Me.tbDebug.TabIndex = 15
+        '
+        'lblToDateTime
+        '
+        Me.lblToDateTime.AutoSize = True
+        Me.lblToDateTime.Location = New System.Drawing.Point(48, 218)
+        Me.lblToDateTime.Name = "lblToDateTime"
+        Me.lblToDateTime.Size = New System.Drawing.Size(95, 13)
+        Me.lblToDateTime.TabIndex = 14
+        Me.lblToDateTime.Text = "Vali lõpp kuupäev:"
+        '
+        'lblFromDateTime
+        '
+        Me.lblFromDateTime.AutoSize = True
+        Me.lblFromDateTime.Location = New System.Drawing.Point(48, 148)
+        Me.lblFromDateTime.Name = "lblFromDateTime"
+        Me.lblFromDateTime.Size = New System.Drawing.Size(100, 13)
+        Me.lblFromDateTime.TabIndex = 13
+        Me.lblFromDateTime.Text = "Vali algus kuupäev:"
+        '
+        'dtpEnd
+        '
+        Me.dtpEnd.Enabled = False
+        Me.dtpEnd.Location = New System.Drawing.Point(51, 247)
+        Me.dtpEnd.Name = "dtpEnd"
+        Me.dtpEnd.Size = New System.Drawing.Size(200, 20)
+        Me.dtpEnd.TabIndex = 12
+        '
+        'dtpBeginning
+        '
+        Me.dtpBeginning.Enabled = False
+        Me.dtpBeginning.Location = New System.Drawing.Point(50, 174)
+        Me.dtpBeginning.Name = "dtpBeginning"
+        Me.dtpBeginning.Size = New System.Drawing.Size(200, 20)
+        Me.dtpBeginning.TabIndex = 11
+        '
         'chrt
         '
         ChartArea4.Name = "ChartArea1"
@@ -1549,7 +1592,7 @@ Partial Class GUIMain
         '
         'btnPackets
         '
-        Me.btnPackets.Location = New System.Drawing.Point(164, 352)
+        Me.btnPackets.Location = New System.Drawing.Point(163, 416)
         Me.btnPackets.Name = "btnPackets"
         Me.btnPackets.Size = New System.Drawing.Size(152, 52)
         Me.btnPackets.TabIndex = 10
@@ -1562,16 +1605,16 @@ Partial Class GUIMain
         Me.chartPackages.ChartAreas.Add(ChartArea5)
         Legend5.Name = "Legend1"
         Me.chartPackages.Legends.Add(Legend5)
-        Me.chartPackages.Location = New System.Drawing.Point(441, 112)
+        Me.chartPackages.Location = New System.Drawing.Point(365, 105)
         Me.chartPackages.Margin = New System.Windows.Forms.Padding(2)
         Me.chartPackages.Name = "chartPackages"
-        Me.chartPackages.Size = New System.Drawing.Size(446, 283)
+        Me.chartPackages.Size = New System.Drawing.Size(550, 363)
         Me.chartPackages.TabIndex = 9
         '
         'lblComparisonResult
         '
         Me.lblComparisonResult.AutoSize = True
-        Me.lblComparisonResult.Location = New System.Drawing.Point(438, 64)
+        Me.lblComparisonResult.Location = New System.Drawing.Point(362, 64)
         Me.lblComparisonResult.Name = "lblComparisonResult"
         Me.lblComparisonResult.Size = New System.Drawing.Size(50, 13)
         Me.lblComparisonResult.TabIndex = 7
@@ -1664,49 +1707,6 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.TabIndex = 10
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
-        '
-        'dtpBeginning
-        '
-        Me.dtpBeginning.Enabled = False
-        Me.dtpBeginning.Location = New System.Drawing.Point(50, 174)
-        Me.dtpBeginning.Name = "dtpBeginning"
-        Me.dtpBeginning.Size = New System.Drawing.Size(200, 20)
-        Me.dtpBeginning.TabIndex = 11
-        '
-        'dtpEnd
-        '
-        Me.dtpEnd.Enabled = False
-        Me.dtpEnd.Location = New System.Drawing.Point(51, 247)
-        Me.dtpEnd.Name = "dtpEnd"
-        Me.dtpEnd.Size = New System.Drawing.Size(200, 20)
-        Me.dtpEnd.TabIndex = 12
-        '
-        'lblFromDateTime
-        '
-        Me.lblFromDateTime.AutoSize = True
-        Me.lblFromDateTime.Location = New System.Drawing.Point(48, 148)
-        Me.lblFromDateTime.Name = "lblFromDateTime"
-        Me.lblFromDateTime.Size = New System.Drawing.Size(100, 13)
-        Me.lblFromDateTime.TabIndex = 13
-        Me.lblFromDateTime.Text = "Vali algus kuupäev:"
-        '
-        'lblToDateTime
-        '
-        Me.lblToDateTime.AutoSize = True
-        Me.lblToDateTime.Location = New System.Drawing.Point(48, 218)
-        Me.lblToDateTime.Name = "lblToDateTime"
-        Me.lblToDateTime.Size = New System.Drawing.Size(95, 13)
-        Me.lblToDateTime.TabIndex = 14
-        Me.lblToDateTime.Text = "Vali lõpp kuupäev:"
-        '
-        'tbDebug
-        '
-        Me.tbDebug.Location = New System.Drawing.Point(347, 64)
-        Me.tbDebug.Multiline = True
-        Me.tbDebug.Name = "tbDebug"
-        Me.tbDebug.ReadOnly = True
-        Me.tbDebug.Size = New System.Drawing.Size(431, 348)
-        Me.tbDebug.TabIndex = 15
         '
         'GUIMain
         '

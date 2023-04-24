@@ -314,7 +314,7 @@ Public Class CDatabase
         End Try
 
     End Function
-    Function electricityPackagesInfo() As (String(), String(), Double(), Double(), Boolean(), Boolean()) Implements IDatabase.electricityPackagesInfo
+    Function electricityPackagesInfo() As (String(), String(), Double(), Double(), Boolean(), Boolean(), Boolean(), Double()) Implements IDatabase.electricityPackagesInfo
         Dim count As Integer
         count = electricityPackagesCount()
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
@@ -323,7 +323,7 @@ Public Class CDatabase
 
             conn.Open()
             'get info about electricity packages from database
-            Dim sqlCommand As New MySqlCommand("SELECT packageName,companyName, pricePerKWh, monthlyFeeForContract, usesMarketPRice, greenEnergy FROM electricityPackages;", conn)
+            Dim sqlCommand As New MySqlCommand("SELECT packageName, companyName, pricePerKWh, monthlyFeeForContract, usesMarketPrice, greenEnergy, isNightPriceDifferent, nightPrice FROM electricityPackages;", conn)
             Dim reader As MySqlDataReader = sqlCommand.ExecuteReader()
             'create arrays to hold database info
             Dim stringOfPackageNames(count - 1) As String
@@ -332,6 +332,8 @@ Public Class CDatabase
             Dim monthlyFeeForContract(count - 1) As Double
             Dim usesMarketPrice(count - 1) As Boolean
             Dim greenEnergy(count - 1) As Boolean
+            Dim isNightPriceDifferent(count - 1) As Boolean
+            Dim nightPrice(count - 1) As Double
             Dim rowcount As Integer = 0
             Dim i As Integer = 0
             While reader.Read() AndAlso i < count
@@ -342,12 +344,14 @@ Public Class CDatabase
                 monthlyFeeForContract(i) = reader.GetString(3)
                 usesMarketPrice(i) = reader.GetString(4)
                 greenEnergy(i) = reader.GetString(5)
+                isNightPriceDifferent(i) = reader.GetString(6)
+                nightPrice(i) = reader.GetString(7)
                 i += 1
             End While
 
             conn.Close()
             'return arrays
-            Return (stringOfPackageNames, stringOfCompanyNames, pricePerKWh, monthlyFeeForContract, usesMarketPrice, greenEnergy)
+            Return (stringOfPackageNames, stringOfCompanyNames, pricePerKWh, monthlyFeeForContract, usesMarketPrice, greenEnergy, isNightPriceDifferent, nightPrice)
         Catch ex As Exception
             'exception using database
             '   stringOfErrors = {"error", "error", "error"}

@@ -42,6 +42,15 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Assert.AreEqual(5, count)
     End Sub
 
+    <TestMethod()> Public Sub TTestPackageInfo()
+        Dim getIn As New PrjDatabaseComponent.CDatabase
+        '  Dim actualData As (String(), String()) = getIn.electricityPackages
+        '  Assert.AreEqual("Kindel 6", actualData.Item1(0))
+        ' Assert.AreEqual("Eesti Energia", actualData.Item2(0))
+        Dim count = getIn.electricityPackagesInfo()
+        Assert.AreEqual("Eesti energia", count.Item2(1))
+    End Sub
+
     <TestMethod()> Public Sub TestUniversalServicePrice()
         Dim getIn As New PrjDatabaseComponent.CDatabase
         Dim count As Double = getIn.universalServicePrice
@@ -49,7 +58,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     End Sub
     <TestMethod()> Public Sub TestinsertUserPref()
         Dim getIn As New PrjDatabaseComponent.CDatabase
-        Dim count As Double = getIn.updateUserPrefernces("laura", "Punane")
+        Dim count As Double = getIn.updateUserPrefernces("laura", "Roosa")
 
     End Sub
 
