@@ -236,6 +236,8 @@ Public Class GUIMain
             For i As Integer = 1 To sPrices.Length - 1
                 dPrices(i) = Double.Parse(sPrices(i))
 
+
+
             Next
 
             'UNIX NEEDS TO BE CONVERTED TO CONVENTIONAL TIMESTAMP DO BE USABLE
@@ -271,7 +273,8 @@ Public Class GUIMain
                 Dim mar As Double
                 mar = Double.Parse(tbMarginalOfStock.Text)
                 For i As Integer = 1 To 24
-                    dPrices(i) = dPrices(i) + mar
+
+                    dPrices(i) = dPrices(i) + mar * 10 ' the *10 turns marginal from €/MWh to cents/kWh
                 Next
             End If
 
@@ -676,7 +679,7 @@ Public Class GUIMain
                 Dim mar As Double
                 mar = Double.Parse(tbMarginalOfStock.Text)
                 For i As Integer = 1 To 24
-                    dPrices(i) = Double.Parse(sPrices(i)) + mar
+                    dPrices(i) = Double.Parse(sPrices(i)) + mar * 10 ' the *10 turns marginal from €/MWh to cents/kWh
                 Next
             Else
                 For i As Integer = 1 To sPrices.Length - 1
@@ -1405,7 +1408,7 @@ Public Class GUIMain
                 Dim mar As Double
                 mar = Double.Parse(tbMarginalOfStock.Text)
                 For i As Integer = 1 To 24
-                    dPrices(i) = Double.Parse(sPrices(i)) + mar
+                    dPrices(i) = Double.Parse(sPrices(i)) + mar * 10 ' the *10 turns marginal from €/MWh to cents/kWh
                 Next
             Else
                 For i As Integer = 1 To sPrices.Length - 1
