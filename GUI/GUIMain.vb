@@ -1501,17 +1501,19 @@ Public Class GUIMain
             sPrices(1) = sPrices(1).Replace(".", ",")
         End If
         Dim calculateKWH As Double = Double.Parse(sPrices(1))
-        'calculateKWH = (calculateKWH / 10) / 100 'Old one by laura
+
         calculateKWH = (calculateKWH / 1000) * 100 'takes the MWh/€ value from the database
         'divides by a 1000 to get kWh and multiplies by a 100 to get cents
         If checkIfTextBoxContainsLetters(tbMarginalOfStock) = True Then
 
             If tbMarginalOfStock.Text = "" Then
-                Dim sum1 As String = calculateKWH + 0
+                Dim sum1 As String = calculateKWH + 0 & " [s/kWh]"
                 tBoxPackageHourlyRate.Text = sum1
+
             Else
-                Dim sum2 As String = calculateKWH + Double.Parse(tbMarginalOfStock.Text)
+                Dim sum2 As String = calculateKWH + Double.Parse(tbMarginalOfStock.Text) & " [s/kWh]"
                 tBoxPackageHourlyRate.Text = sum2
+
             End If
 
 
@@ -1536,27 +1538,38 @@ Public Class GUIMain
         If tbMarginalOfStock.TextLength > 0 Then
             rdiobtnStockPlussMarginal.Enabled = True
             If rdiobtnStockPlussMarginal.Checked = True Then
-                Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+                Dim returnString As PrjDatabaseComponent.IDatabase
                 returnString = New PrjDatabaseComponent.CDatabase
                 Dim sPrices As String()
-                sPrices = returnString.stockPrice().prices
+
+                Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                Dim futureDate As DateTime = DateTime.Now.AddHours(24)
+                Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
+
+                sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
                 Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
                 Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
 
                 If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
-                    sPrices(24) = sPrices(24).Replace(".", ",")
+                    sPrices(1) = sPrices(1).Replace(".", ",")
                 End If
+                Dim sPrice1 As Double = Double.Parse(sPrices(1))
+                Dim calculateKWH As Double = sPrice1
 
-                Dim calculateKWH As Double = Double.Parse(sPrices(24))
-                'calculateKWH = (calculateKWH / 10) / 100
                 calculateKWH = (calculateKWH / 1000) * 100
                 If checkIfTextBoxContainsLetters(tBoxMarginal) = True Then
-                    Dim sum As Double = calculateKWH + Double.Parse(tbMarginalOfStock.Text)
+                    'Dim sum As Double = calculateKWH + Double.Parse(tbMarginalOfStock.Text)
 
                     ' Convert sum to a string and display the result
                     ' Dim result As String = sum.ToString()
 
-                    tBoxPackageHourlyRate.Text = sum
+                    If tbMarginalOfStock.Text = "" Then
+                        Dim sum1 As String = calculateKWH + 0 & " [s/kWh]"
+                        tBoxPackageHourlyRate.Text = sum1
+                    Else
+                        Dim sum2 As String = calculateKWH + Double.Parse(tbMarginalOfStock.Text) & " [s/kWh]"
+                        tBoxPackageHourlyRate.Text = sum2
+                    End If
                 End If
             End If
 
