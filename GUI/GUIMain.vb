@@ -1500,7 +1500,7 @@ Public Class GUIMain
 
     Private Sub btnImportCSVFileSimu_Click(sender As Object, e As EventArgs) Handles btnImportCSVFileSimu.Click
         'tblCSVfile.Controls.Clear()
-        chrtCSV.Series.Clear()
+        'chrtCSV.Series.Clear()
 
 
 
@@ -1520,122 +1520,122 @@ Public Class GUIMain
             'If btnConfirmSimuCSV.Focused = True Then
             Dim table As New DataTable()
 
-                Using parser As New Microsoft.VisualBasic.FileIO.TextFieldParser(selectedFileName)
-                    parser.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited
-                    parser.SetDelimiters(";")
+            Using parser As New Microsoft.VisualBasic.FileIO.TextFieldParser(selectedFileName)
+                parser.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited
+                parser.SetDelimiters(";")
 
-                    Dim headerLinesToSkip As Integer = 9
-                    For i As Integer = 1 To headerLinesToSkip
-                        parser.ReadLine()
-                    Next
-
-
-                    'Filling ze table
-                    ' Read the header row and add the columns to the table
-                    Dim column As Integer = 0
-                    Dim headerRow As String() = parser.ReadFields()
-                    For Each header As String In headerRow
-                        table.Columns.Add(header)
-                        column += 1
-                    Next
-                    If column > 2 Then
+                Dim headerLinesToSkip As Integer = 9
+                For i As Integer = 1 To headerLinesToSkip
+                    parser.ReadLine()
+                Next
 
 
-
-                        ' Read the data rows and add them to the table
-                        While Not parser.EndOfData
-                            Dim fields As String() = parser.ReadFields()
-                            table.Rows.Add(fields)
-                            'p.dateAndTime = fields(0)
-                            'p.wattage = fields(2)
-
-                        End While
-
-
-                        dtpBeginning.Enabled = True
-                        dtpEnd.Enabled = True
+                'Filling ze table
+                ' Read the header row and add the columns to the table
+                Dim column As Integer = 0
+                Dim headerRow As String() = parser.ReadFields()
+                For Each header As String In headerRow
+                    table.Columns.Add(header)
+                    column += 1
+                Next
+                If column > 2 Then
 
 
-                        Dim rowCount As Integer = table.Rows.Count
-                        Dim rowCountInForEach As Integer = 0
 
-                        If table.Columns(0).ColumnName = "Algus" And table.Columns(2).ColumnName = "Kogus (kWh)" _
+                    ' Read the data rows and add them to the table
+                    While Not parser.EndOfData
+                        Dim fields As String() = parser.ReadFields()
+                        table.Rows.Add(fields)
+                        'p.dateAndTime = fields(0)
+                        'p.wattage = fields(2)
+
+                    End While
+
+
+                    dtpBeginning.Enabled = True
+                    dtpEnd.Enabled = True
+
+
+                    Dim rowCount As Integer = table.Rows.Count
+                    Dim rowCountInForEach As Integer = 0
+
+                    If table.Columns(0).ColumnName = "Algus" And table.Columns(2).ColumnName = "Kogus (kWh)" _
                         And table.Columns(1).ColumnName = "Lõpp" And table.Columns(3).ColumnName = "Börsihind (EUR / MWh)" Then
 
-                            'For i As Integer = 0 To 9
-                            For Each row As DataRow In table.Rows
+                        'For i As Integer = 0 To 9
+                        For Each row As DataRow In table.Rows
 
-                                If rowCountInForEach = (24 * 3) + 1 Then
-                                    Exit For
-                                End If
-                                'Dim row As DataRow = table.Rows(i)
+                            If rowCountInForEach = (24 * 3) + 1 Then
+                                Exit For
+                            End If
+                            'Dim row As DataRow = table.Rows(i)
 
-                                'if current row is the first row then set minDate for  dtpBeginning
-                                If rowCountInForEach = 0 Then
-                                    dtpBeginning.MinDate = DateTime.Parse(row("Algus"))
-                                    dtpBeginning.Value = DateTime.Parse(row("Algus"))
-                                    'MsgBox("minDate for  dtpBeginning" & row("Algus"))
-                                End If
-                                'if current row is the second row in the table then set minDate for  dtpEnd
-                                If rowCountInForEach = 1 Then
-                                    dtpEnd.MinDate = DateTime.Parse(row("Lõpp"))
-                                    dtpEnd.Value = DateTime.Parse(row("Lõpp"))
-                                    'MsgBox("minDate for  dtpEnd" & row("Lõpp"))
-                                End If
-                                'if current row count is the row BEFORE the last row then set maxDate for dtpBeginning
+                            'if current row is the first row then set minDate for  dtpBeginning
+                            If rowCountInForEach = 0 Then
+                                dtpBeginning.MinDate = DateTime.Parse(row("Algus"))
+                                dtpBeginning.Value = DateTime.Parse(row("Algus"))
+                                'MsgBox("minDate for  dtpBeginning" & row("Algus"))
+                            End If
+                            'if current row is the second row in the table then set minDate for  dtpEnd
+                            If rowCountInForEach = 1 Then
+                                dtpEnd.MinDate = DateTime.Parse(row("Lõpp"))
+                                dtpEnd.Value = DateTime.Parse(row("Lõpp"))
+                                'MsgBox("minDate for  dtpEnd" & row("Lõpp"))
+                            End If
+                            'if current row count is the row BEFORE the last row then set maxDate for dtpBeginning
 
-                                If rowCountInForEach = rowCount - 2 Then 'has to be -2 because rowCountInForEach starts off as 0
-                                    dtpBeginning.MaxDate = DateTime.Parse(row("Algus"))
-                                    'MsgBox("maxDate for dtpBeginning" & row("Algus"))
-                                End If
-                                'if current row is the last row in the table then set maxDate for dtpEnd
-                                If row Is table.Rows(rowCount - 1) Then
-                                    dtpEnd.MaxDate = DateTime.Parse(row("Lõpp"))
-                                    'MsgBox("maxDate for dtpEnd" & row("Lõpp"))
-                                End If
-
-
-                                '
-                                rowCountInForEach += 1
-                            Next
-                            dtpBeginning.Value = dtpBeginning.MinDate
-                            dtpEnd.Value = dtpEnd.MaxDate
-
-                            Dim sumKWh As Double
-                            Dim sumPrice As Double
-                            Dim divider As Integer = 0
-                            'MOCK CALCULATOR BECAUSE PAIN :'(
-                            For Each row As DataRow In table.Rows
-                                'ADD UP ALL THE QUANTITY(kWh)
-                                sumKWh += Double.Parse(row("Kogus (kWh)"))
+                            If rowCountInForEach = rowCount - 2 Then 'has to be -2 because rowCountInForEach starts off as 0
+                                dtpBeginning.MaxDate = DateTime.Parse(row("Algus"))
+                                'MsgBox("maxDate for dtpBeginning" & row("Algus"))
+                            End If
+                            'if current row is the last row in the table then set maxDate for dtpEnd
+                            If row Is table.Rows(rowCount - 1) Then
+                                dtpEnd.MaxDate = DateTime.Parse(row("Lõpp"))
+                                'MsgBox("maxDate for dtpEnd" & row("Lõpp"))
+                            End If
 
 
-                                'ADD UP ALL THE PRICES
-                                sumPrice += Double.Parse(row("Börsihind (EUR / MWh)"))
-                                tbDebug.AppendText(Environment.NewLine & sumKWh & sumPrice)
-                                'tbDebug.Text = sumKWh & sumPrice
-                                divider += 1
-                            Next
-                            'While row("Algus").ToString() = 
-                            'Median price of kWh for the WHOLE CSV FILE!!!!! WORK IN PROGRESS
-                            sumPrice = sumPrice / divider
-                            'sumPrice now in cents per kWh
-                            sumPrice = (sumPrice / 1000) * 100
-                            tbDebug.AppendText(Environment.NewLine & "Kokku: " & sumKWh & " kWh ja keskmine kWh hind " & sumPrice & " senti/kWh.")
+                            '
+                            rowCountInForEach += 1
+                        Next
+                        dtpBeginning.Value = dtpBeginning.MinDate
+                        dtpEnd.Value = dtpEnd.MaxDate
+
+                        Dim sumKWh As Double
+                        Dim sumPrice As Double
+                        Dim divider As Integer = 0
+                        'MOCK CALCULATOR BECAUSE PAIN :'(
+                        For Each row As DataRow In table.Rows
+                            'ADD UP ALL THE QUANTITY(kWh)
+                            sumKWh += Double.Parse(row("Kogus (kWh)"))
 
 
+                            'ADD UP ALL THE PRICES
+                            sumPrice += Double.Parse(row("Börsihind (EUR / MWh)"))
+                            tbDebug.AppendText(Environment.NewLine & sumKWh & sumPrice)
+                            'tbDebug.Text = sumKWh & sumPrice
+                            divider += 1
+                        Next
+                        'While row("Algus").ToString() = 
+                        'Median price of kWh for the WHOLE CSV FILE!!!!! WORK IN PROGRESS
+                        sumPrice = sumPrice / divider
+                        'sumPrice now in cents per kWh
+                        sumPrice = (sumPrice / 1000) * 100
+                        tbDebug.AppendText(Environment.NewLine & "Kokku: " & sumKWh & " kWh ja keskmine kWh hind " & sumPrice & " senti/kWh.")
 
 
-                        Else
-                            MessageBox.Show("VALE FORMAAT LOHH!")
-                        End If
 
 
                     Else
                         MessageBox.Show("VALE FORMAAT!")
-
                     End If
-                End Using
+
+
+                Else
+                    MessageBox.Show("VALE FORMAAT!")
+
+                End If
+            End Using
             'End If
             'TABLE
 
@@ -1649,5 +1649,182 @@ Public Class GUIMain
 
     End Sub
 
+    Private Sub btnConfirmSimuCSV_Click(sender As Object, e As EventArgs) Handles btnConfirmSimuCSV.Click
+        chrtSimuHistory.Series.Clear()
+        Dim beginningT As String = (dtpBeginning.Value).ToString("yyyy-MM-dd HH:mm:ss")
+        Dim endT As String = (dtpEnd.Value).ToString("yyyy-MM-dd HH:mm:ss")
 
+        Dim openFileDialog As New OpenFileDialog()
+
+        'Filter to only show CSV files and all files
+        openFileDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*"
+
+
+        'If the user selects a file and presses OK
+        If openFileDialog.ShowDialog() = DialogResult.OK Then
+
+            Dim selectedFileName As String = openFileDialog.FileName
+
+            'If btnConfirmSimuCSV.Focused = True Then
+            Dim table As New DataTable()
+
+            Using parser As New Microsoft.VisualBasic.FileIO.TextFieldParser(selectedFileName)
+                parser.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited
+                parser.SetDelimiters(";")
+
+                Dim headerLinesToSkip As Integer = 9
+                For i As Integer = 1 To headerLinesToSkip
+                    parser.ReadLine()
+                Next
+
+
+                'Filling ze table
+                ' Read the header row and add the columns to the table
+                Dim column As Integer = 0
+                Dim headerRow As String() = parser.ReadFields()
+                For Each header As String In headerRow
+                    table.Columns.Add(header)
+                    column += 1
+                Next
+                If column > 2 Then
+
+
+
+                    ' Read the data rows and add them to the table
+                    While Not parser.EndOfData
+                        Dim fields As String() = parser.ReadFields()
+                        table.Rows.Add(fields)
+                    End While
+                    Dim rowCount As Integer = table.Rows.Count
+
+                Else
+                    MessageBox.Show("VALE FORMAAT!")
+                End If
+            End Using
+
+            Dim sumKWh As Double
+            Dim sumPrice As Double
+            Dim divider As Integer = 0
+            'MOCK CALCULATOR BECAUSE PAIN :'(
+
+
+            Dim foundStartRow As Boolean = False ' A flag to indicate if we have found the start row yet
+            Dim foundEndRow As Boolean = False ' A flag to indicate if we have found the end row yet
+            Dim count As Integer = 0
+            Dim startRowIndex As Integer
+            Dim endRowIndex As Integer
+            'GETS THE USERS PARAMETERS
+            For Each row As DataRow In table.Rows
+
+                If row("Algus") = DateTime.Parse(beginningT) Then
+                    MsgBox("Start" & dtpBeginning.Value)
+                    startRowIndex = count
+                    '
+                End If
+                If row("Lõpp") = DateTime.Parse(endT) Then
+                    MsgBox("Start" & dtpEnd.Value)
+                    endRowIndex = count
+                    '
+                End If
+                count = +1
+            Next
+            count = 0
+
+            For Each row As DataRow In table.Rows
+                If count >= startRowIndex Then
+                    If count <> endRowIndex Then
+                        sumKWh += Double.Parse(row("Kogus (kWh)"))
+                        sumPrice += Double.Parse(row("Börsihind (EUR / MWh)"))
+                        tbDebug.AppendText(Environment.NewLine & sumKWh & sumPrice & beginningT & endT)
+                        divider += 1
+                    Else
+                        Exit For
+                    End If
+                End If
+                count = +1
+            Next
+            sumPrice = sumPrice / divider
+            'sumPrice now in cents per kWh
+            sumPrice = (sumPrice / 1000) * 100
+            tbDebug.AppendText(Environment.NewLine & "Kokku: " & sumKWh & " kWh ja keskmine kWh hind " & sumPrice & " senti/kWh.")
+        End If
+
+
+
+
+        'Dim returnString As PrjDatabaseComponent.IDatabase
+        'returnString = New PrjDatabaseComponent.CDatabase
+        'Dim count As Integer
+        'count = returnString.electricityPackagesCount 'find out how many packages there are
+        'Dim packages = returnString.electricityPackagesInfo
+        ''chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
+        ''Dim rand As New Random()
+        'chrtSimuHistory.Width = 600 ' set the width to 800 pixels
+        'chrtSimuHistory.Height = 400
+
+        'For j As Integer = 0 To (count - 1)
+
+        '    Dim series As New Series(packages.Item1(j)) ' create a new series with the package name
+        '    chrtSimuHistory.Series.Add(series)
+        '    Dim currentHour As Integer = DateTime.Now.Hour
+        '    chrtSimuHistory.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
+        '    chrtSimuHistory.ChartAreas(0).AxisY.Interval = 5 'more lines Y axis
+        '    series.ChartType = DataVisualization.Charting.SeriesChartType.Column
+        '    Dim r As Integer = rand.Next(0, 256)
+        '    Dim g As Integer = rand.Next(0, 256)
+        '    Dim b As Integer = rand.Next(0, 256)
+        '    Dim colorofLine As Color = Color.FromArgb(r, g, b)
+        '    series.Color = colorofLine
+        '    series.BorderWidth = 3
+        '    'all the packages are right except Muutuv 
+        '    Dim returnString2 As PrjDatabaseComponent.IDatabaseAPI
+        '    returnString2 = New PrjDatabaseComponent.CDatabase
+        '    Dim data = returnString2.stockPrice
+        '    If Not packages.Item5(j) Then
+        '        Dim hour2(24) As Integer
+
+        '        For k As Integer = 1 To 24
+        '            Dim unixTimestamp As Long = Long.Parse(data.dates(k))
+
+        '            Dim dateTime As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTimestamp)
+
+        '        Next
+
+
+        '        series.Points.AddXY(packages.Item1(j), packages.Item3(j))
+
+
+
+        '    Else
+
+
+
+
+        '        'Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.dates(i)) 'new datetimeoffset from sDate string
+        '        '    Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
+
+        '        '    Dim hour As Integer = dateValue.Hour
+        '        '    Dim price As Double
+        '        '    Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+        '        '    Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+        '        'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
+        '        '    data.prices(i) = data.prices(i).Replace(".", ",")
+        '        '    'packages.Item3(j) = packages.Item3(j).Replace(".-", ",")
+        '        'End If
+        '        'Dim pricesD As Double = Double.Parse(data.prices(i))
+        '        'price = pricesD + packages.Item3(j)
+
+        '        ' series.Points.AddXY(hour, price)
+        '        chrtSimuHistory.Series(j).Points.AddXY(packages.Item1(j), packages.Item3(j))
+
+
+        '    End If
+        'Next
+
+
+    End Sub
+
+    Private Sub dtpBeginning_ValueChanged(sender As Object, e As EventArgs) Handles dtpBeginning.ValueChanged
+
+    End Sub
 End Class

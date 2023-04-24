@@ -147,12 +147,11 @@ Partial Class GUIMain
         Me.lblFromDateTime = New System.Windows.Forms.Label()
         Me.dtpEnd = New System.Windows.Forms.DateTimePicker()
         Me.dtpBeginning = New System.Windows.Forms.DateTimePicker()
-        Me.chrt = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.chrtSimuHistory = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btnImportCSVFileSimu = New System.Windows.Forms.Button()
         Me.lblSimulateClientConsumptionHistory = New System.Windows.Forms.Label()
         Me.lblConsumptionGraph = New System.Windows.Forms.Label()
-        Me.lblClientConsumptionHistoryResult = New System.Windows.Forms.Label()
         Me.tabSimulateExchangeHistory = New System.Windows.Forms.TabPage()
         Me.lblExchangePackageHistory = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -193,7 +192,7 @@ Partial Class GUIMain
         Me.tabConsumptionHistory.SuspendLayout()
         Me.TabControl2.SuspendLayout()
         Me.tabClientConsumptionHistory.SuspendLayout()
-        CType(Me.chrt, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chrtSimuHistory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabSimulateExchangeHistory.SuspendLayout()
         Me.tabPackageComparison.SuspendLayout()
         CType(Me.chartPackages, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1328,7 +1327,7 @@ Partial Class GUIMain
         Me.TabControl2.Location = New System.Drawing.Point(0, 106)
         Me.TabControl2.Name = "TabControl2"
         Me.TabControl2.SelectedIndex = 0
-        Me.TabControl2.Size = New System.Drawing.Size(875, 494)
+        Me.TabControl2.Size = New System.Drawing.Size(953, 525)
         Me.TabControl2.TabIndex = 2
         '
         'tabBlank
@@ -1336,7 +1335,7 @@ Partial Class GUIMain
         Me.tabBlank.Location = New System.Drawing.Point(4, 29)
         Me.tabBlank.Name = "tabBlank"
         Me.tabBlank.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabBlank.Size = New System.Drawing.Size(867, 461)
+        Me.tabBlank.Size = New System.Drawing.Size(945, 492)
         Me.tabBlank.TabIndex = 0
         Me.tabBlank.Text = "Blank"
         Me.tabBlank.UseVisualStyleBackColor = True
@@ -1349,16 +1348,15 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblFromDateTime)
         Me.tabClientConsumptionHistory.Controls.Add(Me.dtpEnd)
         Me.tabClientConsumptionHistory.Controls.Add(Me.dtpBeginning)
-        Me.tabClientConsumptionHistory.Controls.Add(Me.chrt)
+        Me.tabClientConsumptionHistory.Controls.Add(Me.chrtSimuHistory)
         Me.tabClientConsumptionHistory.Controls.Add(Me.Label2)
         Me.tabClientConsumptionHistory.Controls.Add(Me.btnImportCSVFileSimu)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblSimulateClientConsumptionHistory)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblConsumptionGraph)
-        Me.tabClientConsumptionHistory.Controls.Add(Me.lblClientConsumptionHistoryResult)
         Me.tabClientConsumptionHistory.Location = New System.Drawing.Point(4, 29)
         Me.tabClientConsumptionHistory.Name = "tabClientConsumptionHistory"
         Me.tabClientConsumptionHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabClientConsumptionHistory.Size = New System.Drawing.Size(867, 461)
+        Me.tabClientConsumptionHistory.Size = New System.Drawing.Size(945, 492)
         Me.tabClientConsumptionHistory.TabIndex = 1
         Me.tabClientConsumptionHistory.Text = "Simuleeri oma tarbimise ajalugu"
         Me.tabClientConsumptionHistory.UseVisualStyleBackColor = True
@@ -1369,17 +1367,17 @@ Partial Class GUIMain
         Me.btnConfirmSimuCSV.Name = "btnConfirmSimuCSV"
         Me.btnConfirmSimuCSV.Size = New System.Drawing.Size(150, 34)
         Me.btnConfirmSimuCSV.TabIndex = 16
-        Me.btnConfirmSimuCSV.Text = "Kinnita andmed"
+        Me.btnConfirmSimuCSV.Text = "Kinnita kuupäevad"
         Me.btnConfirmSimuCSV.UseVisualStyleBackColor = True
         '
         'tbDebug
         '
-        Me.tbDebug.Location = New System.Drawing.Point(347, 64)
+        Me.tbDebug.Location = New System.Drawing.Point(27, 345)
         Me.tbDebug.Multiline = True
         Me.tbDebug.Name = "tbDebug"
         Me.tbDebug.ReadOnly = True
         Me.tbDebug.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.tbDebug.Size = New System.Drawing.Size(431, 348)
+        Me.tbDebug.Size = New System.Drawing.Size(254, 94)
         Me.tbDebug.TabIndex = 15
         '
         'lblToDateTime
@@ -1416,17 +1414,17 @@ Partial Class GUIMain
         Me.dtpBeginning.Size = New System.Drawing.Size(200, 20)
         Me.dtpBeginning.TabIndex = 11
         '
-        'chrt
+        'chrtSimuHistory
         '
         ChartArea4.Name = "ChartArea1"
-        Me.chrt.ChartAreas.Add(ChartArea4)
+        Me.chrtSimuHistory.ChartAreas.Add(ChartArea4)
         Legend4.Name = "Legend1"
-        Me.chrt.Legends.Add(Legend4)
-        Me.chrt.Location = New System.Drawing.Point(29, 350)
-        Me.chrt.Name = "chrt"
-        Me.chrt.Size = New System.Drawing.Size(244, 90)
-        Me.chrt.TabIndex = 10
-        Me.chrt.Text = "chrtSimuHistory"
+        Me.chrtSimuHistory.Legends.Add(Legend4)
+        Me.chrtSimuHistory.Location = New System.Drawing.Point(320, 69)
+        Me.chrtSimuHistory.Name = "chrtSimuHistory"
+        Me.chrtSimuHistory.Size = New System.Drawing.Size(600, 400)
+        Me.chrtSimuHistory.TabIndex = 10
+        Me.chrtSimuHistory.Text = "chrtSimuHistory"
         '
         'Label2
         '
@@ -1458,20 +1456,11 @@ Partial Class GUIMain
         'lblConsumptionGraph
         '
         Me.lblConsumptionGraph.AutoSize = True
-        Me.lblConsumptionGraph.Location = New System.Drawing.Point(339, 48)
+        Me.lblConsumptionGraph.Location = New System.Drawing.Point(317, 23)
         Me.lblConsumptionGraph.Name = "lblConsumptionGraph"
-        Me.lblConsumptionGraph.Size = New System.Drawing.Size(78, 13)
+        Me.lblConsumptionGraph.Size = New System.Drawing.Size(81, 13)
         Me.lblConsumptionGraph.TabIndex = 4
-        Me.lblConsumptionGraph.Text = "Tarbimisgraafik"
-        '
-        'lblClientConsumptionHistoryResult
-        '
-        Me.lblClientConsumptionHistoryResult.AutoSize = True
-        Me.lblClientConsumptionHistoryResult.Location = New System.Drawing.Point(338, 25)
-        Me.lblClientConsumptionHistoryResult.Name = "lblClientConsumptionHistoryResult"
-        Me.lblClientConsumptionHistoryResult.Size = New System.Drawing.Size(50, 13)
-        Me.lblClientConsumptionHistoryResult.TabIndex = 3
-        Me.lblClientConsumptionHistoryResult.Text = "Tulemus:"
+        Me.lblConsumptionGraph.Text = "Tarbimisgraafik:"
         '
         'tabSimulateExchangeHistory
         '
@@ -1486,7 +1475,7 @@ Partial Class GUIMain
         Me.tabSimulateExchangeHistory.Location = New System.Drawing.Point(4, 29)
         Me.tabSimulateExchangeHistory.Name = "tabSimulateExchangeHistory"
         Me.tabSimulateExchangeHistory.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabSimulateExchangeHistory.Size = New System.Drawing.Size(867, 461)
+        Me.tabSimulateExchangeHistory.Size = New System.Drawing.Size(945, 492)
         Me.tabSimulateExchangeHistory.TabIndex = 2
         Me.tabSimulateExchangeHistory.Text = "Elektripakettide börsihindade ajalugu"
         Me.tabSimulateExchangeHistory.UseVisualStyleBackColor = True
@@ -1724,7 +1713,7 @@ Partial Class GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(981, 698)
+        Me.ClientSize = New System.Drawing.Size(1019, 736)
         Me.Controls.Add(Me.btnRestoreFontSize)
         Me.Controls.Add(Me.btnFontDecrease)
         Me.Controls.Add(Me.btnFontIncrease)
@@ -1756,7 +1745,7 @@ Partial Class GUIMain
         Me.TabControl2.ResumeLayout(False)
         Me.tabClientConsumptionHistory.ResumeLayout(False)
         Me.tabClientConsumptionHistory.PerformLayout()
-        CType(Me.chrt, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chrtSimuHistory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabSimulateExchangeHistory.ResumeLayout(False)
         Me.tabSimulateExchangeHistory.PerformLayout()
         Me.tabPackageComparison.ResumeLayout(False)
@@ -1845,7 +1834,6 @@ Partial Class GUIMain
     Friend WithEvents tabSimulateExchangeHistory As TabPage
     Friend WithEvents btnClientConsumptionHistory As Button
     Friend WithEvents lblConsumptionGraph As Label
-    Friend WithEvents lblClientConsumptionHistoryResult As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents btnSeeHistory As Button
     Friend WithEvents tBoxMonthlyCost2 As TextBox
@@ -1905,7 +1893,7 @@ Partial Class GUIMain
     Friend WithEvents lblBestTime As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents btnImportCSVFileSimu As Button
-    Friend WithEvents chrt As DataVisualization.Charting.Chart
+    Friend WithEvents chrtSimuHistory As DataVisualization.Charting.Chart
     Friend WithEvents lblToDateTime As Label
     Friend WithEvents lblFromDateTime As Label
     Friend WithEvents dtpEnd As DateTimePicker
