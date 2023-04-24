@@ -141,6 +141,11 @@ Partial Class GUIMain
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.tabBlank = New System.Windows.Forms.TabPage()
         Me.tabClientConsumptionHistory = New System.Windows.Forms.TabPage()
+        Me.tbDebug = New System.Windows.Forms.TextBox()
+        Me.lblToDateTime = New System.Windows.Forms.Label()
+        Me.lblFromDateTime = New System.Windows.Forms.Label()
+        Me.dtpEnd = New System.Windows.Forms.DateTimePicker()
+        Me.dtpBeginning = New System.Windows.Forms.DateTimePicker()
         Me.chrt = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btnImportCSVFileSimu = New System.Windows.Forms.Button()
@@ -172,11 +177,7 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
-        Me.dtpBeginning = New System.Windows.Forms.DateTimePicker()
-        Me.dtpEnd = New System.Windows.Forms.DateTimePicker()
-        Me.lblFromDateTime = New System.Windows.Forms.Label()
-        Me.lblToDateTime = New System.Windows.Forms.Label()
-        Me.tbDebug = New System.Windows.Forms.TextBox()
+        Me.btnConfirmSimuCSV = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1342,6 +1343,7 @@ Partial Class GUIMain
         '
         'tabClientConsumptionHistory
         '
+        Me.tabClientConsumptionHistory.Controls.Add(Me.btnConfirmSimuCSV)
         Me.tabClientConsumptionHistory.Controls.Add(Me.tbDebug)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblToDateTime)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblFromDateTime)
@@ -1361,13 +1363,57 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.Text = "Simuleeri oma tarbimise ajalugu"
         Me.tabClientConsumptionHistory.UseVisualStyleBackColor = True
         '
+        'tbDebug
+        '
+        Me.tbDebug.Location = New System.Drawing.Point(347, 64)
+        Me.tbDebug.Multiline = True
+        Me.tbDebug.Name = "tbDebug"
+        Me.tbDebug.ReadOnly = True
+        Me.tbDebug.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.tbDebug.Size = New System.Drawing.Size(431, 348)
+        Me.tbDebug.TabIndex = 15
+        '
+        'lblToDateTime
+        '
+        Me.lblToDateTime.AutoSize = True
+        Me.lblToDateTime.Location = New System.Drawing.Point(48, 218)
+        Me.lblToDateTime.Name = "lblToDateTime"
+        Me.lblToDateTime.Size = New System.Drawing.Size(95, 13)
+        Me.lblToDateTime.TabIndex = 14
+        Me.lblToDateTime.Text = "Vali lõpp kuupäev:"
+        '
+        'lblFromDateTime
+        '
+        Me.lblFromDateTime.AutoSize = True
+        Me.lblFromDateTime.Location = New System.Drawing.Point(48, 148)
+        Me.lblFromDateTime.Name = "lblFromDateTime"
+        Me.lblFromDateTime.Size = New System.Drawing.Size(100, 13)
+        Me.lblFromDateTime.TabIndex = 13
+        Me.lblFromDateTime.Text = "Vali algus kuupäev:"
+        '
+        'dtpEnd
+        '
+        Me.dtpEnd.Enabled = False
+        Me.dtpEnd.Location = New System.Drawing.Point(51, 247)
+        Me.dtpEnd.Name = "dtpEnd"
+        Me.dtpEnd.Size = New System.Drawing.Size(200, 20)
+        Me.dtpEnd.TabIndex = 12
+        '
+        'dtpBeginning
+        '
+        Me.dtpBeginning.Enabled = False
+        Me.dtpBeginning.Location = New System.Drawing.Point(50, 174)
+        Me.dtpBeginning.Name = "dtpBeginning"
+        Me.dtpBeginning.Size = New System.Drawing.Size(200, 20)
+        Me.dtpBeginning.TabIndex = 11
+        '
         'chrt
         '
         ChartArea4.Name = "ChartArea1"
         Me.chrt.ChartAreas.Add(ChartArea4)
         Legend4.Name = "Legend1"
         Me.chrt.Legends.Add(Legend4)
-        Me.chrt.Location = New System.Drawing.Point(26, 322)
+        Me.chrt.Location = New System.Drawing.Point(29, 350)
         Me.chrt.Name = "chrt"
         Me.chrt.Size = New System.Drawing.Size(244, 90)
         Me.chrt.TabIndex = 10
@@ -1665,48 +1711,14 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
         '
-        'dtpBeginning
+        'btnConfirmSimuCSV
         '
-        Me.dtpBeginning.Enabled = False
-        Me.dtpBeginning.Location = New System.Drawing.Point(50, 174)
-        Me.dtpBeginning.Name = "dtpBeginning"
-        Me.dtpBeginning.Size = New System.Drawing.Size(200, 20)
-        Me.dtpBeginning.TabIndex = 11
-        '
-        'dtpEnd
-        '
-        Me.dtpEnd.Enabled = False
-        Me.dtpEnd.Location = New System.Drawing.Point(51, 247)
-        Me.dtpEnd.Name = "dtpEnd"
-        Me.dtpEnd.Size = New System.Drawing.Size(200, 20)
-        Me.dtpEnd.TabIndex = 12
-        '
-        'lblFromDateTime
-        '
-        Me.lblFromDateTime.AutoSize = True
-        Me.lblFromDateTime.Location = New System.Drawing.Point(48, 148)
-        Me.lblFromDateTime.Name = "lblFromDateTime"
-        Me.lblFromDateTime.Size = New System.Drawing.Size(100, 13)
-        Me.lblFromDateTime.TabIndex = 13
-        Me.lblFromDateTime.Text = "Vali algus kuupäev:"
-        '
-        'lblToDateTime
-        '
-        Me.lblToDateTime.AutoSize = True
-        Me.lblToDateTime.Location = New System.Drawing.Point(48, 218)
-        Me.lblToDateTime.Name = "lblToDateTime"
-        Me.lblToDateTime.Size = New System.Drawing.Size(95, 13)
-        Me.lblToDateTime.TabIndex = 14
-        Me.lblToDateTime.Text = "Vali lõpp kuupäev:"
-        '
-        'tbDebug
-        '
-        Me.tbDebug.Location = New System.Drawing.Point(347, 64)
-        Me.tbDebug.Multiline = True
-        Me.tbDebug.Name = "tbDebug"
-        Me.tbDebug.ReadOnly = True
-        Me.tbDebug.Size = New System.Drawing.Size(431, 348)
-        Me.tbDebug.TabIndex = 15
+        Me.btnConfirmSimuCSV.Location = New System.Drawing.Point(51, 293)
+        Me.btnConfirmSimuCSV.Name = "btnConfirmSimuCSV"
+        Me.btnConfirmSimuCSV.Size = New System.Drawing.Size(150, 34)
+        Me.btnConfirmSimuCSV.TabIndex = 16
+        Me.btnConfirmSimuCSV.Text = "Kinnita andmed"
+        Me.btnConfirmSimuCSV.UseVisualStyleBackColor = True
         '
         'GUIMain
         '
@@ -1899,4 +1911,5 @@ Partial Class GUIMain
     Friend WithEvents dtpEnd As DateTimePicker
     Friend WithEvents dtpBeginning As DateTimePicker
     Friend WithEvents tbDebug As TextBox
+    Friend WithEvents btnConfirmSimuCSV As Button
 End Class
