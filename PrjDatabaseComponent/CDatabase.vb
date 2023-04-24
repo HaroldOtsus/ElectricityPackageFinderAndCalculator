@@ -6,6 +6,13 @@ Public Class CDatabase
     Implements ISignup
     Implements ILogin
 
+    Private Shared conn As MySqlConnection
+
+    Public Sub New()
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        conn = New MySqlConnection(connString)
+    End Sub
+
     Function userPrefernces(ByVal username, ByRef size, ByRef color) Implements ILogin.userPrefernces
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
@@ -78,8 +85,6 @@ Public Class CDatabase
     End Function
 
     Function login(ByVal username As String, ByVal password As String) As Boolean Implements ILogin.login
-        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        Dim conn As New MySqlConnection(connString)
         Dim pass As String = ""
         Try
             conn.Open()
@@ -115,8 +120,6 @@ Public Class CDatabase
 
     Function checkIfUsernameExists(ByVal username As String) As Boolean
         'we check is the username exists in database
-        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        Dim conn As New MySqlConnection(connString) 'connect to database
         Dim cmd As New MySqlCommand("SELECT COUNT(*) FROM user WHERE username  = @username", conn)
         cmd.Parameters.AddWithValue("@username", username)
         Try
@@ -139,8 +142,6 @@ Public Class CDatabase
     End Function
 
     Function signup(ByVal username As String, ByVal password As String, ByVal name As String, ByVal email As String) As Boolean Implements ISignup.signup
-        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        Dim conn As New MySqlConnection(connString)
         ''call function that hashes password
         Try
             conn.Open()
@@ -222,8 +223,7 @@ Public Class CDatabase
     End Function
 
     Function datesOfStockPrice() As String() 'get stockprice dates from database
-        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        Dim conn As New MySqlConnection(connString)
+
         Dim dateOfStockPrices As String = ""
         Dim stringOfErrors() As String = Nothing
         Dim dateToday
@@ -236,14 +236,11 @@ Public Class CDatabase
             While reader.Read()
                 dateOfStockPrices = reader.GetString(0) 'get date from database
             End While
-            conn.Close()
-            Dim con As New MySqlConnection(connString)
-            con.Open()
             Dim sPrices() As String = New String(25) {}
             sPrices(0) = ""
             If dateOfStockPrices = dateToday Then
                 '        ''need to return all prices from database
-                Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 2;", con)
+                Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 2;", conn)
                 Dim read As MySqlDataReader = cmd.ExecuteReader()
                 If read IsNot Nothing Then
                     While read.Read() 'get all dates from database
@@ -252,7 +249,6 @@ Public Class CDatabase
                         Next
                     End While
                     read.Close()
-                    con.Close()
 
                     'Dim stringOfDates As String()
                     'stringOfDates = insertDatesToDatabase()
@@ -260,7 +256,6 @@ Public Class CDatabase
                     Return sPrices
                 End If
             End If
-            conn.Close()
         Catch ex As Exception
             stringOfErrors = {"error", "error", "error"}
             Return stringOfErrors
