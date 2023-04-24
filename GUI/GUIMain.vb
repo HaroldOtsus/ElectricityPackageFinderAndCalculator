@@ -1295,6 +1295,10 @@ Public Class GUIMain
             Dim r As Integer = rand.Next(0, 256)
             Dim g As Integer = rand.Next(0, 256)
             Dim b As Integer = rand.Next(0, 256)
+            chartPackages.ChartAreas(0).AxisX.LabelStyle.Format = "t"
+            'Chart1.ChartAreas("ChartArea1").AxisX.Interval = interval
+            'Chart1.ChartAreas("ChartArea1").AxisX.Minimum = startDate
+            'Chart1.ChartAreas("ChartArea1").AxisX.Maximum = endDate
 
             ' Create a new color object using the random RGB values
             Dim colorofLine As Color = Color.FromArgb(r, g, b)
@@ -1311,12 +1315,11 @@ Public Class GUIMain
                     Dim unixTimestamp As Long = Long.Parse(data.dates(k))
 
                     Dim dateTime As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTimestamp)
-                    hour2(k) = dateTime.Hour
-                    chartPackages.ChartAreas(0).AxisX.Minimum = hour2(1)
-                Next
-                For i As Integer = 0 To 23
 
-                    series.Points.AddXY(hour2(i), packages.Item3(j))
+                Next
+                For i As Integer = 1 To 24
+
+                    series.Points.AddXY(data.dates(i), packages.Item3(j))
 
 
                 Next 'the packet does not have fixed price
@@ -1354,7 +1357,7 @@ Public Class GUIMain
                     price = pricesD + packages.Item3(j)
 
                     ' series.Points.AddXY(hour, price)
-                    chartPackages.Series(j).Points.AddXY(hour, price)
+                    chartPackages.Series(j).Points.AddXY(data.dates(i), price)
 
                 Next
             End If
