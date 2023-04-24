@@ -1211,8 +1211,7 @@ Public Class GUIMain
 
     End Sub
 
-    Private Sub btnPackets_Click(sender As Object, e As EventArgs) Handles btnPackets.Click
-
+    Private Function packageChartOfElectricity()
         chartPackages.Series.Clear()
         Dim returnString As PrjDatabaseComponent.IDatabase
         returnString = New PrjDatabaseComponent.CDatabase
@@ -1308,6 +1307,9 @@ Public Class GUIMain
                 Next
             End If
         Next
+    End Function
+    Private Sub btnPackets_Click(sender As Object, e As EventArgs) Handles btnPackets.Click
+        packageChartOfElectricity()
     End Sub
 
     Private Sub btnTableDesc_Click(sender As Object, e As EventArgs) Handles btnTableDesc.Click
@@ -1676,5 +1678,114 @@ Public Class GUIMain
 
     End Sub
 
+    Private Sub tabPackageComparison_Enter(sender As Object, e As EventArgs) Handles tabPackageComparison.Enter
 
+    End Sub
+
+    Private Sub btnTwoPackets_Click(sender As Object, e As EventArgs) Handles btnTwoPackets.Click
+        Dim packet1 As String = cBoxPackage1.Text
+        Dim packet2 As String = cBoxPackage2.Text
+        Dim result As Integer = StrComp(packet1, packet2, 0)
+        If result <> 0 Then
+            Dim returnString As PrjDatabaseComponent.IDatabase
+            returnString = New PrjDatabaseComponent.CDatabase
+            Dim packageone = returnString.onePackageInfo(packet1)
+            Dim packagetwo = returnString.onePackageInfo(packet2)
+            compOne.Text = packageone.Item2
+            compTwo.Text = packagetwo.Item2
+            priceOfCont.Text = packageone.Item4
+            priceOfCont2.Text = packagetwo.Item4
+
+            chartPackages.Series.Clear()
+
+            chartPackages.Width = 600 ' set chart the width to 600 pixels
+            chartPackages.Height = 400 'set chart height to 400 lines
+            chartPackages.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
+            chartPackages.ChartAreas(0).AxisY.Interval = 5 'more lines Y axis
+            chartPackages.ChartAreas(0).AxisX.ScaleView.Zoomable = True
+            chartPackages.ChartAreas(0).AxisY.ScaleView.Zoomable = True
+
+
+            ' Set zooming mode to allow zooming in both directions
+            chartPackages.ChartAreas(0).CursorX.IsUserEnabled = True
+            chartPackages.ChartAreas(0).CursorX.IsUserSelectionEnabled = True
+            chartPackages.ChartAreas(0).CursorY.IsUserEnabled = True
+            chartPackages.ChartAreas(0).CursorY.IsUserSelectionEnabled = True
+            chartPackages.ChartAreas(0).AxisX.ScaleView.Zoomable = True
+            chartPackages.ChartAreas(0).AxisY.ScaleView.Zoomable = True
+            chartPackages.ChartAreas(0).AxisX.ScrollBar.IsPositionedInside = True
+            chartPackages.ChartAreas(0).AxisY.ScrollBar.IsPositionedInside = True
+            Dim loopThroughBothPackets As Integer = 0
+            While loopThroughBothPackets < 2
+                Dim series As New Series(packageone.Item1) ' create a new series with the package name
+                chartPackages.Series.Add(series)
+                series.ChartType = DataVisualization.Charting.SeriesChartType.StepLine
+                series.BorderWidth = 3
+                'all the packages are right except Muutuv 
+                Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                Dim futureDate As DateTime = DateTime.Now.AddHours(24)
+                Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
+                Dim data = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString)
+                Dim hour2(24) As Integer
+                Dim dateFromUnix(24) As String
+                For k As Integer = 1 To 24
+                    Dim unixTimestamp As Long = Long.Parse(data.Item2(k))
+
+                    Dim dateTime As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTimestamp)
+                    dateFromUnix(k) = dateTime.ToString("yyyy-MM-dd HH:mm:ss")
+                    hour2(k) = dateTime.Hour
+                Next
+                If Not packageone.Item5 Then
+                    If packagetwo.Item7 = True Then
+                        For i As Integer = 1 To 24
+
+                            If hour2(i) > 11 And hour2(i) < 24 Then
+                                series.Points.AddXY(dateFromUnix(i), packageone.Item3)
+                            Else
+                                series.Points.AddXY(dateFromUnix(i), packageone.Item8)
+                            End If
+                        Next
+
+                    Else
+                        For i As Integer = 1 To 24
+
+
+                            series.Points.AddXY(dateFromUnix(i), packageone.Item3)
+
+
+                        Next
+                    End If
+                Else
+
+
+
+                    For i As Integer = 1 To 24
+                        Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.Item2(i)) 'new datetimeoffset from sDate string
+                        Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
+
+                        Dim hour As Integer = dateValue.Hour
+                        Dim price As Double
+                        Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+                        Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+                        If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
+                            data.Item1(i) = data.Item1(i).Replace(".", ",")
+                            'packages.Item3(j) = packages.Item3(j).Replace(".-", ",")
+                        End If
+                        Dim pricesD As Double = Double.Parse(data.Item1(i))
+                        price = pricesD + packageone.Item3
+
+                        ' series.Points.AddXY(hour, price)
+                        chartPackages.Series(loopThroughBothPackets).Points.AddXY(dateFromUnix(i), price)
+
+                    Next
+                End If
+                loopThroughBothPackets += 1
+                packageone = packagetwo
+            End While
+        End If
+    End Sub
+
+    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
+
+    End Sub
 End Class

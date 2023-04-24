@@ -341,6 +341,53 @@ Public Class CDatabase
             '  Return stringOfErrors
         End Try
     End Function
+
+    Function onePackageInfo(ByVal packageName As String) As (String, String, Double, Double, Boolean, Boolean, Boolean, Double) Implements IDatabase.onePackageInfo
+
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+
+        Try
+
+            conn.Open()
+            'get info about electricity packages from database
+            Dim sqlCommand As New MySqlCommand("SELECT packageName, companyName, pricePerKWh, monthlyFeeForContract, usesMarketPrice, greenEnergy, isNightPriceDifferent, nightPrice FROM electricityPackages where packageName = @packageName;", conn)
+            sqlCommand.Parameters.AddWithValue("@packageName", packageName)
+            Dim reader As MySqlDataReader = sqlCommand.ExecuteReader()
+            'create arrays to hold database info
+            Dim stringOfPackageNames As String = ""
+            Dim stringOfCompanyNames As String = ""
+            Dim pricePerKWh As Double
+            Dim monthlyFeeForContract As Double
+            Dim usesMarketPrice As Boolean
+            Dim greenEnergy As Boolean
+            Dim isNightPriceDifferent As Boolean
+            Dim nightPrice As Double
+            Dim rowcount As Integer = 0
+            Dim i As Integer = 0
+            While reader.Read()
+                'insert data into arrays
+                stringOfPackageNames = reader.GetString(0)
+                stringOfCompanyNames = reader.GetString(1)
+                pricePerKWh = reader.GetString(2)
+                monthlyFeeForContract = reader.GetString(3)
+                usesMarketPrice = reader.GetString(4)
+                greenEnergy = reader.GetString(5)
+                isNightPriceDifferent = reader.GetString(6)
+                nightPrice = reader.GetString(7)
+                i += 1
+            End While
+
+
+            'return arrays
+            Return (stringOfPackageNames, stringOfCompanyNames, pricePerKWh, monthlyFeeForContract, usesMarketPrice, greenEnergy, isNightPriceDifferent, nightPrice)
+        Catch ex As Exception
+            'exception using database
+            '   stringOfErrors = {"error", "error", "error"}
+            '  Return stringOfErrors
+            conn.Close()
+        End Try
+    End Function
     Function electricityPackagesCount() As Integer Implements IDatabase.electricityPackagesCount
         'find how many electricity packages there are in the database
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
@@ -590,6 +637,7 @@ Public Class CDatabase
             stringOfErrors = {"error", "error", "error"}
             Return stringOfErrors
         End Try
+        conn.Close()
 
     End Function
 
