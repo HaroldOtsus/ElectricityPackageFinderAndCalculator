@@ -1517,8 +1517,8 @@ Public Class GUIMain
 
             Dim selectedFileName As String = openFileDialog.FileName
 
-            If btnConfirmSimuCSV.Focused = True Then
-                Dim table As New DataTable()
+            'If btnConfirmSimuCSV.Focused = True Then
+            Dim table As New DataTable()
 
                 Using parser As New Microsoft.VisualBasic.FileIO.TextFieldParser(selectedFileName)
                     parser.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited
@@ -1636,7 +1636,7 @@ Public Class GUIMain
 
                     End If
                 End Using
-            End If
+            'End If
             'TABLE
 
         End If
