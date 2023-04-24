@@ -141,6 +141,7 @@ Partial Class GUIMain
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.tabBlank = New System.Windows.Forms.TabPage()
         Me.tabClientConsumptionHistory = New System.Windows.Forms.TabPage()
+        Me.btnConfirmSimuCSV = New System.Windows.Forms.Button()
         Me.tbDebug = New System.Windows.Forms.TextBox()
         Me.lblToDateTime = New System.Windows.Forms.Label()
         Me.lblFromDateTime = New System.Windows.Forms.Label()
@@ -177,7 +178,6 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
-        Me.btnConfirmSimuCSV = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1363,6 +1363,15 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.Text = "Simuleeri oma tarbimise ajalugu"
         Me.tabClientConsumptionHistory.UseVisualStyleBackColor = True
         '
+        'btnConfirmSimuCSV
+        '
+        Me.btnConfirmSimuCSV.Location = New System.Drawing.Point(51, 293)
+        Me.btnConfirmSimuCSV.Name = "btnConfirmSimuCSV"
+        Me.btnConfirmSimuCSV.Size = New System.Drawing.Size(150, 34)
+        Me.btnConfirmSimuCSV.TabIndex = 16
+        Me.btnConfirmSimuCSV.Text = "Kinnita andmed"
+        Me.btnConfirmSimuCSV.UseVisualStyleBackColor = True
+        '
         'tbDebug
         '
         Me.tbDebug.Location = New System.Drawing.Point(347, 64)
@@ -1608,16 +1617,16 @@ Partial Class GUIMain
         Me.chartPackages.ChartAreas.Add(ChartArea5)
         Legend5.Name = "Legend1"
         Me.chartPackages.Legends.Add(Legend5)
-        Me.chartPackages.Location = New System.Drawing.Point(441, 112)
+        Me.chartPackages.Location = New System.Drawing.Point(344, 104)
         Me.chartPackages.Margin = New System.Windows.Forms.Padding(2)
         Me.chartPackages.Name = "chartPackages"
-        Me.chartPackages.Size = New System.Drawing.Size(446, 283)
+        Me.chartPackages.Size = New System.Drawing.Size(600, 400)
         Me.chartPackages.TabIndex = 9
         '
         'lblComparisonResult
         '
         Me.lblComparisonResult.AutoSize = True
-        Me.lblComparisonResult.Location = New System.Drawing.Point(438, 64)
+        Me.lblComparisonResult.Location = New System.Drawing.Point(341, 64)
         Me.lblComparisonResult.Name = "lblComparisonResult"
         Me.lblComparisonResult.Size = New System.Drawing.Size(50, 13)
         Me.lblComparisonResult.TabIndex = 7
@@ -1710,15 +1719,6 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.TabIndex = 10
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
-        '
-        'btnConfirmSimuCSV
-        '
-        Me.btnConfirmSimuCSV.Location = New System.Drawing.Point(51, 293)
-        Me.btnConfirmSimuCSV.Name = "btnConfirmSimuCSV"
-        Me.btnConfirmSimuCSV.Size = New System.Drawing.Size(150, 34)
-        Me.btnConfirmSimuCSV.TabIndex = 16
-        Me.btnConfirmSimuCSV.Text = "Kinnita andmed"
-        Me.btnConfirmSimuCSV.UseVisualStyleBackColor = True
         '
         'GUIMain
         '
