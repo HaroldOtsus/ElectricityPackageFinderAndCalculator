@@ -241,12 +241,12 @@ Public Class GUIMain
             Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
             Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
             'this if is supposed to check if the system language is estonian, but it doesnt work/we are using it wrong or using the wrong thing 
-            If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
-                'changes the "."-s into ","-s
-                For i As Integer = 1 To 24
+            'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
+            'changes the "."-s into ","-s
+            For i As Integer = 1 To 24
                     sPrices(i) = sPrices(i).Replace(".", ",")
                 Next
-            End If
+            'End If
             'sets the length for array of doubles
             dPrices = New Double(sPrices.Length) {}
 
@@ -533,9 +533,9 @@ Public Class GUIMain
         Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
         Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
         'again with the language fiasco
-        If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
-            sPrices(2) = sPrices(2).Replace(".", ",")
-        End If
+        'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
+        sPrices(2) = sPrices(2).Replace(".", ",")
+        'End If
         'converts string to double
         Dim calculateKWH As Double = Double.Parse(sPrices(2))
         'calculateKWH = (calculateKWH / 10) / 100
@@ -641,12 +641,12 @@ Public Class GUIMain
             Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
             Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
             'language issue once again
-            If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
+            'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
 
-                For i As Integer = 1 To 24
+            For i As Integer = 1 To 24
                     sPrices(i) = sPrices(i).Replace(".", ",")
                 Next
-            End If
+            ' End If
 
             dPrices = New Double(sPrices.Length) {}
 
@@ -1259,10 +1259,10 @@ Public Class GUIMain
                     Dim price As Double
                     Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
                     Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-                    If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
-                        data.Item1(i) = data.Item1(i).Replace(".", ",")
-                        'packages.Item3(j) = packages.Item3(j).Replace(".-", ",")
-                    End If
+                    'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
+                    data.Item1(i) = data.Item1(i).Replace(".", ",")
+                    'packages.Item3(j) = packages.Item3(j).Replace(".-", ",")
+                    'End If
                     Dim pricesD As Double = Double.Parse(data.Item1(i))
                     pricesD = (pricesD / 1000) * 100 'MWH/eur to kWh/s
                     price = pricesD + packages.Item3(j)
@@ -1309,11 +1309,11 @@ Public Class GUIMain
             sDates = returnString.stockPrice().dates
             Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
             Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-            If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
-                For i As Integer = 1 To 24
+            'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
+            For i As Integer = 1 To 24
                     sPrices(i) = sPrices(i).Replace(".", ",")
                 Next
-            End If
+            'End If
             dPrices = New Double(sPrices.Length) {}
 
 
@@ -1737,10 +1737,10 @@ Public Class GUIMain
                         Dim price As Double
                         Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
                         Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-                        If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
-                            data.Item1(i) = data.Item1(i).Replace(".", ",")
-                            'packages.Item3(j) = packages.Item3(j).Replace(".-", ",")
-                        End If
+                        'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
+                        data.Item1(i) = data.Item1(i).Replace(".", ",")
+                        'packages.Item3(j) = packages.Item3(j).Replace(".-", ",")
+                        'End If
                         Dim pricesD As Double = Double.Parse(data.Item1(i))
                         pricesD = (pricesD / 1000) * 100 'MWH/eur to kWh/s
                         price = pricesD + packageone.Item3 'add marginal
