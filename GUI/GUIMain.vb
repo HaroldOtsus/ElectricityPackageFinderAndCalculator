@@ -497,9 +497,15 @@ Public Class GUIMain
         End Select
     End Function
 
+    'home appliance tab 
     Private Sub rdioExchange_CheckedChanged(sender As Object, e As EventArgs) Handles rdioExchange.CheckedChanged
+
+        'exchange/stock price is selected on entry
+
+        'clears old value from tbox
         tboxMonthlyCost.Enabled = False
         tboxMonthlyCost.Clear()
+        'stock price can be sorted so sorting buttons enabled
         btnTableAsc.Enabled = True
         btnTableDesc.Enabled = True
 
@@ -514,7 +520,7 @@ Public Class GUIMain
         Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
         'MsgBox(futureDateString)
 
-
+        'gets prices according to input dates (current to current+24h) 
         sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
         ' GetDataFromEleringAPIWithDates(ByVal strStartDate As String, ByVal strEndDate As String) As (String(), String())
         ' sPrices = returnString.stockPrice().prices
@@ -522,32 +528,38 @@ Public Class GUIMain
 
         'Dim sPricesOut As String = sPrices(1)
         'Double.TryParse(sPrices(1), sPricesOut)
+
+        'THIS CODE REPEATS, has been written before, could be optimized
         Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
         Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+        'again with the language fiasco
         If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
             sPrices(2) = sPrices(2).Replace(".", ",")
         End If
+        'converts string to double
         Dim calculateKWH As Double = Double.Parse(sPrices(2))
         'calculateKWH = (calculateKWH / 10) / 100
+        'turns the initial string that is €/MWh into cents/kWh
         calculateKWH = (calculateKWH / 1000) * 100
-
+        'e
         tBoxPackageHourlyRate.Text = calculateKWH & " [s/kWh]"
 
     End Sub
-
+    'if user selects fixed price in paketijärgne tunnihind tab
     Private Sub rdioFixedPrice_CheckedChanged(sender As Object, e As EventArgs) Handles rdioFixedPrice.CheckedChanged
+        'kinda obv
         tboxMonthlyCost.Enabled = True
         tBoxPackageHourlyRate.Clear()
         tboxMonthlyCost.Clear()
         btnTableAsc.Enabled = False
         btnTableDesc.Enabled = False
     End Sub
-
+    'if user selects fixed price in home appliance tab
     Private Sub rdioFixedPrice1_CheckedChanged(sender As Object, e As EventArgs) Handles rdioFixedPrice1.CheckedChanged
         tBoxPackagePrice.Enabled = True
         tBoxPackagePrice.Clear()
     End Sub
-
+    'if user selects stock price in the appliance tab
     Private Sub rdioExchangePrice_CheckedChanged(sender As Object, e As EventArgs) Handles rdioExchangePrice.CheckedChanged
         tBoxPackagePrice.Enabled = False
 
@@ -565,7 +577,7 @@ Public Class GUIMain
     End Sub
 
 
-
+    'on entry into this tab the following happens
     Private Sub tabPackageHourlyRate_Enter(sender As Object, e As EventArgs) Handles tabPackageHourlyRate.Enter
         rdioExchange.Checked = True
         lblTableState.Visible = False
@@ -573,7 +585,7 @@ Public Class GUIMain
     End Sub
 
 
-
+    'WHAT HTE FUCK? vol 2
     Private Sub Main_Enter(sender As Object, e As EventArgs) Handles Main.Enter
         'Dim seriesName As String = "Börsihind"
         'chrFrontPageChart.Series.Add(seriesName)
@@ -596,18 +608,16 @@ Public Class GUIMain
 
 
 
-
+    'BUTTON that sorts the table in ascending order
     Private Sub btnChartAsc_Click(sender As Object, e As EventArgs) Handles btnTableAsc.Click
+
         tblPriceTable.Controls.Clear()
         Dim tbMarginalOfStockLetters As Boolean = checkIfTextBoxContainsLetters(tbMarginalOfStock)
         Dim tboxMonthlyCostLetters As Boolean = checkIfTextBoxContainsLetters(tboxMonthlyCost)
 
-        If tbMarginalOfStockLetters = False Or tboxMonthlyCostLetters = False Then
-
-        Else
-
-
-
+        If tbMarginalOfStockLetters = False Or tboxMonthlyCostLetters = False Then 'if input bad
+            'noting happens
+        Else 'input gud
             Dim returnString As PrjDatabaseComponent.IDatabaseAPI
             Dim sPrices As String()
             Dim sDates As String()
@@ -616,19 +626,21 @@ Public Class GUIMain
             Dim dPrices As Double()
             Dim priceDateStruct As New PriceDateStruct()
 
-
             returnString = New PrjDatabaseComponent.CDatabase
 
             Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
             Dim futureDate As DateTime = DateTime.Now.AddHours(24)
             Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
-
+            'Database functions
             'sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
             'sDates = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item2
+            'APPI functions
             sPrices = returnString.stockPrice().prices
             sDates = returnString.stockPrice().dates
+
             Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
             Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+            'language issue once again
             If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
 
                 For i As Integer = 1 To 24
@@ -647,11 +659,10 @@ Public Class GUIMain
             Else
                 For i As Integer = 1 To sPrices.Length - 1
                     dPrices(i) = Double.Parse(sPrices(i))
-
                 Next
             End If
 
-
+            'WHAT THE FUCK? vol 3
             'UNIX NEEDS TO BE CONVERTED TO CONVENTIONAL TIMESTAMP DO BE USABLE
             'dDates = New Double(sDates.Length - 1) {}
             For i As Integer = 1 To 24 'sDates.Length - 1
@@ -665,12 +676,13 @@ Public Class GUIMain
 
             Next
 
+            'list
             'Dim priceAndDate As PriceDateStruct
             Dim records As List(Of PriceDateStruct)
             records = New List(Of PriceDateStruct)
 
             Dim p As PriceDateStruct
-
+            'filling list
             For i As Integer = 1 To 24 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
 
                 p.price = dPrices(i)
@@ -707,11 +719,10 @@ Public Class GUIMain
 
             tblPriceTable.Controls.Add(dgv)
 
+            'brings out the cheapest time to consume power
             lblTableState.Visible = True
             lblTableState.Text = "Börsihind kasvavalt järjestatud (odavaim -> kalleim)"
-
             lblBestTime.Visible = True
-
             lblBestTime.Text = "Kõige odavam tarbimisaeg on " & records(0).sDate & ":00."
 
         End If
@@ -719,12 +730,11 @@ Public Class GUIMain
     End Sub
 
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
+
         'tblCSVfile.Controls.Clear()
         chrtCSV.Series.Clear()
-
         Dim records As List(Of DateWattageStruct)
         records = New List(Of DateWattageStruct)
-
         Dim p As DateWattageStruct
 
 
@@ -1489,32 +1499,30 @@ Public Class GUIMain
 
     End Sub
 
+    'IN THE TARBIMISE AJALUGU TAB, tabClientConsumptionHistory subtab
+    'this is work in progress, NOT FUNCTIONAAAAAAAAL!
+    'SCHIZO RAMBLINGS
     Private Sub btnImportCSVFileSimu_Click(sender As Object, e As EventArgs) Handles btnImportCSVFileSimu.Click
         'tblCSVfile.Controls.Clear()
         chrtCSV.Series.Clear()
-
-
-
-
-
+        'opens a window for user to select their CSV file
         Dim openFileDialog As New OpenFileDialog()
-
         'Filter to only show CSV files and all files
         openFileDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*"
-
-
         'If the user selects a file and presses OK
         If openFileDialog.ShowDialog() = DialogResult.OK Then
 
             Dim selectedFileName As String = openFileDialog.FileName
 
             'If btnConfirmSimuCSV.Focused = True Then
+            'creates table for incoming info
             Dim table As New DataTable()
-
+            'parses the csv file
             Using parser As New Microsoft.VisualBasic.FileIO.TextFieldParser(selectedFileName)
                 parser.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited
-                parser.SetDelimiters(";")
+                parser.SetDelimiters(";") 'demlimiter is the end of the row
 
+                'ignores the first 9 lines because that is user information and not consumption history
                 Dim headerLinesToSkip As Integer = 9
                 For i As Integer = 1 To headerLinesToSkip
                     parser.ReadLine()
@@ -1542,20 +1550,21 @@ Public Class GUIMain
 
                     End While
 
-
+                    'date time pickers are enabled
                     dtpBeginning.Enabled = True
                     dtpEnd.Enabled = True
 
-
+                    'length of table
                     Dim rowCount As Integer = table.Rows.Count
                     Dim rowCountInForEach As Integer = 0
 
+                    'if the table fits the template(is correct)
                     If table.Columns(0).ColumnName = "Algus" And table.Columns(2).ColumnName = "Kogus (kWh)" _
                         And table.Columns(1).ColumnName = "Lõpp" And table.Columns(3).ColumnName = "Börsihind (EUR / MWh)" Then
 
                         'For i As Integer = 0 To 9
                         For Each row As DataRow In table.Rows
-
+                            'if there are too many rows of data take only the first 3 days
                             If rowCountInForEach = (24 * 3) + 1 Then
                                 Exit For
                             End If
@@ -1589,13 +1598,16 @@ Public Class GUIMain
                             '
                             rowCountInForEach += 1
                         Next
+                        'sets the minimum and max dates that can be selected
                         dtpBeginning.Value = dtpBeginning.MinDate
                         dtpEnd.Value = dtpEnd.MaxDate
 
+                        'MOCK CALCULATOR BECAUSE PAIN :'(
+                        'this is only a concept not the final product, look away
                         Dim sumKWh As Double
                         Dim sumPrice As Double
                         Dim divider As Integer = 0
-                        'MOCK CALCULATOR BECAUSE PAIN :'(
+
                         For Each row As DataRow In table.Rows
                             'ADD UP ALL THE QUANTITY(kWh)
                             sumKWh += Double.Parse(row("Kogus (kWh)"))
@@ -1618,7 +1630,7 @@ Public Class GUIMain
 
 
                     Else
-                        MessageBox.Show("VALE FORMAAT LOHH!")
+                        MessageBox.Show("VALE FORMAAT!")
                     End If
 
 
@@ -1643,7 +1655,7 @@ Public Class GUIMain
     Private Sub tabPackageComparison_Enter(sender As Object, e As EventArgs) Handles tabPackageComparison.Enter
 
     End Sub
-
+    'compares stuff
     Private Sub btnTwoPackets_Click(sender As Object, e As EventArgs) Handles btnTwoPackets.Click
         Dim packet1 As String = cBoxPackage1.Text 'get packet name
         Dim packet2 As String = cBoxPackage2.Text
