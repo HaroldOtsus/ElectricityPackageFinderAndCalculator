@@ -443,8 +443,6 @@ Public Class CDatabase
 
     Function stockPrice() As (prices As String(), dates As String()) Implements IDatabaseAPI.stockPrice
         Dim currentHour As Integer = DateTime.Now.Hour
-        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        Dim conn As New MySqlConnection(connString)
         Dim dateOfStockPrices As String = ""
         Dim stringOfErrors() As String = Nothing
         Dim databaseHour As Integer = hourofDatabasestockPrices()

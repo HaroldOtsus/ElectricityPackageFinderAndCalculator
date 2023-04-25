@@ -305,6 +305,7 @@ Public Class GUIMain
                 Dim dt As DateTime = DateTime.Parse(records(i).sDate)
                 Dim sTime As String = dt.ToString("HH:mm")
                 dgv.Columns.Add(0, sTime)
+
             Next
 
 
@@ -518,8 +519,8 @@ Public Class GUIMain
         Dim sPrices As String()
         sPrices = returnString.stockPrice().prices
 
-        sPrices(24) = sPrices(24).Replace(".", ",")
-        Dim calculateKWH As Double = Double.Parse(sPrices(24))
+        sPrices(23) = sPrices(23).Replace(".", ",")
+        Dim calculateKWH As Double = Double.Parse(sPrices(23))
         'calculateKWH = (calculateKWH / 10) / 100
         calculateKWH = (calculateKWH / 1000) * 100
 
