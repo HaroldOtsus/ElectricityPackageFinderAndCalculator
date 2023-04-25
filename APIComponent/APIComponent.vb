@@ -4,7 +4,7 @@ Imports System.Net
 
 Public Class APIComponent
     Implements APIInterface
-    Public Function GetDataFromEleringAPI() As (String(), String()) Implements APIInterface.GetDataFromEleringAPI
+    Private Function GetDataFromEleringAPI() As (String(), String()) Implements APIInterface.GetDataFromEleringAPI
 
         'DateTime variables to get the 24 hour NordPool prices
         Dim endTime As DateTime = DateTime.UtcNow
@@ -96,7 +96,7 @@ Public Class APIComponent
         Return (endResultPrice, endResultTimestamp)
     End Function
 
-    Public Function GetDataFromEleringAPIWithDates(ByVal strStartDate As String, ByVal strEndDate As String) As (String(), String()) _
+    Private Function GetDataFromEleringAPIWithDates(ByVal strStartDate As String, ByVal strEndDate As String) As (String(), String()) _
         Implements APIInterface.GetDataFromEleringAPIWithDates
 
         'DateTime variables to get the 24 hour NordPool prices
