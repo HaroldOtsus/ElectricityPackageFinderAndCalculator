@@ -13,7 +13,7 @@ Public Class CDatabase
         conna = New MySqlConnection(connString)
     End Sub
 
-    Function userPrefernces(ByVal username, ByRef size, ByRef color) Implements ILogin.userPrefernces
+    Private Function userPrefernces(ByVal username, ByRef size, ByRef color) Implements ILogin.userPrefernces
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
 
@@ -34,7 +34,7 @@ Public Class CDatabase
 
     End Function
 
-    Function updateUserPrefernces(ByVal username, ByVal update) Implements ILogin.updateUserPrefernces
+    Private Function updateUserPrefernces(ByVal username, ByVal update) Implements ILogin.updateUserPrefernces
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
 
@@ -51,7 +51,7 @@ Public Class CDatabase
         conn.Close()
 
     End Function
-    Function hashPassword(ByVal password As String) As String
+    Private Function hashPassword(ByVal password As String) As String
         Dim sha256 As SHA256 = SHA256.Create() 'use create method that returns best available implementation of SHA256
         'convert password to bytes
         Dim bytes As Byte() = System.Text.Encoding.UTF8.GetBytes(password)
@@ -62,7 +62,7 @@ Public Class CDatabase
     End Function
 
 
-    Function universalServicePrice() As Double Implements IDatabase.universalServicePrice
+    Private Function universalServicePrice() As Double Implements IDatabase.universalServicePrice
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Dim price As Double
@@ -84,7 +84,7 @@ Public Class CDatabase
 
     End Function
 
-    Function login(ByVal username As String, ByVal password As String) As Boolean Implements ILogin.login
+    Private Function login(ByVal username As String, ByVal password As String) As Boolean Implements ILogin.login
         Dim pass As String = ""
         Try
             conna.Open()
@@ -118,7 +118,7 @@ Public Class CDatabase
     End Function
 
 
-    Function checkIfUsernameExists(ByVal username As String) As Boolean
+    Private Function checkIfUsernameExists(ByVal username As String) As Boolean
         'we check is the username exists in database
         Dim cmd As New MySqlCommand("SELECT COUNT(*) FROM user WHERE username  = @username", conna)
         cmd.Parameters.AddWithValue("@username", username)
@@ -141,7 +141,7 @@ Public Class CDatabase
 
     End Function
 
-    Function signup(ByVal username As String, ByVal password As String, ByVal name As String, ByVal email As String) As Boolean Implements ISignup.signup
+    Private Function signup(ByVal username As String, ByVal password As String, ByVal name As String, ByVal email As String) As Boolean Implements ISignup.signup
         ''call function that hashes password
         Try
             conna.Open()
@@ -176,7 +176,7 @@ Public Class CDatabase
 
 
 
-    Function stringReturn(ByVal id As String) As (consumptionPerHour As String, usageTime As String) Implements IDatabase.stringReturn
+    Private Function stringReturn(ByVal id As String) As (consumptionPerHour As String, usageTime As String) Implements IDatabase.stringReturn
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;" 'string to access database
         Dim conn As New MySqlConnection(connString)
         Dim strVar As String
@@ -222,7 +222,7 @@ Public Class CDatabase
         Return (consumptionPerHour, usageTime)
     End Function
 
-    Function datesOfStockPrice() As String() 'get stockprice dates from database
+    Private Function datesOfStockPrice() As String() 'get stockprice dates from database
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;" 'string to access database
         Dim conn As New MySqlConnection(connString)
         Dim dateOfStockPrices As String = ""
@@ -259,7 +259,7 @@ Public Class CDatabase
 
 
 
-    Function stringsOfStockPrice() As String() 'get stockprice strings from database
+    Private Function stringsOfStockPrice() As String() 'get stockprice strings from database
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;" 'string to access database
         Dim conn As New MySqlConnection(connString)
         Dim dateOfStockPrices As String = ""
@@ -292,7 +292,7 @@ Public Class CDatabase
 
     End Function
 
-    Function stringsOfStockPriceFuture() As String() 'get stockprice strings from database
+    Private Function stringsOfStockPriceFuture() As String() 'get stockprice strings from database
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;" 'string to access database
         Dim conn As New MySqlConnection(connString)
         Dim dateOfStockPrices As String = ""
@@ -324,7 +324,7 @@ Public Class CDatabase
         End Try
 
     End Function
-    Function datesOfStockPriceFuture() As String() 'get stockprice dates from database
+    Private Function datesOfStockPriceFuture() As String() 'get stockprice dates from database
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Dim dateOfStockPrices As String = ""
@@ -370,7 +370,7 @@ Public Class CDatabase
         End Try
 
     End Function
-    Function electricityPackagesInfo() As (String(), String(), Double(), Double(), Boolean(), Boolean(), Boolean(), Double()) Implements IDatabase.electricityPackagesInfo
+    Private Function electricityPackagesInfo() As (String(), String(), Double(), Double(), Boolean(), Boolean(), Boolean(), Double()) Implements IDatabase.electricityPackagesInfo
         Dim count As Integer
         count = electricityPackagesCount()
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
@@ -415,7 +415,7 @@ Public Class CDatabase
         End Try
     End Function
 
-    Function hourofDatabasestockPrices() As Integer
+    Private Function hourofDatabasestockPrices() As Integer
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Dim dateOfStockPrices As String = ""
@@ -441,7 +441,7 @@ Public Class CDatabase
 
 
 
-    Function stockPrice() As (prices As String(), dates As String()) Implements IDatabaseAPI.stockPrice
+    Private Function stockPrice() As (prices As String(), dates As String()) Implements IDatabaseAPI.stockPrice
         Dim currentHour As Integer = DateTime.Now.Hour
         Dim dateOfStockPrices As String = ""
         Dim stringOfErrors() As String = Nothing
@@ -462,7 +462,7 @@ Public Class CDatabase
 
     End Function
 
-    Function hourofDatabasestockPricesFuture() As Integer
+    Private Function hourofDatabasestockPricesFuture() As Integer
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Dim dateOfStockPrices As String = ""
@@ -487,7 +487,7 @@ Public Class CDatabase
     End Function
 
 
-    Function getStockPriceAndDatesFromDatabaseFuture(ByVal strStartDate As String, ByVal strEndDate As String) As (String(), String()) _
+    Private Function getStockPriceAndDatesFromDatabaseFuture(ByVal strStartDate As String, ByVal strEndDate As String) As (String(), String()) _
         Implements IDatabase.getStockPriceAndDatesFromDatabaseFuture
         Dim currentHour As Integer = DateTime.Now.Hour
         Dim hour As Integer
@@ -511,9 +511,10 @@ Public Class CDatabase
         End If
 
 
+
     End Function
 
-    Function insertStockPriceToDatabase() As String() ''get data from API and insert it into database
+    Private Function insertStockPriceToDatabase() As String() ''get data from API and insert it into database
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Dim dateToday
@@ -598,7 +599,7 @@ Public Class CDatabase
     End Function
 
 
-    Function insertStockPriceToDatabaseFuture(ByVal strStartDate As String, ByVal strEndDate As String) As String() ''get data from API and insert it into database
+    Private Function insertStockPriceToDatabaseFuture(ByVal strStartDate As String, ByVal strEndDate As String) As String() ''get data from API and insert it into database
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Dim dateToday
@@ -681,7 +682,7 @@ Public Class CDatabase
         Return sPrices
     End Function
 
-    Function insertDatesToDatabaseFuture(ByVal strStartDate As String, ByVal strEndDate As String) As String() ''get data from API and insert it into database
+    Private Function insertDatesToDatabaseFuture(ByVal strStartDate As String, ByVal strEndDate As String) As String() ''get data from API and insert it into database
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Dim dateToday
@@ -765,7 +766,7 @@ Public Class CDatabase
 
     End Function
 
-    Function insertDatesToDatabase() As String() ''get data from API and insert it into database
+    Private Function insertDatesToDatabase() As String() ''get data from API and insert it into database
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Dim dateToday
@@ -848,7 +849,7 @@ Public Class CDatabase
 
     End Function
 
-    Function Connect() As Boolean ' use it to test if there is connection to database (look at PrjDatabaseTestid)
+    Private Function Connect() As Boolean ' use it to test if there is connection to database (look at PrjDatabaseTestid)
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Try
@@ -861,7 +862,7 @@ Public Class CDatabase
             Return False
         End Try
     End Function
-    Function onePackageInfo(ByVal packageName As String) As (String, String, Double, Double, Boolean, Boolean, Boolean, Double) Implements IDatabase.onePackageInfo
+    Private Function onePackageInfo(ByVal packageName As String) As (String, String, Double, Double, Boolean, Boolean, Boolean, Double) Implements IDatabase.onePackageInfo
 
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
@@ -907,7 +908,7 @@ Public Class CDatabase
             conn.Close()
         End Try
     End Function
-    Function electricityPackagesCount() As Integer Implements IDatabase.electricityPackagesCount
+    Private Function electricityPackagesCount() As Integer Implements IDatabase.electricityPackagesCount
         'find how many electricity packages there are in the database
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)

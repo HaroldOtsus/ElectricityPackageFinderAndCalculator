@@ -1174,20 +1174,22 @@ Public Class GUIMain
             Dim hour2(24) As Integer
             Dim dateFromUnix(24) As String
             For k As Integer = 1 To 24
-                Dim unixTimestamp As Long = Long.Parse(data.Item2(k))
+                'Dim unixTimestamp As Long = Long.Parse(data.Item2(k))
 
-                Dim dateTime As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTimestamp)
-                dateFromUnix(k) = dateTime.ToString("yyyy-MM-dd HH:mm:ss")
-                hour2(k) = dateTime.Hour
+                ' Dim dateTime As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTimestamp)
+                'dateFromUnix(k) = dateTime.ToString("yyyy-MM-dd HH:mm:ss")
+                'hour2(k) = dateTime.Hour
+                Dim oDate As DateTime = Convert.ToDateTime(data.Item2(k))
+                hour2(k) = oDate.Hour
             Next
             If Not packages.Item5(j) Then
                 If packages.Item7(j) = True Then
                     For i As Integer = 1 To 24
 
                         If hour2(i) > 11 And hour2(i) < 24 Then
-                            series.Points.AddXY(dateFromUnix(i), packages.Item3(j))
+                            series.Points.AddXY(data.Item2(i), packages.Item3(j))
                         Else
-                            series.Points.AddXY(dateFromUnix(i), packages.Item8(j))
+                            series.Points.AddXY(data.Item2(i), packages.Item8(j))
                         End If
                     Next
 
@@ -1195,7 +1197,7 @@ Public Class GUIMain
                     For i As Integer = 1 To 24
 
 
-                        series.Points.AddXY(dateFromUnix(i), packages.Item3(j))
+                        series.Points.AddXY(data.Item2(i), packages.Item3(j))
 
 
                     Next
@@ -1205,10 +1207,10 @@ Public Class GUIMain
 
 
                 For i As Integer = 1 To 24
-                    Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.Item2(i)) 'new datetimeoffset from sDate string
-                    Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
-
-                    Dim hour As Integer = dateValue.Hour
+                    ' Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.Item2(i)) 'new datetimeoffset from sDate string
+                    'Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
+                    Dim oDate As DateTime = Convert.ToDateTime(data.Item2(i))
+                    Dim hour As Integer = oDate.Hour
                     Dim price As Double
                     Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
                     Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
@@ -1221,7 +1223,7 @@ Public Class GUIMain
                     price = pricesD + packages.Item3(j)
 
                     ' series.Points.AddXY(hour, price)
-                    chartPackages.Series(j).Points.AddXY(dateFromUnix(i), price)
+                    chartPackages.Series(j).Points.AddXY(data.Item2(i), price)
 
                 Next
             End If
@@ -1654,20 +1656,17 @@ Public Class GUIMain
                 Dim hour2(24) As Integer
                 Dim dateFromUnix(24) As String
                 For k As Integer = 1 To 24
-                    Dim unixTimestamp As Long = Long.Parse(data.Item2(k))
-
-                    Dim dateTime As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTimestamp)
-                    dateFromUnix(k) = dateTime.ToString("yyyy-MM-dd HH:mm:ss")
-                    hour2(k) = dateTime.Hour
+                    Dim oDate As DateTime = Convert.ToDateTime(data.Item2(k))
+                    hour2(k) = oDate.Hour
                 Next
                 If Not packageone.Item5 Then
                     If packagetwo.Item7 = True Then
                         For i As Integer = 1 To 24
 
                             If hour2(i) > 11 And hour2(i) < 24 Then
-                                series.Points.AddXY(dateFromUnix(i), packageone.Item3)
+                                series.Points.AddXY(data.Item2(i), packageone.Item3)
                             Else
-                                series.Points.AddXY(dateFromUnix(i), packageone.Item8)
+                                series.Points.AddXY(data.Item2(i), packageone.Item8)
                             End If
                         Next
 
@@ -1675,7 +1674,7 @@ Public Class GUIMain
                         For i As Integer = 1 To 24
 
 
-                            series.Points.AddXY(dateFromUnix(i), packageone.Item3)
+                            series.Points.AddXY(data.Item2(i), packageone.Item3)
 
 
                         Next
@@ -1685,10 +1684,10 @@ Public Class GUIMain
 
 
                     For i As Integer = 1 To 24
-                        Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.Item2(i)) 'new datetimeoffset from sDate string
-                        Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
-
-                        Dim hour As Integer = dateValue.Hour
+                        'Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.Item2(i)) 'new datetimeoffset from sDate string
+                        'Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
+                        Dim oDate As DateTime = Convert.ToDateTime(data.Item2(i))
+                        Dim hour As Integer = oDate.Hour
                         Dim price As Double
                         Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
                         Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
@@ -1700,7 +1699,7 @@ Public Class GUIMain
                         price = pricesD + packageone.Item3
 
                         ' series.Points.AddXY(hour, price)
-                        chartPackages.Series(loopThroughBothPackets).Points.AddXY(dateFromUnix(i), price)
+                        chartPackages.Series(loopThroughBothPackets).Points.AddXY(data.Item2(i), price)
 
                     Next
                 End If
