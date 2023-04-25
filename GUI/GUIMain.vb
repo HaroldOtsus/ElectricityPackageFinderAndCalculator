@@ -411,7 +411,7 @@ Public Class GUIMain
     End Function
     Public Function chartFrontPage()
 
-        Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+        ' Dim returnString As PrjDatabaseComponent.IDatabaseAPI
         Dim sPrices As String()
         Dim sDates As String()
         Dim dDates As Double() = New Double(24) {}
@@ -420,10 +420,14 @@ Public Class GUIMain
         Dim priceDateStruct As New PriceDateStruct()
 
 
-        returnString = New PrjDatabaseComponent.CDatabase
+        ' returnString = New PrjDatabaseComponent.CDatabase
 
-        sPrices = returnString.stockPrice().prices
-        sDates = returnString.stockPrice().dates
+        'sPrices = returnString.stockPrice().prices
+        'sDates = returnString.stockPrice().dates
+        Dim returnString As PrjAPIComponent.APIInterface
+        returnString = New PrjAPIComponent.APIComponent
+        sPrices = returnString.GetDataFromEleringAPI.Item1
+        sDates = returnString.GetDataFromEleringAPI.Item2
 
         For i As Integer = 1 To 24
             sPrices(i) = sPrices(i).Replace(".", ",")
