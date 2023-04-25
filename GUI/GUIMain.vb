@@ -424,15 +424,19 @@ Public Class GUIMain
 
         sPrices = returnString.stockPrice().prices
         sDates = returnString.stockPrice().dates
-
+        dPrices = New Double(sPrices.Length) {}
         For i As Integer = 1 To 24
             sPrices(i) = sPrices(i).Replace(".", ",")
+            dPrices(i) = Double.Parse(sPrices(i))
             ' NextteTimeOffset = DateTimeOffset.FromUnixTimeSeconds(sDates(i)) 'new datetimeoffset from sDate string
             '  Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
             ' dDates(i) = CDbl(dateValue.Hour) 'convert to integer
             'TextBox1.Text = dDates(i) 'put hour to textbox for testing
 
         Next
+
+
+
 
         'Dim priceAndDate As PriceDateStruct
         Dim records As List(Of PriceDateStruct)
