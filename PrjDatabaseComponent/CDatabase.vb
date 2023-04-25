@@ -6,9 +6,14 @@ Public Class CDatabase
     Implements ISignup
     Implements ILogin
 
+    Private Shared conn As MySqlConnection
+
+    Public Sub New()
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;Pooling=true;"
+        conn = New MySqlConnection(connString)
+    End Sub
+
     Function userPrefernces(ByVal username, ByRef size, ByRef color) Implements ILogin.userPrefernces
-        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        Dim conn As New MySqlConnection(connString)
 
         Try
             conn.Open()
@@ -28,8 +33,6 @@ Public Class CDatabase
     End Function
 
     Function updateUserPrefernces(ByVal username, ByVal update) Implements ILogin.updateUserPrefernces
-        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        Dim conn As New MySqlConnection(connString)
 
         Try
             conn.Open()
@@ -41,7 +44,6 @@ Public Class CDatabase
         Catch ex As Exception
             'Return False
         End Try
-        conn.Close()
 
     End Function
     Function hashPassword(ByVal password As String) As String
@@ -56,8 +58,6 @@ Public Class CDatabase
 
 
     Function universalServicePrice() As Double Implements IDatabase.universalServicePrice
-        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        Dim conn As New MySqlConnection(connString)
         Dim price As Double
         Try
             conn.Open()
@@ -68,7 +68,7 @@ Public Class CDatabase
                 price = reader.GetString(0)
 
             End While
-            conn.Close()
+
             Return price
         Catch ex As Exception
             'Return False
@@ -78,8 +78,6 @@ Public Class CDatabase
     End Function
 
     Function login(ByVal username As String, ByVal password As String) As Boolean Implements ILogin.login
-        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        Dim conn As New MySqlConnection(connString)
         Dim pass As String = ""
         Try
             conn.Open()
@@ -103,7 +101,6 @@ Public Class CDatabase
                     Return False
                 End If
             End If
-            conn.Close()
             Return False
 
         Catch ex As Exception
@@ -115,8 +112,6 @@ Public Class CDatabase
 
     Function checkIfUsernameExists(ByVal username As String) As Boolean
         'we check is the username exists in database
-        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        Dim conn As New MySqlConnection(connString) 'connect to database
         Dim cmd As New MySqlCommand("SELECT COUNT(*) FROM user WHERE username  = @username", conn)
         cmd.Parameters.AddWithValue("@username", username)
         Try
@@ -130,7 +125,6 @@ Public Class CDatabase
                 Return True
             End If
 
-            conn.Close()
 
         Catch ex As Exception
             Return False
@@ -139,8 +133,6 @@ Public Class CDatabase
     End Function
 
     Function signup(ByVal username As String, ByVal password As String, ByVal name As String, ByVal email As String) As Boolean Implements ISignup.signup
-        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        Dim conn As New MySqlConnection(connString)
         ''call function that hashes password
         Try
             conn.Open()
@@ -160,7 +152,6 @@ Public Class CDatabase
                 'if everything went well return true otherwise false
                 Return True
             End If
-            conn.Close()
             Return False
 
         Catch ex As Exception
@@ -197,7 +188,6 @@ Public Class CDatabase
             End While
             reader.Close()
 
-            conn.Close()
         Catch ex As MySqlException ''code for troubleshooting will have to change it if want to use with GUI
             ' Handle MySqlException here
             strVar = "MySqlException:"
@@ -222,8 +212,7 @@ Public Class CDatabase
     End Function
 
     Function datesOfStockPrice() As String() 'get stockprice dates from database
-        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        Dim conn As New MySqlConnection(connString)
+
         Dim dateOfStockPrices As String = ""
         Dim stringOfErrors() As String = Nothing
         Dim dateToday
@@ -236,14 +225,11 @@ Public Class CDatabase
             While reader.Read()
                 dateOfStockPrices = reader.GetString(0) 'get date from database
             End While
-            conn.Close()
-            Dim con As New MySqlConnection(connString)
-            con.Open()
             Dim sPrices() As String = New String(25) {}
             sPrices(0) = ""
             If dateOfStockPrices = dateToday Then
                 '        ''need to return all prices from database
-                Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 2;", con)
+                Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 2;", conn)
                 Dim read As MySqlDataReader = cmd.ExecuteReader()
                 If read IsNot Nothing Then
                     While read.Read() 'get all dates from database
@@ -252,7 +238,6 @@ Public Class CDatabase
                         Next
                     End While
                     read.Close()
-                    con.Close()
 
                     'Dim stringOfDates As String()
                     'stringOfDates = insertDatesToDatabase()
@@ -260,7 +245,6 @@ Public Class CDatabase
                     Return sPrices
                 End If
             End If
-            conn.Close()
         Catch ex As Exception
             stringOfErrors = {"error", "error", "error"}
             Return stringOfErrors
@@ -317,8 +301,7 @@ Public Class CDatabase
     Function electricityPackagesInfo() As (String(), String(), Double(), Double(), Boolean(), Boolean(), Boolean(), Double()) Implements IDatabase.electricityPackagesInfo
         Dim count As Integer
         count = electricityPackagesCount()
-        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        Dim conn As New MySqlConnection(connString) ' connection to database
+
         Try
 
             conn.Open()
@@ -349,13 +332,60 @@ Public Class CDatabase
                 i += 1
             End While
 
-            conn.Close()
+
             'return arrays
             Return (stringOfPackageNames, stringOfCompanyNames, pricePerKWh, monthlyFeeForContract, usesMarketPrice, greenEnergy, isNightPriceDifferent, nightPrice)
         Catch ex As Exception
             'exception using database
             '   stringOfErrors = {"error", "error", "error"}
             '  Return stringOfErrors
+        End Try
+    End Function
+
+    Function onePackageInfo(ByVal packageName As String) As (String, String, Double, Double, Boolean, Boolean, Boolean, Double) Implements IDatabase.onePackageInfo
+
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+
+        Try
+
+            conn.Open()
+            'get info about electricity packages from database
+            Dim sqlCommand As New MySqlCommand("SELECT packageName, companyName, pricePerKWh, monthlyFeeForContract, usesMarketPrice, greenEnergy, isNightPriceDifferent, nightPrice FROM electricityPackages where packageName = @packageName;", conn)
+            sqlCommand.Parameters.AddWithValue("@packageName", packageName)
+            Dim reader As MySqlDataReader = sqlCommand.ExecuteReader()
+            'create arrays to hold database info
+            Dim stringOfPackageNames As String = ""
+            Dim stringOfCompanyNames As String = ""
+            Dim pricePerKWh As Double
+            Dim monthlyFeeForContract As Double
+            Dim usesMarketPrice As Boolean
+            Dim greenEnergy As Boolean
+            Dim isNightPriceDifferent As Boolean
+            Dim nightPrice As Double
+            Dim rowcount As Integer = 0
+            Dim i As Integer = 0
+            While reader.Read()
+                'insert data into arrays
+                stringOfPackageNames = reader.GetString(0)
+                stringOfCompanyNames = reader.GetString(1)
+                pricePerKWh = reader.GetString(2)
+                monthlyFeeForContract = reader.GetString(3)
+                usesMarketPrice = reader.GetString(4)
+                greenEnergy = reader.GetString(5)
+                isNightPriceDifferent = reader.GetString(6)
+                nightPrice = reader.GetString(7)
+                i += 1
+            End While
+
+
+            'return arrays
+            Return (stringOfPackageNames, stringOfCompanyNames, pricePerKWh, monthlyFeeForContract, usesMarketPrice, greenEnergy, isNightPriceDifferent, nightPrice)
+        Catch ex As Exception
+            'exception using database
+            '   stringOfErrors = {"error", "error", "error"}
+            '  Return stringOfErrors
+            conn.Close()
         End Try
     End Function
     Function electricityPackagesCount() As Integer Implements IDatabase.electricityPackagesCount
@@ -607,6 +637,7 @@ Public Class CDatabase
             stringOfErrors = {"error", "error", "error"}
             Return stringOfErrors
         End Try
+        conn.Close()
 
     End Function
 

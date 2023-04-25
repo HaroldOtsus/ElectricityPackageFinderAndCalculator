@@ -177,6 +177,15 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
+        Me.btnTwoPackets = New System.Windows.Forms.Button()
+        Me.compOne = New System.Windows.Forms.TextBox()
+        Me.priceOfCont = New System.Windows.Forms.TextBox()
+        Me.compTwo = New System.Windows.Forms.TextBox()
+        Me.priceOfCont2 = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1574,6 +1583,15 @@ Partial Class GUIMain
         '
         'tabPackageComparison
         '
+        Me.tabPackageComparison.Controls.Add(Me.Label11)
+        Me.tabPackageComparison.Controls.Add(Me.Label7)
+        Me.tabPackageComparison.Controls.Add(Me.Label5)
+        Me.tabPackageComparison.Controls.Add(Me.Label4)
+        Me.tabPackageComparison.Controls.Add(Me.priceOfCont2)
+        Me.tabPackageComparison.Controls.Add(Me.compTwo)
+        Me.tabPackageComparison.Controls.Add(Me.priceOfCont)
+        Me.tabPackageComparison.Controls.Add(Me.compOne)
+        Me.tabPackageComparison.Controls.Add(Me.btnTwoPackets)
         Me.tabPackageComparison.Controls.Add(Me.btnPackets)
         Me.tabPackageComparison.Controls.Add(Me.chartPackages)
         Me.tabPackageComparison.Controls.Add(Me.lblComparisonResult)
@@ -1593,7 +1611,7 @@ Partial Class GUIMain
         '
         'btnPackets
         '
-        Me.btnPackets.Location = New System.Drawing.Point(164, 352)
+        Me.btnPackets.Location = New System.Drawing.Point(18, 452)
         Me.btnPackets.Name = "btnPackets"
         Me.btnPackets.Size = New System.Drawing.Size(152, 52)
         Me.btnPackets.TabIndex = 10
@@ -1624,23 +1642,25 @@ Partial Class GUIMain
         'cBoxPackage2
         '
         Me.cBoxPackage2.FormattingEnabled = True
-        Me.cBoxPackage2.Location = New System.Drawing.Point(178, 281)
+        Me.cBoxPackage2.Items.AddRange(New Object() {"Kindel 6", "Kindel 36", "Kindel Pluss", "Muutuv", "Universaalteenus", "Pingevaba + Ühisarve", "Tähtajaline fikseeritud hind", "Kodupakett börsihinnaga", "Universaalteenus Alexela", "Universaalteenus Alexela + roheline", "Tähtajaline fikseeritud hind + roheline", "220 Börsihind", "220 Börsihind + Roheline", "220 Tähtajaline kindel hind", "220 Tähtajaline kindel hind + roheline", "220 Universaalteenus", "220 Universaalteenus + roheline", "Kindel pakett gaas", "Muutuvhinnaga pakett", "Universaalteenus Eesti gaas", "Universaalteenus VKG", "Not-fix", "Roheline Klõps", "Roheline Börsi Klõps", "Börsi Klõps", "Universaalteenus Elektrum", "Kaljukindel Klõps kindlustusega"})
+        Me.cBoxPackage2.Location = New System.Drawing.Point(178, 263)
         Me.cBoxPackage2.Name = "cBoxPackage2"
-        Me.cBoxPackage2.Size = New System.Drawing.Size(121, 21)
+        Me.cBoxPackage2.Size = New System.Drawing.Size(143, 21)
         Me.cBoxPackage2.TabIndex = 6
         '
         'cBoxPackage1
         '
         Me.cBoxPackage1.FormattingEnabled = True
-        Me.cBoxPackage1.Location = New System.Drawing.Point(178, 157)
+        Me.cBoxPackage1.Items.AddRange(New Object() {"Kindel 6", "Kindel 36", "Kindel Pluss", "Muutuv", "Universaalteenus", "Pingevaba + Ühisarve", "Tähtajaline fikseeritud hind", "Kodupakett börsihinnaga", "Universaalteenus Alexela", "Universaalteenus Alexela + roheline", "Tähtajaline fikseeritud hind + roheline", "220 Börsihind", "220 Börsihind + Roheline", "220 Tähtajaline kindel hind", "220 Tähtajaline kindel hind + roheline", "220 Universaalteenus", "220 Universaalteenus + roheline", "Kindel pakett gaas", "Muutuvhinnaga pakett", "Universaalteenus Eesti gaas", "Universaalteenus VKG", "Not-fix", "Roheline Klõps", "Roheline Börsi Klõps", "Börsi Klõps", "Universaalteenus Elektrum", "Kaljukindel Klõps kindlustusega"})
+        Me.cBoxPackage1.Location = New System.Drawing.Point(178, 139)
         Me.cBoxPackage1.Name = "cBoxPackage1"
-        Me.cBoxPackage1.Size = New System.Drawing.Size(121, 21)
+        Me.cBoxPackage1.Size = New System.Drawing.Size(143, 21)
         Me.cBoxPackage1.TabIndex = 5
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(53, 284)
+        Me.Label6.Location = New System.Drawing.Point(53, 266)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(78, 13)
         Me.Label6.TabIndex = 4
@@ -1649,7 +1669,7 @@ Partial Class GUIMain
         'lblPackage1
         '
         Me.lblPackage1.AutoSize = True
-        Me.lblPackage1.Location = New System.Drawing.Point(53, 160)
+        Me.lblPackage1.Location = New System.Drawing.Point(53, 139)
         Me.lblPackage1.Name = "lblPackage1"
         Me.lblPackage1.Size = New System.Drawing.Size(78, 13)
         Me.lblPackage1.TabIndex = 3
@@ -1708,6 +1728,84 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.TabIndex = 10
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
+        '
+        'btnTwoPackets
+        '
+        Me.btnTwoPackets.Location = New System.Drawing.Point(178, 452)
+        Me.btnTwoPackets.Name = "btnTwoPackets"
+        Me.btnTwoPackets.Size = New System.Drawing.Size(152, 52)
+        Me.btnTwoPackets.TabIndex = 11
+        Me.btnTwoPackets.Text = "Võrdle kahte paketti"
+        Me.btnTwoPackets.UseVisualStyleBackColor = True
+        '
+        'compOne
+        '
+        Me.compOne.HideSelection = False
+        Me.compOne.Location = New System.Drawing.Point(221, 177)
+        Me.compOne.Name = "compOne"
+        Me.compOne.ReadOnly = True
+        Me.compOne.Size = New System.Drawing.Size(100, 20)
+        Me.compOne.TabIndex = 12
+        '
+        'priceOfCont
+        '
+        Me.priceOfCont.Location = New System.Drawing.Point(221, 214)
+        Me.priceOfCont.Name = "priceOfCont"
+        Me.priceOfCont.ReadOnly = True
+        Me.priceOfCont.Size = New System.Drawing.Size(100, 20)
+        Me.priceOfCont.TabIndex = 13
+        '
+        'compTwo
+        '
+        Me.compTwo.Location = New System.Drawing.Point(221, 301)
+        Me.compTwo.Name = "compTwo"
+        Me.compTwo.ReadOnly = True
+        Me.compTwo.Size = New System.Drawing.Size(100, 20)
+        Me.compTwo.TabIndex = 14
+        '
+        'priceOfCont2
+        '
+        Me.priceOfCont2.Location = New System.Drawing.Point(221, 343)
+        Me.priceOfCont2.Name = "priceOfCont2"
+        Me.priceOfCont2.ReadOnly = True
+        Me.priceOfCont2.Size = New System.Drawing.Size(100, 20)
+        Me.priceOfCont2.TabIndex = 15
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(53, 180)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(32, 13)
+        Me.Label4.TabIndex = 16
+        Me.Label4.Text = "Firma"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(53, 221)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(86, 13)
+        Me.Label5.TabIndex = 17
+        Me.Label5.Text = "Lepingu kuutasu"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(53, 308)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(32, 13)
+        Me.Label7.TabIndex = 18
+        Me.Label7.Text = "Firma"
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(53, 350)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(86, 13)
+        Me.Label11.TabIndex = 19
+        Me.Label11.Text = "Lepingu kuutasu"
         '
         'GUIMain
         '
@@ -1900,4 +1998,13 @@ Partial Class GUIMain
     Friend WithEvents dtpBeginning As DateTimePicker
     Friend WithEvents tbDebug As TextBox
     Friend WithEvents btnConfirmSimuCSV As Button
+    Friend WithEvents btnTwoPackets As Button
+    Friend WithEvents compOne As TextBox
+    Friend WithEvents Label4 As Label
+    Friend WithEvents priceOfCont2 As TextBox
+    Friend WithEvents compTwo As TextBox
+    Friend WithEvents priceOfCont As TextBox
+    Friend WithEvents Label11 As Label
+    Friend WithEvents Label7 As Label
+    Friend WithEvents Label5 As Label
 End Class

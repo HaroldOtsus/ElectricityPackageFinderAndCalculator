@@ -1211,57 +1211,83 @@ Public Class GUIMain
 
     End Sub
 
-    Private Sub btnPackets_Click(sender As Object, e As EventArgs) Handles btnPackets.Click
-
+    Private Function packageChartOfElectricity()
         chartPackages.Series.Clear()
         Dim returnString As PrjDatabaseComponent.IDatabase
         returnString = New PrjDatabaseComponent.CDatabase
         Dim count As Integer
         count = returnString.electricityPackagesCount 'find out how many packages there are
-        Dim packages = returnString.electricityPackagesInfo
-        'chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
-        Dim rand As New Random()
-        chartPackages.Width = 600 ' set the width to 800 pixels
-        chartPackages.Height = 400
-        For j As Integer = 0 To (count - 1)
+        Dim packages = returnString.electricityPackagesInfo ' get info about packages
+        Dim rand As New Random() 'for creating random color lines
+        chartPackages.Width = 600 ' set chart the width to 600 pixels
+        chartPackages.Height = 400 'set chart height to 400 lines
+        chartPackages.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
+        chartPackages.ChartAreas(0).AxisY.Interval = 5 'more lines Y axis
+        chartPackages.ChartAreas(0).AxisX.ScaleView.Zoomable = True
+        chartPackages.ChartAreas(0).AxisY.ScaleView.Zoomable = True
+
+
+        ' Set zooming mode to allow zooming in both directions
+        chartPackages.ChartAreas(0).CursorX.IsUserEnabled = True
+        chartPackages.ChartAreas(0).CursorX.IsUserSelectionEnabled = True
+        chartPackages.ChartAreas(0).CursorY.IsUserEnabled = True
+        chartPackages.ChartAreas(0).CursorY.IsUserSelectionEnabled = True
+        chartPackages.ChartAreas(0).AxisX.ScaleView.Zoomable = True
+        chartPackages.ChartAreas(0).AxisY.ScaleView.Zoomable = True
+        chartPackages.ChartAreas(0).AxisX.ScrollBar.IsPositionedInside = True
+        chartPackages.ChartAreas(0).AxisY.ScrollBar.IsPositionedInside = True
+
+        For j As Integer = 0 To (count - 1) 'loop thorugh all packages
 
             Dim series As New Series(packages.Item1(j)) ' create a new series with the package name
             chartPackages.Series.Add(series)
-            Dim currentHour As Integer = DateTime.Now.Hour
-            chartPackages.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
-            chartPackages.ChartAreas(0).AxisY.Interval = 5 'more lines Y axis
             series.ChartType = DataVisualization.Charting.SeriesChartType.StepLine
-            Dim r As Integer = rand.Next(0, 256)
-            Dim g As Integer = rand.Next(0, 256)
-            Dim b As Integer = rand.Next(0, 256)
-            Dim colorofLine As Color = Color.FromArgb(r, g, b)
+            Dim r As Integer = rand.Next(0, 256) 'create random red value
+            Dim g As Integer = rand.Next(0, 256) 'green value
+            Dim b As Integer = rand.Next(0, 256) 'blue val
+            Dim colorofLine As Color = Color.FromArgb(r, g, b) 'random color
             series.Color = colorofLine
             series.BorderWidth = 3
             'all the packages are right except Muutuv 
-            Dim returnString2 As PrjDatabaseComponent.IDatabaseAPI
-            returnString2 = New PrjDatabaseComponent.CDatabase
-            Dim data = returnString2.stockPrice
+            Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+            Dim futureDate As DateTime = DateTime.Now.AddHours(24)
+            Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
+            Dim data = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString)
+            Dim hour2(24) As Integer
+            Dim dateFromUnix(24) As String
+            For k As Integer = 1 To 24
+                Dim unixTimestamp As Long = Long.Parse(data.Item2(k))
+
+                Dim dateTime As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTimestamp)
+                dateFromUnix(k) = dateTime.ToString("yyyy-MM-dd HH:mm:ss")
+                hour2(k) = dateTime.Hour
+            Next
             If Not packages.Item5(j) Then
-                Dim hour2(24) As Integer
+                If packages.Item7(j) = True Then
+                    For i As Integer = 1 To 24
 
-                For k As Integer = 1 To 24
-                    Dim unixTimestamp As Long = Long.Parse(data.dates(k))
+                        If hour2(i) > 11 And hour2(i) < 24 Then
+                            series.Points.AddXY(dateFromUnix(i), packages.Item3(j))
+                        Else
+                            series.Points.AddXY(dateFromUnix(i), packages.Item8(j))
+                        End If
+                    Next
 
-                    Dim dateTime As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTimestamp)
-
-                Next
-                For i As Integer = 1 To 24
-
-                    series.Points.AddXY(data.dates(i), packages.Item3(j))
+                Else
+                    For i As Integer = 1 To 24
 
 
-                Next 'the packet does not have fixed price
+                        series.Points.AddXY(dateFromUnix(i), packages.Item3(j))
+
+
+                    Next
+                End If
             Else
 
 
 
                 For i As Integer = 1 To 24
-                    Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.dates(i)) 'new datetimeoffset from sDate string
+                    Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.Item2(i)) 'new datetimeoffset from sDate string
                     Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
 
                     Dim hour As Integer = dateValue.Hour
@@ -1269,18 +1295,21 @@ Public Class GUIMain
                     Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
                     Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
                     If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
-                        data.prices(i) = data.prices(i).Replace(".", ",")
+                        data.Item1(i) = data.Item1(i).Replace(".", ",")
                         'packages.Item3(j) = packages.Item3(j).Replace(".-", ",")
                     End If
-                    Dim pricesD As Double = Double.Parse(data.prices(i))
+                    Dim pricesD As Double = Double.Parse(data.Item1(i))
                     price = pricesD + packages.Item3(j)
 
                     ' series.Points.AddXY(hour, price)
-                    chartPackages.Series(j).Points.AddXY(data.dates(i), price)
+                    chartPackages.Series(j).Points.AddXY(dateFromUnix(i), price)
 
                 Next
             End If
         Next
+    End Function
+    Private Sub btnPackets_Click(sender As Object, e As EventArgs) Handles btnPackets.Click
+        packageChartOfElectricity()
     End Sub
 
     Private Sub btnTableDesc_Click(sender As Object, e As EventArgs) Handles btnTableDesc.Click
@@ -1500,7 +1529,7 @@ Public Class GUIMain
 
     Private Sub btnImportCSVFileSimu_Click(sender As Object, e As EventArgs) Handles btnImportCSVFileSimu.Click
         'tblCSVfile.Controls.Clear()
-        'chrtCSV.Series.Clear()
+        chrtCSV.Series.Clear()
 
 
 
@@ -1627,7 +1656,7 @@ Public Class GUIMain
 
 
                     Else
-                        MessageBox.Show("VALE FORMAAT!")
+                        MessageBox.Show("VALE FORMAAT LOHH!")
                     End If
 
 
@@ -1649,182 +1678,114 @@ Public Class GUIMain
 
     End Sub
 
-    Private Sub btnConfirmSimuCSV_Click(sender As Object, e As EventArgs) Handles btnConfirmSimuCSV.Click
-        chrtSimuHistory.Series.Clear()
-        Dim beginningT As String = (dtpBeginning.Value).ToString("yyyy-MM-dd HH:mm:ss")
-        Dim endT As String = (dtpEnd.Value).ToString("yyyy-MM-dd HH:mm:ss")
-
-        Dim openFileDialog As New OpenFileDialog()
-
-        'Filter to only show CSV files and all files
-        openFileDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*"
-
-
-        'If the user selects a file and presses OK
-        If openFileDialog.ShowDialog() = DialogResult.OK Then
-
-            Dim selectedFileName As String = openFileDialog.FileName
-
-            'If btnConfirmSimuCSV.Focused = True Then
-            Dim table As New DataTable()
-
-            Using parser As New Microsoft.VisualBasic.FileIO.TextFieldParser(selectedFileName)
-                parser.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited
-                parser.SetDelimiters(";")
-
-                Dim headerLinesToSkip As Integer = 9
-                For i As Integer = 1 To headerLinesToSkip
-                    parser.ReadLine()
-                Next
-
-
-                'Filling ze table
-                ' Read the header row and add the columns to the table
-                Dim column As Integer = 0
-                Dim headerRow As String() = parser.ReadFields()
-                For Each header As String In headerRow
-                    table.Columns.Add(header)
-                    column += 1
-                Next
-                If column > 2 Then
-
-
-
-                    ' Read the data rows and add them to the table
-                    While Not parser.EndOfData
-                        Dim fields As String() = parser.ReadFields()
-                        table.Rows.Add(fields)
-                    End While
-                    Dim rowCount As Integer = table.Rows.Count
-
-                Else
-                    MessageBox.Show("VALE FORMAAT!")
-                End If
-            End Using
-
-            Dim sumKWh As Double
-            Dim sumPrice As Double
-            Dim divider As Integer = 0
-            'MOCK CALCULATOR BECAUSE PAIN :'(
-
-
-            Dim foundStartRow As Boolean = False ' A flag to indicate if we have found the start row yet
-            Dim foundEndRow As Boolean = False ' A flag to indicate if we have found the end row yet
-            Dim count As Integer = 0
-            Dim startRowIndex As Integer
-            Dim endRowIndex As Integer
-            'GETS THE USERS PARAMETERS
-            For Each row As DataRow In table.Rows
-
-                If row("Algus") = DateTime.Parse(beginningT) Then
-                    MsgBox("Start" & dtpBeginning.Value)
-                    startRowIndex = count
-                    '
-                End If
-                If row("Lõpp") = DateTime.Parse(endT) Then
-                    MsgBox("Start" & dtpEnd.Value)
-                    endRowIndex = count
-                    '
-                End If
-                count = +1
-            Next
-            count = 0
-
-            For Each row As DataRow In table.Rows
-                If count >= startRowIndex Then
-                    If count <> endRowIndex Then
-                        sumKWh += Double.Parse(row("Kogus (kWh)"))
-                        sumPrice += Double.Parse(row("Börsihind (EUR / MWh)"))
-                        tbDebug.AppendText(Environment.NewLine & sumKWh & sumPrice & beginningT & endT)
-                        divider += 1
-                    Else
-                        Exit For
-                    End If
-                End If
-                count = +1
-            Next
-            sumPrice = sumPrice / divider
-            'sumPrice now in cents per kWh
-            sumPrice = (sumPrice / 1000) * 100
-            tbDebug.AppendText(Environment.NewLine & "Kokku: " & sumKWh & " kWh ja keskmine kWh hind " & sumPrice & " senti/kWh.")
-        End If
-
-
-
-
-        'Dim returnString As PrjDatabaseComponent.IDatabase
-        'returnString = New PrjDatabaseComponent.CDatabase
-        'Dim count As Integer
-        'count = returnString.electricityPackagesCount 'find out how many packages there are
-        'Dim packages = returnString.electricityPackagesInfo
-        ''chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
-        ''Dim rand As New Random()
-        'chrtSimuHistory.Width = 600 ' set the width to 800 pixels
-        'chrtSimuHistory.Height = 400
-
-        'For j As Integer = 0 To (count - 1)
-
-        '    Dim series As New Series(packages.Item1(j)) ' create a new series with the package name
-        '    chrtSimuHistory.Series.Add(series)
-        '    Dim currentHour As Integer = DateTime.Now.Hour
-        '    chrtSimuHistory.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
-        '    chrtSimuHistory.ChartAreas(0).AxisY.Interval = 5 'more lines Y axis
-        '    series.ChartType = DataVisualization.Charting.SeriesChartType.Column
-        '    Dim r As Integer = rand.Next(0, 256)
-        '    Dim g As Integer = rand.Next(0, 256)
-        '    Dim b As Integer = rand.Next(0, 256)
-        '    Dim colorofLine As Color = Color.FromArgb(r, g, b)
-        '    series.Color = colorofLine
-        '    series.BorderWidth = 3
-        '    'all the packages are right except Muutuv 
-        '    Dim returnString2 As PrjDatabaseComponent.IDatabaseAPI
-        '    returnString2 = New PrjDatabaseComponent.CDatabase
-        '    Dim data = returnString2.stockPrice
-        '    If Not packages.Item5(j) Then
-        '        Dim hour2(24) As Integer
-
-        '        For k As Integer = 1 To 24
-        '            Dim unixTimestamp As Long = Long.Parse(data.dates(k))
-
-        '            Dim dateTime As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTimestamp)
-
-        '        Next
-
-
-        '        series.Points.AddXY(packages.Item1(j), packages.Item3(j))
-
-
-
-        '    Else
-
-
-
-
-        '        'Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.dates(i)) 'new datetimeoffset from sDate string
-        '        '    Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
-
-        '        '    Dim hour As Integer = dateValue.Hour
-        '        '    Dim price As Double
-        '        '    Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
-        '        '    Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-        '        'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
-        '        '    data.prices(i) = data.prices(i).Replace(".", ",")
-        '        '    'packages.Item3(j) = packages.Item3(j).Replace(".-", ",")
-        '        'End If
-        '        'Dim pricesD As Double = Double.Parse(data.prices(i))
-        '        'price = pricesD + packages.Item3(j)
-
-        '        ' series.Points.AddXY(hour, price)
-        '        chrtSimuHistory.Series(j).Points.AddXY(packages.Item1(j), packages.Item3(j))
-
-
-        '    End If
-        'Next
-
+    Private Sub tabPackageComparison_Enter(sender As Object, e As EventArgs) Handles tabPackageComparison.Enter
 
     End Sub
 
-    Private Sub dtpBeginning_ValueChanged(sender As Object, e As EventArgs) Handles dtpBeginning.ValueChanged
+    Private Sub btnTwoPackets_Click(sender As Object, e As EventArgs) Handles btnTwoPackets.Click
+        Dim packet1 As String = cBoxPackage1.Text
+        Dim packet2 As String = cBoxPackage2.Text
+        Dim result As Integer = StrComp(packet1, packet2, 0)
+        If result <> 0 Then
+            Dim returnString As PrjDatabaseComponent.IDatabase
+            returnString = New PrjDatabaseComponent.CDatabase
+            Dim packageone = returnString.onePackageInfo(packet1)
+            Dim packagetwo = returnString.onePackageInfo(packet2)
+            compOne.Text = packageone.Item2
+            compTwo.Text = packagetwo.Item2
+            priceOfCont.Text = packageone.Item4
+            priceOfCont2.Text = packagetwo.Item4
+
+            chartPackages.Series.Clear()
+
+            chartPackages.Width = 600 ' set chart the width to 600 pixels
+            chartPackages.Height = 400 'set chart height to 400 lines
+            chartPackages.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
+            chartPackages.ChartAreas(0).AxisY.Interval = 5 'more lines Y axis
+            chartPackages.ChartAreas(0).AxisX.ScaleView.Zoomable = True
+            chartPackages.ChartAreas(0).AxisY.ScaleView.Zoomable = True
+
+
+            ' Set zooming mode to allow zooming in both directions
+            chartPackages.ChartAreas(0).CursorX.IsUserEnabled = True
+            chartPackages.ChartAreas(0).CursorX.IsUserSelectionEnabled = True
+            chartPackages.ChartAreas(0).CursorY.IsUserEnabled = True
+            chartPackages.ChartAreas(0).CursorY.IsUserSelectionEnabled = True
+            chartPackages.ChartAreas(0).AxisX.ScaleView.Zoomable = True
+            chartPackages.ChartAreas(0).AxisY.ScaleView.Zoomable = True
+            chartPackages.ChartAreas(0).AxisX.ScrollBar.IsPositionedInside = True
+            chartPackages.ChartAreas(0).AxisY.ScrollBar.IsPositionedInside = True
+            Dim loopThroughBothPackets As Integer = 0
+            While loopThroughBothPackets < 2
+                Dim series As New Series(packageone.Item1) ' create a new series with the package name
+                chartPackages.Series.Add(series)
+                series.ChartType = DataVisualization.Charting.SeriesChartType.StepLine
+                series.BorderWidth = 3
+                'all the packages are right except Muutuv 
+                Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                Dim futureDate As DateTime = DateTime.Now.AddHours(24)
+                Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
+                Dim data = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString)
+                Dim hour2(24) As Integer
+                Dim dateFromUnix(24) As String
+                For k As Integer = 1 To 24
+                    Dim unixTimestamp As Long = Long.Parse(data.Item2(k))
+
+                    Dim dateTime As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTimestamp)
+                    dateFromUnix(k) = dateTime.ToString("yyyy-MM-dd HH:mm:ss")
+                    hour2(k) = dateTime.Hour
+                Next
+                If Not packageone.Item5 Then
+                    If packagetwo.Item7 = True Then
+                        For i As Integer = 1 To 24
+
+                            If hour2(i) > 11 And hour2(i) < 24 Then
+                                series.Points.AddXY(dateFromUnix(i), packageone.Item3)
+                            Else
+                                series.Points.AddXY(dateFromUnix(i), packageone.Item8)
+                            End If
+                        Next
+
+                    Else
+                        For i As Integer = 1 To 24
+
+
+                            series.Points.AddXY(dateFromUnix(i), packageone.Item3)
+
+
+                        Next
+                    End If
+                Else
+
+
+
+                    For i As Integer = 1 To 24
+                        Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.Item2(i)) 'new datetimeoffset from sDate string
+                        Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
+
+                        Dim hour As Integer = dateValue.Hour
+                        Dim price As Double
+                        Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+                        Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+                        If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
+                            data.Item1(i) = data.Item1(i).Replace(".", ",")
+                            'packages.Item3(j) = packages.Item3(j).Replace(".-", ",")
+                        End If
+                        Dim pricesD As Double = Double.Parse(data.Item1(i))
+                        price = pricesD + packageone.Item3
+
+                        ' series.Points.AddXY(hour, price)
+                        chartPackages.Series(loopThroughBothPackets).Points.AddXY(dateFromUnix(i), price)
+
+                    Next
+                End If
+                loopThroughBothPackets += 1
+                packageone = packagetwo
+            End While
+        End If
+    End Sub
+
+    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
 
     End Sub
 End Class

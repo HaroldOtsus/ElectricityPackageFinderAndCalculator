@@ -116,6 +116,7 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
         ' Dim futureDateString As String = "2023-04-25 12:20:00"
         Dim count123 = getIn.GetDataFromEleringAPIWithDates(currentDate, futureDateString)
+        Assert.AreEqual(24, count123.Item2.Length)
         Assert.AreEqual("cool", count123.Item1(1))
     End Sub
 
