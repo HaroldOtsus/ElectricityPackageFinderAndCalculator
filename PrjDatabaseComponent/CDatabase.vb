@@ -291,6 +291,39 @@ Public Class CDatabase
         End Try
 
     End Function
+
+    Function stringsOfStockPriceFuture() As String() 'get stockprice strings from database
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;" 'string to access database
+        Dim conn As New MySqlConnection(connString)
+        Dim dateOfStockPrices As String = ""
+        Dim stringOfErrors() As String = Nothing
+        Try
+
+            conn.Open() 'try to connect to database
+            Dim sPrices() As String = New String(24) {}
+            sPrices(0) = ""
+            '        ''need to return all prices from database
+            Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 3;", conn)
+            Dim read As MySqlDataReader = cmd.ExecuteReader()
+            If read IsNot Nothing Then
+                While read.Read() 'get all dates from database
+                    For i As Integer = 1 To 24
+                        sPrices(i) = read.GetString(i)
+                    Next
+                End While
+                read.Close()
+
+                'Dim stringOfDates As String()
+                'stringOfDates = insertDatesToDatabase()
+
+                Return sPrices
+            End If
+        Catch ex As Exception
+            stringOfErrors = {"error", "error", "error"}
+            Return stringOfErrors
+        End Try
+
+    End Function
     Function datesOfStockPriceFuture() As String() 'get stockprice dates from database
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
@@ -381,35 +414,30 @@ Public Class CDatabase
             '  Return stringOfErrors
         End Try
     End Function
-    'Function electricityPackagesCount() As Integer Implements IDatabase.electricityPackagesCount
-    '    'find how many electricity packages there are in the database
-    '    Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-    '    Dim conn As New MySqlConnection(connString)
-    '    Dim stringOfErrors() As String = Nothing
-    '    Try
 
-    '        conn.Open() 'try to connect to database
-    '        ' Create a SqlCommand to retrieve the distinct ID values from the table
-    '        Dim sqlCommand As New MySqlCommand("SELECT DISTINCT id FROM electricityPackages", conn)
+    Function hourofDatabasestockPrices() As Integer
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+        Dim dateOfStockPrices As String = ""
+        Dim stringOfErrors() As String = Nothing
+        Try
 
-    '        ' get how many id values in database
-    '        Dim reader As MySqlDataReader = sqlCommand.ExecuteReader()
-    '        Dim count As Integer = 0
-    '        While reader.Read()
-    '            'loop through id-s and raise count
-    '            count += 1
-    '        End While
 
-    '        conn.Close()
-    '        Return count
+            conn.Open() 'try to connect to database
+            Dim command As New MySqlCommand("SELECT twentyFour FROM webdata WHERE idPacket = 2;", conn)
+            Dim reader As MySqlDataReader = command.ExecuteReader()
+            While reader.Read()
+                dateOfStockPrices = reader.GetString(0) 'get date from database
+            End While
+            conn.Close()
+            Dim format As String = "yyyy-MM-dd HH:mm:ss"
+            Dim oDate As DateTime = Convert.ToDateTime(dateOfStockPrices)
+            Dim hour As Integer = oDate.Hour
+            Return hour
+        Catch ex As Exception
 
-    '    Catch ex As Exception
-    '        'database error 
-    '        '   stringOfErrors = {"error", "error", "error"}
-    '        '  Return stringOfErrors
-    '    End Try
-    'End Function
-
+        End Try
+    End Function
 
 
 
@@ -419,61 +447,30 @@ Public Class CDatabase
         Dim conn As New MySqlConnection(connString)
         Dim dateOfStockPrices As String = ""
         Dim stringOfErrors() As String = Nothing
-        Dim dateToday
-        dateToday = Date.Today 'get what date it is today
-        Try
-
-            conn.Open() 'try to connect to database
-            Dim command As New MySqlCommand("SELECT twentyFour FROM webdata WHERE idPacket = 2;", conn)
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read()
-                dateOfStockPrices = reader.GetString(0) 'get date from database
-            End While
-            conn.Close()
-
-            ' Get the UTC+2 time zone
-            '  Dim timeZone As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Israel Standard Time")
-
-            ' Convert DateTimeOffset object to UTC+3 timezone
-            'Dim convertedTime As DateTimeOffset = TimeZoneInfo.ConvertTime(dateTimeOffset, timeZone)
-
-            ' Dim hour As Integer = convertedTime.Hour
-
-            ' If hour = currentHour Then
-
-            '        ''need to return all prices from database
-            Dim stringOfDates As String()
-            Dim sPrices As String()
+        Dim databaseHour As Integer = hourofDatabasestockPrices()
+        Dim stringOfDates As String()
+        Dim sPrices As String()
+        If databaseHour = currentHour Then
             'stringOfDates = insertDatesToDatabase()
             sPrices = stringsOfStockPrice()
             stringOfDates = datesOfStockPrice()
             Return (sPrices, stringOfDates)
-            ' End If
-            'Else
-            '    Dim stringOfPrices As String()
-            '    Dim stringOfDates As String()
-            '    stringOfPrices = insertStockPriceToDatabase()
-            '    stringOfDates = insertDatesToDatabase()
-            '    Return (stringOfPrices, stringOfDates)
-            '    '        ''we put the info to the database
-            'End If
-        Catch ex As Exception
-            '   stringOfErrors = {"error", "error", "error"}
-            '  Return stringOfErrors
-        End Try
+        Else
+            sPrices = insertStockPriceToDatabase()
+            stringOfDates = insertDatesToDatabase()
+            Return (sPrices, stringOfDates)
+            '        ''we put the info to the database
+        End If
 
     End Function
 
-    Function getStockPriceAndDatesFromDatabaseFuture(ByVal strStartDate As String, ByVal strEndDate As String) As (String(), String()) _
-        Implements IDatabase.getStockPriceAndDatesFromDatabaseFuture
-        Dim currentHour As Integer = DateTime.Now.Hour
+    Function hourofDatabasestockPricesFuture() As Integer
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
         Dim dateOfStockPrices As String = ""
         Dim stringOfErrors() As String = Nothing
-        Dim dateToday
-        dateToday = Date.Today 'get what date it is today
         Try
+
 
             conn.Open() 'try to connect to database
             Dim command As New MySqlCommand("SELECT one FROM webdata WHERE idPacket = 4;", conn)
@@ -482,53 +479,39 @@ Public Class CDatabase
                 dateOfStockPrices = reader.GetString(0) 'get date from database
             End While
             conn.Close()
-            Dim con As New MySqlConnection(connString)
-            con.Open()
-            Dim sPrices() As String = New String(24) {}
-            sPrices(0) = ""
-            Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(dateOfStockPrices) 'new datetimeoffset from sDate string
-            Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
-
-
-            ' Get the UTC+2 time zone
-            Dim timeZone As TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Israel Standard Time")
-
-            ' Convert DateTimeOffset object to UTC+3 timezone
-            Dim convertedTime As DateTimeOffset = TimeZoneInfo.ConvertTime(dateTimeOffset, timeZone)
-
-            Dim hour As Integer = convertedTime.Hour
-
-            If hour = currentHour Then
-
-                '        ''need to return all prices from database
-                Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 3;", con)
-                Dim read As MySqlDataReader = cmd.ExecuteReader()
-                If read IsNot Nothing Then
-                    While read.Read() 'get all dates from database
-                        For i As Integer = 1 To 24
-                            sPrices(i) = read.GetString(0)
-                        Next
-                    End While
-                    read.Close()
-                    con.Close()
-
-                    Dim stringOfDates As String()
-                    stringOfDates = datesOfStockPriceFuture()
-                    Return (sPrices, stringOfDates)
-                End If
-            Else
-                Dim stringOfPrices As String()
-                Dim stringOfDates As String()
-                stringOfPrices = insertStockPriceToDatabaseFuture(strStartDate, strEndDate)
-                stringOfDates = insertDatesToDatabaseFuture(strStartDate, strEndDate)
-                Return (stringOfPrices, stringOfDates)
-                '        ''we put the info to the database
-            End If
-            conn.Close()
+            Dim format As String = "yyyy-MM-dd HH:mm:ss"
+            Dim oDate As DateTime = Convert.ToDateTime(dateOfStockPrices)
+            Dim hour As Integer = oDate.Hour
+            Return hour
         Catch ex As Exception
-            '   stringOfErrors = {"error", "error", "error"}
-            '  Return stringOfErrors
+
         End Try
+    End Function
+
+
+    Function getStockPriceAndDatesFromDatabaseFuture(ByVal strStartDate As String, ByVal strEndDate As String) As (String(), String()) _
+        Implements IDatabase.getStockPriceAndDatesFromDatabaseFuture
+        Dim currentHour As Integer = DateTime.Now.Hour
+        Dim hour As Integer
+        hour = hourofDatabasestockPricesFuture()
+
+        If hour = currentHour Then
+
+            '        ''need to return all prices from databa
+            Dim sPrices As String()
+            Dim stringOfDates As String()
+            sPrices = stringsOfStockPriceFuture()
+            stringOfDates = datesOfStockPriceFuture()
+            Return (sPrices, stringOfDates)
+        Else
+            Dim stringOfPrices As String()
+            Dim stringOfDates As String()
+            stringOfPrices = insertStockPriceToDatabaseFuture(strStartDate, strEndDate)
+            stringOfDates = insertDatesToDatabaseFuture(strStartDate, strEndDate)
+            Return (stringOfPrices, stringOfDates)
+            '        ''we put the info to the database
+        End If
+
 
     End Function
 
@@ -715,7 +698,6 @@ Public Class CDatabase
         Try
 
             conn.Open() 'try to connect to database
-            Return sDates
             '' Dim command As New MySqlCommand("UPDATE webdata SET one = @colOne, two = @colTwo, three = @colThree WHERE idPacket = 1 ", conn)
             '' broke command into several commands because it didn't update database and thougth there was a bug
             '' actually didn't update because one column name was written wrongly
@@ -781,6 +763,7 @@ Public Class CDatabase
             Return sDates
             Return stringOfErrors
         End Try
+        Return sDates
 
     End Function
 

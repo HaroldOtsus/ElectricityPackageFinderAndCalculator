@@ -165,6 +165,15 @@ Partial Class GUIMain
         Me.btnClientConsumptionHistory = New System.Windows.Forms.Button()
         Me.btnBack3 = New System.Windows.Forms.Button()
         Me.tabPackageComparison = New System.Windows.Forms.TabPage()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.priceOfCont2 = New System.Windows.Forms.TextBox()
+        Me.compTwo = New System.Windows.Forms.TextBox()
+        Me.priceOfCont = New System.Windows.Forms.TextBox()
+        Me.compOne = New System.Windows.Forms.TextBox()
+        Me.btnTwoPackets = New System.Windows.Forms.Button()
         Me.btnPackets = New System.Windows.Forms.Button()
         Me.chartPackages = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.lblComparisonResult = New System.Windows.Forms.Label()
@@ -178,15 +187,6 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
-        Me.btnTwoPackets = New System.Windows.Forms.Button()
-        Me.compOne = New System.Windows.Forms.TextBox()
-        Me.priceOfCont = New System.Windows.Forms.TextBox()
-        Me.compTwo = New System.Windows.Forms.TextBox()
-        Me.priceOfCont2 = New System.Windows.Forms.TextBox()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label11 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -312,9 +312,9 @@ Partial Class GUIMain
         Me.chrtFrontPage.ChartAreas.Add(ChartArea1)
         Legend1.Name = "Legend1"
         Me.chrtFrontPage.Legends.Add(Legend1)
-        Me.chrtFrontPage.Location = New System.Drawing.Point(17, 242)
+        Me.chrtFrontPage.Location = New System.Drawing.Point(17, 217)
         Me.chrtFrontPage.Name = "chrtFrontPage"
-        Me.chrtFrontPage.Size = New System.Drawing.Size(765, 338)
+        Me.chrtFrontPage.Size = New System.Drawing.Size(788, 363)
         Me.chrtFrontPage.TabIndex = 8
         Me.chrtFrontPage.Text = "Chart2"
         '
@@ -1620,6 +1620,84 @@ Partial Class GUIMain
         Me.tabPackageComparison.Text = "Elektripakettide võrdlus"
         Me.tabPackageComparison.UseVisualStyleBackColor = True
         '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(53, 350)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(86, 13)
+        Me.Label11.TabIndex = 19
+        Me.Label11.Text = "Lepingu kuutasu"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(53, 308)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(32, 13)
+        Me.Label7.TabIndex = 18
+        Me.Label7.Text = "Firma"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(53, 221)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(86, 13)
+        Me.Label5.TabIndex = 17
+        Me.Label5.Text = "Lepingu kuutasu"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(53, 180)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(32, 13)
+        Me.Label4.TabIndex = 16
+        Me.Label4.Text = "Firma"
+        '
+        'priceOfCont2
+        '
+        Me.priceOfCont2.Location = New System.Drawing.Point(221, 343)
+        Me.priceOfCont2.Name = "priceOfCont2"
+        Me.priceOfCont2.ReadOnly = True
+        Me.priceOfCont2.Size = New System.Drawing.Size(100, 20)
+        Me.priceOfCont2.TabIndex = 15
+        '
+        'compTwo
+        '
+        Me.compTwo.Location = New System.Drawing.Point(221, 301)
+        Me.compTwo.Name = "compTwo"
+        Me.compTwo.ReadOnly = True
+        Me.compTwo.Size = New System.Drawing.Size(100, 20)
+        Me.compTwo.TabIndex = 14
+        '
+        'priceOfCont
+        '
+        Me.priceOfCont.Location = New System.Drawing.Point(221, 214)
+        Me.priceOfCont.Name = "priceOfCont"
+        Me.priceOfCont.ReadOnly = True
+        Me.priceOfCont.Size = New System.Drawing.Size(100, 20)
+        Me.priceOfCont.TabIndex = 13
+        '
+        'compOne
+        '
+        Me.compOne.HideSelection = False
+        Me.compOne.Location = New System.Drawing.Point(221, 177)
+        Me.compOne.Name = "compOne"
+        Me.compOne.ReadOnly = True
+        Me.compOne.Size = New System.Drawing.Size(100, 20)
+        Me.compOne.TabIndex = 12
+        '
+        'btnTwoPackets
+        '
+        Me.btnTwoPackets.Location = New System.Drawing.Point(178, 452)
+        Me.btnTwoPackets.Name = "btnTwoPackets"
+        Me.btnTwoPackets.Size = New System.Drawing.Size(152, 52)
+        Me.btnTwoPackets.TabIndex = 11
+        Me.btnTwoPackets.Text = "Võrdle kahte paketti"
+        Me.btnTwoPackets.UseVisualStyleBackColor = True
+        '
         'btnPackets
         '
         Me.btnPackets.Location = New System.Drawing.Point(18, 452)
@@ -1739,84 +1817,6 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.TabIndex = 10
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
-        '
-        'btnTwoPackets
-        '
-        Me.btnTwoPackets.Location = New System.Drawing.Point(178, 452)
-        Me.btnTwoPackets.Name = "btnTwoPackets"
-        Me.btnTwoPackets.Size = New System.Drawing.Size(152, 52)
-        Me.btnTwoPackets.TabIndex = 11
-        Me.btnTwoPackets.Text = "Võrdle kahte paketti"
-        Me.btnTwoPackets.UseVisualStyleBackColor = True
-        '
-        'compOne
-        '
-        Me.compOne.HideSelection = False
-        Me.compOne.Location = New System.Drawing.Point(221, 177)
-        Me.compOne.Name = "compOne"
-        Me.compOne.ReadOnly = True
-        Me.compOne.Size = New System.Drawing.Size(100, 20)
-        Me.compOne.TabIndex = 12
-        '
-        'priceOfCont
-        '
-        Me.priceOfCont.Location = New System.Drawing.Point(221, 214)
-        Me.priceOfCont.Name = "priceOfCont"
-        Me.priceOfCont.ReadOnly = True
-        Me.priceOfCont.Size = New System.Drawing.Size(100, 20)
-        Me.priceOfCont.TabIndex = 13
-        '
-        'compTwo
-        '
-        Me.compTwo.Location = New System.Drawing.Point(221, 301)
-        Me.compTwo.Name = "compTwo"
-        Me.compTwo.ReadOnly = True
-        Me.compTwo.Size = New System.Drawing.Size(100, 20)
-        Me.compTwo.TabIndex = 14
-        '
-        'priceOfCont2
-        '
-        Me.priceOfCont2.Location = New System.Drawing.Point(221, 343)
-        Me.priceOfCont2.Name = "priceOfCont2"
-        Me.priceOfCont2.ReadOnly = True
-        Me.priceOfCont2.Size = New System.Drawing.Size(100, 20)
-        Me.priceOfCont2.TabIndex = 15
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(53, 180)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(32, 13)
-        Me.Label4.TabIndex = 16
-        Me.Label4.Text = "Firma"
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(53, 221)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(86, 13)
-        Me.Label5.TabIndex = 17
-        Me.Label5.Text = "Lepingu kuutasu"
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(53, 308)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(32, 13)
-        Me.Label7.TabIndex = 18
-        Me.Label7.Text = "Firma"
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(53, 350)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(86, 13)
-        Me.Label11.TabIndex = 19
-        Me.Label11.Text = "Lepingu kuutasu"
         '
         'GUIMain
         '
