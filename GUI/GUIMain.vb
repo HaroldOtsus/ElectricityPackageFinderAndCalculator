@@ -474,8 +474,10 @@ Public Class GUIMain
         returnString = New PrjDatabaseComponent.CDatabase
         Dim sPrices As String()
         Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+        'MsgBox(currentDate)
         Dim futureDate As DateTime = DateTime.Now.AddHours(24)
         Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
+        'MsgBox(futureDateString)
 
 
         sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
@@ -488,9 +490,9 @@ Public Class GUIMain
         Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
         Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
         If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
-            sPrices(1) = sPrices(1).Replace(".", ",")
+            sPrices(2) = sPrices(2).Replace(".", ",")
         End If
-        Dim calculateKWH As Double = Double.Parse(sPrices(1))
+        Dim calculateKWH As Double = Double.Parse(sPrices(2))
         'calculateKWH = (calculateKWH / 10) / 100
         calculateKWH = (calculateKWH / 1000) * 100
 
@@ -519,8 +521,8 @@ Public Class GUIMain
         Dim sPrices As String()
         sPrices = returnString.stockPrice().prices
 
-        sPrices(23) = sPrices(23).Replace(".", ",")
-        Dim calculateKWH As Double = Double.Parse(sPrices(23))
+        sPrices(1) = sPrices(1).Replace(".", ",")
+        Dim calculateKWH As Double = Double.Parse(sPrices(1))
         'calculateKWH = (calculateKWH / 10) / 100
         calculateKWH = (calculateKWH / 1000) * 100
 
