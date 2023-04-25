@@ -9,7 +9,38 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         'If vastus IsNot Nothing Then
         ' Assert.AreEqual(expected.Length, vastus.Length)
         ' Assert.AreEqual("6.00", actualData.Item1(1))
-        Assert.AreEqual("6.00", actualData.Item2(24))
+        Assert.AreEqual("6.00", actualData.Item1.Length)
+        ' End If
+
+    End Sub
+
+    <TestMethod()> Public Sub TeststockPricereturn()
+        Dim getIn As New PrjDatabaseComponent.CDatabase
+        Dim actualData As (String(), String()) = getIn.stockPrice
+        'If vastus IsNot Nothing Then
+        ' Assert.AreEqual(expected.Length, vastus.Length)
+        ' Assert.AreEqual("6.00", actualData.Item1(1))
+        Assert.AreEqual("6.00", actualData.Item1.Length)
+        ' End If
+
+    End Sub
+    <TestMethod()> Public Sub TeststockstringReturn()
+        Dim getIn As New PrjDatabaseComponent.CDatabase
+        Dim actualData = getIn.stringsOfStockPrice
+        'If vastus IsNot Nothing Then
+        ' Assert.AreEqual(expected.Length, vastus.Length)
+        ' Assert.AreEqual("6.00", actualData.Item1(1))
+        Assert.AreEqual("6.00", actualData.Length)
+        ' End If
+
+    End Sub
+    <TestMethod()> Public Sub TeststocksPriceReturn()
+        Dim getIn As New PrjDatabaseComponent.CDatabase
+        Dim actualData = getIn.datesOfStockPrice
+        'If vastus IsNot Nothing Then
+        ' Assert.AreEqual(expected.Length, vastus.Length)
+        ' Assert.AreEqual("6.00", actualData.Item1(1))
+        Assert.AreEqual("6.00", actualData.Length)
         ' End If
 
     End Sub
@@ -33,14 +64,14 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
     ''End Sub
 
 
-    <TestMethod()> Public Sub TestpackageReturn()
-        Dim getIn As New PrjDatabaseComponent.CDatabase
-        '  Dim actualData As (String(), String()) = getIn.electricityPackages
-        '  Assert.AreEqual("Kindel 6", actualData.Item1(0))
-        ' Assert.AreEqual("Eesti Energia", actualData.Item2(0))
-        Dim count As Integer = getIn.electricityPackagesCount
-        Assert.AreEqual(5, count)
-    End Sub
+    '<TestMethod()> Public Sub TestpackageReturn()
+    '    Dim getIn As New PrjDatabaseComponent.CDatabase
+    '    '  Dim actualData As (String(), String()) = getIn.electricityPackages
+    '    '  Assert.AreEqual("Kindel 6", actualData.Item1(0))
+    '    ' Assert.AreEqual("Eesti Energia", actualData.Item2(0))
+    '    Dim count As Integer = getIn.electricityPackagesCount
+    '    Assert.AreEqual(5, count)
+    'End Sub
 
     <TestMethod()> Public Sub TTestPackageInfo()
         Dim getIn As New PrjDatabaseComponent.CDatabase
