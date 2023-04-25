@@ -17,12 +17,14 @@ Public Class GUIMain
     End Structure
 
     Dim sisend As String 'might be a leftover obsolete relic that could potentially be deleted
-    Dim applianceID As String
+    Dim applianceID As String 'ID of the selected home appliance
     Dim myColor As Color
     Dim fontSize As Double = 8.25
 
     Public answer As String
     Public usernameOfUser As String
+
+    'TAB SWITCHING BUTTONS
     Private Sub btnPackageHourlyRate_Click(sender As Object, e As EventArgs) Handles btnPackageHourlyRate.Click
         TabControl1.SelectedTab = tabPackageHourlyRate
     End Sub
@@ -47,6 +49,8 @@ Public Class GUIMain
         TabControl1.SelectedTab = Main
     End Sub
 
+
+    'TAB SWITCHING BUTTONS FOR THE OTHER TABCONTROL 
     Private Sub btnClientConsumptionHistory_Click(sender As Object, e As EventArgs) Handles btnClientConsumptionHistory.Click
         TabControl2.SelectedTab = tabClientConsumptionHistory
 
@@ -61,11 +65,7 @@ Public Class GUIMain
     Private Sub tabConsumptionHistory_Leave(sender As Object, e As EventArgs) Handles tabConsumptionHistory.Leave
         TabControl2.SelectedTab = tabBlank
     End Sub
-
-    Private Sub rdioCoffeeMaker_CheckedChanged(sender As Object, e As EventArgs) Handles rdioCoffeeMaker.CheckedChanged
-        applianceID = "1"
-    End Sub
-
+    'Checks if said textbox has letters in it :)
     Private Function checkIfTextBoxContainsLetters(textbox As TextBox) As Boolean
         For Each i As Char In textbox.Text
             If Not (Char.IsDigit(i) Or i = "." Or i = ",") Then
@@ -77,6 +77,7 @@ Public Class GUIMain
 
 
     End Function
+
     Private Sub btnConfirm_Click(sender As Object, e As EventArgs) Handles btnConfirm.Click
         Dim noneSelected As Boolean = True
         Dim noneSelected2 As Boolean = True
@@ -125,7 +126,9 @@ Public Class GUIMain
         End If
 
     End Sub
-
+    Private Sub rdioCoffeeMaker_CheckedChanged(sender As Object, e As EventArgs) Handles rdioCoffeeMaker.CheckedChanged
+        applianceID = "1"
+    End Sub
     Private Sub rdioToaster_CheckedChanged(sender As Object, e As EventArgs) Handles rdioToaster.CheckedChanged
         applianceID = "2"
     End Sub
@@ -191,18 +194,23 @@ Public Class GUIMain
     End Sub
 
 
+    'Code for the "Kinnita" button in pakendijärgne tunnihind tab
 
     Private Sub btnConfirmInput_Click(sender As Object, e As EventArgs) Handles btnConfirmInput.Click
+        'Clears both the table and chart
         tblPriceTable.Controls.Clear()
         chrtPackageHourlyRate.Series.Clear()
+        'This label is used to show the cheapest/most expensive time to use electricity
         lblBestTime.Visible = False
 
+        'checks if the input is correct
         Dim tbMarginalOfStockLetters As Boolean = checkIfTextBoxContainsLetters(tbMarginalOfStock)
         Dim tboxMonthlyCostLetters As Boolean = checkIfTextBoxContainsLetters(tboxMonthlyCost)
 
+        'if the input into textboxes is incorrect do nothing / dont go forward
         If tbMarginalOfStockLetters = False Or tboxMonthlyCostLetters = False Then
 
-        Else
+        Else 'if input is correct the following happnes :P
 
 
 
@@ -212,40 +220,43 @@ Public Class GUIMain
             Dim sPrices As String()
             Dim sDates As String()
             Dim dDates As Double() = New Double(24) {}
-
             Dim dPrices As Double()
             'Dim priceDateStruct As New PriceDateStruct() if the code works then this can be deleted
 
-
+            'points to the component
             returnString = New PrjDatabaseComponent.CDatabase
 
             Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
             Dim futureDate As DateTime = DateTime.Now.AddHours(24)
             Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
+            'sets the values using Database functions
             'sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
             'sDates = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item2
+
+            'sets the values using the API
             sPrices = returnString.stockPrice().prices
             sDates = returnString.stockPrice().dates
 
+
             Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
             Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+            'this if is supposed to check if the system language is estonian, but it doesnt work/we are using it wrong or using the wrong thing 
             If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
+                'changes the "."-s into ","-s
                 For i As Integer = 1 To 24
                     sPrices(i) = sPrices(i).Replace(".", ",")
                 Next
             End If
+            'sets the length for array of doubles
             dPrices = New Double(sPrices.Length) {}
 
-
+            'sets the values into the double array
             For i As Integer = 1 To sPrices.Length - 1
                 dPrices(i) = Double.Parse(sPrices(i))
-
-
-
             Next
 
-            'UNIX NEEDS TO BE CONVERTED TO CONVENTIONAL TIMESTAMP DO BE USABLE
-            'dDates = New Double(sDates.Length - 1) {}
+
+            'WHAT THE FUCK?
             For i As Integer = 1 To 24 'sDates.Length - 1
                 ' dDates(i) = Double.Parse(sDates(i))
 
@@ -256,52 +267,65 @@ Public Class GUIMain
                 'TextBox1.Text = dDates(i) 'put hour to textbox for testing
 
             Next
-            'FIXED PRICE
-            If rdioFixedPrice.Checked Then 'universal price t odraw chart
+
+
+            'if the user has selected FIXED PRICE
+            If rdioFixedPrice.Checked Then
+                'if the input is NULL then make it zero thus avoiding crash
                 If tboxMonthlyCost.Text = "" Then
                     tboxMonthlyCost.Text = "0"
                 End If
+                'fills the double array with fixed prices in order to later fill the table and chart
                 For i As Integer = 1 To 24
                     dPrices(i) = tboxMonthlyCost.Text
                 Next
             End If
+
             'UNIVERSAL PRICE
             If rdioBtnUniversalP.Checked Then
                 Dim universalPrice As Double
                 'universalPrice = returnString.universalServicePrice()
-                universalPrice = 18.49 * 10
+                'sets the universal price to later fill table and chart
+                universalPrice = 18.49 * 10 'it is multiplied by ten because down the code it is divided by ten in order to convert it to cent/kWh, but this value already is cent/kWh. I got lazy. :P
+
+                'fills the double array with universal prices in order to later fill the table and chart
                 For i As Integer = 1 To 24
                     dPrices(i) = universalPrice
                 Next
             End If
+
             'STOCK PRICE + MARGINAL
             If rdiobtnStockPlussMarginal.Checked Then
+                'declares and marginal and gives it value
                 Dim mar As Double
                 mar = Double.Parse(tbMarginalOfStock.Text)
+                'fills the double array with stock + marginal prices in order to later fill the table and chart
                 For i As Integer = 1 To 24
-
                     dPrices(i) = dPrices(i) + mar * 10 ' the *10 turns marginal from €/MWh to cents/kWh
                 Next
             End If
 
             'Dim priceAndDate As PriceDateStruct
+
+            'Creates a list
             Dim records As List(Of PriceDateStruct)
             records = New List(Of PriceDateStruct)
-
             Dim p As PriceDateStruct
 
+            'fills the list
             For i As Integer = 1 To 24 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
-
                 p.price = dPrices(i)
                 p.sDate = sDates(i)
                 records.Add(p)
-                'records(i) = p
             Next
 
+            'creates datagridview(our table)
             Dim dgv As New DataGridView()
 
             For i As Integer = 0 To 23
                 'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
+
+                'sets the columns of the table, each column is a time
                 Dim dt As DateTime = DateTime.Parse(records(i).sDate)
                 Dim sTime As String = dt.ToString("HH:mm")
                 dgv.Columns.Add(0, sTime)
@@ -310,7 +334,7 @@ Public Class GUIMain
 
 
 
-
+            'fills the prices into the table and adds the units
             If rdioFixedPrice.Checked Then
                 For i As Integer = 0 To 23
                     dgv.Rows(0).Cells(i).Value = tboxMonthlyCost.Text & " s/kWh" ' or any other number you want to insert
@@ -321,19 +345,26 @@ Public Class GUIMain
                 Next
             End If
 
+            'these lines were meant keep the user from editing the table, we failed :'(
             tblPriceTable.AllowUserToDeleteRows = False 'Allows user to delete rows
             tblPriceTable.ReadOnly = True 'Allows user to edit cells within the data grid
+
+            'adds the table
             tblPriceTable.Controls.Add(dgv)
 
+            'creates the chart using the list as source of info
             chart(records)
 
+            'hides a descriptive label, is now obsolete technically
             lblTableState.Visible = False
+            'wrong
             lblTableState.Text = "Börsihind"
 
 
         End If
     End Sub
     Public Function chart(records)
+        'Sets the series name according to the users selection
         Dim seriesName As String
         If rdioExchange.Checked = True Then
             seriesName = "Börsihind"
@@ -345,6 +376,7 @@ Public Class GUIMain
             seriesName = "Universaalhind"
         End If
 
+        'CREATES CHART and adds a few parameters
         chrtPackageHourlyRate.Series.Add(seriesName)
         'chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
         chrtPackageHourlyRate.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
@@ -353,43 +385,42 @@ Public Class GUIMain
         chrtPackageHourlyRate.Series(0).Color = Color.Red
         chrtPackageHourlyRate.Series(0).BorderWidth = 3
 
-
+        'fills the chart
         For i As Integer = 0 To 23
-
             chrtPackageHourlyRate.Series(seriesName).Points.AddXY(records(i).sDate, (records(i).price / 1000) * 100)
-
         Next
 
     End Function
 
+    'spelling mistake gives flavor
     Public Function userPrefernces(username As String) 'get user prefences from database
         Dim userInfo As PrjDatabaseComponent.ILogin
         userInfo = New PrjDatabaseComponent.CDatabase
         Dim colorOfInterface As String = ""
         Dim sizeofText As Double
+        'size of text is yet to be made functional
         userInfo.userPrefernces(username, sizeofText, colorOfInterface) 'get color and sizeOfText from database
         usernameOfUser = username
         cbColor.Text = colorOfInterface ' right now only set color
     End Function
     Public Function chartFrontPage()
-
+        'Creates the chart that appears after the user logs in/ signs up
         Dim returnString As PrjDatabaseComponent.IDatabaseAPI
         Dim sPrices As String()
         Dim sDates As String()
         Dim dDates As Double() = New Double(24) {}
-
         Dim dPrices As Double()
         Dim priceDateStruct As New PriceDateStruct()
 
-
         returnString = New PrjDatabaseComponent.CDatabase
-
         sPrices = returnString.stockPrice().prices
         sDates = returnString.stockPrice().dates
         dPrices = New Double(sPrices.Length) {}
+        'Sets the values in the double array
         For i As Integer = 1 To 24
-            sPrices(i) = sPrices(i).Replace(".", ",")
+            sPrices(i) = sPrices(i).Replace(".", ",") '
             dPrices(i) = Double.Parse(sPrices(i))
+            'OLD CODE
             ' NextteTimeOffset = DateTimeOffset.FromUnixTimeSeconds(sDates(i)) 'new datetimeoffset from sDate string
             '  Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
             ' dDates(i) = CDbl(dateValue.Hour) 'convert to integer
@@ -399,7 +430,7 @@ Public Class GUIMain
 
 
 
-
+        'LIST
         'Dim priceAndDate As PriceDateStruct
         Dim records As List(Of PriceDateStruct)
         records = New List(Of PriceDateStruct)
@@ -413,6 +444,8 @@ Public Class GUIMain
             records.Add(p)
             'records(i) = p
         Next
+
+        'CHART
         Dim seriesName As String = "Börsihind"
         chrtFrontPage.Series.Add(seriesName)
         'chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
@@ -422,13 +455,14 @@ Public Class GUIMain
         chrtFrontPage.Series(0).Color = Color.Red
         chrtFrontPage.Series(0).BorderWidth = 3
 
-
+        'fills chart
         For i As Integer = 0 To 23
             'ADDS DATE AND PRICE TO CHART, PRICE IS CONVERTED FROM €/MWh to cent/kWh
             chrtFrontPage.Series(seriesName).Points.AddXY(records(i).sDate, (records(i).price / 1000) * 100)
 
         Next
 
+        'chart cosmetics
         Dim selectedItem As String = cbColor.SelectedItem
 
 
@@ -462,6 +496,7 @@ Public Class GUIMain
 
         End Select
     End Function
+
     Private Sub rdioExchange_CheckedChanged(sender As Object, e As EventArgs) Handles rdioExchange.CheckedChanged
         tboxMonthlyCost.Enabled = False
         tboxMonthlyCost.Clear()
