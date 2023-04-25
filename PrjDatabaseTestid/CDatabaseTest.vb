@@ -32,7 +32,11 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
         Assert.AreEqual("1123123123", actualOutput(1))
     End Sub
 
-
+    <TestMethod()> Public Sub TestDateReturnFromDatabase()
+        Dim getIn As New PrjDatabaseComponent.CDatabase
+        Dim actualOutput = getIn.datesOfStockPrice
+        Assert.AreEqual("1123123123", actualOutput(1))
+    End Sub
     <TestMethod()> Public Sub TestpackageReturn()
         Dim getIn As New PrjDatabaseComponent.CDatabase
         '  Dim actualData As (String(), String()) = getIn.electricityPackages
