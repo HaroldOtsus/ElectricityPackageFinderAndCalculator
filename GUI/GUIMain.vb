@@ -331,7 +331,8 @@ Public Class GUIMain
 
             'creates datagridview(our table)
             Dim dgv As New DataGridView()
-
+            dgv.Width = 1200 ' change table width
+            dgv.Dock = DockStyle.Fill 'is not scrollable is this is not added
             For i As Integer = 0 To 23
                 'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
 
@@ -705,6 +706,8 @@ Public Class GUIMain
             records.Sort(Function(x, y) x.price.CompareTo(y.price))
 
             Dim dgv As New DataGridView()
+            dgv.Width = 1200 ' change table width
+            dgv.Dock = DockStyle.Fill 'is not scrollable is this is not added
 
             For i As Integer = 0 To 23
                 'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
@@ -1371,6 +1374,8 @@ Public Class GUIMain
             records.Sort(Function(x, y) y.price.CompareTo(x.price))
 
             Dim dgv As New DataGridView()
+            dgv.Width = 1200 ' change table width
+            dgv.Dock = DockStyle.Fill 'is not scrollable is this is not added
 
             For i As Integer = 0 To 23
                 'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
