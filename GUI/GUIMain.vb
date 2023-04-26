@@ -112,14 +112,17 @@ Public Class GUIMain
 
                     'Shows only 3 decimal spaces
                     Dim cons As Decimal = actualOutput2.consumption
-
                     Dim consOut As String = cons.ToString("N3")
 
                     Dim aprox As Decimal = actualOutput2.aproxPrice
                     Dim aproxOut As String = aprox.ToString("N3")
 
+                    Dim aproxYearly As Decimal = actualOutput2.yearlyAproxPrice
+                    Dim aproxYearlyOut As String = aproxYearly.ToString("N3")
+
                     tBoxElectricityConsumptionRate.Text = consOut
                     tBoxApproxPrice.Text = aproxOut
+                    tBoxApproxPriceYear.Text = aproxYearlyOut
                 End If
             End If
         End If
@@ -229,12 +232,12 @@ Public Class GUIMain
 
             Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
             Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-            If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
-                For i As Integer = 1 To 24
+            'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
+            For i As Integer = 1 To 24
                     sPrices(i) = sPrices(i).Replace(".", ",")
                 Next
-            End If
-            dPrices = New Double(sPrices.Length) {}
+                'End If
+                dPrices = New Double(sPrices.Length) {}
 
 
             For i As Integer = 1 To sPrices.Length - 1
@@ -489,10 +492,10 @@ Public Class GUIMain
         'Double.TryParse(sPrices(1), sPricesOut)
         Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
         Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-        If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
-            sPrices(2) = sPrices(2).Replace(".", ",")
-        End If
-        Dim calculateKWH As Double = Double.Parse(sPrices(2))
+        'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
+        sPrices(2) = sPrices(2).Replace(".", ",")
+            'End If
+            Dim calculateKWH As Double = Double.Parse(sPrices(2))
         'calculateKWH = (calculateKWH / 10) / 100
         calculateKWH = (calculateKWH / 1000) * 100
 
@@ -1707,9 +1710,5 @@ Public Class GUIMain
                 packageone = packagetwo
             End While
         End If
-    End Sub
-
-    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
-
     End Sub
 End Class
