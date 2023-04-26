@@ -568,8 +568,8 @@ Public Class GUIMain
         Dim sPrices As String()
         sPrices = returnString.stockPrice().prices
 
-        sPrices(1) = sPrices(1).Replace(".", ",")
-        Dim calculateKWH As Double = Double.Parse(sPrices(1))
+        sPrices(24) = sPrices(24).Replace(".", ",")
+        Dim calculateKWH As Double = Double.Parse(sPrices(24))
         'calculateKWH = (calculateKWH / 10) / 100
         calculateKWH = (calculateKWH / 1000) * 100
 
@@ -824,7 +824,7 @@ Public Class GUIMain
                         Next
 
                     Else
-                        MessageBox.Show("VALE FORMAAT LOHH!")
+                        MessageBox.Show("VALE FORMAAT!")
                     End If
 
 
@@ -1218,7 +1218,7 @@ Public Class GUIMain
             Dim data = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString) 'get stock prices and date from database
             Dim hour2(24) As Integer
             Dim dateFromUnix(24) As String
-            For k As Integer = 1 To 24
+            For k As Integer = 1 To 10
                 'Dim unixTimestamp As Long = Long.Parse(data.Item2(k))
 
                 ' Dim dateTime As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTimestamp)
@@ -1229,7 +1229,7 @@ Public Class GUIMain
             Next
             If Not packages.Item5(j) Then 'is the package price tied to market price?
                 If packages.Item7(j) = True Then 'if package has different night and day prices
-                    For i As Integer = 1 To 24
+                    For i As Integer = 1 To 10
 
                         If hour2(i) > 11 And hour2(i) < 24 Then 'day price
                             series.Points.AddXY(data.Item2(i), packages.Item3(j))
@@ -1239,7 +1239,7 @@ Public Class GUIMain
                     Next
 
                 Else
-                    For i As Integer = 1 To 24 'package has fixed price
+                    For i As Integer = 1 To 10 'package has fixed price
 
 
                         series.Points.AddXY(data.Item2(i), packages.Item3(j))
@@ -1251,7 +1251,7 @@ Public Class GUIMain
 
 
 
-                For i As Integer = 1 To 24 'package is tied to market price
+                For i As Integer = 1 To 10 'package is tied to market price
                     ' Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.Item2(i)) 'new datetimeoffset from sDate string
                     'Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
                     Dim oDate As DateTime = Convert.ToDateTime(data.Item2(i))
@@ -1701,13 +1701,13 @@ Public Class GUIMain
                 Dim data = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString) 'get stock prices and dates from database
                 Dim hour2(24) As Integer
                 Dim dateFromUnix(24) As String
-                For k As Integer = 1 To 24
+                For k As Integer = 1 To 10
                     Dim oDate As DateTime = Convert.ToDateTime(data.Item2(k))
                     hour2(k) = oDate.Hour 'get hour form stock market price
                 Next
                 If Not packageone.Item5 Then 'if packet does not use market price
                     If packagetwo.Item7 = True Then 'is the packet has different night price
-                        For i As Integer = 1 To 24
+                        For i As Integer = 1 To 10
 
                             If hour2(i) > 11 And hour2(i) < 24 Then 'day
                                 series.Points.AddXY(data.Item2(i), packageone.Item3)
@@ -1717,7 +1717,7 @@ Public Class GUIMain
                         Next
 
                     Else
-                        For i As Integer = 1 To 24
+                        For i As Integer = 1 To 10
 
 
                             series.Points.AddXY(data.Item2(i), packageone.Item3) 'packet has fixed price
@@ -1729,7 +1729,7 @@ Public Class GUIMain
 
 
 
-                    For i As Integer = 1 To 24 'packet si tied to market price
+                    For i As Integer = 1 To 10 'packet si tied to market price
                         'Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.Item2(i)) 'new datetimeoffset from sDate string
                         'Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
                         Dim oDate As DateTime = Convert.ToDateTime(data.Item2(i))

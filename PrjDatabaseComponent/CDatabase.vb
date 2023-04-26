@@ -129,10 +129,10 @@ Public Class CDatabase
             conna.Open()
             Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar()) 'find if username already exists
             If count > 0 Then
-                Return False
+                Return True 'username exists
             Else
                 'if there isn't return true
-                Return True
+                Return False
             End If
 
             conna.Close()
@@ -147,9 +147,9 @@ Public Class CDatabase
         ''call function that hashes password
         Try
             conna.Open()
-            Dim cool As Boolean
-            cool = checkIfUsernameExists(username)
-            If cool = True Then
+            'Dim cool As Boolean
+            'cool = checkIfUsernameExists(username)
+            If checkIfUsernameExists(username) = False Then
                 'hash password
                 Dim pass = hashPassword(password)
                 'insert into database
@@ -162,6 +162,8 @@ Public Class CDatabase
                 command.ExecuteNonQuery()
                 'if everything went well return true otherwise false
                 Return True
+            Else
+                MsgBox("Sisestatud kasutajanimi on juba kasutusel.")
             End If
             conna.Close()
             Return False
