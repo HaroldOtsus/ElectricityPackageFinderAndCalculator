@@ -119,7 +119,14 @@ Public Class GUIMain
                     Dim aproxOut As String = aprox.ToString("N3")
 
                     Dim aproxYearly As Decimal = actualOutput2.yearlyAproxPrice
+                    If aproxYearly > 100 Then
+                        aproxYearly = aproxYearly / 100 ' kuna tulemus on sentides, siis kui sente on liiga palju, jagan 100'ga, et eurod saada
+                        lblAproxYearlyPrice.Text = "eur"
+                    Else
+                        lblAproxYearlyPrice.Text = "senti"
+                    End If
                     Dim aproxYearlyOut As String = aproxYearly.ToString("N3")
+
 
                     tBoxElectricityConsumptionRate.Text = consOut
                     tBoxApproxPrice.Text = aproxOut

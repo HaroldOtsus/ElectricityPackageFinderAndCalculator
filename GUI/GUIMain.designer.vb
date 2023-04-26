@@ -79,6 +79,9 @@ Partial Class GUIMain
         Me.rdioFixedPrice1 = New System.Windows.Forms.RadioButton()
         Me.rdioExchangePrice = New System.Windows.Forms.RadioButton()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.lblAproxYearlyPrice = New System.Windows.Forms.Label()
+        Me.lblRoughPriceYearly = New System.Windows.Forms.Label()
+        Me.tBoxApproxPriceYear = New System.Windows.Forms.TextBox()
         Me.btnTaasta = New System.Windows.Forms.Button()
         Me.btnSisesta = New System.Windows.Forms.Button()
         Me.lblCents = New System.Windows.Forms.Label()
@@ -187,9 +190,6 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.lblRoughPriceYearly = New System.Windows.Forms.Label()
-        Me.tBoxApproxPriceYear = New System.Windows.Forms.TextBox()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -700,7 +700,7 @@ Partial Class GUIMain
         '
         'Panel2
         '
-        Me.Panel2.Controls.Add(Me.Label12)
+        Me.Panel2.Controls.Add(Me.lblAproxYearlyPrice)
         Me.Panel2.Controls.Add(Me.lblRoughPriceYearly)
         Me.Panel2.Controls.Add(Me.tBoxApproxPriceYear)
         Me.Panel2.Controls.Add(Me.btnTaasta)
@@ -723,6 +723,36 @@ Partial Class GUIMain
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(523, 275)
         Me.Panel2.TabIndex = 40
+        '
+        'lblAproxYearlyPrice
+        '
+        Me.lblAproxYearlyPrice.AutoSize = True
+        Me.lblAproxYearlyPrice.Location = New System.Drawing.Point(380, 210)
+        Me.lblAproxYearlyPrice.Name = "lblAproxYearlyPrice"
+        Me.lblAproxYearlyPrice.Size = New System.Drawing.Size(32, 13)
+        Me.lblAproxYearlyPrice.TabIndex = 47
+        Me.lblAproxYearlyPrice.Text = "senti "
+        '
+        'lblRoughPriceYearly
+        '
+        Me.lblRoughPriceYearly.AutoSize = True
+        Me.lblRoughPriceYearly.Location = New System.Drawing.Point(16, 209)
+        Me.lblRoughPriceYearly.Name = "lblRoughPriceYearly"
+        Me.lblRoughPriceYearly.Size = New System.Drawing.Size(122, 13)
+        Me.lblRoughPriceYearly.TabIndex = 45
+        Me.lblRoughPriceYearly.Text = "Orienteeruv hind aastas:"
+        '
+        'tBoxApproxPriceYear
+        '
+        Me.tBoxApproxPriceYear.BackColor = System.Drawing.Color.White
+        Me.tBoxApproxPriceYear.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.tBoxApproxPriceYear.Enabled = False
+        Me.tBoxApproxPriceYear.ForeColor = System.Drawing.Color.Black
+        Me.tBoxApproxPriceYear.Location = New System.Drawing.Point(274, 207)
+        Me.tBoxApproxPriceYear.Name = "tBoxApproxPriceYear"
+        Me.tBoxApproxPriceYear.ReadOnly = True
+        Me.tBoxApproxPriceYear.Size = New System.Drawing.Size(100, 20)
+        Me.tBoxApproxPriceYear.TabIndex = 46
         '
         'btnTaasta
         '
@@ -1824,36 +1854,6 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
         '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(380, 210)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(32, 13)
-        Me.Label12.TabIndex = 47
-        Me.Label12.Text = "senti "
-        '
-        'lblRoughPriceYearly
-        '
-        Me.lblRoughPriceYearly.AutoSize = True
-        Me.lblRoughPriceYearly.Location = New System.Drawing.Point(16, 209)
-        Me.lblRoughPriceYearly.Name = "lblRoughPriceYearly"
-        Me.lblRoughPriceYearly.Size = New System.Drawing.Size(122, 13)
-        Me.lblRoughPriceYearly.TabIndex = 45
-        Me.lblRoughPriceYearly.Text = "Orienteeruv hind aastas:"
-        '
-        'tBoxApproxPriceYear
-        '
-        Me.tBoxApproxPriceYear.BackColor = System.Drawing.Color.White
-        Me.tBoxApproxPriceYear.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tBoxApproxPriceYear.Enabled = False
-        Me.tBoxApproxPriceYear.ForeColor = System.Drawing.Color.Black
-        Me.tBoxApproxPriceYear.Location = New System.Drawing.Point(274, 207)
-        Me.tBoxApproxPriceYear.Name = "tBoxApproxPriceYear"
-        Me.tBoxApproxPriceYear.ReadOnly = True
-        Me.tBoxApproxPriceYear.Size = New System.Drawing.Size(100, 20)
-        Me.tBoxApproxPriceYear.TabIndex = 46
-        '
         'GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2055,7 +2055,7 @@ Partial Class GUIMain
     Friend WithEvents Label11 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents Label5 As Label
-    Friend WithEvents Label12 As Label
+    Friend WithEvents lblAproxYearlyPrice As Label
     Friend WithEvents lblRoughPriceYearly As Label
     Friend WithEvents tBoxApproxPriceYear As TextBox
 End Class
