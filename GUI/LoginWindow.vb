@@ -14,6 +14,8 @@
             GUIMain.userPrefernces(username)
             Me.Visible = False
             GUIMain.chartFrontPage()
+        Else
+            MsgBox("fail")
         End If
 
     End Sub

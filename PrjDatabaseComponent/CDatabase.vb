@@ -8,12 +8,13 @@ Public Class CDatabase
 
     Private Shared conna As MySqlConnection
 
-    Public Sub New()
+    Public Sub New() 'to reuse database coonection
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         conna = New MySqlConnection(connString)
     End Sub
 
     Private Function userPrefernces(ByVal username, ByRef size, ByRef color) Implements ILogin.userPrefernces
+        'get user prefences from database
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
 
@@ -21,6 +22,7 @@ Public Class CDatabase
             conn.Open()
             Dim command As New MySqlCommand("select isResolutionBig, color from user where username = @username", conn)
             command.Parameters.AddWithValue("@username", username)
+            'right now only using color
             Dim reader As MySqlDataReader = command.ExecuteReader()
             While reader.Read()
                 size = reader.GetString(0)
@@ -37,7 +39,7 @@ Public Class CDatabase
     Private Function updateUserPrefernces(ByVal username, ByVal update) Implements ILogin.updateUserPrefernces
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
-
+        'if user changes color update database
         Try
             conn.Open()
             Dim command As New MySqlCommand("UPDATE user SET color = @update  WHERE username = @username;", conn)
@@ -67,7 +69,7 @@ Public Class CDatabase
         Dim conn As New MySqlConnection(connString)
         Dim price As Double
         Try
-            conn.Open()
+            conn.Open() 'get universal price from database
             Dim command As New MySqlCommand("select pricePerKWh from electricitypackages where packageName = @universaalteenus", conn)
             command.Parameters.AddWithValue("@universaalteenus", "Universaalteenus")
             Dim reader As MySqlDataReader = command.ExecuteReader()
@@ -127,10 +129,10 @@ Public Class CDatabase
             conna.Open()
             Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar()) 'find if username already exists
             If count > 0 Then
-                Return False
+                Return True 'username exists
             Else
                 'if there isn't return true
-                Return True
+                Return False
             End If
 
             conna.Close()
@@ -145,9 +147,9 @@ Public Class CDatabase
         ''call function that hashes password
         Try
             conna.Open()
-            Dim cool As Boolean
-            cool = checkIfUsernameExists(username)
-            If cool = True Then
+            'Dim cool As Boolean
+            'cool = checkIfUsernameExists(username)
+            If checkIfUsernameExists(username) = False Then
                 'hash password
                 Dim pass = hashPassword(password)
                 'insert into database
@@ -160,6 +162,8 @@ Public Class CDatabase
                 command.ExecuteNonQuery()
                 'if everything went well return true otherwise false
                 Return True
+            Else
+                MsgBox("Sisestatud kasutajanimi on juba kasutusel.")
             End If
             conna.Close()
             Return False
@@ -182,8 +186,7 @@ Public Class CDatabase
         Dim strVar As String
         Dim consumptionPerHour As String = ""
         Dim usageTime As String = ""
-        'Dim id As String
-        'id = "1"
+
         Try
             conn.Open() 'try to gain access to database
             Dim command As New MySqlCommand("SELECT * FROM appliance WHERE idPacket = ?;", conn)
@@ -273,7 +276,7 @@ Public Class CDatabase
             Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 1;", conn)
             Dim read As MySqlDataReader = cmd.ExecuteReader()
             If read IsNot Nothing Then
-                While read.Read() 'get all dates from database
+                While read.Read() 'get strings
                     For i As Integer = 1 To 24
                         sPrices(i) = read.GetString(i)
                     Next
@@ -285,7 +288,7 @@ Public Class CDatabase
 
                 Return sPrices
             End If
-        Catch ex As Exception
+        Catch ex As Exception 'if there is expception return error
             stringOfErrors = {"error", "error", "error"}
             Return stringOfErrors
         End Try
@@ -306,7 +309,7 @@ Public Class CDatabase
             Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 3;", conn)
             Dim read As MySqlDataReader = cmd.ExecuteReader()
             If read IsNot Nothing Then
-                While read.Read() 'get all dates from database
+                While read.Read() 'get all strings from database
                     For i As Integer = 1 To 24
                         sPrices(i) = read.GetString(i)
                     Next
@@ -345,7 +348,6 @@ Public Class CDatabase
             Dim sPrices() As String = New String(25) {}
             sPrices(0) = ""
             If dateOfStockPrices = dateToday Then
-                '        ''need to return all prices from database
                 Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 4;", con)
                 Dim read As MySqlDataReader = cmd.ExecuteReader()
                 If read IsNot Nothing Then
@@ -360,7 +362,7 @@ Public Class CDatabase
                     'Dim stringOfDates As String()
                     'stringOfDates = insertDatesToDatabase()
 
-                    Return sPrices
+                    Return sPrices 'return prices
                 End If
             End If
             conn.Close()
@@ -430,9 +432,10 @@ Public Class CDatabase
                 dateOfStockPrices = reader.GetString(0) 'get date from database
             End While
             conn.Close()
+            'insert check if string is null
             Dim format As String = "yyyy-MM-dd HH:mm:ss"
             Dim oDate As DateTime = Convert.ToDateTime(dateOfStockPrices)
-            Dim hour As Integer = oDate.Hour
+            Dim hour As Integer = oDate.Hour 'get hour from database string
             Return hour
         Catch ex As Exception
 
@@ -442,22 +445,21 @@ Public Class CDatabase
 
 
     Private Function stockPrice() As (prices As String(), dates As String()) Implements IDatabaseAPI.stockPrice
-        Dim currentHour As Integer = DateTime.Now.Hour
+        Dim currentHour As Integer = DateTime.Now.Hour 'get hour right now
         Dim dateOfStockPrices As String = ""
         Dim stringOfErrors() As String = Nothing
         Dim databaseHour As Integer = hourofDatabasestockPrices()
         Dim stringOfDates As String()
         Dim sPrices As String()
-        If databaseHour = currentHour Then
-            'stringOfDates = insertDatesToDatabase()
-            sPrices = stringsOfStockPrice()
+        'will need to check if the date is same
+        If databaseHour = currentHour Then 'if hour in database is same as hour right now
+            sPrices = stringsOfStockPrice() 'get info from database
             stringOfDates = datesOfStockPrice()
             Return (sPrices, stringOfDates)
-        Else
+        Else 'ask it from API and update info in database
             sPrices = insertStockPriceToDatabase()
             stringOfDates = insertDatesToDatabase()
-            Return (sPrices, stringOfDates)
-            '        ''we put the info to the database
+            Return (sPrices, stringOfDates) 'return strings
         End If
 
     End Function
@@ -474,7 +476,7 @@ Public Class CDatabase
             Dim command As New MySqlCommand("SELECT one FROM webdata WHERE idPacket = 4;", conn)
             Dim reader As MySqlDataReader = command.ExecuteReader()
             While reader.Read()
-                dateOfStockPrices = reader.GetString(0) 'get date from database
+                dateOfStockPrices = reader.GetString(0) 'get date from database in column one
             End While
             conn.Close()
             Dim format As String = "yyyy-MM-dd HH:mm:ss"
@@ -491,17 +493,15 @@ Public Class CDatabase
         Implements IDatabase.getStockPriceAndDatesFromDatabaseFuture
         Dim currentHour As Integer = DateTime.Now.Hour
         Dim hour As Integer
-        hour = hourofDatabasestockPricesFuture()
+        hour = hourofDatabasestockPricesFuture() 'get hour from database string
 
-        If hour = currentHour Then
-
-            '        ''need to return all prices from databa
+        If hour = currentHour Then 'if it is same as hour now get info from database
             Dim sPrices As String()
             Dim stringOfDates As String()
             sPrices = stringsOfStockPriceFuture()
             stringOfDates = datesOfStockPriceFuture()
             Return (sPrices, stringOfDates)
-        Else
+        Else 'else ask from API and insert new info to database
             Dim stringOfPrices As String()
             Dim stringOfDates As String()
             stringOfPrices = insertStockPriceToDatabaseFuture(strStartDate, strEndDate)
@@ -523,16 +523,12 @@ Public Class CDatabase
         Dim api As PrjAPIComponent.APIInterface
         api = New PrjAPIComponent.APIComponent
         Dim sPrices(24) As String
-        sPrices = api.GetDataFromEleringAPI().Item1
+        sPrices = api.GetDataFromEleringAPI().Item1 'get prices from API
         'Return sPrices
         '' sPrices()
         Try
-
+            'insert into database
             conn.Open() 'try to connect to database
-
-            '' Dim command As New MySqlCommand("UPDATE webdata SET one = @colOne, two = @colTwo, three = @colThree WHERE idPacket = 1 ", conn)
-            '' broke command into several commands because it didn't update database and thougth there was a bug
-            '' actually didn't update because one column name was written wrongly
             Dim command As New MySqlCommand("
             UPDATE webdata 
             SET 
@@ -608,7 +604,7 @@ Public Class CDatabase
         Dim api As PrjAPIComponent.APIInterface
         api = New PrjAPIComponent.APIComponent
         Dim sPrices As String()
-        sPrices = api.GetDataFromEleringAPIWithDates(strStartDate, strEndDate).Item1
+        sPrices = api.GetDataFromEleringAPIWithDates(strStartDate, strEndDate).Item1 'get prices from API
 
         Try
 
@@ -691,7 +687,7 @@ Public Class CDatabase
         Dim api As PrjAPIComponent.APIInterface
         api = New PrjAPIComponent.APIComponent
         Dim sDates As String()
-        sDates = api.GetDataFromEleringAPIWithDates(strStartDate, strEndDate).Item2
+        sDates = api.GetDataFromEleringAPIWithDates(strStartDate, strEndDate).Item2 'get dates from API
         'get info from API about dates
 
         Try
@@ -863,14 +859,14 @@ Public Class CDatabase
         End Try
     End Function
     Private Function onePackageInfo(ByVal packageName As String) As (String, String, Double, Double, Boolean, Boolean, Boolean, Double) Implements IDatabase.onePackageInfo
-
+        'get one electricity package info from database
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
 
         Try
 
             conn.Open()
-            'get info about electricity packages from database
+            'get info about electricity package from database
             Dim sqlCommand As New MySqlCommand("SELECT packageName, companyName, pricePerKWh, monthlyFeeForContract, usesMarketPrice, greenEnergy, isNightPriceDifferent, nightPrice FROM electricityPackages where packageName = @packageName;", conn)
             sqlCommand.Parameters.AddWithValue("@packageName", packageName)
             Dim reader As MySqlDataReader = sqlCommand.ExecuteReader()

@@ -5,9 +5,14 @@
         returnString = New PrjDatabaseComponent.CDatabase
         Dim sumtin As Boolean
         sumtin = returnString.signup(tBoxUsername.Text, tBoxPassword.Text, tBoxName.Text, tBoxEmail.Text)
-        GUIMain.Show()
-        GUIMain.chartFrontPage()
-        Me.Visible = False
+        If sumtin = True Then
+            GUIMain.Show()
+            GUIMain.chartFrontPage()
+            Me.Visible = False
+        Else
+            MsgBox("signupfailed")
+        End If
+
     End Sub
 
     Private Sub SignUp_Load(sender As Object, e As EventArgs) Handles MyBase.Load
