@@ -1770,4 +1770,13 @@ Public Class GUIMain
             End While
         End If
     End Sub
+
+    Private Sub btnWeather_Click(sender As Object, e As EventArgs) Handles btnWeather.Click
+        Dim returnString As PrjWeatherAPI.IWeather
+        returnString = New PrjWeatherAPI.CWeather
+        Dim weatherNow As String
+        weatherNow = returnString.getWeatherfromAPI
+        tbWeather.Text = weatherNow
+
+    End Sub
 End Class

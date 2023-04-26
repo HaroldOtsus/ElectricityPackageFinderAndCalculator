@@ -1,3 +1,3 @@
-﻿Public Interface IWeather
+﻿Public Interface IWeatherAPI
 
 End Interface
