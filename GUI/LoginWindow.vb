@@ -1,4 +1,6 @@
-﻿Public Class LoginWindow
+﻿Imports System.Globalization
+Imports System.Threading
+Public Class LoginWindow
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
         GUIMain.Visible = False
         Dim returnString As PrjDatabaseComponent.ILogin
@@ -17,11 +19,16 @@
         Else
             MsgBox("fail")
         End If
-
+        Dim estCulture As New CultureInfo("et")
+        Thread.CurrentThread.CurrentCulture = estCulture
+        Thread.CurrentThread.CurrentUICulture = estCulture
     End Sub
 
     Private Sub btnSignUp_Click(sender As Object, e As EventArgs) Handles btnSignUp.Click
         SignUp.Show()
+        Dim estCulture As New CultureInfo("et")
+        Thread.CurrentThread.CurrentCulture = estCulture
+        Thread.CurrentThread.CurrentUICulture = estCulture
     End Sub
 
 
