@@ -961,11 +961,13 @@ Public Class CDatabase
                 Return (temperature, humidity, windspeed, clouds)
             Else
                 Dim allWeatherInfo = insertWeatherToDatabase()
-                temperature = allWeatherInfo.Item1
-                humidity = allWeatherInfo.Item2
-                windspeed = allWeatherInfo.Item3
-                clouds = allWeatherInfo.Item4
-                Return (temperature, humidity, windspeed, clouds)
+                If allWeatherInfo.Item3 <> -1 Then
+                    temperature = allWeatherInfo.Item1
+                    humidity = allWeatherInfo.Item2
+                    windspeed = allWeatherInfo.Item3
+                    clouds = allWeatherInfo.Item4
+                    Return (temperature, humidity, windspeed, clouds)
+                End If
             End If
 
         Catch ex As Exception
@@ -983,10 +985,14 @@ Public Class CDatabase
         Dim weather = api.getWeatherfromAPI()
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
-        Try
-            'insert into database
-            conn.Open() 'try to connect to database
-            Dim command As New MySqlCommand("
+        If weather.Item3 = -1 Then
+            Return (-1, -1, -1, -1)
+        Else
+
+            Try
+                'insert into database
+                conn.Open() 'try to connect to database
+                Dim command As New MySqlCommand("
             UPDATE weather 
             SET 
                 temperature = @colOne, 
@@ -996,19 +1002,99 @@ Public Class CDatabase
                 time = @colFive
             WHERE 
                 idweather = 1", conn)
-            command.Parameters.AddWithValue("@colOne", weather.Item1)
-            command.Parameters.AddWithValue("@colTwo", weather.Item2)
-            command.Parameters.AddWithValue("@colThree", weather.Item3)
-            command.Parameters.AddWithValue("@colFour", weather.Item4)
-            command.Parameters.AddWithValue("@colFive", currentHour)
+                command.Parameters.AddWithValue("@colOne", weather.Item1)
+                command.Parameters.AddWithValue("@colTwo", weather.Item2)
+                command.Parameters.AddWithValue("@colThree", weather.Item3)
+                command.Parameters.AddWithValue("@colFour", weather.Item4)
+                command.Parameters.AddWithValue("@colFive", currentHour)
 
-            command.ExecuteNonQuery()
+                command.ExecuteNonQuery()
+                conn.Close()
+            Catch ex As Exception
+
+            End Try
+
+            Return (weather.Item1, weather.Item2, weather.Item3, weather.Item4)
+        End If
+    End Function
+
+
+    Function productionFromDatabase() As (Double, Double) Implements IDatabase.productionFromDatabase
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+
+        Try
+
+            conn.Open()
+            'get info about electricity package from database
+            Dim sqlCommand As New MySqlCommand("SELECT productionOfAllEnergy, productionOfGreenEnergy,timestamp FROM productionOfEnergy where idproduction = 1;", conn)
+            Dim reader As MySqlDataReader = sqlCommand.ExecuteReader()
+            'create arrays to hold database info
+            Dim timeOf As String = ""
+            Dim allEnergy As Double
+            Dim greenEnergy As Double
+            While reader.Read()
+                'insert data into arrays
+                allEnergy = reader.GetString(0)
+                greenEnergy = reader.GetString(1)
+                timeOf = reader.GetString(2)
+            End While
             conn.Close()
+            Dim currentHour As Integer = DateTime.Now.Hour
+            If timeOf = currentHour Then
+                'return arrays
+                Return (allEnergy, greenEnergy)
+            Else
+                Dim allProdcution = insertProductionToDatabase()
+                If allProdcution.Item1 <> 0 And allProdcution.Item2 <> 0 Then
+                    allEnergy = allProdcution.Item1
+                    greenEnergy = allProdcution.Item2
+                End If
+                Return (allEnergy, greenEnergy)
+                End If
+            Return (allEnergy, greenEnergy)
         Catch ex As Exception
-
+            'exception using database
+            '   stringOfErrors = {"error", "error", "error"}
+            '  Return stringOfErrors
         End Try
+    End Function
 
-        Return (weather.Item1, weather.Item2, weather.Item3, weather.Item4)
+    Function insertProductionToDatabase() As (Double, Double)
+
+        Dim currentHour As Integer = DateTime.Now.Hour
+        Dim api As PrjWeatherAPI.IWeather
+        api = New PrjWeatherAPI.CWeather
+        Dim production = api.GetDataFromEleringAPIAboutProduction()
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+        If production.Item1 = True Then
+            Try
+                'insert into database
+                conn.Open() 'try to connect to database
+                Dim command As New MySqlCommand("
+            UPDATE productionofenergy
+            SET 
+                productionOfAllEnergy = @colOne, 
+                productionOfGreenEnergy = @colTwo, 
+                timestamp= @colThree
+            WHERE 
+                idproduction = 1", conn)
+                command.Parameters.AddWithValue("@colOne", production.Item2)
+                command.Parameters.AddWithValue("@colTwo", production.Item3)
+                command.Parameters.AddWithValue("@colThree", currentHour)
+
+                command.ExecuteNonQuery()
+                conn.Close()
+            Catch ex As Exception
+
+            End Try
+
+            Return (production.Item1, production.Item2)
+        Else
+            Return (0, 0)
+        End If
+
     End Function
 
 End Class

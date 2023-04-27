@@ -21,20 +21,23 @@ Public Class CWeather
         Dim url As String = $"https://api.openweathermap.org/data/2.5/weather?id={idOfTallinn}&appid={apiKey}&units=metric" 'ask for response
         Dim request As HttpWebRequest = DirectCast(WebRequest.Create(url), HttpWebRequest)
         Dim response As HttpWebResponse = DirectCast(request.GetResponse(), HttpWebResponse)
+        If response.StatusCode = HttpStatusCode.OK Then
+            Dim responseStream As Stream = response.GetResponseStream() 'response stream
+            Dim reader As New StreamReader(responseStream)
+            Dim responseString As String = reader.ReadToEnd() 'read stream to string
 
-        Dim responseStream As Stream = response.GetResponseStream() 'response stream
-        Dim reader As New StreamReader(responseStream)
-        Dim responseString As String = reader.ReadToEnd() 'read stream to string
+            Dim result As WeatherResult = JsonConvert.DeserializeObject(Of WeatherResult)(responseString) 'because the data is in json use jsonconverter to
+            'read to class WeatherResult
 
-        Dim result As WeatherResult = JsonConvert.DeserializeObject(Of WeatherResult)(responseString) 'because the data is in json use jsonconverter to
-        'read to class WeatherResult
-
-        Return (result.Main.Temperature, result.Main.Humidity, result.Wind.Speed, result.Clouds.all)
+            Return (result.Main.Temperature, result.Main.Humidity, result.Wind.Speed, result.Clouds.all)
+        Else
+            Return (-1, -1, -1, -1)
+        End If
     End Function
 
 
 
-    Private Function GetDataFromEleringAPIAboutProduction() As (Double, Double, Long) Implements IWeather.GetDataFromEleringAPIAboutProduction
+    Private Function GetDataFromEleringAPIAboutProduction() As (Boolean, Double, Double, Long) Implements IWeather.GetDataFromEleringAPIAboutProduction
 
         Dim url As String = $"https://dashboard.elering.ee/api/balance/total/latest" 'ask for response
         Dim request As HttpWebRequest = DirectCast(WebRequest.Create(url), HttpWebRequest)
@@ -46,7 +49,7 @@ Public Class CWeather
 
         Dim energyDataResponse As EnergyDataResponse = JsonConvert.DeserializeObject(Of EnergyDataResponse)(responseString)
 
-        Return (energyDataResponse.data(0).output_total, energyDataResponse.data(0).renewable_total, energyDataResponse.data(0).timestamp)
+        Return (energyDataResponse.success, energyDataResponse.data(0).output_total, energyDataResponse.data(0).renewable_total, energyDataResponse.data(0).timestamp)
 
     End Function
 

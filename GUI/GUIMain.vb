@@ -1789,8 +1789,16 @@ Public Class GUIMain
     End Sub
 
     Private Sub btnProduction_Click(sender As Object, e As EventArgs) Handles btnProduction.Click
-        ' Dim result As PrjWeatherAPI.IWeather
-        'result = New PrjWeatherAPI.CWeather
+        Dim returnString As PrjDatabaseComponent.IDatabase
+        returnString = New PrjDatabaseComponent.CDatabase
+        Dim result = returnString.productionFromDatabase
+        Dim percentage As Double = (result.Item2 / result.Item1) * 100
+        Dim productionInfo As String =
+                                $"Kogu energia: {result.Item1} " & vbCrLf &
+                                $"Roheline energia: {result.Item2}" & vbCrLf &
+                                $"Rohelise energia tootmise protsent: {percentage} %"
+
+        tbProduction.Text = productionInfo
 
     End Sub
 End Class
