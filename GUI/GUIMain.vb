@@ -1775,16 +1775,17 @@ Public Class GUIMain
         Dim returnString As PrjDatabaseComponent.IDatabase
         returnString = New PrjDatabaseComponent.CDatabase
         Dim result = returnString.weatherFromDatabase()
-        Dim weatherInfo As String =
+        If result.Item3 <> -1 Then
+            Dim weatherInfo As String =
                                 $"Temperatuur: {result.Item1}°C. " & vbCrLf &
                                 $"Niiskus: {result.Item2}%." & vbCrLf &
                                 $"Tuule kiirus: {result.Item3} m/s." & vbCrLf &
                                 $"Pilvisus {result.Item4}%."
 
-        tbWeather.Text = weatherInfo
-
-        ' weatherNow = returnString.getWeatherfromAPI
-        'tbWeather.Text = weatherNow
+            tbWeather.Text = weatherInfo
+        Else
+            tbWeather.Text = "Viga andmepäringul"
+        End If
 
     End Sub
 
@@ -1792,13 +1793,18 @@ Public Class GUIMain
         Dim returnString As PrjDatabaseComponent.IDatabase
         returnString = New PrjDatabaseComponent.CDatabase
         Dim result = returnString.productionFromDatabase
-        Dim percentage As Double = (result.Item2 / result.Item1) * 100
-        Dim productionInfo As String =
+        If result.Item2 <> -1 Then
+            Dim percentage As Double = (result.Item2 / result.Item1) * 100
+            Dim formatted As String = percentage.ToString("0.00")
+            Dim productionInfo As String =
                                 $"Kogu energia: {result.Item1} " & vbCrLf &
                                 $"Roheline energia: {result.Item2}" & vbCrLf &
-                                $"Rohelise energia tootmise protsent: {percentage} %"
+                                $"Rohelise energia tootmise protsent: {formatted} %"
 
-        tbProduction.Text = productionInfo
+            tbProduction.Text = productionInfo
+        Else
+            tbProduction.Text = "Viga andmepäringul"
+        End If
 
     End Sub
 End Class

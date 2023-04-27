@@ -973,7 +973,7 @@ Public Class CDatabase
         Catch ex As Exception
             'exception using database
             '   stringOfErrors = {"error", "error", "error"}
-            '  Return stringOfErrors
+            Return (-1, -1, -1, -1)
         End Try
     End Function
 
@@ -1056,7 +1056,7 @@ Public Class CDatabase
         Catch ex As Exception
             'exception using database
             '   stringOfErrors = {"error", "error", "error"}
-            '  Return stringOfErrors
+            Return (-1, -1)
         End Try
     End Function
 
