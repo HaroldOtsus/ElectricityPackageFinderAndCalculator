@@ -120,6 +120,10 @@
       <Project>{76b300df-05d0-4686-a01e-cca64e1c9b80}</Project>
       <Name>PrjDatabaseComponent</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PrjWeatherAPI\PrjWeatherAPI.vbproj">
+      <Project>{7588eec0-8a5e-4209-a576-7757612c363e}</Project>
+      <Name>PrjWeatherAPI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

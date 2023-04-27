@@ -37,7 +37,7 @@ Public Class CWeather
 
 
 
-    Private Function GetDataFromEleringAPIAboutProduction() As (Boolean, Double, Double, Long) Implements IWeather.GetDataFromEleringAPIAboutProduction
+    Private Function GetDataFromEleringAPIAboutProduction() As (Boolean, Double, Double) Implements IWeather.GetDataFromEleringAPIAboutProduction
 
         Dim url As String = $"https://dashboard.elering.ee/api/balance/total/latest" 'ask for response
         Dim request As HttpWebRequest = DirectCast(WebRequest.Create(url), HttpWebRequest)
@@ -49,10 +49,25 @@ Public Class CWeather
 
         Dim energyDataResponse As EnergyDataResponse = JsonConvert.DeserializeObject(Of EnergyDataResponse)(responseString)
 
-        Return (energyDataResponse.success, energyDataResponse.data(0).output_total, energyDataResponse.data(0).renewable_total, energyDataResponse.data(0).timestamp)
+        Return (energyDataResponse.success, energyDataResponse.data(0).output_total, energyDataResponse.data(0).renewable_total)
 
     End Function
 
+    'Function Gettimestamp() As String
+    '    Dim url As String = $"https://dashboard.elering.ee/api/balance/total/latest" 'ask for response
+    '    Dim request As HttpWebRequest = DirectCast(WebRequest.Create(url), HttpWebRequest)
+    '    Dim response As HttpWebResponse = DirectCast(request.GetResponse(), HttpWebResponse)
+
+    '    Dim responseStream As Stream = response.GetResponseStream()
+    '    Dim reader As New StreamReader(responseStream)
+    '    Dim responseString As String = reader.ReadToEnd()
+
+    '    Dim energyDataResponse As EnergyDataResponse = JsonConvert.DeserializeObject(Of EnergyDataResponse)(responseString)
+
+    '    Return (energyDataResponse.data(0).timestamp)
+
+
+    'End Function
 
     Public Class EnergyData
 
@@ -61,7 +76,7 @@ Public Class CWeather
         <JsonProperty("renewable_total")>
         Public Property renewable_total As Double
         <JsonProperty("timestamp")>
-        Public Property timestamp As Long
+        Public Property timestamp As String
     End Class
 
     Public Class EnergyDataResponse
