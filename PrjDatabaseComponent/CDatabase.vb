@@ -938,10 +938,11 @@ Public Class CDatabase
 
             conn.Open()
             'get info from database
-            Dim sqlCommand As New MySqlCommand("SELECT temperature, humidity, windspeed, clouds, time FROM weather where idweather = 1;", conn)
+            Dim sqlCommand As New MySqlCommand("SELECT temperature, humidity, windspeed, clouds, time, date FROM weather where idweather = 1;", conn)
             Dim reader As MySqlDataReader = sqlCommand.ExecuteReader()
             'create variables to hold database info
             Dim timeOf As String = ""
+            Dim dateOf As String = ""
             Dim temperature As Double
             Dim windspeed As Double
             Dim humidity As Integer
@@ -953,10 +954,12 @@ Public Class CDatabase
                 windspeed = reader.GetString(2)
                 clouds = reader.GetString(3)
                 timeOf = reader.GetString(4)
+                dateOf = reader.GetString(5)
             End While
             conn.Close()
+            Dim today As DateTime = DateTime.Today
             Dim currentHour As Integer = DateTime.Now.Hour
-            If timeOf = currentHour Then 'if hour in database is same as now
+            If timeOf = currentHour And today = dateOf Then 'if hour in database is same as now
                 'return variables
                 Return (temperature, humidity, windspeed, clouds)
             Else 'updateinfo
@@ -980,6 +983,7 @@ Public Class CDatabase
     Function insertWeatherToDatabase() As (Double, Integer, Double, Double)
 
         Dim currentHour As Integer = DateTime.Now.Hour
+        Dim today As DateTime = DateTime.Today
         Dim api As PrjWeatherAPI.IWeather
         api = New PrjWeatherAPI.CWeather
         Dim weather = api.getWeatherfromAPI()
@@ -999,7 +1003,8 @@ Public Class CDatabase
                 humidity = @colTwo, 
                 windspeed = @colThree, 
                 clouds = @colFour, 
-                time = @colFive
+                time = @colFive,
+                date = @colSix
             WHERE 
                 idweather = 1", conn)
                 command.Parameters.AddWithValue("@colOne", weather.Item1)
@@ -1007,6 +1012,7 @@ Public Class CDatabase
                 command.Parameters.AddWithValue("@colThree", weather.Item3)
                 command.Parameters.AddWithValue("@colFour", weather.Item4)
                 command.Parameters.AddWithValue("@colFive", currentHour)
+                command.Parameters.AddWithValue("@colSix", today)
 
                 command.ExecuteNonQuery()
                 conn.Close()
@@ -1027,10 +1033,11 @@ Public Class CDatabase
 
             conn.Open()
             'get info about electricity package from database
-            Dim sqlCommand As New MySqlCommand("SELECT productionOfAllEnergy, productionOfGreenEnergy,timestamp FROM productionOfEnergy where idproduction = 1;", conn)
+            Dim sqlCommand As New MySqlCommand("SELECT productionOfAllEnergy, productionOfGreenEnergy,timestamp, date FROM productionOfEnergy where idproduction = 1;", conn)
             Dim reader As MySqlDataReader = sqlCommand.ExecuteReader()
             'create variables to hold database info
             Dim timeOf As String = ""
+            Dim dateOf As String = ""
             Dim allEnergy As Double
             Dim greenEnergy As Double
             While reader.Read()
@@ -1038,10 +1045,12 @@ Public Class CDatabase
                 allEnergy = reader.GetString(0)
                 greenEnergy = reader.GetString(1)
                 timeOf = reader.GetString(2)
+                dateOf = reader.GetString(3)
             End While
             conn.Close()
             Dim currentHour As Integer = DateTime.Now.Hour
-            If timeOf = currentHour Then 'if hour in database is hour now
+            Dim today As DateTime = DateTime.Today
+            If timeOf = currentHour And today = dateOf Then 'if hour in database is hour now WILL NEED TO CHECK IF DATE IS ALSO CORRECT
                 'return arrays
                 Return (allEnergy, greenEnergy) 'return info
             Else 'update info
@@ -1062,7 +1071,7 @@ Public Class CDatabase
     End Function
 
     Function insertProductionToDatabase() As (Double, Double)
-
+        Dim today As DateTime = DateTime.Today
         Dim currentHour As Integer = DateTime.Now.Hour
         Dim api As PrjWeatherAPI.IWeather
         api = New PrjWeatherAPI.CWeather
@@ -1078,13 +1087,14 @@ Public Class CDatabase
             SET 
                 productionOfAllEnergy = @colOne, 
                 productionOfGreenEnergy = @colTwo, 
-                timestamp= @colThree
+                timestamp= @colThree,
+                date = @colFour
             WHERE 
                 idproduction = 1", conn)
                 command.Parameters.AddWithValue("@colOne", production.Item2)
                 command.Parameters.AddWithValue("@colTwo", production.Item3)
                 command.Parameters.AddWithValue("@colThree", currentHour)
-
+                command.Parameters.AddWithValue("@colFour", today)
                 command.ExecuteNonQuery()
                 conn.Close()
             Catch ex As Exception
