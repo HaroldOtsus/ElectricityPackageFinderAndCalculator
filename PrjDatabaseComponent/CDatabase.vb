@@ -932,22 +932,22 @@ Public Class CDatabase
 
     Function weatherFromDatabase() As (Double, Integer, Double, Double) Implements IDatabase.weatherFromDatabase
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
-        Dim conn As New MySqlConnection(connString)
+        Dim conn As New MySqlConnection(connString) 'connection to database
 
         Try
 
             conn.Open()
-            'get info about electricity package from database
+            'get info from database
             Dim sqlCommand As New MySqlCommand("SELECT temperature, humidity, windspeed, clouds, time FROM weather where idweather = 1;", conn)
             Dim reader As MySqlDataReader = sqlCommand.ExecuteReader()
-            'create arrays to hold database info
+            'create variables to hold database info
             Dim timeOf As String = ""
             Dim temperature As Double
             Dim windspeed As Double
             Dim humidity As Integer
             Dim clouds As Double
             While reader.Read()
-                'insert data into arrays
+                'insert data into variables
                 temperature = reader.GetString(0)
                 humidity = reader.GetString(1)
                 windspeed = reader.GetString(2)
@@ -956,24 +956,24 @@ Public Class CDatabase
             End While
             conn.Close()
             Dim currentHour As Integer = DateTime.Now.Hour
-            If timeOf = currentHour Then
-                'return arrays
+            If timeOf = currentHour Then 'if hour in database is same as now
+                'return variables
                 Return (temperature, humidity, windspeed, clouds)
-            Else
+            Else 'updateinfo
                 Dim allWeatherInfo = insertWeatherToDatabase()
-                If allWeatherInfo.Item3 <> -1 Then
+                If allWeatherInfo.Item3 <> -1 Then 'if there has not been an error
                     temperature = allWeatherInfo.Item1
                     humidity = allWeatherInfo.Item2
                     windspeed = allWeatherInfo.Item3
                     clouds = allWeatherInfo.Item4
-                    Return (temperature, humidity, windspeed, clouds)
+                    Return (temperature, humidity, windspeed, clouds) 'return new info
                 End If
+                Return (temperature, humidity, windspeed, clouds) 'return old info
             End If
 
         Catch ex As Exception
             'exception using database
-            '   stringOfErrors = {"error", "error", "error"}
-            Return (-1, -1, -1, -1)
+            Return (-1, -1, -1, -1) 'there has been an error
         End Try
     End Function
 
@@ -985,7 +985,7 @@ Public Class CDatabase
         Dim weather = api.getWeatherfromAPI()
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
-        If weather.Item3 = -1 Then
+        If weather.Item3 = -1 Then 'error has occures
             Return (-1, -1, -1, -1)
         Else
 
@@ -1011,10 +1011,10 @@ Public Class CDatabase
                 command.ExecuteNonQuery()
                 conn.Close()
             Catch ex As Exception
-
+                Return (-1, -1, -1, -1) 'error has occures
             End Try
 
-            Return (weather.Item1, weather.Item2, weather.Item3, weather.Item4)
+            Return (weather.Item1, weather.Item2, weather.Item3, weather.Item4) 'return items
         End If
     End Function
 
@@ -1029,34 +1029,35 @@ Public Class CDatabase
             'get info about electricity package from database
             Dim sqlCommand As New MySqlCommand("SELECT productionOfAllEnergy, productionOfGreenEnergy,timestamp FROM productionOfEnergy where idproduction = 1;", conn)
             Dim reader As MySqlDataReader = sqlCommand.ExecuteReader()
-            'create arrays to hold database info
+            'create variables to hold database info
             Dim timeOf As String = ""
             Dim allEnergy As Double
             Dim greenEnergy As Double
             While reader.Read()
-                'insert data into arrays
+                'insert data into variables
                 allEnergy = reader.GetString(0)
                 greenEnergy = reader.GetString(1)
                 timeOf = reader.GetString(2)
             End While
             conn.Close()
             Dim currentHour As Integer = DateTime.Now.Hour
-            If timeOf = currentHour Then
+            If timeOf = currentHour Then 'if hour in database is hour now
                 'return arrays
-                Return (allEnergy, greenEnergy)
-            Else
+                Return (allEnergy, greenEnergy) 'return info
+            Else 'update info
                 Dim allProdcution = insertProductionToDatabase()
-                If allProdcution.Item1 <> 0 And allProdcution.Item2 <> 0 Then
+                If allProdcution.Item1 <> -1 And allProdcution.Item2 <> -1 Then 'if there has not been an error
                     allEnergy = allProdcution.Item1
                     greenEnergy = allProdcution.Item2
+                    Return (allEnergy, greenEnergy)
                 End If
                 Return (allEnergy, greenEnergy)
                 End If
-            Return (allEnergy, greenEnergy)
+            Return (allEnergy, greenEnergy) 'return old info
         Catch ex As Exception
             'exception using database
             '   stringOfErrors = {"error", "error", "error"}
-            Return (-1, -1)
+            Return (-1, -1) 'cannot access database
         End Try
     End Function
 
@@ -1068,7 +1069,7 @@ Public Class CDatabase
         Dim production = api.GetDataFromEleringAPIAboutProduction()
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
-        If production.Item1 = True Then
+        If production.Item1 = True Then 'check if API gave info
             Try
                 'insert into database
                 conn.Open() 'try to connect to database
@@ -1087,12 +1088,12 @@ Public Class CDatabase
                 command.ExecuteNonQuery()
                 conn.Close()
             Catch ex As Exception
-
+                'if we could not update info do nothing
             End Try
 
-            Return (production.Item1, production.Item2)
+            Return (production.Item1, production.Item2) 'return info
         Else
-            Return (0, 0)
+            Return (-1, -1) 'could not give info from API
         End If
 
     End Function
