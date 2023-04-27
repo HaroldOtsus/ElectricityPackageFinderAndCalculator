@@ -41,6 +41,57 @@ Public Class CWeather
         Return weatherInfo
     End Function
 
+
+
+    Private Function GetDataFromEleringAPIAboutProduction() As String Implements IWeather.GetDataFromEleringAPIAboutProduction
+
+        Dim url As String = $"https://dashboard.elering.ee/api/nps/total/latest?start=" 'ask for response
+        Dim request As HttpWebRequest = DirectCast(WebRequest.Create(url), HttpWebRequest)
+        Dim response As HttpWebResponse = DirectCast(request.GetResponse(), HttpWebResponse)
+
+        Dim responseStream As Stream = response.GetResponseStream()
+        Dim reader As New StreamReader(responseStream)
+        Dim responseString As String = reader.ReadToEnd()
+
+        Dim energyDataResponse As EnergyDataResponse = JsonConvert.DeserializeObject(Of EnergyDataResponse)(responseString)
+
+        Dim energyInfo As String =
+                                $"Output Total: {energyDataResponse.data(0).output_total}." & vbCrLf &
+                                 $"Renewable Total: {energyDataResponse.data(0).renewable_total}." & vbCrLf &
+                                $"Timestamp: {energyDataResponse.data(0).timestamp}."
+
+        Return energyInfo
+
+    End Function
+
+
+    Public Class EnergyData
+        'Public Property consumption_local_total As Double
+        ' Public Property export_total As Double
+        'Public Property import_total As Double
+        'Public Property input_local As Double
+        'Public Property input_total As Double
+        'Public Property nonrenewable_total As Double
+        <JsonProperty("output_total")>
+        Public Property output_total As Double
+        'Public Property renewable_bio As Double
+        'Public Property renewable_hydro As Double
+        'Public Property renewable_solar As Double
+        <JsonProperty("renevable_total")>
+        Public Property renewable_total As Double
+        'Public Property renewable_wind As Double
+        <JsonProperty("timestamp")>
+        Public Property timestamp As Long
+    End Class
+
+    Public Class EnergyDataResponse
+        <JsonProperty("data")>
+        Public Property data As List(Of EnergyData)
+        <JsonProperty("success")>
+        Public Property success As Boolean
+    End Class
+
+
     'these classes are like this because this is how api gives them out
     Public Class WeatherResult
         <JsonProperty("weather")>
