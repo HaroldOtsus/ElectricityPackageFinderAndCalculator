@@ -1773,37 +1773,37 @@ Public Class GUIMain
 
     Private Sub btnWeather_Click(sender As Object, e As EventArgs) Handles btnWeather.Click
         Dim returnString As PrjDatabaseComponent.IDatabase
-        returnString = New PrjDatabaseComponent.CDatabase
+        returnString = New PrjDatabaseComponent.CDatabase 'connection to component
         Dim result = returnString.weatherFromDatabase()
-        If result.Item3 <> -1 Then
-            Dim weatherInfo As String =
-                                $"Temperatuur: {result.Item1}°C. " & vbCrLf &
+        If result.Item3 <> -1 Then 'if wind speed is -1 there has been an error
+            Dim weatherInfo As String = 'put info to string
+                                $"Temperatuur: {result.Item1}°C. " & vbCrLf & 'string contains variable and characters
                                 $"Niiskus: {result.Item2}%." & vbCrLf &
                                 $"Tuule kiirus: {result.Item3} m/s." & vbCrLf &
                                 $"Pilvisus {result.Item4}%."
 
-            tbWeather.Text = weatherInfo
+            tbWeather.Text = weatherInfo 'put string to textbox
         Else
-            tbWeather.Text = "Viga andmepäringul"
+            tbWeather.Text = "Viga andmepäringul" 'give error message
         End If
 
     End Sub
 
     Private Sub btnProduction_Click(sender As Object, e As EventArgs) Handles btnProduction.Click
         Dim returnString As PrjDatabaseComponent.IDatabase
-        returnString = New PrjDatabaseComponent.CDatabase
+        returnString = New PrjDatabaseComponent.CDatabase 'connection to component
         Dim result = returnString.productionFromDatabase
-        If result.Item2 <> -1 Then
-            Dim percentage As Double = (result.Item2 / result.Item1) * 100
-            Dim formatted As String = percentage.ToString("0.00")
+        If result.Item2 <> -1 Then 'if green energy production is -1 there has been an error
+            Dim percentage As Double = (result.Item2 / result.Item1) * 100 'calculate percentage
+            Dim formatted As String = percentage.ToString("0.00") 'format percentage
             Dim productionInfo As String =
                                 $"Kogu energia: {result.Item1} " & vbCrLf &
                                 $"Roheline energia: {result.Item2}" & vbCrLf &
                                 $"Rohelise energia tootmise protsent: {formatted} %"
 
-            tbProduction.Text = productionInfo
+            tbProduction.Text = productionInfo 'string to textbox
         Else
-            tbProduction.Text = "Viga andmepäringul"
+            tbProduction.Text = "Viga andmepäringul" 'error message
         End If
 
     End Sub
