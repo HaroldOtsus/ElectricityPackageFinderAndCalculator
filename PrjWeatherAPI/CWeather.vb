@@ -15,23 +15,20 @@ Public Class CWeather
     '   }
     'openweathermap.org/current#one
     Public Function getWeatherfromAPI() As String Implements IWeather.getWeatherfromAPI
-        Dim apiKey As String = "7406f4e5f40f2d23b1c9575266065495"
-        Dim location As String = "Tallinn,EE" ' location
+        Dim apiKey As String = "7406f4e5f40f2d23b1c9575266065495" 'my personal key from registration
         Dim idOfTallinn As String = "588409"
 
         Dim url As String = $"https://api.openweathermap.org/data/2.5/weather?id={idOfTallinn}&appid={apiKey}&units=metric" 'ask for response
         Dim request As HttpWebRequest = DirectCast(WebRequest.Create(url), HttpWebRequest)
         Dim response As HttpWebResponse = DirectCast(request.GetResponse(), HttpWebResponse)
 
-        Dim responseStream As Stream = response.GetResponseStream()
+        Dim responseStream As Stream = response.GetResponseStream() 'response stream
         Dim reader As New StreamReader(responseStream)
-        Dim responseString As String = reader.ReadToEnd()
+        Dim responseString As String = reader.ReadToEnd() 'read stream to string
 
-        Dim result As WeatherResult = JsonConvert.DeserializeObject(Of WeatherResult)(responseString) 'because the data is in json use jsonconverter
-        'Dim res As String = result.Weather(0).Description
-        'Dim temp As Double = result.Main.Temperature
-        'Dim temp2 As String = temp.ToString()
-        'Return temp2
+        Dim result As WeatherResult = JsonConvert.DeserializeObject(Of WeatherResult)(responseString) 'because the data is in json use jsonconverter to
+        'read to class WeatherResult
+
         Dim weatherInfo As String =
                                  $"Condition: {result.Weather(0).Description}." & vbCrLf &
                                  $"Temperature: {result.Main.Temperature}°C. " & vbCrLf &
@@ -44,11 +41,8 @@ Public Class CWeather
 
 
 
-    Private Function GetDataFromEleringAPIAboutProduction() As String Implements IWeather.GetDataFromEleringAPIAboutProduction
-        ' Dim client As New HttpClient()
-        'Dim response As HttpResponseMessage = client.GetAsync("https://dashboard.elering.ee/api/balance/total/latest").Result
-        ' Dim responseContent As String = response.Content.ReadAsStringAsync().Result
-        'Return responseContent
+    Private Function GetDataFromEleringAPIAboutProduction() As (Double, Double, Long) Implements IWeather.GetDataFromEleringAPIAboutProduction
+
         Dim url As String = $"https://dashboard.elering.ee/api/balance/total/latest" 'ask for response
         Dim request As HttpWebRequest = DirectCast(WebRequest.Create(url), HttpWebRequest)
         Dim response As HttpWebResponse = DirectCast(request.GetResponse(), HttpWebResponse)
@@ -59,12 +53,7 @@ Public Class CWeather
 
         Dim energyDataResponse As EnergyDataResponse = JsonConvert.DeserializeObject(Of EnergyDataResponse)(responseString)
 
-        Dim energyInfo As String =
-                                $"Output Total: {energyDataResponse.data(0).output_total}." & vbCrLf &
-                                 $"Renewable Total: {energyDataResponse.data(0).renewable_total}." & vbCrLf &
-                                $"Timestamp: {energyDataResponse.data(0).timestamp}."
-
-        Return energyInfo
+        Return (energyDataResponse.data(0).output_total, energyDataResponse.data(0).renewable_total, energyDataResponse.data(0).timestamp)
 
     End Function
 
