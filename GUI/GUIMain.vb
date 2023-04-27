@@ -1772,18 +1772,25 @@ Public Class GUIMain
     End Sub
 
     Private Sub btnWeather_Click(sender As Object, e As EventArgs) Handles btnWeather.Click
-        Dim returnString As PrjWeatherAPI.IWeather
-        returnString = New PrjWeatherAPI.CWeather
-        Dim weatherNow As String
-        weatherNow = returnString.getWeatherfromAPI
-        tbWeather.Text = weatherNow
+        Dim returnString As PrjDatabaseComponent.IDatabase
+        returnString = New PrjDatabaseComponent.CDatabase
+        Dim result = returnString.weatherFromDatabase()
+        Dim weatherInfo As String =
+                                $"Temperatuur: {result.Item1}°C. " & vbCrLf &
+                                $"Niiskus: {result.Item2}%." & vbCrLf &
+                                $"Tuule kiirus: {result.Item3} m/s." & vbCrLf &
+                                $"Pilvisus {result.Item4}%."
+
+        tbWeather.Text = weatherInfo
+
+        ' weatherNow = returnString.getWeatherfromAPI
+        'tbWeather.Text = weatherNow
 
     End Sub
 
     Private Sub btnProduction_Click(sender As Object, e As EventArgs) Handles btnProduction.Click
-        Dim returnString As PrjWeatherAPI.IWeather
-        returnString = New PrjWeatherAPI.CWeather
-        Dim productionNow = returnString.GetDataFromEleringAPIAboutProduction
-        tbProduction.Text = productionNow.Item1.ToString
+        ' Dim result As PrjWeatherAPI.IWeather
+        'result = New PrjWeatherAPI.CWeather
+
     End Sub
 End Class

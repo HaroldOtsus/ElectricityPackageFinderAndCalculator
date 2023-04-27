@@ -113,6 +113,10 @@
       <Project>{7f647ec6-613a-4eb9-9ff2-e2486ca61ba7}</Project>
       <Name>PrjAPIComponent</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PrjWeatherAPI\PrjWeatherAPI.vbproj">
+      <Project>{7588eec0-8a5e-4209-a576-7757612c363e}</Project>
+      <Name>PrjWeatherAPI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

@@ -14,7 +14,7 @@ Public Class CWeather
     '       "lat": 59.436958
     '   }
     'openweathermap.org/current#one
-    Public Function getWeatherfromAPI() As String Implements IWeather.getWeatherfromAPI
+    Public Function getWeatherfromAPI() As (Double, Integer, Double, Double) Implements IWeather.getWeatherfromAPI
         Dim apiKey As String = "7406f4e5f40f2d23b1c9575266065495" 'my personal key from registration
         Dim idOfTallinn As String = "588409"
 
@@ -29,14 +29,7 @@ Public Class CWeather
         Dim result As WeatherResult = JsonConvert.DeserializeObject(Of WeatherResult)(responseString) 'because the data is in json use jsonconverter to
         'read to class WeatherResult
 
-        Dim weatherInfo As String =
-                                 $"Condition: {result.Weather(0).Description}." & vbCrLf &
-                                 $"Temperature: {result.Main.Temperature}°C. " & vbCrLf &
-                                 $"Humidity: {result.Main.Humidity}%." & vbCrLf &
-                                 $"Wind speed: {result.Wind.Speed} m/s." & vbCrLf &
-                                 $"Cloudiness: {result.Clouds.all}%."
-
-        Return weatherInfo
+        Return (result.Main.Temperature, result.Main.Humidity, result.Wind.Speed, result.Clouds.all)
     End Function
 
 

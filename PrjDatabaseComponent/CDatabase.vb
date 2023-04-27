@@ -693,9 +693,6 @@ Public Class CDatabase
         Try
 
             conn.Open() 'try to connect to database
-            '' Dim command As New MySqlCommand("UPDATE webdata SET one = @colOne, two = @colTwo, three = @colThree WHERE idPacket = 1 ", conn)
-            '' broke command into several commands because it didn't update database and thougth there was a bug
-            '' actually didn't update because one column name was written wrongly
             Dim command As New MySqlCommand("
             UPDATE webdata 
             SET 
@@ -933,5 +930,85 @@ Public Class CDatabase
         End Try
     End Function
 
+    Function weatherFromDatabase() As (Double, Integer, Double, Double) Implements IDatabase.weatherFromDatabase
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+
+        Try
+
+            conn.Open()
+            'get info about electricity package from database
+            Dim sqlCommand As New MySqlCommand("SELECT temperature, humidity, windspeed, clouds, time FROM weather where idweather = 1;", conn)
+            Dim reader As MySqlDataReader = sqlCommand.ExecuteReader()
+            'create arrays to hold database info
+            Dim timeOf As String = ""
+            Dim temperature As Double
+            Dim windspeed As Double
+            Dim humidity As Integer
+            Dim clouds As Double
+            While reader.Read()
+                'insert data into arrays
+                temperature = reader.GetString(0)
+                humidity = reader.GetString(1)
+                windspeed = reader.GetString(2)
+                clouds = reader.GetString(3)
+                timeOf = reader.GetString(4)
+            End While
+            conn.Close()
+            Dim currentHour As Integer = DateTime.Now.Hour
+            If timeOf = currentHour Then
+                'return arrays
+                Return (temperature, humidity, windspeed, clouds)
+            Else
+                Dim allWeatherInfo = insertWeatherToDatabase()
+                temperature = allWeatherInfo.Item1
+                humidity = allWeatherInfo.Item2
+                windspeed = allWeatherInfo.Item3
+                clouds = allWeatherInfo.Item4
+                Return (temperature, humidity, windspeed, clouds)
+            End If
+
+        Catch ex As Exception
+            'exception using database
+            '   stringOfErrors = {"error", "error", "error"}
+            '  Return stringOfErrors
+        End Try
+    End Function
+
+    Function insertWeatherToDatabase() As (Double, Integer, Double, Double)
+
+        Dim currentHour As Integer = DateTime.Now.Hour
+        Dim api As PrjWeatherAPI.IWeather
+        api = New PrjWeatherAPI.CWeather
+        Dim weather = api.getWeatherfromAPI()
+        Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+        Dim conn As New MySqlConnection(connString)
+        Try
+            'insert into database
+            conn.Open() 'try to connect to database
+            Dim command As New MySqlCommand("
+            UPDATE weather 
+            SET 
+                temperature = @colOne, 
+                humidity = @colTwo, 
+                windspeed = @colThree, 
+                clouds = @colFour, 
+                time = @colFive
+            WHERE 
+                idweather = 1", conn)
+            command.Parameters.AddWithValue("@colOne", weather.Item1)
+            command.Parameters.AddWithValue("@colTwo", weather.Item2)
+            command.Parameters.AddWithValue("@colThree", weather.Item3)
+            command.Parameters.AddWithValue("@colFour", weather.Item4)
+            command.Parameters.AddWithValue("@colFive", currentHour)
+
+            command.ExecuteNonQuery()
+            conn.Close()
+        Catch ex As Exception
+
+        End Try
+
+        Return (weather.Item1, weather.Item2, weather.Item3, weather.Item4)
+    End Function
 
 End Class
