@@ -3,12 +3,12 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 
 <TestClass()> Public Class CDatabaseTest
 
-    '<TestMethod()> Public Sub TestAPIReturn()
-    '    Dim getIn As New PrjWeatherAPI.CWeather
-    '    Dim actualData = getIn.Gettimestamp
-    '    Assert.AreEqual("12", actualData)
+    <TestMethod()> Public Sub TestAPIReturn()
+        Dim getIn As New PrjWeatherAPI.CWeather
+        Dim actualData = getIn.GetDataFromEleringAPIAboutProduction
+        Assert.AreEqual(12, actualData.Item3)
 
-    'End Sub
+    End Sub
 
     '    <TestMethod()> Public Sub TestAPIReturn()
     '        Dim getIn As New PrjAPIComponent.APIComponent
