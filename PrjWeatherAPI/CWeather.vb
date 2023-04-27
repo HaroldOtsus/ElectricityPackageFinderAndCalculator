@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Net
+Imports System.Net.Http
 Imports Newtonsoft.Json 'use it to parse Json added from under manage NuGet packages
 
 Public Class CWeather
@@ -44,8 +45,11 @@ Public Class CWeather
 
 
     Private Function GetDataFromEleringAPIAboutProduction() As String Implements IWeather.GetDataFromEleringAPIAboutProduction
-
-        Dim url As String = $"https://dashboard.elering.ee/api/nps/total/latest?start=" 'ask for response
+        ' Dim client As New HttpClient()
+        'Dim response As HttpResponseMessage = client.GetAsync("https://dashboard.elering.ee/api/balance/total/latest").Result
+        ' Dim responseContent As String = response.Content.ReadAsStringAsync().Result
+        'Return responseContent
+        Dim url As String = $"https://dashboard.elering.ee/api/balance/total/latest" 'ask for response
         Dim request As HttpWebRequest = DirectCast(WebRequest.Create(url), HttpWebRequest)
         Dim response As HttpWebResponse = DirectCast(request.GetResponse(), HttpWebResponse)
 
@@ -66,20 +70,11 @@ Public Class CWeather
 
 
     Public Class EnergyData
-        'Public Property consumption_local_total As Double
-        ' Public Property export_total As Double
-        'Public Property import_total As Double
-        'Public Property input_local As Double
-        'Public Property input_total As Double
-        'Public Property nonrenewable_total As Double
+
         <JsonProperty("output_total")>
         Public Property output_total As Double
-        'Public Property renewable_bio As Double
-        'Public Property renewable_hydro As Double
-        'Public Property renewable_solar As Double
-        <JsonProperty("renevable_total")>
+        <JsonProperty("renewable_total")>
         Public Property renewable_total As Double
-        'Public Property renewable_wind As Double
         <JsonProperty("timestamp")>
         Public Property timestamp As Long
     End Class

@@ -1779,4 +1779,12 @@ Public Class GUIMain
         tbWeather.Text = weatherNow
 
     End Sub
+
+    Private Sub btnProduction_Click(sender As Object, e As EventArgs) Handles btnProduction.Click
+        Dim returnString As PrjWeatherAPI.IWeather
+        returnString = New PrjWeatherAPI.CWeather
+        Dim productionNow As String
+        productionNow = returnString.GetDataFromEleringAPIAboutProduction
+        tbProduction.Text = productionNow
+    End Sub
 End Class

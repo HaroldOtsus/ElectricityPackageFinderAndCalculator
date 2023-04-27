@@ -187,12 +187,14 @@ Partial Class GUIMain
         Me.lblChoosePackages = New System.Windows.Forms.Label()
         Me.btnBack4 = New System.Windows.Forms.Button()
         Me.tabGreenEnergy = New System.Windows.Forms.TabPage()
+        Me.btnWeather = New System.Windows.Forms.Button()
+        Me.tbWeather = New System.Windows.Forms.TextBox()
         Me.lblChangeFontSize = New System.Windows.Forms.Label()
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
-        Me.tbWeather = New System.Windows.Forms.TextBox()
-        Me.btnWeather = New System.Windows.Forms.Button()
+        Me.tbProduction = New System.Windows.Forms.TextBox()
+        Me.btnProduction = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1974,6 +1976,8 @@ Partial Class GUIMain
         '
         'tabGreenEnergy
         '
+        Me.tabGreenEnergy.Controls.Add(Me.btnProduction)
+        Me.tabGreenEnergy.Controls.Add(Me.tbProduction)
         Me.tabGreenEnergy.Controls.Add(Me.btnWeather)
         Me.tabGreenEnergy.Controls.Add(Me.tbWeather)
         Me.tabGreenEnergy.Location = New System.Drawing.Point(4, 26)
@@ -1982,6 +1986,24 @@ Partial Class GUIMain
         Me.tabGreenEnergy.TabIndex = 6
         Me.tabGreenEnergy.Text = "Ilm ja roheline energia"
         Me.tabGreenEnergy.UseVisualStyleBackColor = True
+        '
+        'btnWeather
+        '
+        Me.btnWeather.Location = New System.Drawing.Point(381, 40)
+        Me.btnWeather.Name = "btnWeather"
+        Me.btnWeather.Size = New System.Drawing.Size(113, 72)
+        Me.btnWeather.TabIndex = 1
+        Me.btnWeather.Text = "Ilm Tallinnas Praegu"
+        Me.btnWeather.UseVisualStyleBackColor = True
+        '
+        'tbWeather
+        '
+        Me.tbWeather.Location = New System.Drawing.Point(43, 40)
+        Me.tbWeather.Multiline = True
+        Me.tbWeather.Name = "tbWeather"
+        Me.tbWeather.ReadOnly = True
+        Me.tbWeather.Size = New System.Drawing.Size(244, 136)
+        Me.tbWeather.TabIndex = 0
         '
         'lblChangeFontSize
         '
@@ -2023,23 +2045,23 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
         '
-        'tbWeather
+        'tbProduction
         '
-        Me.tbWeather.Location = New System.Drawing.Point(43, 40)
-        Me.tbWeather.Multiline = True
-        Me.tbWeather.Name = "tbWeather"
-        Me.tbWeather.ReadOnly = True
-        Me.tbWeather.Size = New System.Drawing.Size(244, 136)
-        Me.tbWeather.TabIndex = 0
+        Me.tbProduction.Location = New System.Drawing.Point(43, 280)
+        Me.tbProduction.Multiline = True
+        Me.tbProduction.Name = "tbProduction"
+        Me.tbProduction.ReadOnly = True
+        Me.tbProduction.Size = New System.Drawing.Size(244, 136)
+        Me.tbProduction.TabIndex = 2
         '
-        'btnWeather
+        'btnProduction
         '
-        Me.btnWeather.Location = New System.Drawing.Point(381, 40)
-        Me.btnWeather.Name = "btnWeather"
-        Me.btnWeather.Size = New System.Drawing.Size(113, 72)
-        Me.btnWeather.TabIndex = 1
-        Me.btnWeather.Text = "Ilm Tallinnas Praegu"
-        Me.btnWeather.UseVisualStyleBackColor = True
+        Me.btnProduction.Location = New System.Drawing.Point(358, 344)
+        Me.btnProduction.Name = "btnProduction"
+        Me.btnProduction.Size = New System.Drawing.Size(113, 72)
+        Me.btnProduction.TabIndex = 3
+        Me.btnProduction.Text = "Tootmine"
+        Me.btnProduction.UseVisualStyleBackColor = True
         '
         'GUIMain
         '
@@ -2251,4 +2273,6 @@ Partial Class GUIMain
     Friend WithEvents tabGreenEnergy As TabPage
     Friend WithEvents btnWeather As Button
     Friend WithEvents tbWeather As TextBox
+    Friend WithEvents btnProduction As Button
+    Friend WithEvents tbProduction As TextBox
 End Class
