@@ -138,7 +138,6 @@ Partial Class GUIMain
         Me.lblTimePeriodSelection = New System.Windows.Forms.Label()
         Me.btnBack2 = New System.Windows.Forms.Button()
         Me.tabConsumptionHistory = New System.Windows.Forms.TabPage()
-        Me.btnSimulateConsumptionHistory = New System.Windows.Forms.Button()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.tabBlank = New System.Windows.Forms.TabPage()
         Me.tabClientConsumptionHistory = New System.Windows.Forms.TabPage()
@@ -162,7 +161,6 @@ Partial Class GUIMain
         Me.RadioButton3 = New System.Windows.Forms.RadioButton()
         Me.RadioButton4 = New System.Windows.Forms.RadioButton()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.btnClientConsumptionHistory = New System.Windows.Forms.Button()
         Me.btnBack3 = New System.Windows.Forms.Button()
         Me.tabPackageComparison = New System.Windows.Forms.TabPage()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -1358,9 +1356,7 @@ Partial Class GUIMain
         '
         'tabConsumptionHistory
         '
-        Me.tabConsumptionHistory.Controls.Add(Me.btnSimulateConsumptionHistory)
         Me.tabConsumptionHistory.Controls.Add(Me.TabControl2)
-        Me.tabConsumptionHistory.Controls.Add(Me.btnClientConsumptionHistory)
         Me.tabConsumptionHistory.Controls.Add(Me.btnBack3)
         Me.tabConsumptionHistory.Location = New System.Drawing.Point(4, 26)
         Me.tabConsumptionHistory.Name = "tabConsumptionHistory"
@@ -1370,25 +1366,16 @@ Partial Class GUIMain
         Me.tabConsumptionHistory.Text = "Tarbimise ajalugu"
         Me.tabConsumptionHistory.UseVisualStyleBackColor = True
         '
-        'btnSimulateConsumptionHistory
-        '
-        Me.btnSimulateConsumptionHistory.Location = New System.Drawing.Point(269, 17)
-        Me.btnSimulateConsumptionHistory.Name = "btnSimulateConsumptionHistory"
-        Me.btnSimulateConsumptionHistory.Size = New System.Drawing.Size(130, 80)
-        Me.btnSimulateConsumptionHistory.TabIndex = 1
-        Me.btnSimulateConsumptionHistory.Text = "Elektripakettide börsihindade ajalugu"
-        Me.btnSimulateConsumptionHistory.UseVisualStyleBackColor = True
-        '
         'TabControl2
         '
         Me.TabControl2.Controls.Add(Me.tabBlank)
         Me.TabControl2.Controls.Add(Me.tabClientConsumptionHistory)
         Me.TabControl2.Controls.Add(Me.tabSimulateExchangeHistory)
         Me.TabControl2.ItemSize = New System.Drawing.Size(42, 25)
-        Me.TabControl2.Location = New System.Drawing.Point(0, 106)
+        Me.TabControl2.Location = New System.Drawing.Point(0, 42)
         Me.TabControl2.Name = "TabControl2"
         Me.TabControl2.SelectedIndex = 0
-        Me.TabControl2.Size = New System.Drawing.Size(875, 494)
+        Me.TabControl2.Size = New System.Drawing.Size(897, 571)
         Me.TabControl2.TabIndex = 2
         '
         'tabBlank
@@ -1422,7 +1409,7 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.Location = New System.Drawing.Point(4, 29)
         Me.tabClientConsumptionHistory.Name = "tabClientConsumptionHistory"
         Me.tabClientConsumptionHistory.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
-        Me.tabClientConsumptionHistory.Size = New System.Drawing.Size(867, 461)
+        Me.tabClientConsumptionHistory.Size = New System.Drawing.Size(889, 538)
         Me.tabClientConsumptionHistory.TabIndex = 1
         Me.tabClientConsumptionHistory.Text = "Simuleeri oma tarbimise ajalugu"
         Me.tabClientConsumptionHistory.UseVisualStyleBackColor = True
@@ -1438,7 +1425,7 @@ Partial Class GUIMain
         '
         'tbDebug
         '
-        Me.tbDebug.Location = New System.Drawing.Point(347, 64)
+        Me.tbDebug.Location = New System.Drawing.Point(342, 110)
         Me.tbDebug.Multiline = True
         Me.tbDebug.Name = "tbDebug"
         Me.tbDebug.ReadOnly = True
@@ -1510,7 +1497,7 @@ Partial Class GUIMain
         'lblConsumptionGraph
         '
         Me.lblConsumptionGraph.AutoSize = True
-        Me.lblConsumptionGraph.Location = New System.Drawing.Point(339, 48)
+        Me.lblConsumptionGraph.Location = New System.Drawing.Point(338, 79)
         Me.lblConsumptionGraph.Name = "lblConsumptionGraph"
         Me.lblConsumptionGraph.Size = New System.Drawing.Size(78, 13)
         Me.lblConsumptionGraph.TabIndex = 4
@@ -1617,18 +1604,9 @@ Partial Class GUIMain
         Me.Label10.TabIndex = 13
         Me.Label10.Text = "Kehtiva paketi andmete sisestus:"
         '
-        'btnClientConsumptionHistory
-        '
-        Me.btnClientConsumptionHistory.Location = New System.Drawing.Point(133, 17)
-        Me.btnClientConsumptionHistory.Name = "btnClientConsumptionHistory"
-        Me.btnClientConsumptionHistory.Size = New System.Drawing.Size(130, 80)
-        Me.btnClientConsumptionHistory.TabIndex = 0
-        Me.btnClientConsumptionHistory.Text = "Simuleeri oma tarbimise ajalugu"
-        Me.btnClientConsumptionHistory.UseVisualStyleBackColor = True
-        '
         'btnBack3
         '
-        Me.btnBack3.Location = New System.Drawing.Point(18, 12)
+        Me.btnBack3.Location = New System.Drawing.Point(18, 3)
         Me.btnBack3.Name = "btnBack3"
         Me.btnBack3.Size = New System.Drawing.Size(83, 33)
         Me.btnBack3.TabIndex = 1
@@ -2157,12 +2135,10 @@ Partial Class GUIMain
     Friend WithEvents tBoxEndTime As TextBox
     Friend WithEvents tboxStartTime As TextBox
     Friend WithEvents lblExchangeComparisonResult As Label
-    Friend WithEvents btnSimulateConsumptionHistory As Button
     Friend WithEvents TabControl2 As TabControl
     Friend WithEvents tabBlank As TabPage
     Friend WithEvents tabClientConsumptionHistory As TabPage
     Friend WithEvents tabSimulateExchangeHistory As TabPage
-    Friend WithEvents btnClientConsumptionHistory As Button
     Friend WithEvents lblConsumptionGraph As Label
     Friend WithEvents lblClientConsumptionHistoryResult As Label
     Friend WithEvents Label8 As Label

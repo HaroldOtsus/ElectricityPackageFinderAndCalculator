@@ -51,12 +51,12 @@ Public Class GUIMain
 
 
     'TAB SWITCHING BUTTONS FOR THE OTHER TABCONTROL 
-    Private Sub btnClientConsumptionHistory_Click(sender As Object, e As EventArgs) Handles btnClientConsumptionHistory.Click
+    Private Sub btnClientConsumptionHistory_Click(sender As Object, e As EventArgs)
         TabControl2.SelectedTab = tabClientConsumptionHistory
 
     End Sub
 
-    Private Sub btnSimulateConsumptionHistory_Click(sender As Object, e As EventArgs) Handles btnSimulateConsumptionHistory.Click
+    Private Sub btnSimulateConsumptionHistory_Click(sender As Object, e As EventArgs)
         TabControl2.SelectedTab = tabSimulateExchangeHistory
     End Sub
 
@@ -1834,5 +1834,18 @@ Public Class GUIMain
 
     Private Sub lblSimulateClientConsumptionHistory_Click(sender As Object, e As EventArgs) Handles lblSimulateClientConsumptionHistory.Click
 
+    End Sub
+
+    Private Sub Panel4_Paint(sender As Object, e As PaintEventArgs) Handles Panel4.Paint
+        Select Case True
+            Case rbFix.Checked
+                cbNighPrice.Visible = True
+                cbMarginal.Visible = False
+            Case rbStock.Checked
+                cbMarginal.Visible = True
+                cbNighPrice.Visible = False
+            Case Else
+                ' No RadioButton is checked
+        End Select
     End Sub
 End Class
