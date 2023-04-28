@@ -28,8 +28,11 @@ Partial Class GUIMain
         Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim ChartArea5 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend5 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend4 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(GUIMain))
         Me.lblMenu = New System.Windows.Forms.Label()
         Me.btnPackageHourlyRate = New System.Windows.Forms.Button()
@@ -200,6 +203,7 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
+        Me.chrtHistory = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -220,6 +224,7 @@ Partial Class GUIMain
         Me.tabPackageComparison.SuspendLayout()
         CType(Me.chartPackages, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabGreenEnergy.SuspendLayout()
+        CType(Me.chrtHistory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'lblMenu
@@ -1483,6 +1488,7 @@ Partial Class GUIMain
         '
         'tabClientConsumptionHistory
         '
+        Me.tabClientConsumptionHistory.Controls.Add(Me.chrtHistory)
         Me.tabClientConsumptionHistory.Controls.Add(Me.Panel4)
         Me.tabClientConsumptionHistory.Controls.Add(Me.tbNightOrMarginal)
         Me.tabClientConsumptionHistory.Controls.Add(Me.cbMarginal)
@@ -1596,13 +1602,13 @@ Partial Class GUIMain
         '
         'tbDebug
         '
-        Me.tbDebug.Location = New System.Drawing.Point(456, 135)
+        Me.tbDebug.Location = New System.Drawing.Point(456, 495)
         Me.tbDebug.Margin = New System.Windows.Forms.Padding(4)
         Me.tbDebug.Multiline = True
         Me.tbDebug.Name = "tbDebug"
         Me.tbDebug.ReadOnly = True
         Me.tbDebug.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.tbDebug.Size = New System.Drawing.Size(573, 427)
+        Me.tbDebug.Size = New System.Drawing.Size(573, 67)
         Me.tbDebug.TabIndex = 15
         '
         'lblToDateTime
@@ -1669,9 +1675,9 @@ Partial Class GUIMain
         Me.lblSimulateClientConsumptionHistory.Location = New System.Drawing.Point(15, 4)
         Me.lblSimulateClientConsumptionHistory.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblSimulateClientConsumptionHistory.Name = "lblSimulateClientConsumptionHistory"
-        Me.lblSimulateClientConsumptionHistory.Size = New System.Drawing.Size(136, 17)
+        Me.lblSimulateClientConsumptionHistory.Size = New System.Drawing.Size(293, 17)
         Me.lblSimulateClientConsumptionHistory.TabIndex = 6
-        Me.lblSimulateClientConsumptionHistory.Text = "Vali oma paketi tüüp"
+        Me.lblSimulateClientConsumptionHistory.Text = "Vali oma paketi tüüp     Kõik hinnad sent/kWh"
         '
         'lblConsumptionGraph
         '
@@ -1932,10 +1938,10 @@ Partial Class GUIMain
         '
         'chartPackages
         '
-        ChartArea4.Name = "ChartArea1"
-        Me.chartPackages.ChartAreas.Add(ChartArea4)
-        Legend4.Name = "Legend1"
-        Me.chartPackages.Legends.Add(Legend4)
+        ChartArea5.Name = "ChartArea1"
+        Me.chartPackages.ChartAreas.Add(ChartArea5)
+        Legend5.Name = "Legend1"
+        Me.chartPackages.Legends.Add(Legend5)
         Me.chartPackages.Location = New System.Drawing.Point(459, 128)
         Me.chartPackages.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.chartPackages.Name = "chartPackages"
@@ -2155,6 +2161,22 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
         '
+        'chrtHistory
+        '
+        ChartArea4.Name = "ChartArea1"
+        Me.chrtHistory.ChartAreas.Add(ChartArea4)
+        Legend4.Name = "Legend1"
+        Me.chrtHistory.Legends.Add(Legend4)
+        Me.chrtHistory.Location = New System.Drawing.Point(484, 150)
+        Me.chrtHistory.Name = "chrtHistory"
+        Series1.ChartArea = "ChartArea1"
+        Series1.Legend = "Legend1"
+        Series1.Name = "Series1"
+        Me.chrtHistory.Series.Add(Series1)
+        Me.chrtHistory.Size = New System.Drawing.Size(448, 300)
+        Me.chrtHistory.TabIndex = 24
+        Me.chrtHistory.Text = "Chart1"
+        '
         'GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -2201,6 +2223,7 @@ Partial Class GUIMain
         CType(Me.chartPackages, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabGreenEnergy.ResumeLayout(False)
         Me.tabGreenEnergy.PerformLayout()
+        CType(Me.chrtHistory, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2375,4 +2398,5 @@ Partial Class GUIMain
     Friend WithEvents tbNightOrMarginal As TextBox
     Friend WithEvents tbPrice As TextBox
     Friend WithEvents cbMarginal As CheckBox
+    Friend WithEvents chrtHistory As DataVisualization.Charting.Chart
 End Class

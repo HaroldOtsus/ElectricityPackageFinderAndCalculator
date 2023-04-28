@@ -3,6 +3,7 @@
 Imports System.IO
 Imports System.Windows.Forms.DataVisualization.Charting
 Imports Microsoft.VisualBasic.FileIO.TextFieldParser
+Imports System.Globalization
 
 Public Class GUIMain
     Public Structure PriceDateStruct
@@ -15,6 +16,7 @@ Public Class GUIMain
         Dim dateAndTime As String
         Dim wattage As Double
     End Structure
+    Dim tableOfCSV As New DataTable()
 
     Dim sisend As String 'might be a leftover obsolete relic that could potentially be deleted
     Dim applianceID As String 'ID of the selected home appliance
@@ -63,7 +65,7 @@ Public Class GUIMain
 
     'If you change TabControl1 tab then TabControl2 reverts to a blank tab, looks cleaner this way IMO.
     Private Sub tabConsumptionHistory_Leave(sender As Object, e As EventArgs) Handles tabConsumptionHistory.Leave
-        TabControl2.SelectedTab = tabBlank
+        TabControl2.SelectedTab = tabClientConsumptionHistory
     End Sub
     'Checks if said textbox has letters in it :)
     Private Function checkIfTextBoxContainsLetters(textbox As TextBox) As Boolean
@@ -1531,7 +1533,7 @@ Public Class GUIMain
 
             'If btnConfirmSimuCSV.Focused = True Then
             'creates table for incoming info
-            Dim table As New DataTable()
+            ' Dim table As New DataTable()
             'parses the csv file
             Using parser As New Microsoft.VisualBasic.FileIO.TextFieldParser(selectedFileName)
                 parser.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited
@@ -1549,7 +1551,7 @@ Public Class GUIMain
                 Dim column As Integer = 0
                 Dim headerRow As String() = parser.ReadFields()
                 For Each header As String In headerRow
-                    table.Columns.Add(header)
+                    tableOfCSV.Columns.Add(header)
                     column += 1
                 Next
                 If column > 2 Then
@@ -1559,7 +1561,7 @@ Public Class GUIMain
                     ' Read the data rows and add them to the table
                     While Not parser.EndOfData
                         Dim fields As String() = parser.ReadFields()
-                        table.Rows.Add(fields)
+                        tableOfCSV.Rows.Add(fields)
                         'p.dateAndTime = fields(0)
                         'p.wattage = fields(2)
 
@@ -1570,15 +1572,15 @@ Public Class GUIMain
                     dtpEnd.Enabled = True
 
                     'length of table
-                    Dim rowCount As Integer = table.Rows.Count
+                    Dim rowCount As Integer = tableOfCSV.Rows.Count
                     Dim rowCountInForEach As Integer = 0
 
                     'if the table fits the template(is correct)
-                    If table.Columns(0).ColumnName = "Algus" And table.Columns(2).ColumnName = "Kogus (kWh)" _
-                        And table.Columns(1).ColumnName = "Lõpp" And table.Columns(3).ColumnName = "Börsihind (EUR / MWh)" Then
+                    If tableOfCSV.Columns(0).ColumnName = "Algus" And tableOfCSV.Columns(2).ColumnName = "Kogus (kWh)" _
+                        And tableOfCSV.Columns(1).ColumnName = "Lõpp" And tableOfCSV.Columns(3).ColumnName = "Börsihind (EUR / MWh)" Then
 
                         'For i As Integer = 0 To 9
-                        For Each row As DataRow In table.Rows
+                        For Each row As DataRow In tableOfCSV.Rows
                             'if there are too many rows of data take only the first 3 days
                             If rowCountInForEach = (24 * 3) + 1 Then
                                 Exit For
@@ -1604,7 +1606,7 @@ Public Class GUIMain
                                 'MsgBox("maxDate for dtpBeginning" & row("Algus"))
                             End If
                             'if current row is the last row in the table then set maxDate for dtpEnd
-                            If row Is table.Rows(rowCount - 1) Then
+                            If row Is tableOfCSV.Rows(rowCount - 1) Then
                                 dtpEnd.MaxDate = DateTime.Parse(row("Lõpp"))
                                 'MsgBox("maxDate for dtpEnd" & row("Lõpp"))
                             End If
@@ -1623,7 +1625,7 @@ Public Class GUIMain
                         Dim sumPrice As Double
                         Dim divider As Integer = 0
 
-                        For Each row As DataRow In table.Rows
+                        For Each row As DataRow In tableOfCSV.Rows
                             'ADD UP ALL THE QUANTITY(kWh)
                             sumKWh += Double.Parse(row("Kogus (kWh)"))
 
@@ -1829,10 +1831,31 @@ Public Class GUIMain
     End Sub
 
     Private Sub btnConfirmSimuCSV_Click(sender As Object, e As EventArgs) Handles btnConfirmSimuCSV.Click
+        'For Each row As DataRow In tableOfCSV.Rows
+        '    If row("Kogus (kWh)").GetType() Is GetType(String) AndAlso row("Kogus (kWh)").ToString().Contains(",") Then
+        '        row("Kogus (kWh)") = row("Kogus (kWh)").ToString().Replace(",", ".")
+        '    End If
+        'Next
         If rbFix.Checked And Not cbNighPrice.Checked Then
             ' price is fixed and night price is not checked
             If Not String.IsNullOrEmpty(tbPrice.Text) And checkIfTextBoxContainsLetters(tbProduction) = True Then 'textbox is not empty and does not contain letters
-
+                'tableOfCSV
+                chrtHistory.Series.Clear()
+                chrtHistory.Series.Add(New Series())
+                chrtHistory.Series(0).ChartType = SeriesChartType.Line
+                Dim priceCentsPerKWh As Double = Double.Parse(tbPrice.Text)
+                ' copy the data into the chart
+                For Each row As DataRow In tableOfCSV.Rows
+                    If row("Kogus (kWh)").GetType() Is GetType(String) AndAlso row("Kogus (kWh)").ToString().Contains(",") Then
+                        row("Kogus (kWh)") = row("Kogus (kWh)").ToString().Replace(",", ".")
+                    End If
+                    Dim inputString As String = row("Kogus (kWh)").ToString().Trim()
+                    Dim kWh As Double
+                    If Double.TryParse(inputString, NumberStyles.Float, CultureInfo.InvariantCulture, kWh) Then
+                        Dim price As Double = kWh * (priceCentsPerKWh / 100)
+                        chrtHistory.Series(0).Points.AddXY(row("Algus"), price)
+                    End If
+                Next
             End If
         ElseIf rbFix.Checked And cbNighPrice.Checked Then
             If Not String.IsNullOrEmpty(tbPrice.Text) And checkIfTextBoxContainsLetters(tbProduction) = True And Not String.IsNullOrEmpty(tbNightOrMarginal.Text) And checkIfTextBoxContainsLetters(tbNightOrMarginal) = True Then 'textbox is not empty and does not contain letters
