@@ -8,30 +8,36 @@ Public Class CDatabase
     Implements IDatabaseAPI
     Implements ISignup
     Implements ILogin
+    Private Shared connectionstring As String
 
     Public Function GetConnectionString() As String
-        Dim config As IConfigurationRoot = New ConfigurationBuilder().
-        SetBasePath(AppDomain.CurrentDomain.BaseDirectory).
-        AddIniFile("config.ini", optional:=False, reloadOnChange:=True).
-        Build()
+        If String.IsNullOrEmpty(connectionstring) Then
+            Dim config As IConfigurationRoot = New ConfigurationBuilder().
+            SetBasePath(AppDomain.CurrentDomain.BaseDirectory).
+            AddIniFile("config.ini", optional:=False, reloadOnChange:=True).
+            Build()
 
-        Dim server As String = config.GetSection("database")("Server")
-        Dim user As String = config.GetSection("database")("user")
-        Dim password As String = config.GetSection("database")("password")
-        Dim database As String = config.GetSection("database")("database")
+            Dim server As String = config.GetSection("database")("Server")
+            Dim user As String = config.GetSection("database")("user")
+            Dim password As String = config.GetSection("database")("password")
+            Dim database As String = config.GetSection("database")("database")
 
-        Dim connectionString As String = $"server={server};user id={user};password={password};database={database};"
+            connectionstring = $"server={server};user id={user};password={password};database={database};"
+            Return connectionstring
+        End If
 
-        Return connectionString
+        Return connectionstring
     End Function
 
-    Private Shared conna As MySqlConnection
 
-    Public Sub New() 'to reuse database coonection
-        ' Dim connString As String = "server=84.50.131.222;user id=john;password=tarkvaratehnika123;database=mydb;"
-        Dim connString = GetConnectionString()
-        conna = New MySqlConnection(connString)
-    End Sub
+    'Private Shared conna As MySqlConnection
+
+    ''Private Shared conn As MySqlConnection
+
+    'Public Sub New()
+    '    Dim connString As String = GetConnectionString() '"server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
+    '    conna = New MySqlConnection(connString)
+    'End Sub
 
     Private Function userPrefernces(ByVal username, ByRef size, ByRef color) Implements ILogin.userPrefernces
         'get user prefences from database
@@ -107,15 +113,17 @@ Public Class CDatabase
     End Function
 
     Private Function login(ByVal username As String, ByVal password As String) As Boolean Implements ILogin.login
+        Dim connString = GetConnectionString()
+        Dim conn As New MySqlConnection(connString)
         Dim pass As String = ""
         Try
-            conna.Open()
+            conn.Open()
             Dim checkIfUsername As Boolean ' check is username exists
             checkIfUsername = checkIfUsernameExists(username)
-            If checkIfUsername = False Then 'if it exists then
+            If checkIfUsername = True Then 'if it exists then
 
                 Dim command As New MySqlCommand("SELECT password FROM user
-            WHERE username = @username;", conna)
+            WHERE username = @username;", conn)
                 command.Parameters.AddWithValue("@username", username)
 
                 Dim reader As MySqlDataReader = command.ExecuteReader()
@@ -130,7 +138,7 @@ Public Class CDatabase
                     Return False
                 End If
             End If
-            conna.Close()
+            conn.Close()
             Return False
 
         Catch ex As Exception
@@ -142,11 +150,13 @@ Public Class CDatabase
 
     Private Function checkIfUsernameExists(ByVal username As String) As Boolean
         'we check is the username exists in database
-        Dim cmd As New MySqlCommand("SELECT COUNT(*) FROM user WHERE username  = @username", conna)
+        Dim connString = GetConnectionString()
+        Dim conn As New MySqlConnection(connString)
+        Dim cmd As New MySqlCommand("SELECT COUNT(*) FROM user WHERE username  = @username", conn)
         cmd.Parameters.AddWithValue("@username", username)
         Try
             'search database
-            conna.Open()
+            conn.Open()
             Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar()) 'find if username already exists
             If count > 0 Then
                 Return True 'username exists
@@ -155,7 +165,7 @@ Public Class CDatabase
                 Return False
             End If
 
-            conna.Close()
+            conn.Close()
 
         Catch ex As Exception
             Return False
@@ -165,16 +175,18 @@ Public Class CDatabase
 
     Private Function signup(ByVal username As String, ByVal password As String, ByVal name As String, ByVal email As String) As Boolean Implements ISignup.signup
         ''call function that hashes password
+        Dim connString = GetConnectionString()
+        Dim conn As New MySqlConnection(connString)
         Try
-            conna.Open()
+            conn.Open()
             'Dim cool As Boolean
             'cool = checkIfUsernameExists(username)
-            If checkIfUsernameExists(username) = False Then
+            If checkIfUsernameExists(username) = True Then
                 'hash password
                 Dim pass = hashPassword(password)
                 'insert into database
                 Dim command As New MySqlCommand("INSERT INTO user (name, password, username, email)
-            VALUES (@name, @password, @username, @email);", conna)
+            VALUES (@name, @password, @username, @email);", conn)
                 command.Parameters.AddWithValue("@username", username)
                 command.Parameters.AddWithValue("@password", pass)
                 command.Parameters.AddWithValue("@name", name)
@@ -185,7 +197,7 @@ Public Class CDatabase
             Else
                 MsgBox("Sisestatud kasutajanimi on juba kasutusel.")
             End If
-            conna.Close()
+            conn.Close()
             Return False
 
         Catch ex As Exception

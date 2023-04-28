@@ -1827,4 +1827,12 @@ Public Class GUIMain
     Private Sub Label13_Click(sender As Object, e As EventArgs)
 
     End Sub
+
+    Private Sub btnConfirmSimuCSV_Click(sender As Object, e As EventArgs) Handles btnConfirmSimuCSV.Click
+
+    End Sub
+
+    Private Sub lblSimulateClientConsumptionHistory_Click(sender As Object, e As EventArgs) Handles lblSimulateClientConsumptionHistory.Click
+
+    End Sub
 End Class
