@@ -139,7 +139,6 @@ Partial Class GUIMain
         Me.btnBack2 = New System.Windows.Forms.Button()
         Me.tabConsumptionHistory = New System.Windows.Forms.TabPage()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
-        Me.tabBlank = New System.Windows.Forms.TabPage()
         Me.tabClientConsumptionHistory = New System.Windows.Forms.TabPage()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.rbFix = New System.Windows.Forms.RadioButton()
@@ -1472,7 +1471,6 @@ Partial Class GUIMain
         '
         'TabControl2
         '
-        Me.TabControl2.Controls.Add(Me.tabBlank)
         Me.TabControl2.Controls.Add(Me.tabClientConsumptionHistory)
         Me.TabControl2.Controls.Add(Me.tabSimulateExchangeHistory)
         Me.TabControl2.ItemSize = New System.Drawing.Size(42, 25)
@@ -1482,17 +1480,6 @@ Partial Class GUIMain
         Me.TabControl2.SelectedIndex = 0
         Me.TabControl2.Size = New System.Drawing.Size(1196, 703)
         Me.TabControl2.TabIndex = 2
-        '
-        'tabBlank
-        '
-        Me.tabBlank.Location = New System.Drawing.Point(4, 29)
-        Me.tabBlank.Margin = New System.Windows.Forms.Padding(4)
-        Me.tabBlank.Name = "tabBlank"
-        Me.tabBlank.Padding = New System.Windows.Forms.Padding(4)
-        Me.tabBlank.Size = New System.Drawing.Size(1188, 670)
-        Me.tabBlank.TabIndex = 0
-        Me.tabBlank.Text = "Blank"
-        Me.tabBlank.UseVisualStyleBackColor = True
         '
         'tabClientConsumptionHistory
         '
@@ -2291,7 +2278,6 @@ Partial Class GUIMain
     Friend WithEvents tboxStartTime As TextBox
     Friend WithEvents lblExchangeComparisonResult As Label
     Friend WithEvents TabControl2 As TabControl
-    Friend WithEvents tabBlank As TabPage
     Friend WithEvents tabClientConsumptionHistory As TabPage
     Friend WithEvents tabSimulateExchangeHistory As TabPage
     Friend WithEvents lblConsumptionGraph As Label

@@ -1829,6 +1829,27 @@ Public Class GUIMain
     End Sub
 
     Private Sub btnConfirmSimuCSV_Click(sender As Object, e As EventArgs) Handles btnConfirmSimuCSV.Click
+        If rbFix.Checked And Not cbNighPrice.Checked Then
+            ' price is fixed and night price is not checked
+            If Not String.IsNullOrEmpty(tbPrice.Text) And checkIfTextBoxContainsLetters(tbProduction) = True Then 'textbox is not empty and does not contain letters
+
+            End If
+        ElseIf rbFix.Checked And cbNighPrice.Checked Then
+            If Not String.IsNullOrEmpty(tbPrice.Text) And checkIfTextBoxContainsLetters(tbProduction) = True And Not String.IsNullOrEmpty(tbNightOrMarginal.Text) And checkIfTextBoxContainsLetters(tbNightOrMarginal) = True Then 'textbox is not empty and does not contain letters
+
+            End If
+            ' price is fixed and night price is checked
+        ElseIf rbStock.Checked And Not cbMarginal.Checked Then
+            ' stock price is chosen and marginal is not checked
+            If Not String.IsNullOrEmpty(tbPrice.Text) And checkIfTextBoxContainsLetters(tbProduction) = True Then 'textbox is not empty and does not contain letters
+
+            End If
+        ElseIf rbStock.Checked And cbMarginal.Checked Then
+            If Not String.IsNullOrEmpty(tbPrice.Text) And checkIfTextBoxContainsLetters(tbProduction) = True And Not String.IsNullOrEmpty(tbNightOrMarginal.Text) And checkIfTextBoxContainsLetters(tbNightOrMarginal) = True Then
+
+            End If
+            ' stock price is chosen and marginal is checked
+        End If
 
     End Sub
 
