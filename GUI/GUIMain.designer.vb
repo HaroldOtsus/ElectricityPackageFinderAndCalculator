@@ -187,6 +187,7 @@ Partial Class GUIMain
         Me.lblChoosePackages = New System.Windows.Forms.Label()
         Me.btnBack4 = New System.Windows.Forms.Button()
         Me.tabGreenEnergy = New System.Windows.Forms.TabPage()
+        Me.tbOpinion = New System.Windows.Forms.TextBox()
         Me.btnProduction = New System.Windows.Forms.Button()
         Me.tbProduction = New System.Windows.Forms.TextBox()
         Me.btnWeather = New System.Windows.Forms.Button()
@@ -1976,6 +1977,7 @@ Partial Class GUIMain
         '
         'tabGreenEnergy
         '
+        Me.tabGreenEnergy.Controls.Add(Me.tbOpinion)
         Me.tabGreenEnergy.Controls.Add(Me.btnProduction)
         Me.tabGreenEnergy.Controls.Add(Me.tbProduction)
         Me.tabGreenEnergy.Controls.Add(Me.btnWeather)
@@ -1986,6 +1988,16 @@ Partial Class GUIMain
         Me.tabGreenEnergy.TabIndex = 6
         Me.tabGreenEnergy.Text = "Ilm ja roheline energia"
         Me.tabGreenEnergy.UseVisualStyleBackColor = True
+        '
+        'tbOpinion
+        '
+        Me.tbOpinion.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.tbOpinion.Location = New System.Drawing.Point(544, 190)
+        Me.tbOpinion.Multiline = True
+        Me.tbOpinion.Name = "tbOpinion"
+        Me.tbOpinion.ReadOnly = True
+        Me.tbOpinion.Size = New System.Drawing.Size(444, 136)
+        Me.tbOpinion.TabIndex = 4
         '
         'btnProduction
         '
@@ -2279,4 +2291,5 @@ Partial Class GUIMain
     Friend WithEvents tbWeather As TextBox
     Friend WithEvents btnProduction As Button
     Friend WithEvents tbProduction As TextBox
+    Friend WithEvents tbOpinion As TextBox
 End Class

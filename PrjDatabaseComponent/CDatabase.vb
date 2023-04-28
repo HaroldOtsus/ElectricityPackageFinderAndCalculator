@@ -1025,7 +1025,7 @@ Public Class CDatabase
     End Function
 
 
-    Function productionFromDatabase() As (Double, Double) Implements IDatabase.productionFromDatabase
+    Function productionFromDatabase() As (Double, Double, Integer, Date) Implements IDatabase.productionFromDatabase
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
 
@@ -1036,48 +1036,51 @@ Public Class CDatabase
             Dim sqlCommand As New MySqlCommand("SELECT productionOfAllEnergy, productionOfGreenEnergy,timestamp, date FROM productionOfEnergy where idproduction = 1;", conn)
             Dim reader As MySqlDataReader = sqlCommand.ExecuteReader()
             'create variables to hold database info
-            Dim timeOf As String = ""
-            Dim dateOf As String = ""
+            Dim timeOf As Integer
+            Dim dateOf As Date
             Dim allEnergy As Double
             Dim greenEnergy As Double
-            'While reader.Read()
-            '    'insert data into variables
-            '    allEnergy = reader.GetString(0)
-            '    greenEnergy = reader.GetString(1)
-            '    timeOf = reader.GetString(2)
-            '    dateOf = reader.GetString(3)
-            'End While
-            'conn.Close()
-            'Dim currentHour As Integer = DateTime.Now.Hour
-            'Dim today As DateTime = DateTime.Today
-            'If timeOf = currentHour And today = dateOf Then 'if hour in database is hour now WILL NEED TO CHECK IF DATE IS ALSO CORRECT
-            '    'return arrays
-            '    Return (allEnergy, greenEnergy) 'return info
-            'Else 'update info
-            Dim allProdcution = insertProductionToDatabase()
-            ' If allProdcution.Item1 <> -1 And allProdcution.Item2 <> -1 Then 'if there has not been an error
-            allEnergy = allProdcution.Item1
-            greenEnergy = allProdcution.Item2
-            Return (allEnergy, greenEnergy)
-            '  End If
-            Return (allEnergy, greenEnergy)
-                'End If
-            Return (allEnergy, greenEnergy) 'return old info
+            While reader.Read()
+                'insert data into variables
+                allEnergy = reader.GetString(0)
+                greenEnergy = reader.GetString(1)
+                timeOf = reader.GetString(2)
+                dateOf = reader.GetString(3)
+            End While
+            conn.Close()
+            Dim currentHour As Integer = DateTime.Now.Hour
+            Dim today As Date = DateTime.Today
+            If timeOf = currentHour And today = dateOf Then 'if hour in database is hour now WILL NEED TO CHECK IF DATE IS ALSO CORRECT
+                'return arrays
+                Return (allEnergy, greenEnergy, currentHour, today) 'return info
+            Else 'update info
+                Dim allProdcution = insertProductionToDatabase()
+                ' If allProdcution.Item1 <> -1 And allProdcution.Item2 <> -1 Then 'if there has not been an error
+                allEnergy = allProdcution.Item1
+                greenEnergy = allProdcution.Item2
+                Return (allEnergy, greenEnergy, allProdcution.Item3, allProdcution.Item4)
+            End If
+            Return (allEnergy, greenEnergy, currentHour, today)
+            'End I
         Catch ex As Exception
             'exception using database
             '   stringOfErrors = {"error", "error", "error"}
-            Return (-1, -1) 'cannot access database
+            Return (-1, -1, -1, Today) 'cannot access database
         End Try
     End Function
 
-    Function insertProductionToDatabase() As (Double, Double)
-        Dim today As DateTime = DateTime.Today
-        Dim currentHour As Integer = DateTime.Now.Hour
+    Function insertProductionToDatabase() As (Double, Double, Integer, Date)
+        '  Dim today As DateTime = DateTime.Today
+        ' Dim currentHour As Integer = DateTime.Now.Hour
         Dim api As PrjWeatherAPI.IWeather
         api = New PrjWeatherAPI.CWeather
         Dim production = api.GetDataFromEleringAPIAboutProduction()
         Dim connString As String = "server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         Dim conn As New MySqlConnection(connString)
+        Dim unixTimestamp As Long = Long.Parse(production.Item4)
+        Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp)
+        Dim currenthour As Integer = dateTimeOffset.Hour
+        Dim today As Date = dateTimeOffset.Date
         If production.Item1 = True Then 'check if API gave info
             Try
                 'insert into database
@@ -1093,7 +1096,7 @@ Public Class CDatabase
                 idproduction = 1", conn)
                 command.Parameters.AddWithValue("@colOne", production.Item2)
                 command.Parameters.AddWithValue("@colTwo", production.Item3)
-                command.Parameters.AddWithValue("@colThree", currentHour)
+                command.Parameters.AddWithValue("@colThree", currenthour)
                 command.Parameters.AddWithValue("@colFour", today)
                 command.ExecuteNonQuery()
                 conn.Close()
@@ -1101,9 +1104,9 @@ Public Class CDatabase
                 'if we could not update info do nothing
             End Try
 
-            Return (production.Item2, production.Item3) 'return info
+            Return (production.Item2, production.Item3, currenthour, today) 'return info
         Else
-            Return (-1, -1) 'could not give info from API
+            Return (-1, -1, -1, today) 'could not give info from API
         End If
 
     End Function

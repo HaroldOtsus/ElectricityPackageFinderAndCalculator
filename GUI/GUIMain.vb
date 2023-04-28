@@ -1775,6 +1775,7 @@ Public Class GUIMain
         Dim returnString As PrjDatabaseComponent.IDatabase
         returnString = New PrjDatabaseComponent.CDatabase 'connection to component
         Dim result = returnString.weatherFromDatabase()
+        Dim wind As String
         If result.Item3 <> -1 Then 'if wind speed is -1 there has been an error
             Dim weatherInfo As String = 'put info to string
                                 $"Temperatuur: {result.Item1}°C. " & vbCrLf & 'string contains variable and characters
@@ -1783,6 +1784,18 @@ Public Class GUIMain
                                 $"Pilvisus {result.Item4}%."
 
             tbWeather.Text = weatherInfo 'put string to textbox
+            If result.Item3 > 8.5 Then
+                wind = "kõrge"
+            ElseIf result.Item3 < 5.5 Then
+                wind = "madal"
+            Else
+                wind = "keskmine"
+
+            End If
+            Dim opinion As String = 'put info to string
+                               $"Kuna tuule kiirus on {result.Item3} m/s, mis on tuuleenergia kontektsis {wind} kiirus siis hindame, et tuuleenergia osakaal võrgus on {wind}, aga see on umbkaudne arvestus Tallinna ilma põhjal" & vbCrLf &
+                               $"Päikesepaneelide osakaalu on raske hinnata, sest uuemad päikesepaneelid suudavad toota elektrit ka pilves ilmaga. Täpsete numbrite saamiseks vajuta nuppu Tootmine"
+            tbOpinion.Text = opinion 'put string to textbox
         Else
             tbWeather.Text = "Viga andmepäringul" 'give error message
         End If
@@ -1795,11 +1808,13 @@ Public Class GUIMain
         Dim result = returnString.productionFromDatabase
         If result.Item2 <> -1 Then 'if green energy production is -1 there has been an error
             Dim percentage As Double = (result.Item2 / result.Item1) * 100 'calculate percentage
+            Dim dateString As String = result.Item4.ToString("yyyy.MM.dd")
             Dim formatted As String = percentage.ToString("0.00") 'format percentage
             Dim productionInfo As String =
                                 $"Kogu energia: {result.Item1} " & vbCrLf &
                                 $"Roheline energia: {result.Item2}" & vbCrLf &
-                                $"Rohelise energia tootmise protsent: {formatted} %"
+                                $"Rohelise energia tootmise protsent: {formatted} %" & vbCrLf &
+                                 $"Kuupäev: {dateString} ja kellaaeg:{result.Item3} "
 
             tbProduction.Text = productionInfo 'string to textbox
         Else
@@ -1807,4 +1822,6 @@ Public Class GUIMain
         End If
 
     End Sub
+
+
 End Class

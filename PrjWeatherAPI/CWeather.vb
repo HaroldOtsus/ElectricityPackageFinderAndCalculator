@@ -37,7 +37,7 @@ Public Class CWeather
 
 
 
-    Function GetDataFromEleringAPIAboutProduction() As (Boolean, Double, Double) Implements IWeather.GetDataFromEleringAPIAboutProduction
+    Function GetDataFromEleringAPIAboutProduction() As (Boolean, Double, Double, String) Implements IWeather.GetDataFromEleringAPIAboutProduction
 
         Dim url As String = $"https://dashboard.elering.ee/api/system/latest" 'ask for response
         Dim request As HttpWebRequest = DirectCast(WebRequest.Create(url), HttpWebRequest)
@@ -49,7 +49,7 @@ Public Class CWeather
 
         Dim energyDataResponse As EnergyDataResponse = JsonConvert.DeserializeObject(Of EnergyDataResponse)(responseString)
 
-        Return (energyDataResponse.success, energyDataResponse.data(0).production, energyDataResponse.data(0).production_renewable)
+        Return (energyDataResponse.success, energyDataResponse.data(0).production, energyDataResponse.data(0).production_renewable, energyDataResponse.data(0).timestamp)
 
     End Function
 
