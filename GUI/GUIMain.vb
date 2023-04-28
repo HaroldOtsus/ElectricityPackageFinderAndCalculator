@@ -1841,11 +1841,27 @@ Public Class GUIMain
             Case rbFix.Checked
                 cbNighPrice.Visible = True
                 cbMarginal.Visible = False
+                tbPrice.Visible = True
             Case rbStock.Checked
                 cbMarginal.Visible = True
                 cbNighPrice.Visible = False
-            Case Else
-                ' No RadioButton is checked
+                tbPrice.Visible = True
         End Select
+    End Sub
+
+    Private Sub cbNighPrice_CheckedChanged(sender As Object, e As EventArgs) Handles cbNighPrice.CheckedChanged
+        If cbNighPrice.Checked Then
+            tbNightOrMarginal.Visible = True
+        Else
+            tbNightOrMarginal.Visible = False
+        End If
+    End Sub
+
+    Private Sub cbMarginal_CheckedChanged(sender As Object, e As EventArgs) Handles cbMarginal.CheckedChanged
+        If cbMarginal.Checked Then
+            tbNightOrMarginal.Visible = True
+        Else
+            tbNightOrMarginal.Visible = False
+        End If
     End Sub
 End Class
