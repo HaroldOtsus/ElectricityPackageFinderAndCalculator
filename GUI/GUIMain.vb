@@ -1816,6 +1816,7 @@ Public Class GUIMain
                                 $"Rohelise energia tootmise protsent: {formatted} %" & vbCrLf &
                                  $"Kuupäev: {dateString} ja kellaaeg:{result.Item3} "
 
+
             tbProduction.Text = productionInfo 'string to textbox
         Else
             tbProduction.Text = "Viga andmepäringul" 'error message
@@ -1823,5 +1824,7 @@ Public Class GUIMain
 
     End Sub
 
+    Private Sub Label13_Click(sender As Object, e As EventArgs)
 
+    End Sub
 End Class

@@ -187,6 +187,9 @@ Partial Class GUIMain
         Me.lblChoosePackages = New System.Windows.Forms.Label()
         Me.btnBack4 = New System.Windows.Forms.Button()
         Me.tabGreenEnergy = New System.Windows.Forms.TabPage()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
         Me.tbOpinion = New System.Windows.Forms.TextBox()
         Me.btnProduction = New System.Windows.Forms.Button()
         Me.tbProduction = New System.Windows.Forms.TextBox()
@@ -1977,6 +1980,9 @@ Partial Class GUIMain
         '
         'tabGreenEnergy
         '
+        Me.tabGreenEnergy.Controls.Add(Me.Label14)
+        Me.tabGreenEnergy.Controls.Add(Me.Label13)
+        Me.tabGreenEnergy.Controls.Add(Me.Label12)
         Me.tabGreenEnergy.Controls.Add(Me.tbOpinion)
         Me.tabGreenEnergy.Controls.Add(Me.btnProduction)
         Me.tabGreenEnergy.Controls.Add(Me.tbProduction)
@@ -1989,14 +1995,42 @@ Partial Class GUIMain
         Me.tabGreenEnergy.Text = "Ilm ja roheline energia"
         Me.tabGreenEnergy.UseVisualStyleBackColor = True
         '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(40, 260)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(67, 17)
+        Me.Label14.TabIndex = 7
+        Me.Label14.Text = "Tootmine"
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(40, 20)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(25, 17)
+        Me.Label13.TabIndex = 6
+        Me.Label13.Text = "Ilm"
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(563, 104)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(129, 17)
+        Me.Label12.TabIndex = 5
+        Me.Label12.Text = "Hinnang tootmisele"
+        '
         'tbOpinion
         '
         Me.tbOpinion.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.tbOpinion.Location = New System.Drawing.Point(544, 190)
+        Me.tbOpinion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tbOpinion.Location = New System.Drawing.Point(563, 142)
         Me.tbOpinion.Multiline = True
         Me.tbOpinion.Name = "tbOpinion"
         Me.tbOpinion.ReadOnly = True
-        Me.tbOpinion.Size = New System.Drawing.Size(444, 136)
+        Me.tbOpinion.Size = New System.Drawing.Size(444, 222)
         Me.tbOpinion.TabIndex = 4
         '
         'btnProduction
@@ -2012,6 +2046,7 @@ Partial Class GUIMain
         'tbProduction
         '
         Me.tbProduction.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.tbProduction.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbProduction.Location = New System.Drawing.Point(43, 280)
         Me.tbProduction.Multiline = True
         Me.tbProduction.Name = "tbProduction"
@@ -2032,6 +2067,7 @@ Partial Class GUIMain
         'tbWeather
         '
         Me.tbWeather.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.tbWeather.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbWeather.Location = New System.Drawing.Point(43, 40)
         Me.tbWeather.Multiline = True
         Me.tbWeather.Name = "tbWeather"
@@ -2292,4 +2328,7 @@ Partial Class GUIMain
     Friend WithEvents btnProduction As Button
     Friend WithEvents tbProduction As TextBox
     Friend WithEvents tbOpinion As TextBox
+    Friend WithEvents Label13 As Label
+    Friend WithEvents Label12 As Label
+    Friend WithEvents Label14 As Label
 End Class
