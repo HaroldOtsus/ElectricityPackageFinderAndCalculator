@@ -1537,7 +1537,7 @@ Public Class GUIMain
             Dim selectedFileName As String = openFileDialog.FileName
 
 
-            Dim dt As DataTable = PrjCSVReader.CCSVReader.ReadCSV(selectedFileName)
+            tableOfCSV = PrjCSVReader.CCSVReader.ReadCSV(selectedFileName)
             tbDebug.Clear()
             Dim sumKWh As Double
             Dim sumPrice As Double
@@ -1545,10 +1545,10 @@ Public Class GUIMain
             Dim price As Double
 
             'if the table fits the template(is correct)
-            If dt.Columns(0).ColumnName = "Algus" And dt.Columns(2).ColumnName = "Kogus (kWh)" _
-                            And dt.Columns(1).ColumnName = "Lõpp" And dt.Columns(3).ColumnName = "Börsihind (EUR / MWh)" Then
+            If tableOfCSV.Columns(0).ColumnName = "Algus" And tableOfCSV.Columns(2).ColumnName = "Kogus (kWh)" _
+                            And tableOfCSV.Columns(1).ColumnName = "Lõpp" And tableOfCSV.Columns(3).ColumnName = "Börsihind (EUR / MWh)" Then
                 Dim divider As Integer = 0
-                For Each row As DataRow In dt.Rows
+                For Each row As DataRow In tableOfCSV.Rows
                     'ADD UP ALL THE QUANTITY(kWh)
                     If IsNumeric(row("Kogus (kWh)")) Then
                         kWh = Double.Parse(row("Kogus (kWh)"))
@@ -1575,13 +1575,13 @@ Public Class GUIMain
                 dtpEnd.Enabled = True
 
                 'length of table
-                Dim rowCount As Integer = dt.Rows.Count
+                Dim rowCount As Integer = tableOfCSV.Rows.Count
                 Dim rowCountInForEach As Integer = 0
 
 
 
                 'For i As Integer = 0 To 9
-                For Each row As DataRow In dt.Rows
+                For Each row As DataRow In tableOfCSV.Rows
                     'if there are too many rows of data take only the first 3 days
                     'If rowCountInForEach = (24 * 3) + 1 Then
                     '    Exit For
@@ -1607,7 +1607,7 @@ Public Class GUIMain
                         'MsgBox("maxDate for dtpBeginning" & row("Algus"))
                     End If
                     'if current row is the last row in the table then set maxDate for dtpEnd
-                    If row Is dt.Rows(rowCount - 1) Then
+                    If row Is tableOfCSV.Rows(rowCount - 1) Then
                         dtpEnd.MaxDate = DateTime.Parse(row("Lõpp"))
                         'MsgBox("maxDate for dtpEnd" & row("Lõpp"))
                     End If
