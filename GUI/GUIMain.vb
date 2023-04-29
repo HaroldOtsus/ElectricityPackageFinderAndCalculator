@@ -1535,16 +1535,35 @@ Public Class GUIMain
 
             Dim selectedFileName As String = openFileDialog.FileName
             'MsgBox(selectedFileName)
-            'tableOfCSV = returntable.ReadCSV(selectedFileName)
+
             Dim dt As DataTable = PrjCSVReader.CCSVReader.ReadCSV(selectedFileName)
-            Dim sb As New StringBuilder()
+            'Dim sb As New StringBuilder()
+            'For Each row As DataRow In dt.Rows
+            '    For Each col As DataColumn In dt.Columns
+            '        sb.AppendFormat("{0}\t", row(col))
+            '    Next
+            '    sb.AppendLine()
+            'Next
+            'tbDebug.Text = sb.ToString()
+            Dim sumKWh As Double
+            Dim sumPrice As Double
+            Dim kWh As Double
+            Dim price As Double
+
+            Dim divider As Integer = 0
             For Each row As DataRow In dt.Rows
-                For Each col As DataColumn In dt.Columns
-                    sb.AppendFormat("{0}\t", row(col))
-                Next
-                sb.AppendLine()
+                'ADD UP ALL THE QUANTITY(kWh)
+                kWh = Double.Parse(row("Kogus (kWh)"))
+
+
+                'ADD UP ALL THE PRICES
+                price = Double.Parse(row("Börsihind (EUR / MWh)"))
+                tbDebug.AppendText(Environment.NewLine & sumKWh & sumPrice)
+                'tbDebug.Text = sumKWh & sumPrice
+                sumKWh = Double.Parse(row("Kogus (kWh)"))
+                sumPrice = Double.Parse(row("Börsihind (EUR / MWh)"))
+                divider += 1
             Next
-            tbDebug.Text = sb.ToString()
         End If
 
 
