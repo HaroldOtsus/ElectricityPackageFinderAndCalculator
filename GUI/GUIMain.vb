@@ -1973,10 +1973,32 @@ Public Class GUIMain
         End If
     End Sub
     Private Sub tabExchangeComparison_Enter(sender As Object, e As EventArgs) Handles tabExchangeComparison.Enter
-        'Sets the maximum date one week after current date
-        dtpBorsihinnaVordlusStart.MaxDate = DateTime.Now.AddDays(7)
-        dtpBorsihinnaVordlusEnd.MaxDate = DateTime.Now.AddDays(7)
+        'Sets the maximum date one day after current date
+        dtpBorsihinnaVordlusStart.MaxDate = DateTime.Now.AddDays(1)
+        dtpBorsihinnaVordlusEnd.MaxDate = DateTime.Now.AddDays(1)
 
+    End Sub
+
+    Private Sub txtboxValjadeEraldaja_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtboxValjadeEraldaja.KeyPress
+        'Checks if the entered key was a backspace
+        If Asc(e.KeyChar) = Keys.Back Then
+            'Clears the textbox
+            txtboxValjadeEraldaja.Clear()
+        ElseIf txtboxValjadeEraldaja.Text.Length = 1 Then
+            'Lets only one character to be in the textbox
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub txtboxTekstiKvalifikaator_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtboxTekstiKvalifikaator.KeyPress
+        'Checks if the entered key was a backspace
+        If Asc(e.KeyChar) = Keys.Back Then
+            'Clears the textbox
+            txtboxTekstiKvalifikaator.Clear()
+        ElseIf txtboxTekstiKvalifikaator.Text.Length = 1 Then
+            'Lets only one character to be in the textbox
+            e.Handled = True
+        End If
     End Sub
 
 End Class

@@ -124,7 +124,12 @@ Partial Class GUIMain
         Me.lblApplianceChoice = New System.Windows.Forms.Label()
         Me.btnBack1 = New System.Windows.Forms.Button()
         Me.tabExchangeComparison = New System.Windows.Forms.TabPage()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.txtboxTekstiKvalifikaator = New System.Windows.Forms.TextBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.txtboxValjadeEraldaja = New System.Windows.Forms.TextBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.gbKaibemaks = New System.Windows.Forms.GroupBox()
         Me.rbKaibemaksuga = New System.Windows.Forms.RadioButton()
         Me.rbKaibemaksuta = New System.Windows.Forms.RadioButton()
         Me.gpOoPaevaHind = New System.Windows.Forms.GroupBox()
@@ -206,6 +211,14 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
+        Me.gbFailid = New System.Windows.Forms.GroupBox()
+        Me.rbFailiUlekirjutamine = New System.Windows.Forms.RadioButton()
+        Me.rbLisaFailiLoppu = New System.Windows.Forms.RadioButton()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.rbValiCSVFail = New System.Windows.Forms.RadioButton()
+        Me.rbUusCSVFail = New System.Windows.Forms.RadioButton()
+        Me.lblFailiNimi = New System.Windows.Forms.Label()
+        Me.lblFailiPath = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -217,7 +230,7 @@ Partial Class GUIMain
         Me.Panel2.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.tabExchangeComparison.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
+        Me.gbKaibemaks.SuspendLayout()
         Me.gpOoPaevaHind.SuspendLayout()
         CType(Me.chrtCSV, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabConsumptionHistory.SuspendLayout()
@@ -229,6 +242,8 @@ Partial Class GUIMain
         Me.tabPackageComparison.SuspendLayout()
         CType(Me.chartPackages, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabGreenEnergy.SuspendLayout()
+        Me.gbFailid.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblMenu
@@ -1198,7 +1213,16 @@ Partial Class GUIMain
         '
         'tabExchangeComparison
         '
+        Me.tabExchangeComparison.Controls.Add(Me.lblFailiPath)
+        Me.tabExchangeComparison.Controls.Add(Me.lblFailiNimi)
         Me.tabExchangeComparison.Controls.Add(Me.GroupBox1)
+        Me.tabExchangeComparison.Controls.Add(Me.gbFailid)
+        Me.tabExchangeComparison.Controls.Add(Me.Label17)
+        Me.tabExchangeComparison.Controls.Add(Me.txtboxTekstiKvalifikaator)
+        Me.tabExchangeComparison.Controls.Add(Me.Label16)
+        Me.tabExchangeComparison.Controls.Add(Me.txtboxValjadeEraldaja)
+        Me.tabExchangeComparison.Controls.Add(Me.Label15)
+        Me.tabExchangeComparison.Controls.Add(Me.gbKaibemaks)
         Me.tabExchangeComparison.Controls.Add(Me.gpOoPaevaHind)
         Me.tabExchangeComparison.Controls.Add(Me.dtpBorsihinnaVordlusEnd)
         Me.tabExchangeComparison.Controls.Add(Me.dtpBorsihinnaVordlusStart)
@@ -1220,15 +1244,58 @@ Partial Class GUIMain
         Me.tabExchangeComparison.Text = "Börsihinna võrdlus"
         Me.tabExchangeComparison.UseVisualStyleBackColor = True
         '
-        'GroupBox1
+        'Label17
         '
-        Me.GroupBox1.Controls.Add(Me.rbKaibemaksuga)
-        Me.GroupBox1.Controls.Add(Me.rbKaibemaksuta)
-        Me.GroupBox1.Location = New System.Drawing.Point(110, 165)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(307, 32)
-        Me.GroupBox1.TabIndex = 28
-        Me.GroupBox1.TabStop = False
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(464, 75)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(96, 13)
+        Me.Label17.TabIndex = 33
+        Me.Label17.Text = "Teksti kvalifikaator"
+        Me.Label17.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
+        'txtboxTekstiKvalifikaator
+        '
+        Me.txtboxTekstiKvalifikaator.Location = New System.Drawing.Point(439, 72)
+        Me.txtboxTekstiKvalifikaator.Name = "txtboxTekstiKvalifikaator"
+        Me.txtboxTekstiKvalifikaator.Size = New System.Drawing.Size(19, 20)
+        Me.txtboxTekstiKvalifikaator.TabIndex = 32
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(464, 49)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(82, 13)
+        Me.Label16.TabIndex = 31
+        Me.Label16.Text = "Väljade eraldaja"
+        Me.Label16.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
+        'txtboxValjadeEraldaja
+        '
+        Me.txtboxValjadeEraldaja.Location = New System.Drawing.Point(439, 46)
+        Me.txtboxValjadeEraldaja.Name = "txtboxValjadeEraldaja"
+        Me.txtboxValjadeEraldaja.Size = New System.Drawing.Size(19, 20)
+        Me.txtboxValjadeEraldaja.TabIndex = 30
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(109, 202)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(152, 13)
+        Me.Label15.TabIndex = 29
+        Me.Label15.Text = "Impordi hinnastamistingimused:"
+        '
+        'gbKaibemaks
+        '
+        Me.gbKaibemaks.Controls.Add(Me.rbKaibemaksuga)
+        Me.gbKaibemaks.Controls.Add(Me.rbKaibemaksuta)
+        Me.gbKaibemaks.Location = New System.Drawing.Point(110, 165)
+        Me.gbKaibemaks.Name = "gbKaibemaks"
+        Me.gbKaibemaks.Size = New System.Drawing.Size(307, 32)
+        Me.gbKaibemaks.TabIndex = 28
+        Me.gbKaibemaks.TabStop = False
         '
         'rbKaibemaksuga
         '
@@ -1307,16 +1374,16 @@ Partial Class GUIMain
         Me.chrtCSV.ChartAreas.Add(ChartArea3)
         Legend3.Name = "Legend1"
         Me.chrtCSV.Legends.Add(Legend3)
-        Me.chrtCSV.Location = New System.Drawing.Point(3, 284)
+        Me.chrtCSV.Location = New System.Drawing.Point(3, 293)
         Me.chrtCSV.Name = "chrtCSV"
         Me.chrtCSV.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None
-        Me.chrtCSV.Size = New System.Drawing.Size(940, 292)
+        Me.chrtCSV.Size = New System.Drawing.Size(940, 283)
         Me.chrtCSV.TabIndex = 20
         Me.chrtCSV.Text = "CSV"
         '
         'btnExport
         '
-        Me.btnExport.Location = New System.Drawing.Point(237, 240)
+        Me.btnExport.Location = New System.Drawing.Point(439, 218)
         Me.btnExport.Name = "btnExport"
         Me.btnExport.Size = New System.Drawing.Size(84, 34)
         Me.btnExport.TabIndex = 18
@@ -1325,7 +1392,7 @@ Partial Class GUIMain
         '
         'btnImport
         '
-        Me.btnImport.Location = New System.Drawing.Point(128, 240)
+        Me.btnImport.Location = New System.Drawing.Point(110, 218)
         Me.btnImport.Name = "btnImport"
         Me.btnImport.Size = New System.Drawing.Size(84, 34)
         Me.btnImport.TabIndex = 17
@@ -1335,7 +1402,7 @@ Partial Class GUIMain
         'lblExchangeComparisonResult
         '
         Me.lblExchangeComparisonResult.AutoSize = True
-        Me.lblExchangeComparisonResult.Location = New System.Drawing.Point(460, 22)
+        Me.lblExchangeComparisonResult.Location = New System.Drawing.Point(723, 22)
         Me.lblExchangeComparisonResult.Name = "lblExchangeComparisonResult"
         Me.lblExchangeComparisonResult.Size = New System.Drawing.Size(50, 13)
         Me.lblExchangeComparisonResult.TabIndex = 15
@@ -1344,11 +1411,11 @@ Partial Class GUIMain
         'lblExchangeChoice
         '
         Me.lblExchangeChoice.AutoSize = True
-        Me.lblExchangeChoice.Location = New System.Drawing.Point(107, 209)
+        Me.lblExchangeChoice.Location = New System.Drawing.Point(436, 22)
         Me.lblExchangeChoice.Name = "lblExchangeChoice"
-        Me.lblExchangeChoice.Size = New System.Drawing.Size(55, 13)
+        Me.lblExchangeChoice.Size = New System.Drawing.Size(155, 13)
         Me.lblExchangeChoice.TabIndex = 8
-        Me.lblExchangeChoice.Text = "Valikuline:"
+        Me.lblExchangeChoice.Text = "Lae alla hinnastamistingimused:"
         '
         'lblEnterPrice
         '
@@ -2062,6 +2129,88 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
         '
+        'gbFailid
+        '
+        Me.gbFailid.Controls.Add(Me.rbFailiUlekirjutamine)
+        Me.gbFailid.Controls.Add(Me.rbLisaFailiLoppu)
+        Me.gbFailid.Location = New System.Drawing.Point(439, 98)
+        Me.gbFailid.Name = "gbFailid"
+        Me.gbFailid.Size = New System.Drawing.Size(263, 32)
+        Me.gbFailid.TabIndex = 29
+        Me.gbFailid.TabStop = False
+        '
+        'rbFailiUlekirjutamine
+        '
+        Me.rbFailiUlekirjutamine.AutoSize = True
+        Me.rbFailiUlekirjutamine.Location = New System.Drawing.Point(11, 9)
+        Me.rbFailiUlekirjutamine.Name = "rbFailiUlekirjutamine"
+        Me.rbFailiUlekirjutamine.Size = New System.Drawing.Size(110, 17)
+        Me.rbFailiUlekirjutamine.TabIndex = 24
+        Me.rbFailiUlekirjutamine.TabStop = True
+        Me.rbFailiUlekirjutamine.Text = "Faili ülekirjutamine"
+        Me.rbFailiUlekirjutamine.UseVisualStyleBackColor = True
+        '
+        'rbLisaFailiLoppu
+        '
+        Me.rbLisaFailiLoppu.AutoSize = True
+        Me.rbLisaFailiLoppu.Location = New System.Drawing.Point(157, 9)
+        Me.rbLisaFailiLoppu.Name = "rbLisaFailiLoppu"
+        Me.rbLisaFailiLoppu.Size = New System.Drawing.Size(91, 17)
+        Me.rbLisaFailiLoppu.TabIndex = 26
+        Me.rbLisaFailiLoppu.TabStop = True
+        Me.rbLisaFailiLoppu.Text = "Lisa faili lõppu"
+        Me.rbLisaFailiLoppu.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.rbUusCSVFail)
+        Me.GroupBox1.Controls.Add(Me.rbValiCSVFail)
+        Me.GroupBox1.Location = New System.Drawing.Point(439, 130)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(263, 32)
+        Me.GroupBox1.TabIndex = 30
+        Me.GroupBox1.TabStop = False
+        '
+        'rbValiCSVFail
+        '
+        Me.rbValiCSVFail.AutoSize = True
+        Me.rbValiCSVFail.Location = New System.Drawing.Point(11, 9)
+        Me.rbValiCSVFail.Name = "rbValiCSVFail"
+        Me.rbValiCSVFail.Size = New System.Drawing.Size(98, 17)
+        Me.rbValiCSVFail.TabIndex = 24
+        Me.rbValiCSVFail.TabStop = True
+        Me.rbValiCSVFail.Text = "Vali ise CSV fail"
+        Me.rbValiCSVFail.UseVisualStyleBackColor = True
+        '
+        'rbUusCSVFail
+        '
+        Me.rbUusCSVFail.AutoSize = True
+        Me.rbUusCSVFail.Location = New System.Drawing.Point(157, 9)
+        Me.rbUusCSVFail.Name = "rbUusCSVFail"
+        Me.rbUusCSVFail.Size = New System.Drawing.Size(103, 17)
+        Me.rbUusCSVFail.TabIndex = 25
+        Me.rbUusCSVFail.TabStop = True
+        Me.rbUusCSVFail.Text = "Loo uus CSV fail"
+        Me.rbUusCSVFail.UseVisualStyleBackColor = True
+        '
+        'lblFailiNimi
+        '
+        Me.lblFailiNimi.AutoSize = True
+        Me.lblFailiNimi.Location = New System.Drawing.Point(529, 218)
+        Me.lblFailiNimi.Name = "lblFailiNimi"
+        Me.lblFailiNimi.Size = New System.Drawing.Size(58, 13)
+        Me.lblFailiNimi.TabIndex = 34
+        Me.lblFailiNimi.Text = "<Faili nimi>"
+        '
+        'lblFailiPath
+        '
+        Me.lblFailiPath.AutoSize = True
+        Me.lblFailiPath.Location = New System.Drawing.Point(529, 239)
+        Me.lblFailiPath.Name = "lblFailiPath"
+        Me.lblFailiPath.Size = New System.Drawing.Size(78, 13)
+        Me.lblFailiPath.TabIndex = 35
+        Me.lblFailiPath.Text = "<Faili asukoht>"
+        '
         'GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2093,8 +2242,8 @@ Partial Class GUIMain
         Me.Panel1.PerformLayout()
         Me.tabExchangeComparison.ResumeLayout(False)
         Me.tabExchangeComparison.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.gbKaibemaks.ResumeLayout(False)
+        Me.gbKaibemaks.PerformLayout()
         Me.gpOoPaevaHind.ResumeLayout(False)
         Me.gpOoPaevaHind.PerformLayout()
         CType(Me.chrtCSV, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2112,6 +2261,10 @@ Partial Class GUIMain
         CType(Me.chartPackages, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabGreenEnergy.ResumeLayout(False)
         Me.tabGreenEnergy.PerformLayout()
+        Me.gbFailid.ResumeLayout(False)
+        Me.gbFailid.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2288,5 +2441,18 @@ Partial Class GUIMain
     Friend WithEvents rbKaibemaksuga As RadioButton
     Friend WithEvents rbOoPaevSamaHind As RadioButton
     Friend WithEvents gpOoPaevaHind As GroupBox
+    Friend WithEvents gbKaibemaks As GroupBox
+    Friend WithEvents Label16 As Label
+    Friend WithEvents txtboxValjadeEraldaja As TextBox
+    Friend WithEvents Label15 As Label
+    Friend WithEvents Label17 As Label
+    Friend WithEvents txtboxTekstiKvalifikaator As TextBox
+    Friend WithEvents gbFailid As GroupBox
+    Friend WithEvents rbFailiUlekirjutamine As RadioButton
+    Friend WithEvents rbLisaFailiLoppu As RadioButton
     Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents rbValiCSVFail As RadioButton
+    Friend WithEvents rbUusCSVFail As RadioButton
+    Friend WithEvents lblFailiPath As Label
+    Friend WithEvents lblFailiNimi As Label
 End Class
