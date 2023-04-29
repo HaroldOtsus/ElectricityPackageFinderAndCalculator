@@ -310,7 +310,7 @@ Partial Class GUIMain
         Me.Main.Controls.Add(Me.btnExchangePriceComparison)
         Me.Main.Location = New System.Drawing.Point(4, 26)
         Me.Main.Name = "Main"
-        Me.Main.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.Main.Padding = New System.Windows.Forms.Padding(3)
         Me.Main.Size = New System.Drawing.Size(949, 619)
         Me.Main.TabIndex = 0
         Me.Main.Text = "Home"
@@ -366,7 +366,7 @@ Partial Class GUIMain
         Me.tabPackageHourlyRate.Controls.Add(Me.btnBack0)
         Me.tabPackageHourlyRate.Location = New System.Drawing.Point(4, 26)
         Me.tabPackageHourlyRate.Name = "tabPackageHourlyRate"
-        Me.tabPackageHourlyRate.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabPackageHourlyRate.Padding = New System.Windows.Forms.Padding(3)
         Me.tabPackageHourlyRate.Size = New System.Drawing.Size(949, 619)
         Me.tabPackageHourlyRate.TabIndex = 1
         Me.tabPackageHourlyRate.Text = "Paketijärgne tunnihind"
@@ -472,7 +472,7 @@ Partial Class GUIMain
         Legend2.Name = "Legend1"
         Me.chrtPackageHourlyRate.Legends.Add(Legend2)
         Me.chrtPackageHourlyRate.Location = New System.Drawing.Point(366, 93)
-        Me.chrtPackageHourlyRate.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.chrtPackageHourlyRate.Margin = New System.Windows.Forms.Padding(2)
         Me.chrtPackageHourlyRate.Name = "chrtPackageHourlyRate"
         Me.chrtPackageHourlyRate.Size = New System.Drawing.Size(472, 374)
         Me.chrtPackageHourlyRate.TabIndex = 14
@@ -620,7 +620,7 @@ Partial Class GUIMain
         Me.tabApplianceCalc.Controls.Add(Me.btnBack1)
         Me.tabApplianceCalc.Location = New System.Drawing.Point(4, 26)
         Me.tabApplianceCalc.Name = "tabApplianceCalc"
-        Me.tabApplianceCalc.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabApplianceCalc.Padding = New System.Windows.Forms.Padding(3)
         Me.tabApplianceCalc.Size = New System.Drawing.Size(949, 619)
         Me.tabApplianceCalc.TabIndex = 2
         Me.tabApplianceCalc.Text = "Kodumasina tarbimise hinna kalkulaator"
@@ -774,7 +774,7 @@ Partial Class GUIMain
         'btnTaasta
         '
         Me.btnTaasta.Location = New System.Drawing.Point(353, 11)
-        Me.btnTaasta.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnTaasta.Margin = New System.Windows.Forms.Padding(2)
         Me.btnTaasta.Name = "btnTaasta"
         Me.btnTaasta.Size = New System.Drawing.Size(67, 32)
         Me.btnTaasta.TabIndex = 44
@@ -784,7 +784,7 @@ Partial Class GUIMain
         'btnSisesta
         '
         Me.btnSisesta.Location = New System.Drawing.Point(273, 11)
-        Me.btnSisesta.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnSisesta.Margin = New System.Windows.Forms.Padding(2)
         Me.btnSisesta.Name = "btnSisesta"
         Me.btnSisesta.Size = New System.Drawing.Size(67, 32)
         Me.btnSisesta.TabIndex = 43
@@ -1212,7 +1212,7 @@ Partial Class GUIMain
         Me.tabExchangeComparison.Controls.Add(Me.btnBack2)
         Me.tabExchangeComparison.Location = New System.Drawing.Point(4, 26)
         Me.tabExchangeComparison.Name = "tabExchangeComparison"
-        Me.tabExchangeComparison.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabExchangeComparison.Padding = New System.Windows.Forms.Padding(3)
         Me.tabExchangeComparison.Size = New System.Drawing.Size(949, 619)
         Me.tabExchangeComparison.TabIndex = 3
         Me.tabExchangeComparison.Text = "Börsihinna võrdlus"
@@ -1364,7 +1364,7 @@ Partial Class GUIMain
         Me.tabConsumptionHistory.Controls.Add(Me.btnBack3)
         Me.tabConsumptionHistory.Location = New System.Drawing.Point(4, 26)
         Me.tabConsumptionHistory.Name = "tabConsumptionHistory"
-        Me.tabConsumptionHistory.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabConsumptionHistory.Padding = New System.Windows.Forms.Padding(3)
         Me.tabConsumptionHistory.Size = New System.Drawing.Size(949, 619)
         Me.tabConsumptionHistory.TabIndex = 4
         Me.tabConsumptionHistory.Text = "Tarbimise ajalugu"
@@ -1402,7 +1402,7 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblClientConsumptionHistoryResult)
         Me.tabClientConsumptionHistory.Location = New System.Drawing.Point(4, 29)
         Me.tabClientConsumptionHistory.Name = "tabClientConsumptionHistory"
-        Me.tabClientConsumptionHistory.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabClientConsumptionHistory.Padding = New System.Windows.Forms.Padding(3)
         Me.tabClientConsumptionHistory.Size = New System.Drawing.Size(889, 538)
         Me.tabClientConsumptionHistory.TabIndex = 1
         Me.tabClientConsumptionHistory.Text = "Simuleeri oma tarbimise ajalugu"
@@ -1415,7 +1415,7 @@ Partial Class GUIMain
         Legend4.Name = "Legend1"
         Me.chrtHistory.Legends.Add(Legend4)
         Me.chrtHistory.Location = New System.Drawing.Point(361, 98)
-        Me.chrtHistory.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.chrtHistory.Margin = New System.Windows.Forms.Padding(2)
         Me.chrtHistory.Name = "chrtHistory"
         Series1.ChartArea = "ChartArea1"
         Series1.Legend = "Legend1"
@@ -1604,7 +1604,7 @@ Partial Class GUIMain
         Me.tabSimulateExchangeHistory.Controls.Add(Me.Label10)
         Me.tabSimulateExchangeHistory.Location = New System.Drawing.Point(4, 29)
         Me.tabSimulateExchangeHistory.Name = "tabSimulateExchangeHistory"
-        Me.tabSimulateExchangeHistory.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabSimulateExchangeHistory.Padding = New System.Windows.Forms.Padding(3)
         Me.tabSimulateExchangeHistory.Size = New System.Drawing.Size(889, 538)
         Me.tabSimulateExchangeHistory.TabIndex = 2
         Me.tabSimulateExchangeHistory.Text = "Elektripakettide börsihindade ajalugu"
@@ -1715,7 +1715,7 @@ Partial Class GUIMain
         Me.tabPackageComparison.Controls.Add(Me.btnBack4)
         Me.tabPackageComparison.Location = New System.Drawing.Point(4, 26)
         Me.tabPackageComparison.Name = "tabPackageComparison"
-        Me.tabPackageComparison.Padding = New System.Windows.Forms.Padding(3, 3, 3, 3)
+        Me.tabPackageComparison.Padding = New System.Windows.Forms.Padding(3)
         Me.tabPackageComparison.Size = New System.Drawing.Size(949, 619)
         Me.tabPackageComparison.TabIndex = 5
         Me.tabPackageComparison.Text = "Elektripakettide võrdlus"
@@ -1815,7 +1815,7 @@ Partial Class GUIMain
         Legend5.Name = "Legend1"
         Me.chartPackages.Legends.Add(Legend5)
         Me.chartPackages.Location = New System.Drawing.Point(344, 104)
-        Me.chartPackages.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.chartPackages.Margin = New System.Windows.Forms.Padding(2)
         Me.chartPackages.Name = "chartPackages"
         Me.chartPackages.Size = New System.Drawing.Size(600, 400)
         Me.chartPackages.TabIndex = 9
@@ -1894,7 +1894,7 @@ Partial Class GUIMain
         Me.tabGreenEnergy.Controls.Add(Me.btnWeather)
         Me.tabGreenEnergy.Controls.Add(Me.tbWeather)
         Me.tabGreenEnergy.Location = New System.Drawing.Point(4, 26)
-        Me.tabGreenEnergy.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.tabGreenEnergy.Margin = New System.Windows.Forms.Padding(2)
         Me.tabGreenEnergy.Name = "tabGreenEnergy"
         Me.tabGreenEnergy.Size = New System.Drawing.Size(949, 619)
         Me.tabGreenEnergy.TabIndex = 6
@@ -1936,7 +1936,7 @@ Partial Class GUIMain
         Me.tbOpinion.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.tbOpinion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbOpinion.Location = New System.Drawing.Point(422, 115)
-        Me.tbOpinion.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.tbOpinion.Margin = New System.Windows.Forms.Padding(2)
         Me.tbOpinion.Multiline = True
         Me.tbOpinion.Name = "tbOpinion"
         Me.tbOpinion.ReadOnly = True
@@ -1947,7 +1947,7 @@ Partial Class GUIMain
         '
         Me.btnProduction.BackColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.btnProduction.Location = New System.Drawing.Point(268, 280)
-        Me.btnProduction.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnProduction.Margin = New System.Windows.Forms.Padding(2)
         Me.btnProduction.Name = "btnProduction"
         Me.btnProduction.Size = New System.Drawing.Size(85, 58)
         Me.btnProduction.TabIndex = 3
@@ -1959,7 +1959,7 @@ Partial Class GUIMain
         Me.tbProduction.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.tbProduction.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbProduction.Location = New System.Drawing.Point(32, 228)
-        Me.tbProduction.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.tbProduction.Margin = New System.Windows.Forms.Padding(2)
         Me.tbProduction.Multiline = True
         Me.tbProduction.Name = "tbProduction"
         Me.tbProduction.ReadOnly = True
@@ -1970,7 +1970,7 @@ Partial Class GUIMain
         '
         Me.btnWeather.BackColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.btnWeather.Location = New System.Drawing.Point(275, 84)
-        Me.btnWeather.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnWeather.Margin = New System.Windows.Forms.Padding(2)
         Me.btnWeather.Name = "btnWeather"
         Me.btnWeather.Size = New System.Drawing.Size(85, 58)
         Me.btnWeather.TabIndex = 1
@@ -1982,7 +1982,7 @@ Partial Class GUIMain
         Me.tbWeather.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.tbWeather.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tbWeather.Location = New System.Drawing.Point(32, 32)
-        Me.tbWeather.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.tbWeather.Margin = New System.Windows.Forms.Padding(2)
         Me.tbWeather.Multiline = True
         Me.tbWeather.Name = "tbWeather"
         Me.tbWeather.ReadOnly = True

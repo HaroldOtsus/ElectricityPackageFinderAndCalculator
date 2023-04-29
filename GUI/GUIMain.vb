@@ -1795,4 +1795,8 @@ Public Class GUIMain
             tbNightOrMarginal.Visible = False
         End If
     End Sub
+
+    Private Sub tBoxCondition1_TextChanged(sender As Object, e As EventArgs) Handles tBoxCondition1.TextChanged
+
+    End Sub
 End Class
