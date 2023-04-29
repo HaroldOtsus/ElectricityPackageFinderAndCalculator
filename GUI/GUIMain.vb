@@ -979,10 +979,11 @@ Public Class GUIMain
             tBoxUsageTime.Width += 10
             tBoxElectricityConsumptionRate.Width += 10
             tBoxApproxPrice.Width += 10
-            tboxStartTime.Width += 10
-            tBoxEndTime.Width += 10
-            tBoxCondition1.Width += 10
-            tBoxCondition2.Width += 10
+            'Nende asemele lisada uued Börsihinnavõrdluse Tabis
+            'tboxStartTime.Width += 10
+            'tBoxEndTime.Width += 10
+            'tBoxCondition1.Width += 10
+            'tBoxCondition2.Width += 10
             tBoxMonthlyCost2.Width += 10
             cBoxPackage1.Width += 10
             cBoxPackage2.Width += 10
@@ -1036,10 +1037,11 @@ Public Class GUIMain
             tBoxUsageTime.Width -= 10
             tBoxElectricityConsumptionRate.Width -= 10
             tBoxApproxPrice.Width -= 10
-            tboxStartTime.Width -= 10
-            tBoxEndTime.Width -= 10
-            tBoxCondition1.Width -= 10
-            tBoxCondition2.Width -= 10
+            'Nende asemele lisada uued Börsihinnavõrdluse Tabis
+            'tboxStartTime.Width -= 10
+            'tBoxEndTime.Width -= 10
+            'tBoxCondition1.Width -= 10
+            'tBoxCondition2.Width -= 10
             tBoxMonthlyCost2.Width -= 10
             cBoxPackage1.Width -= 10
             cBoxPackage2.Width -= 10
@@ -1099,10 +1101,11 @@ Public Class GUIMain
             tBoxUsageTime.Width -= 10 * coef
             tBoxElectricityConsumptionRate.Width -= 10 * coef
             tBoxApproxPrice.Width -= 10 * coef
-            tboxStartTime.Width -= 10 * coef
-            tBoxEndTime.Width -= 10 * coef
-            tBoxCondition1.Width -= 10 * coef
-            tBoxCondition2.Width -= 10 * coef
+            'Nende asemele lisada uued Börsihinnavõrdluse Tabis
+            'tboxStartTime.Width -= 10 * coef
+            'tBoxEndTime.Width -= 10 * coef
+            'tBoxCondition1.Width -= 10 * coef
+            'tBoxCondition2.Width -= 10 * coef
             tBoxMonthlyCost2.Width -= 10 * coef
             cBoxPackage1.Width -= 10 * coef
             cBoxPackage2.Width -= 10 * coef
@@ -1969,4 +1972,11 @@ Public Class GUIMain
             tbNightOrMarginal.Visible = False
         End If
     End Sub
+    Private Sub tabExchangeComparison_Enter(sender As Object, e As EventArgs) Handles tabExchangeComparison.Enter
+        'Sets the maximum date one week after current date
+        dtpBorsihinnaVordlusStart.MaxDate = DateTime.Now.AddDays(7)
+        dtpBorsihinnaVordlusEnd.MaxDate = DateTime.Now.AddDays(7)
+
+    End Sub
+
 End Class
