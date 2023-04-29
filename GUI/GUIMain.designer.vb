@@ -2078,10 +2078,10 @@ Partial Class GUIMain
         'btnProduction
         '
         Me.btnProduction.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btnProduction.Location = New System.Drawing.Point(357, 345)
+        Me.btnProduction.Location = New System.Drawing.Point(367, 341)
         Me.btnProduction.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnProduction.Name = "btnProduction"
-        Me.btnProduction.Size = New System.Drawing.Size(113, 71)
+        Me.btnProduction.Size = New System.Drawing.Size(137, 76)
         Me.btnProduction.TabIndex = 3
         Me.btnProduction.Text = "Tootmine"
         Me.btnProduction.UseVisualStyleBackColor = False
@@ -2104,7 +2104,7 @@ Partial Class GUIMain
         Me.btnWeather.Location = New System.Drawing.Point(367, 103)
         Me.btnWeather.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.btnWeather.Name = "btnWeather"
-        Me.btnWeather.Size = New System.Drawing.Size(113, 71)
+        Me.btnWeather.Size = New System.Drawing.Size(137, 71)
         Me.btnWeather.TabIndex = 1
         Me.btnWeather.Text = "Ilm Tallinnas Praegu"
         Me.btnWeather.UseVisualStyleBackColor = False

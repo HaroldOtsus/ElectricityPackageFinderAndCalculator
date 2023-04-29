@@ -6,6 +6,19 @@ Imports Microsoft.VisualBasic.FileIO.TextFieldParser
 Imports System.Globalization
 
 Public Class GUIMain
+    Protected Overrides Sub OnPaint(ByVal e As PaintEventArgs)
+        MyBase.OnPaint(e)
+
+        ' Create a new Clouds object and draw it on the panel's surface
+        Dim cloudBrush As New System.Drawing.Drawing2D.HatchBrush(System.Drawing.Drawing2D.HatchStyle.LargeConfetti, Color.White, Color.Gray)
+        Dim cloudRect As New Rectangle(0, 0, Me.Width, Me.Height)
+        Dim clouds As New System.Drawing.Drawing2D.GraphicsPath
+        clouds.AddArc(cloudRect, 0, 180)
+        clouds.AddArc(cloudRect.Width - cloudRect.Height, 0, cloudRect.Height, cloudRect.Height, 270, 180)
+        clouds.CloseFigure()
+        e.Graphics.FillPath(cloudBrush, clouds)
+    End Sub
+
     Public Structure PriceDateStruct
 
         Dim price As Double
@@ -138,6 +151,8 @@ Public Class GUIMain
         End If
 
     End Sub
+
+
     Private Sub rdioCoffeeMaker_CheckedChanged(sender As Object, e As EventArgs) Handles rdioCoffeeMaker.CheckedChanged
         applianceID = "1"
     End Sub
@@ -1864,15 +1879,61 @@ Public Class GUIMain
             ' price is fixed and night price is checked
         ElseIf rbStock.Checked And Not cbMarginal.Checked Then
             ' stock price is chosen and marginal is not checked
-            If Not String.IsNullOrEmpty(tbPrice.Text) And checkIfTextBoxContainsLetters(tbProduction) = True Then 'textbox is not empty and does not contain letters
 
-            End If
+            chrtHistory.Series.Clear()
+            chrtHistory.Series.Add(New Series())
+            chrtHistory.Series(0).ChartType = SeriesChartType.Line
+            Dim i As Integer = 1
+            For Each row As DataRow In tableOfCSV.Rows
+                If row("Kogus (kWh)").GetType() Is GetType(String) AndAlso row("Kogus (kWh)").ToString().Contains(",") Then
+                    row("Kogus (kWh)") = row("Kogus (kWh)").ToString().Replace(",", ".")
+                End If
+                If row("Börsihind (EUR / MWh)").GetType() Is GetType(String) AndAlso row("Börsihind (EUR / MWh)").ToString().Contains(",") Then
+                    row("Börsihind (EUR / MWh)") = row("Börsihind (EUR / MWh)").ToString().Replace(",", ".")
+                End If
+                Dim inputString As String = row("Kogus (kWh)").ToString().Trim()
+                Dim priceOfStock As String = row("Börsihind (EUR / MWh)").ToString().Trim()
+                Dim pricePerMWh As Double
+                Dim kWh As Double
+                If Double.TryParse(inputString, NumberStyles.Float, CultureInfo.InvariantCulture, kWh) And Double.TryParse(priceOfStock, NumberStyles.Float, CultureInfo.InvariantCulture, pricePerMWh) Then
+                    '  Dim price As Double = kWh * (priceCentsPerKWh / 100)
+                    Dim cost As Double = ((pricePerMWh / 1000) * kWh) * 100
+                    chrtHistory.Series(0).Points.AddXY(row("Algus"), cost)
+                End If
+            Next
+            'End If
         ElseIf rbStock.Checked And cbMarginal.Checked Then
-            If Not String.IsNullOrEmpty(tbPrice.Text) And checkIfTextBoxContainsLetters(tbProduction) = True And Not String.IsNullOrEmpty(tbNightOrMarginal.Text) And checkIfTextBoxContainsLetters(tbNightOrMarginal) = True Then
+            If Not String.IsNullOrEmpty(tbNightOrMarginal.Text) And checkIfTextBoxContainsLetters(tbNightOrMarginal) = True Then
+                chrtHistory.Series.Clear()
+                chrtHistory.Series.Add(New Series())
+                chrtHistory.Series(0).ChartType = SeriesChartType.Line
+                Dim marginal As Double
 
+                If Double.TryParse(tbNightOrMarginal.Text, marginal) Then
+                    Dim i As Integer = 1
+                    For Each row As DataRow In tableOfCSV.Rows
+                        If row("Kogus (kWh)").GetType() Is GetType(String) AndAlso row("Kogus (kWh)").ToString().Contains(",") Then
+                            row("Kogus (kWh)") = row("Kogus (kWh)").ToString().Replace(",", ".")
+                        End If
+                        If row("Börsihind (EUR / MWh)").GetType() Is GetType(String) AndAlso row("Börsihind (EUR / MWh)").ToString().Contains(",") Then
+                            row("Börsihind (EUR / MWh)") = row("Börsihind (EUR / MWh)").ToString().Replace(",", ".")
+                        End If
+                        Dim inputString As String = row("Kogus (kWh)").ToString().Trim()
+                        Dim priceOfStock As String = row("Börsihind (EUR / MWh)").ToString().Trim()
+                        Dim pricePerMWh As Double
+                        Dim kWh As Double
+                        If Double.TryParse(inputString, NumberStyles.Float, CultureInfo.InvariantCulture, kWh) And Double.TryParse(priceOfStock, NumberStyles.Float, CultureInfo.InvariantCulture, pricePerMWh) Then
+                            '  Dim price As Double = kWh * (priceCentsPerKWh / 100)
+                            Dim cost As Double = (pricePerMWh / 100) + marginal
+                            Dim finalcost As Double = cost * kWh
+                            chrtHistory.Series(0).Points.AddXY(row("Algus"), finalcost)
+                        End If
+                    Next
+                End If
             End If
             ' stock price is chosen and marginal is checked
         End If
+
 
     End Sub
 
