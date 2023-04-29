@@ -4,6 +4,7 @@ Imports System.IO
 Imports System.Windows.Forms.DataVisualization.Charting
 Imports Microsoft.VisualBasic.FileIO.TextFieldParser
 Imports System.Globalization
+Imports System.Text
 
 Public Class GUIMain
     Public Structure PriceDateStruct
@@ -1536,10 +1537,18 @@ Public Class GUIMain
             'MsgBox(selectedFileName)
             'tableOfCSV = returntable.ReadCSV(selectedFileName)
             Dim dt As DataTable = PrjCSVReader.CCSVReader.ReadCSV(selectedFileName)
-
+            Dim sb As New StringBuilder()
+            For Each row As DataRow In dt.Rows
+                For Each col As DataColumn In dt.Columns
+                    sb.AppendFormat("{0}\t", row(col))
+                Next
+                sb.AppendLine()
+            Next
+            tbDebug.Text = sb.ToString()
         End If
 
-        ' tbDebug.Text = 
+
+
 
 
 
