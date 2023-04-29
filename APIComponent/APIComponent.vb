@@ -4,20 +4,13 @@ Imports System.Net
 
 Public Class APIComponent
     Implements APIInterface
-    Public Function GetDataFromEleringAPI() As (String(), String()) Implements APIInterface.GetDataFromEleringAPI
+    Private Function GetDataFromEleringAPI() As (String(), String()) Implements APIInterface.GetDataFromEleringAPI
 
         'DateTime variables to get the 24 hour NordPool prices
         Dim endTime As DateTime = DateTime.UtcNow
         Dim startTime As DateTime = endTime.AddDays(-1)
         Dim strStartTime As String = startTime.ToString("yyyy-MM-dd HH:mm:ss")
         Dim strEndTime As String = endTime.ToString("yyyy-MM-dd HH:mm:ss")
-
-        Dim futureDate As DateTime = DateTime.ParseExact(strStartTime, "yyyy-MM-dd HH:mm:ss", Nothing)
-        Dim modifiedDate As DateTime = futureDate.AddHours(-4)
-        strStartTime = modifiedDate.ToString("yyyy-MM-dd HH:mm:ss")
-        Dim futureDate2 As DateTime = DateTime.ParseExact(strEndTime, "yyyy-MM-dd HH:mm:ss", Nothing)
-        Dim modifiedDate2 As DateTime = futureDate2.AddHours(-4)
-        strEndTime = modifiedDate2.ToString("yyyy-MM-dd HH:mm:ss")
 
 #Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance 
 
@@ -103,7 +96,7 @@ Public Class APIComponent
         Return (endResultPrice, endResultTimestamp)
     End Function
 
-    Public Function GetDataFromEleringAPIWithDates(ByVal strStartDate As String, ByVal strEndDate As String) As (String(), String()) _
+    Private Function GetDataFromEleringAPIWithDates(ByVal strStartDate As String, ByVal strEndDate As String) As (String(), String()) _
         Implements APIInterface.GetDataFromEleringAPIWithDates
 
         'DateTime variables to get the 24 hour NordPool prices
@@ -116,12 +109,7 @@ Public Class APIComponent
         strEndDate = endDate.ToString("yyyy-MM-dd HH:mm:ss")
 
 #Disable Warning BC42025 ' Access of shared member, constant member, enum member or nested type through an instance
-        Dim futureDate As DateTime = DateTime.ParseExact(strStartDate, "yyyy-MM-dd HH:mm:ss", Nothing)
-        Dim modifiedDate As DateTime = futureDate.AddHours(-4)
-        strStartDate = modifiedDate.ToString("yyyy-MM-dd HH:mm:ss")
-        Dim futureDate2 As DateTime = DateTime.ParseExact(strEndDate, "yyyy-MM-dd HH:mm:ss", Nothing)
-        Dim modifiedDate2 As DateTime = futureDate2.AddHours(-4)
-        strEndDate = modifiedDate2.ToString("yyyy-MM-dd HH:mm:ss")
+
         'HttpWebRequest object sends a request to url specified
         Dim webRequest As HttpWebRequest = CType(webRequest.Create("https://dashboard.elering.ee/api/nps/price?start=" + strStartDate _
         + "&end=" + strEndDate), HttpWebRequest)
