@@ -767,8 +767,19 @@ Public Class GUIMain
         openFileDialogImportCSV.Filter = "CSV Files (*.csv)|*.csv"
         openFileDialogImportCSV.Multiselect = False
 
+        'Reads data from CSV file
         If openFileDialogImportCSV.ShowDialog() = DialogResult.OK Then
             Dim filePath As String = openFileDialogImportCSV.FileName
+            Dim fileInfo As New FileInfo(filePath)
+
+            'Checks if the data is in the correct format in the file
+            Dim csvData As String = File.ReadAllText(filePath)
+
+            If Not (csvData.Contains(",")) Or fileInfo.Length = 0 Then
+                'Show an error message
+                MessageBox.Show("Fail ei ole CSV formaadis.")
+                Return
+            End If
 
             Using parser As New TextFieldParser(filePath)
                 parser.TextFieldType = FieldType.Delimited
@@ -780,6 +791,7 @@ Public Class GUIMain
             End Using
         End If
 
+        'Checks the values received from the CSV file to set the values for Radio Buttons
         For i As Integer = 0 To fields.Length - 1
             If fields(0) = "sama" Then
                 rbOoPaevSamaHind.Checked = True
@@ -792,7 +804,6 @@ Public Class GUIMain
                 rbKaibemaksuta.Checked = True
             End If
         Next
-
     End Sub
 
     Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
