@@ -1477,7 +1477,7 @@ Public Class GUIMain
     'SCHIZO RAMBLINGS
     Private Sub btnImportCSVFileSimu_Click(sender As Object, e As EventArgs) Handles btnImportCSVFileSimu.Click
         'tblCSVfile.Controls.Clear()
-        chrtCSV.Series.Clear()
+        chrtBorsihinnaVordlus.Series.Clear()
         'opens a window for user to select their CSV file
         Dim openFileDialog As New OpenFileDialog()
         'Filter to only show CSV files and all files
@@ -1958,6 +1958,72 @@ Public Class GUIMain
             writer.WriteLine("sama/erinev,maksuga/maksuta")
 
         End Using
+
+    End Sub
+
+    Private Sub btnKinnitaAndmed_Click(sender As Object, e As EventArgs) Handles btnKinnitaAndmed.Click
+        Dim packet1 As String = cbBorsiPakettid.Text
+        Dim returnString As PrjAPIComponent.APIInterface
+        returnString = New PrjAPIComponent.APIComponent
+        ' Dim packageone = returnString.onePackageInfo(packet1)
+
+        chrtBorsihinnaVordlus.Series.Clear() 'clear chart
+
+        chrtBorsihinnaVordlus.Width = 600 ' set chart the width to 600 pixels
+        chrtBorsihinnaVordlus.Height = 400 'set chart height to 400 lines
+        chrtBorsihinnaVordlus.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
+        chrtBorsihinnaVordlus.ChartAreas(0).AxisY.Interval = 5 'more lines Y axis
+        chrtBorsihinnaVordlus.ChartAreas(0).AxisX.ScaleView.Zoomable = True
+        chrtBorsihinnaVordlus.ChartAreas(0).AxisY.ScaleView.Zoomable = True
+
+        'Set zooming mode to allow zooming in both directions
+        chrtBorsihinnaVordlus.ChartAreas(0).CursorX.IsUserEnabled = True
+        chrtBorsihinnaVordlus.ChartAreas(0).CursorX.IsUserSelectionEnabled = True
+        chrtBorsihinnaVordlus.ChartAreas(0).CursorY.IsUserEnabled = True
+        chrtBorsihinnaVordlus.ChartAreas(0).CursorY.IsUserSelectionEnabled = True
+        chrtBorsihinnaVordlus.ChartAreas(0).AxisX.ScaleView.Zoomable = True
+        chrtBorsihinnaVordlus.ChartAreas(0).AxisY.ScaleView.Zoomable = True
+        chrtBorsihinnaVordlus.ChartAreas(0).AxisX.ScrollBar.IsPositionedInside = True
+        chrtBorsihinnaVordlus.ChartAreas(0).AxisY.ScrollBar.IsPositionedInside = True
+
+        Dim series As New Series("Börss") ' create a new series with the package name
+        chrtBorsihinnaVordlus.Series.Add(series)
+        series.ChartType = DataVisualization.Charting.SeriesChartType.StepLine
+        series.BorderWidth = 3
+
+        Dim startDate As DateTime = dtpBorsihinnaVordlusStart.Value
+        Dim endDate As DateTime = dtpBorsihinnaVordlusEnd.Value
+        Dim strStartDate As String = startDate.ToString("yyyy-MM-dd HH:mm:ss")
+        Dim strEndDate As String = endDate.ToString("yyyy-MM-dd HH:mm:ss")
+        Dim data = returnString.GetDataFromEleringAPIWithDates(strStartDate, strEndDate) 'get stock prices and dates from database
+
+        Dim strPrices As String() = data.Item1
+        Dim strTimes As String() = data.Item2
+        Dim dateTimes(strPrices.Length) As DateTime
+
+        'CHART
+        Dim seriesName As String = "Börsihind"
+        chrtBorsihinnaVordlus.Series.Add(seriesName)
+        'chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
+        chrtBorsihinnaVordlus.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
+        chrtBorsihinnaVordlus.ChartAreas(0).AxisY.Interval = 1 'more lines Y axis
+        chrtBorsihinnaVordlus.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.StepLine
+        chrtBorsihinnaVordlus.Series(0).Color = Color.Red
+        chrtBorsihinnaVordlus.Series(0).BorderWidth = 3
+
+        Dim dblPrices(strPrices.Length) As Double
+
+        For i As Integer = 1 To strPrices.Length - 1
+            strPrices(i) = strPrices(i).Replace(".", ",")
+            dblPrices(i) = Double.Parse(strPrices(i))
+        Next
+
+        'fills chart
+        For i As Integer = 1 To strPrices.Length - 1
+            'ADDS DATE AND PRICE TO CHART, PRICE IS CONVERTED FROM €/MWh to cent/kWh
+            chrtBorsihinnaVordlus.Series(seriesName).Points.AddXY(strTimes(i), (dblPrices(i) / 1000) * 100)
+
+        Next
 
     End Sub
 End Class
