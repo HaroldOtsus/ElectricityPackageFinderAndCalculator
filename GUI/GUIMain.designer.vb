@@ -30,7 +30,6 @@ Partial Class GUIMain
         Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim ChartArea4 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend4 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Dim ChartArea5 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
         Dim Legend5 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(GUIMain))
@@ -1414,14 +1413,10 @@ Partial Class GUIMain
         Me.chrtHistory.ChartAreas.Add(ChartArea4)
         Legend4.Name = "Legend1"
         Me.chrtHistory.Legends.Add(Legend4)
-        Me.chrtHistory.Location = New System.Drawing.Point(361, 98)
+        Me.chrtHistory.Location = New System.Drawing.Point(341, 94)
         Me.chrtHistory.Margin = New System.Windows.Forms.Padding(2)
         Me.chrtHistory.Name = "chrtHistory"
-        Series1.ChartArea = "ChartArea1"
-        Series1.Legend = "Legend1"
-        Series1.Name = "Series1"
-        Me.chrtHistory.Series.Add(Series1)
-        Me.chrtHistory.Size = New System.Drawing.Size(336, 244)
+        Me.chrtHistory.Size = New System.Drawing.Size(515, 400)
         Me.chrtHistory.TabIndex = 24
         Me.chrtHistory.Text = "Chart1"
         '
@@ -1505,12 +1500,12 @@ Partial Class GUIMain
         '
         'tbDebug
         '
-        Me.tbDebug.Location = New System.Drawing.Point(332, 347)
+        Me.tbDebug.Location = New System.Drawing.Point(332, 499)
         Me.tbDebug.Multiline = True
         Me.tbDebug.Name = "tbDebug"
         Me.tbDebug.ReadOnly = True
         Me.tbDebug.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.tbDebug.Size = New System.Drawing.Size(518, 173)
+        Me.tbDebug.Size = New System.Drawing.Size(524, 21)
         Me.tbDebug.TabIndex = 15
         '
         'lblToDateTime
