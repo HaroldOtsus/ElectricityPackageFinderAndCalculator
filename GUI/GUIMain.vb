@@ -4,6 +4,7 @@ Imports System.IO
 Imports System.Windows.Forms.DataVisualization.Charting
 Imports Microsoft.VisualBasic.FileIO.TextFieldParser
 Imports System.Globalization
+Imports Microsoft.VisualBasic.FileIO
 
 Public Class GUIMain
     Protected Overrides Sub OnPaint(ByVal e As PaintEventArgs)
@@ -760,111 +761,37 @@ Public Class GUIMain
     End Sub
 
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
+        Dim openFileDialogImportCSV As New OpenFileDialog()
+        Dim fields As String()
 
-        'tblCSVfile.Controls.Clear()
-        chrtCSV.Series.Clear()
-        Dim records As List(Of DateWattageStruct)
-        records = New List(Of DateWattageStruct)
-        Dim p As DateWattageStruct
+        openFileDialogImportCSV.Filter = "CSV Files (*.csv)|*.csv"
+        openFileDialogImportCSV.Multiselect = False
 
+        If openFileDialogImportCSV.ShowDialog() = DialogResult.OK Then
+            Dim filePath As String = openFileDialogImportCSV.FileName
 
+            Using parser As New TextFieldParser(filePath)
+                parser.TextFieldType = FieldType.Delimited
+                parser.SetDelimiters(",")
 
-        Dim openFileDialog As New OpenFileDialog()
-        'Filter to only show CSV files and all files
-        openFileDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*"
-
-
-        'If the user selects a file and presses OK
-        If openFileDialog.ShowDialog() = DialogResult.OK Then
-
-            Dim selectedFileName As String = openFileDialog.FileName
-
-            'TABLE
-            Dim table As New DataTable()
-
-            Using parser As New Microsoft.VisualBasic.FileIO.TextFieldParser(selectedFileName)
-                parser.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited
-                parser.SetDelimiters(";")
-
-                Dim headerLinesToSkip As Integer = 9
-                For i As Integer = 1 To headerLinesToSkip
-                    parser.ReadLine()
-                Next
-
-
-                'Filling ze table
-                ' Read the header row and add the columns to the table
-                Dim column As Integer = 0
-                Dim headerRow As String() = parser.ReadFields()
-                For Each header As String In headerRow
-                    table.Columns.Add(header)
-                    column += 1
-                Next
-                If column > 2 Then
-
-
-
-                    ' Read the data rows and add them to the table
-                    While Not parser.EndOfData
-                        Dim fields As String() = parser.ReadFields()
-                        table.Rows.Add(fields)
-                        'p.dateAndTime = fields(0)
-                        'p.wattage = fields(2)
-
-                    End While
-                    'chrtCSV.Titles.Add("My Chart")
-
-                    'Add a new series to the chart
-                    Dim series As New Series()
-                    series.Name = "Aeg/Võimsus"
-                    series.ChartType = SeriesChartType.Line
-                    chrtCSV.Series.Add(series)
-
-                    'Loop through the rows of the DataTable and add data points to the chart series
-                    'For Each row As DataRow In table.Rows
-                    '    Dim xValue As String = row("Algus").ToString()
-                    '    Dim yValue As String = row("Kogus (kWh)").ToString()
-                    '    series.Points.AddXY(xValue, yValue)
-                    'Next
-                    Dim rowCount As Integer = table.Rows.Count
-                    Dim rowCountInForEach As Integer = 0
-
-                    If table.Columns(0).ColumnName = "Algus" And table.Columns(2).ColumnName = "Kogus (kWh)" Then
-
-                        'For i As Integer = 0 To 9
-                        For Each row As DataRow In table.Rows
-                            rowCountInForEach += 1
-                            If rowCountInForEach = 24 * 3 Then
-                                Exit For
-                            End If
-                            'Dim row As DataRow = table.Rows(i)
-
-                            Dim xValue As String = row("Algus").ToString()
-                            Dim yValue As String = row("Kogus (kWh)").ToString()
-                            series.Points.AddXY(xValue, yValue)
-                            Dim xAxis As Axis = chrtCSV.ChartAreas(0).AxisX
-
-                            'Set the width of the axis labels
-
-                            chrtCSV.ChartAreas(0).AxisX.Interval = 1
-
-
-                            'xAxis.LabelStyle.Font = New Font(xAxis.LabelStyle.Font.Name, 8.25)
-                            xAxis.LabelStyle.Angle = 90
-                        Next
-
-                    Else
-                        MessageBox.Show("VALE FORMAAT!")
-                    End If
-
-
-                Else
-                    MessageBox.Show("VALE FORMAAT!")
-                End If
+                While Not parser.EndOfData
+                    fields = parser.ReadFields()
+                End While
             End Using
         End If
 
-
+        For i As Integer = 0 To fields.Length - 1
+            If fields(0) = "sama" Then
+                rbOoPaevSamaHind.Checked = True
+            Else
+                rbOoPaevErinevHind.Checked = True
+            End If
+            If fields(1) = "maksuga" Then
+                rbKaibemaksuga.Checked = True
+            Else
+                rbKaibemaksuta.Checked = True
+            End If
+        Next
 
     End Sub
 
@@ -2001,4 +1928,25 @@ Public Class GUIMain
         End If
     End Sub
 
+    Private Sub llNaidisCSV_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llNaidisCSV.LinkClicked
+        Dim saveFileDialog As New SaveFileDialog()
+
+        saveFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*"
+        saveFileDialog.RestoreDirectory = True
+        saveFileDialog.FileName = "NäidisCSV"
+
+        If saveFileDialog.ShowDialog() <> DialogResult.OK Then
+            Return
+        End If
+
+        Using writer As New StreamWriter(saveFileDialog.FileName)
+            'Write headers
+            writer.WriteLine("ooPaevHind,kaibemaks")
+
+            'Write data
+            writer.WriteLine("sama/erinev,maksuga/maksuta")
+
+        End Using
+
+    End Sub
 End Class

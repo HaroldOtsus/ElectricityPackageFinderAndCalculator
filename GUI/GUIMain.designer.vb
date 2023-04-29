@@ -219,6 +219,7 @@ Partial Class GUIMain
         Me.rbUusCSVFail = New System.Windows.Forms.RadioButton()
         Me.lblFailiNimi = New System.Windows.Forms.Label()
         Me.lblFailiPath = New System.Windows.Forms.Label()
+        Me.llNaidisCSV = New System.Windows.Forms.LinkLabel()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1213,6 +1214,7 @@ Partial Class GUIMain
         '
         'tabExchangeComparison
         '
+        Me.tabExchangeComparison.Controls.Add(Me.llNaidisCSV)
         Me.tabExchangeComparison.Controls.Add(Me.lblFailiPath)
         Me.tabExchangeComparison.Controls.Add(Me.lblFailiNimi)
         Me.tabExchangeComparison.Controls.Add(Me.GroupBox1)
@@ -2211,6 +2213,16 @@ Partial Class GUIMain
         Me.lblFailiPath.TabIndex = 35
         Me.lblFailiPath.Text = "<Faili asukoht>"
         '
+        'llNaidisCSV
+        '
+        Me.llNaidisCSV.AutoSize = True
+        Me.llNaidisCSV.Location = New System.Drawing.Point(200, 239)
+        Me.llNaidisCSV.Name = "llNaidisCSV"
+        Me.llNaidisCSV.Size = New System.Drawing.Size(114, 13)
+        Me.llNaidisCSV.TabIndex = 36
+        Me.llNaidisCSV.TabStop = True
+        Me.llNaidisCSV.Text = "Lae alla näidis CSV fail"
+        '
         'GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2455,4 +2467,5 @@ Partial Class GUIMain
     Friend WithEvents rbUusCSVFail As RadioButton
     Friend WithEvents lblFailiPath As Label
     Friend WithEvents lblFailiNimi As Label
+    Friend WithEvents llNaidisCSV As LinkLabel
 End Class
