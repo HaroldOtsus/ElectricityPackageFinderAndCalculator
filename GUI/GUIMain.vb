@@ -1874,7 +1874,22 @@ Public Class GUIMain
             End If
         ElseIf rbFix.Checked And cbNighPrice.Checked Then
             If Not String.IsNullOrEmpty(tbPrice.Text) And checkIfTextBoxContainsLetters(tbProduction) = True And Not String.IsNullOrEmpty(tbNightOrMarginal.Text) And checkIfTextBoxContainsLetters(tbNightOrMarginal) = True Then 'textbox is not empty and does not contain letters
-
+                chrtHistory.Series.Clear()
+                chrtHistory.Series.Add(New Series())
+                chrtHistory.Series(0).ChartType = SeriesChartType.Line
+                Dim priceCentsPerKWh As Double = Double.Parse(tbPrice.Text)
+                ' copy the data into the chart
+                For Each row As DataRow In tableOfCSV.Rows
+                    If row("Kogus (kWh)").GetType() Is GetType(String) AndAlso row("Kogus (kWh)").ToString().Contains(",") Then
+                        row("Kogus (kWh)") = row("Kogus (kWh)").ToString().Replace(",", ".")
+                    End If
+                    Dim inputString As String = row("Kogus (kWh)").ToString().Trim()
+                    Dim kWh As Double
+                    If Double.TryParse(inputString, NumberStyles.Float, CultureInfo.InvariantCulture, kWh) Then
+                        Dim price As Double = kWh * (priceCentsPerKWh / 100)
+                        chrtHistory.Series(0).Points.AddXY(row("Algus"), price)
+                    End If
+                Next
             End If
             ' price is fixed and night price is checked
         ElseIf rbStock.Checked And Not cbMarginal.Checked Then
