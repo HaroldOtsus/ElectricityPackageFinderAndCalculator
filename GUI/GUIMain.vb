@@ -1825,34 +1825,38 @@ Public Class GUIMain
             End If
         ElseIf rbFix.Checked And cbNighPrice.Checked Then 'night price different
             If Not String.IsNullOrEmpty(tbPrice.Text) And checkIfTextBoxContainsLetters(tbProduction) = True And Not String.IsNullOrEmpty(tbNightOrMarginal.Text) And checkIfTextBoxContainsLetters(tbNightOrMarginal) = True Then 'textbox is not empty and does not contain letters
-                chrtHistory.Series.Clear()
-                chrtHistory.Series.Add(New Series())
-                chrtHistory.Series(0).ChartType = SeriesChartType.Line
-                Dim priceCentsPerKWh As Double = Double.Parse(tbPrice.Text)
-                Dim priceCentsPerKWhNight As Double = Double.Parse(tbNightOrMarginal.Text)
-                ' copy the data into the chart
-                For Each row As DataRow In tableOfCSV.Rows
-                    If row("Kogus (kWh)").GetType() Is GetType(String) AndAlso row("Kogus (kWh)").ToString().Contains(",") Then
-                        row("Kogus (kWh)") = row("Kogus (kWh)").ToString().Replace(",", ".")
-                    End If
-                    Dim inputString As String = row("Kogus (kWh)").ToString().Trim()
-                    Dim AlgusString As String = row("Algus").ToString().Trim()
-                    Dim format As String = "dd.MM.yyyy HH:mm"
-                    Dim dateValue As DateTime = DateTime.ParseExact(AlgusString, format, CultureInfo.InvariantCulture)
-                    Dim hour As Integer = dateValue.Hour
-                    Dim kWh As Double
-                    If hour > 11 And hour < 24 Then 'day price
-                        If Double.TryParse(inputString, NumberStyles.Float, CultureInfo.InvariantCulture, kWh) Then
-                            Dim price As Double = kWh * (priceCentsPerKWh / 10)
-                            chrtHistory.Series(0).Points.AddXY(row("Algus"), price)
+                If Not String.IsNullOrEmpty(tbDayPrice1.Text) And checkIfTextBoxContainsLetters(tbDayPrice1) = True And Not String.IsNullOrEmpty(tbDayPrice2.Text) And checkIfTextBoxContainsLetters(tbDayPrice2) = True Then
+                    chrtHistory.Series.Clear()
+                    chrtHistory.Series.Add(New Series())
+                    chrtHistory.Series(0).ChartType = SeriesChartType.Line
+                    Dim priceCentsPerKWh As Double = Double.Parse(tbPrice.Text)
+                    Dim priceCentsPerKWhNight As Double = Double.Parse(tbNightOrMarginal.Text)
+                    Dim intDayPrice = Integer.Parse(tbDayPrice1.Text)
+                    Dim intDayPrice2 = Integer.Parse(tbDayPrice2.Text)
+                    ' copy the data into the chart
+                    For Each row As DataRow In tableOfCSV.Rows
+                        If row("Kogus (kWh)").GetType() Is GetType(String) AndAlso row("Kogus (kWh)").ToString().Contains(",") Then
+                            row("Kogus (kWh)") = row("Kogus (kWh)").ToString().Replace(",", ".")
                         End If
-                    Else
-                        If Double.TryParse(inputString, NumberStyles.Float, CultureInfo.InvariantCulture, kWh) Then
-                            Dim price As Double = kWh * (priceCentsPerKWhNight / 10)
-                            chrtHistory.Series(0).Points.AddXY(row("Algus"), price) 'night price
+                        Dim inputString As String = row("Kogus (kWh)").ToString().Trim()
+                        Dim AlgusString As String = row("Algus").ToString().Trim()
+                        Dim format As String = "dd.MM.yyyy HH:mm"
+                        Dim dateValue As DateTime = DateTime.ParseExact(AlgusString, format, CultureInfo.InvariantCulture)
+                        Dim hour As Integer = dateValue.Hour
+                        Dim kWh As Double
+                        If hour > intDayPrice And hour < intDayPrice2 Then 'day price
+                            If Double.TryParse(inputString, NumberStyles.Float, CultureInfo.InvariantCulture, kWh) Then
+                                Dim price As Double = kWh * (priceCentsPerKWh / 10)
+                                chrtHistory.Series(0).Points.AddXY(row("Algus"), price)
+                            End If
+                        Else
+                            If Double.TryParse(inputString, NumberStyles.Float, CultureInfo.InvariantCulture, kWh) Then
+                                Dim price As Double = kWh * (priceCentsPerKWhNight / 10)
+                                chrtHistory.Series(0).Points.AddXY(row("Algus"), price) 'night price
+                            End If
                         End If
-                    End If
-                Next
+                    Next
+                End If
             End If
             ' price is fixed and night price is checked
         ElseIf rbStock.Checked And Not cbMarginal.Checked Then
@@ -1932,8 +1936,12 @@ Public Class GUIMain
     Private Sub cbNighPrice_CheckedChanged(sender As Object, e As EventArgs) Handles cbNighPrice.CheckedChanged
         If cbNighPrice.Checked Then
             tbNightOrMarginal.Visible = True
+            tbDayPrice1.Visible = True
+            tbDayPrice2.Visible = True
         Else
             tbNightOrMarginal.Visible = False
+            tbDayPrice1.Visible = False
+            tbDayPrice2.Visible = False
         End If
     End Sub
 
