@@ -168,8 +168,8 @@ Partial Class GUIMain
         Me.cbChoosePackage = New System.Windows.Forms.ComboBox()
         Me.lblMarg = New System.Windows.Forms.Label()
         Me.lblFixed = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label19 = New System.Windows.Forms.Label()
+        Me.lblNightPrice = New System.Windows.Forms.Label()
+        Me.lblDayPrice = New System.Windows.Forms.Label()
         Me.tbDayPrice2 = New System.Windows.Forms.TextBox()
         Me.tbDayPrice1 = New System.Windows.Forms.TextBox()
         Me.chrtHistory = New System.Windows.Forms.DataVisualization.Charting.Chart()
@@ -1640,8 +1640,8 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.Controls.Add(Me.cbChoosePackage)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblMarg)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblFixed)
-        Me.tabClientConsumptionHistory.Controls.Add(Me.Label2)
-        Me.tabClientConsumptionHistory.Controls.Add(Me.Label19)
+        Me.tabClientConsumptionHistory.Controls.Add(Me.lblNightPrice)
+        Me.tabClientConsumptionHistory.Controls.Add(Me.lblDayPrice)
         Me.tabClientConsumptionHistory.Controls.Add(Me.tbDayPrice2)
         Me.tabClientConsumptionHistory.Controls.Add(Me.tbDayPrice1)
         Me.tabClientConsumptionHistory.Controls.Add(Me.chrtHistory)
@@ -1723,23 +1723,23 @@ Partial Class GUIMain
         Me.lblFixed.TabIndex = 56
         Me.lblFixed.Text = "Fiktsioneeritud hind:"
         '
-        'Label2
+        'lblNightPrice
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(143, 161)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(27, 13)
-        Me.Label2.TabIndex = 55
-        Me.Label2.Text = "kuni"
+        Me.lblNightPrice.AutoSize = True
+        Me.lblNightPrice.Location = New System.Drawing.Point(143, 161)
+        Me.lblNightPrice.Name = "lblNightPrice"
+        Me.lblNightPrice.Size = New System.Drawing.Size(27, 13)
+        Me.lblNightPrice.TabIndex = 55
+        Me.lblNightPrice.Text = "kuni"
         '
-        'Label19
+        'lblDayPrice
         '
-        Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(28, 160)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(58, 13)
-        Me.Label19.TabIndex = 54
-        Me.Label19.Text = "Päevahind"
+        Me.lblDayPrice.AutoSize = True
+        Me.lblDayPrice.Location = New System.Drawing.Point(28, 160)
+        Me.lblDayPrice.Name = "lblDayPrice"
+        Me.lblDayPrice.Size = New System.Drawing.Size(58, 13)
+        Me.lblDayPrice.TabIndex = 54
+        Me.lblDayPrice.Text = "Päevahind"
         '
         'tbDayPrice2
         '
@@ -2606,8 +2606,8 @@ Partial Class GUIMain
     Friend WithEvents cbChoosePackage As ComboBox
     Friend WithEvents lblMarg As Label
     Friend WithEvents lblFixed As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label19 As Label
+    Friend WithEvents lblNightPrice As Label
+    Friend WithEvents lblDayPrice As Label
     Friend WithEvents tbDayPrice2 As TextBox
     Friend WithEvents tbDayPrice1 As TextBox
     Friend WithEvents chrtHistory As DataVisualization.Charting.Chart

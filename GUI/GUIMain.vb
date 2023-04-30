@@ -2073,10 +2073,12 @@ Public Class GUIMain
                 cbNighPrice.Visible = True
                 cbMarginal.Visible = False
                 tbPrice.Visible = True
+                lblFixed.Visible = True
             Case rbStock.Checked
                 cbMarginal.Visible = True
                 cbNighPrice.Visible = False
-                tbPrice.Visible = True
+                tbPrice.Visible = False
+                lblFixed.Visible = False
         End Select
     End Sub
 
@@ -2085,9 +2087,17 @@ Public Class GUIMain
             tbNightOrMarginal.Visible = True
             lblMarg.Visible = True
             lblMarg.Text = "Ööhind:"
+            tbDayPrice1.Visible = True
+            tbDayPrice2.Visible = True
+            lblDayPrice.Visible = True
+            lblNightPrice.Visible = True
         Else
             tbNightOrMarginal.Visible = False
             lblMarg.Visible = False
+            tbDayPrice1.Visible = False
+            tbDayPrice2.Visible = False
+            lblDayPrice.Visible = False
+            lblNightPrice.Visible = False
         End If
     End Sub
 
@@ -2285,5 +2295,17 @@ Public Class GUIMain
 
     Private Sub tabClientConsumptionHistory_Enter(sender As Object, e As EventArgs) Handles tabClientConsumptionHistory.Enter
         lblMarg.Visible = False
+        lblFixed.Visible = False
+        lblMarg.Visible = False
+        lblDayPrice.Visible = False
+        lblNightPrice.Visible = False
+    End Sub
+
+    Private Sub rbFix_CheckedChanged(sender As Object, e As EventArgs) Handles rbFix.CheckedChanged
+
+    End Sub
+
+    Private Sub rbStock_CheckedChanged(sender As Object, e As EventArgs) Handles rbStock.CheckedChanged
+
     End Sub
 End Class
