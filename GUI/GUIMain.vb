@@ -1632,9 +1632,7 @@ Public Class GUIMain
 
     End Sub
 
-    Private Sub tabPackageComparison_Enter(sender As Object, e As EventArgs) Handles tabPackageComparison.Enter
 
-    End Sub
     'compares stuff
     Private Sub btnTwoPackets_Click(sender As Object, e As EventArgs) Handles btnTwoPackets.Click
         Dim packet1 As String = cBoxPackage1.Text 'get packet name
