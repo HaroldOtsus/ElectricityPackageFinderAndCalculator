@@ -124,12 +124,12 @@ Partial Class GUIMain
         Me.lblApplianceChoice = New System.Windows.Forms.Label()
         Me.btnBack1 = New System.Windows.Forms.Button()
         Me.tabExchangeComparison = New System.Windows.Forms.TabPage()
+        Me.lblDontuse = New System.Windows.Forms.Label()
         Me.btnKinnitaAndmed = New System.Windows.Forms.Button()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.cbBorsiPakettid = New System.Windows.Forms.ComboBox()
         Me.llNaidisCSV = New System.Windows.Forms.LinkLabel()
         Me.lblFailiPath = New System.Windows.Forms.Label()
-        Me.lblFailiNimi = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.rbUusCSVFail = New System.Windows.Forms.RadioButton()
         Me.rbValiCSVFail = New System.Windows.Forms.RadioButton()
@@ -223,6 +223,7 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
+        Me.lblMarginaal = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1217,12 +1218,13 @@ Partial Class GUIMain
         '
         'tabExchangeComparison
         '
+        Me.tabExchangeComparison.Controls.Add(Me.lblMarginaal)
+        Me.tabExchangeComparison.Controls.Add(Me.lblDontuse)
         Me.tabExchangeComparison.Controls.Add(Me.btnKinnitaAndmed)
         Me.tabExchangeComparison.Controls.Add(Me.Label18)
         Me.tabExchangeComparison.Controls.Add(Me.cbBorsiPakettid)
         Me.tabExchangeComparison.Controls.Add(Me.llNaidisCSV)
         Me.tabExchangeComparison.Controls.Add(Me.lblFailiPath)
-        Me.tabExchangeComparison.Controls.Add(Me.lblFailiNimi)
         Me.tabExchangeComparison.Controls.Add(Me.GroupBox1)
         Me.tabExchangeComparison.Controls.Add(Me.gbFailid)
         Me.tabExchangeComparison.Controls.Add(Me.Label17)
@@ -1251,6 +1253,16 @@ Partial Class GUIMain
         Me.tabExchangeComparison.TabIndex = 3
         Me.tabExchangeComparison.Text = "Börsihinna võrdlus"
         Me.tabExchangeComparison.UseVisualStyleBackColor = True
+        '
+        'lblDontuse
+        '
+        Me.lblDontuse.AutoSize = True
+        Me.lblDontuse.Location = New System.Drawing.Point(723, 82)
+        Me.lblDontuse.Name = "lblDontuse"
+        Me.lblDontuse.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.lblDontuse.Size = New System.Drawing.Size(56, 13)
+        Me.lblDontuse.TabIndex = 40
+        Me.lblDontuse.Text = "Marginaal:"
         '
         'btnKinnitaAndmed
         '
@@ -1297,15 +1309,6 @@ Partial Class GUIMain
         Me.lblFailiPath.Size = New System.Drawing.Size(78, 13)
         Me.lblFailiPath.TabIndex = 35
         Me.lblFailiPath.Text = "<Faili asukoht>"
-        '
-        'lblFailiNimi
-        '
-        Me.lblFailiNimi.AutoSize = True
-        Me.lblFailiNimi.Location = New System.Drawing.Point(529, 218)
-        Me.lblFailiNimi.Name = "lblFailiNimi"
-        Me.lblFailiNimi.Size = New System.Drawing.Size(58, 13)
-        Me.lblFailiNimi.TabIndex = 34
-        Me.lblFailiNimi.Text = "<Faili nimi>"
         '
         'GroupBox1
         '
@@ -2256,6 +2259,14 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
         '
+        'lblMarginaal
+        '
+        Me.lblMarginaal.AutoSize = True
+        Me.lblMarginaal.Location = New System.Drawing.Point(774, 82)
+        Me.lblMarginaal.Name = "lblMarginaal"
+        Me.lblMarginaal.Size = New System.Drawing.Size(0, 13)
+        Me.lblMarginaal.TabIndex = 41
+        '
         'GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2499,9 +2510,10 @@ Partial Class GUIMain
     Friend WithEvents rbValiCSVFail As RadioButton
     Friend WithEvents rbUusCSVFail As RadioButton
     Friend WithEvents lblFailiPath As Label
-    Friend WithEvents lblFailiNimi As Label
     Friend WithEvents llNaidisCSV As LinkLabel
     Friend WithEvents cbBorsiPakettid As ComboBox
     Friend WithEvents Label18 As Label
     Friend WithEvents btnKinnitaAndmed As Button
+    Friend WithEvents lblDontuse As Label
+    Friend WithEvents lblMarginaal As Label
 End Class

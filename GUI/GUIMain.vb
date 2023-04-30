@@ -1683,11 +1683,14 @@ Public Class GUIMain
         Dim packet1 As String = cBoxPackage1.Text 'get packet name
         Dim packet2 As String = cBoxPackage2.Text
         Dim result As Integer = StrComp(packet1, packet2, 0) 'check if strings are same
+
         If result <> 0 Then ' if strings are not same
             Dim returnString As PrjDatabaseComponent.IDatabase
             returnString = New PrjDatabaseComponent.CDatabase
             Dim packageone = returnString.onePackageInfo(packet1) ' get info about packages from database
             Dim packagetwo = returnString.onePackageInfo(packet2)
+            Console.WriteLine(packageone.Item8)
+            Console.WriteLine(packagetwo.Item8)
             compOne.Text = packageone.Item2 'company name
             compTwo.Text = packagetwo.Item2
             priceOfCont.Text = packageone.Item4 'price of the contract
@@ -2014,6 +2017,10 @@ Public Class GUIMain
         Dim returnStringDatabase As PrjDatabaseComponent.IDatabase
         returnStringDatabase = New PrjDatabaseComponent.CDatabase
         Dim pakett = returnStringDatabase.onePackageInfo(cbBorsiPakettid.Text)
+        Dim strMarginaal As String = pakett.Item3.ToString()
+        lblMarginaal.Text = strMarginaal
+
+        Console.WriteLine(pakett.Item8)
 
         Dim BorsihinnaVordlusEnd As DateTime = dtpBorsihinnaVordlusEnd.Value
         Dim BorsihinnaVordlusStart As DateTime = dtpBorsihinnaVordlusStart.Value
@@ -2081,10 +2088,13 @@ Public Class GUIMain
         'fills chart
         For i As Integer = 1 To strPrices.Length - 1
             'ADDS DATE AND PRICE TO CHART, PRICE IS CONVERTED FROM €/MWh to cent/kWh
-            chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) / 1000) * 100)
-            chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), ((dblPrices(i) + pakett.Item3) / 1000) * 100)
+            If rbKaibemaksuga.Checked = True Then
+                chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) * 1.2 / 1000) * 100)
+                chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), (((dblPrices(i) + pakett.Item3) * 1.2) / 1000) * 100)
+            ElseIf rbKaibemaksuta.Checked = True Then
+                chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) / 1000) * 100)
+                chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), ((dblPrices(i) + pakett.Item3) / 1000) * 100)
+            End If
         Next
-
     End Sub
-
 End Class
