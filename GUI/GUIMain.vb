@@ -1525,7 +1525,7 @@ Public Class GUIMain
     'IN THE TARBIMISE AJALUGU TAB, tabClientConsumptionHistory subtab
     'this is work in progress, NOT FUNCTIONAAAAAAAAL!
     'SCHIZO RAMBLINGS
-    Private Sub btnImportCSVFileSimu_Click(sender As Object, e As EventArgs) Handles btnImportCSVFileSimu.Click
+    Private Sub btnImportCSVFileSimu_Click(sender As Object, e As EventArgs) 
         'tblCSVfile.Controls.Clear()
         chrtBorsihinnaVordlus.Series.Clear()
         'opens a window for user to select their CSV file
@@ -1833,7 +1833,7 @@ Public Class GUIMain
 
     End Sub
 
-    Private Sub btnConfirmSimuCSV_Click(sender As Object, e As EventArgs) Handles btnConfirmSimuCSV.Click
+    Private Sub btnConfirmSimuCSV_Click(sender As Object, e As EventArgs) 
         'For Each row As DataRow In tableOfCSV.Rows
         '    If row("Kogus (kWh)").GetType() Is GetType(String) AndAlso row("Kogus (kWh)").ToString().Contains(",") Then
         '        row("Kogus (kWh)") = row("Kogus (kWh)").ToString().Replace(",", ".")
@@ -1925,11 +1925,11 @@ Public Class GUIMain
 
     End Sub
 
-    Private Sub lblSimulateClientConsumptionHistory_Click(sender As Object, e As EventArgs) Handles lblSimulateClientConsumptionHistory.Click
+    Private Sub lblSimulateClientConsumptionHistory_Click(sender As Object, e As EventArgs) 
 
     End Sub
 
-    Private Sub Panel4_Paint(sender As Object, e As PaintEventArgs) Handles Panel4.Paint
+    Private Sub Panel4_Paint(sender As Object, e As PaintEventArgs) 
         Select Case True
             Case rbFix.Checked
                 cbNighPrice.Visible = True
@@ -1942,7 +1942,7 @@ Public Class GUIMain
         End Select
     End Sub
 
-    Private Sub cbNighPrice_CheckedChanged(sender As Object, e As EventArgs) Handles cbNighPrice.CheckedChanged
+    Private Sub cbNighPrice_CheckedChanged(sender As Object, e As EventArgs) 
         If cbNighPrice.Checked Then
             tbNightOrMarginal.Visible = True
         Else
@@ -1950,7 +1950,7 @@ Public Class GUIMain
         End If
     End Sub
 
-    Private Sub cbMarginal_CheckedChanged(sender As Object, e As EventArgs) Handles cbMarginal.CheckedChanged
+    Private Sub cbMarginal_CheckedChanged(sender As Object, e As EventArgs) 
         If cbMarginal.Checked Then
             tbNightOrMarginal.Visible = True
         Else
