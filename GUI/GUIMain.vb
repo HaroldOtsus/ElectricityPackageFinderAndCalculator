@@ -5,6 +5,7 @@ Imports System.Windows.Forms.DataVisualization.Charting
 Imports Microsoft.VisualBasic.FileIO.TextFieldParser
 Imports System.Globalization
 Imports System.Text
+Imports CSVExporterDNF
 
 Public Class GUIMain
     Public Structure PriceDateStruct
@@ -1523,7 +1524,9 @@ Public Class GUIMain
     Private Sub btnImportCSVFileSimu_Click(sender As Object, e As EventArgs) Handles btnImportCSVFileSimu.Click
         'tblCSVfile.Controls.Clear()
         chrtCSV.Series.Clear()
-
+        Dim returnString As CSVExporterDNF.IExporter
+        returnString = New CSVExporterDNF.CExporter
+        TextBox1.Text = returnString.delimiter
         'opens a window for user to select their CSV file
         Dim openFileDialog As New OpenFileDialog()
         'Filter to only show CSV files and all files
