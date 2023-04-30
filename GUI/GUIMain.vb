@@ -1962,14 +1962,26 @@ Public Class GUIMain
     End Sub
 
     Private Sub btnKinnitaAndmed_Click(sender As Object, e As EventArgs) Handles btnKinnitaAndmed.Click
-        Dim packet1 As String = cbBorsiPakettid.Text
         Dim returnString As PrjAPIComponent.APIInterface
         returnString = New PrjAPIComponent.APIComponent
-        ' Dim packageone = returnString.onePackageInfo(packet1)
+
+        Dim returnStringDatabase As PrjDatabaseComponent.IDatabase
+        returnStringDatabase = New PrjDatabaseComponent.CDatabase
+        Dim pakett = returnStringDatabase.onePackageInfo(cbBorsiPakettid.Text)
+
+        Dim BorsihinnaVordlusEnd As DateTime = dtpBorsihinnaVordlusEnd.Value
+        Dim BorsihinnaVordlusStart As DateTime = dtpBorsihinnaVordlusStart.Value
+        Dim result As TimeSpan = BorsihinnaVordlusEnd.Subtract(BorsihinnaVordlusStart)
+        Dim days As Integer = result.TotalDays
+
+        If days >= 5 Then
+            MessageBox.Show("Valige ajavahemik maksimaalselt 5 päeva vahemikus.")
+            Return
+        End If
 
         chrtBorsihinnaVordlus.Series.Clear() 'clear chart
 
-        chrtBorsihinnaVordlus.Width = 600 ' set chart the width to 600 pixels
+        chrtBorsihinnaVordlus.Width = 900 ' set chart the width to 600 pixels
         chrtBorsihinnaVordlus.Height = 400 'set chart height to 400 lines
         chrtBorsihinnaVordlus.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
         chrtBorsihinnaVordlus.ChartAreas(0).AxisY.Interval = 5 'more lines Y axis
@@ -1986,10 +1998,12 @@ Public Class GUIMain
         chrtBorsihinnaVordlus.ChartAreas(0).AxisX.ScrollBar.IsPositionedInside = True
         chrtBorsihinnaVordlus.ChartAreas(0).AxisY.ScrollBar.IsPositionedInside = True
 
-        Dim series As New Series("Börss") ' create a new series with the package name
-        chrtBorsihinnaVordlus.Series.Add(series)
-        series.ChartType = DataVisualization.Charting.SeriesChartType.StepLine
-        series.BorderWidth = 3
+        Dim seriesStock As New Series("Börsihind")
+        seriesStock.ChartType = DataVisualization.Charting.SeriesChartType.StepLine
+        seriesStock.BorderWidth = 3
+        Dim seriesPakett As New Series(pakett.Item1)
+        seriesPakett.ChartType = DataVisualization.Charting.SeriesChartType.StepLine
+        seriesPakett.BorderWidth = 3
 
         Dim startDate As DateTime = dtpBorsihinnaVordlusStart.Value
         Dim endDate As DateTime = dtpBorsihinnaVordlusEnd.Value
@@ -2002,8 +2016,8 @@ Public Class GUIMain
         Dim dateTimes(strPrices.Length) As DateTime
 
         'CHART
-        Dim seriesName As String = "Börsihind"
-        chrtBorsihinnaVordlus.Series.Add(seriesName)
+        chrtBorsihinnaVordlus.Series.Add(seriesStock)
+        chrtBorsihinnaVordlus.Series.Add(seriesPakett)
         'chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
         chrtBorsihinnaVordlus.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
         chrtBorsihinnaVordlus.ChartAreas(0).AxisY.Interval = 1 'more lines Y axis
@@ -2021,8 +2035,8 @@ Public Class GUIMain
         'fills chart
         For i As Integer = 1 To strPrices.Length - 1
             'ADDS DATE AND PRICE TO CHART, PRICE IS CONVERTED FROM €/MWh to cent/kWh
-            chrtBorsihinnaVordlus.Series(seriesName).Points.AddXY(strTimes(i), (dblPrices(i) / 1000) * 100)
-
+            chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) / 1000) * 100)
+            chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), ((dblPrices(i) + pakett.Item3) / 1000) * 100)
         Next
 
     End Sub

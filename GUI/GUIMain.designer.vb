@@ -124,6 +124,7 @@ Partial Class GUIMain
         Me.lblApplianceChoice = New System.Windows.Forms.Label()
         Me.btnBack1 = New System.Windows.Forms.Button()
         Me.tabExchangeComparison = New System.Windows.Forms.TabPage()
+        Me.btnKinnitaAndmed = New System.Windows.Forms.Button()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.cbBorsiPakettid = New System.Windows.Forms.ComboBox()
         Me.llNaidisCSV = New System.Windows.Forms.LinkLabel()
@@ -222,7 +223,6 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
-        Me.btnKinnitaAndmed = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1252,6 +1252,15 @@ Partial Class GUIMain
         Me.tabExchangeComparison.Text = "Börsihinna võrdlus"
         Me.tabExchangeComparison.UseVisualStyleBackColor = True
         '
+        'btnKinnitaAndmed
+        '
+        Me.btnKinnitaAndmed.Location = New System.Drawing.Point(726, 218)
+        Me.btnKinnitaAndmed.Name = "btnKinnitaAndmed"
+        Me.btnKinnitaAndmed.Size = New System.Drawing.Size(91, 34)
+        Me.btnKinnitaAndmed.TabIndex = 39
+        Me.btnKinnitaAndmed.Text = "Kinnita andmed"
+        Me.btnKinnitaAndmed.UseVisualStyleBackColor = True
+        '
         'Label18
         '
         Me.Label18.AutoSize = True
@@ -1492,10 +1501,10 @@ Partial Class GUIMain
         Me.chrtBorsihinnaVordlus.ChartAreas.Add(ChartArea3)
         Legend3.Name = "Legend1"
         Me.chrtBorsihinnaVordlus.Legends.Add(Legend3)
-        Me.chrtBorsihinnaVordlus.Location = New System.Drawing.Point(3, 293)
+        Me.chrtBorsihinnaVordlus.Location = New System.Drawing.Point(3, 258)
         Me.chrtBorsihinnaVordlus.Name = "chrtBorsihinnaVordlus"
         Me.chrtBorsihinnaVordlus.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None
-        Me.chrtBorsihinnaVordlus.Size = New System.Drawing.Size(940, 283)
+        Me.chrtBorsihinnaVordlus.Size = New System.Drawing.Size(940, 318)
         Me.chrtBorsihinnaVordlus.TabIndex = 20
         Me.chrtBorsihinnaVordlus.Text = "CSV"
         '
@@ -2247,20 +2256,11 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
         '
-        'btnKinnitaAndmed
-        '
-        Me.btnKinnitaAndmed.Location = New System.Drawing.Point(726, 218)
-        Me.btnKinnitaAndmed.Name = "btnKinnitaAndmed"
-        Me.btnKinnitaAndmed.Size = New System.Drawing.Size(91, 34)
-        Me.btnKinnitaAndmed.TabIndex = 39
-        Me.btnKinnitaAndmed.Text = "Kinnita andmed"
-        Me.btnKinnitaAndmed.UseVisualStyleBackColor = True
-        '
         'GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(981, 687)
+        Me.ClientSize = New System.Drawing.Size(981, 681)
         Me.Controls.Add(Me.btnRestoreFontSize)
         Me.Controls.Add(Me.btnFontDecrease)
         Me.Controls.Add(Me.btnFontIncrease)
