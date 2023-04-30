@@ -1947,6 +1947,42 @@ Public Class GUIMain
                             Next
                         End If
                     End If
+                    If cbChoosePackage IsNot "" Then
+                        Dim packet1 As String = cbChoosePackage.Text 'get packet name
+                        Dim returnString As PrjDatabaseComponent.IDatabase
+                        returnString = New PrjDatabaseComponent.CDatabase
+                        Dim packageone = returnString.onePackageInfo(packet1) ' get info about packages from database
+
+                        Dim series As New Series(packageone.Item1) ' create a new series with the package name
+                        chartPackages.Series.Add(series)
+                        series.ChartType = DataVisualization.Charting.SeriesChartType.StepLine
+                        series.BorderWidth = 3
+                        Dim currentDate As String = beggingDate
+                        Dim futureDateString As String = endDate
+
+                        Dim data = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString) 'get stock prices and dates from database
+
+                        If Not packageone.Item5 Then 'if packet does not use market price
+                            If packageone.Item7 = True Then 'is the packet has different night price
+                                For i As Integer = 1 To 10
+                                    If hour2(i) > 11 And hour2(i) < 24 Then 'day
+                                        series.Points.AddXY(data.Item2(i), packageone.Item3)
+                                    Else
+                                        series.Points.AddXY(data.Item2(i), packageone.Item8) 'night
+                                    End If
+                                Next
+                            Else
+                                For i As Integer = 1 To 10
+                                    series.Points.AddXY(data.Item2(i), packageone.Item3) 'packet has fixed price
+                                Next
+                            End If
+                        Else
+
+
+                        End If
+
+
+                    End If
                     ' stock price is chosen and marginal is checked
                 End If
             Else
@@ -2005,5 +2041,7 @@ Public Class GUIMain
 
     End Sub
 
+    Private Sub tabPackageComparison_Click(sender As Object, e As EventArgs) Handles tabPackageComparison.Click
 
+    End Sub
 End Class

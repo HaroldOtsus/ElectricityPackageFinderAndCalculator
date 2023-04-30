@@ -142,6 +142,8 @@ Partial Class GUIMain
         Me.tabConsumptionHistory = New System.Windows.Forms.TabPage()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.tabClientConsumptionHistory = New System.Windows.Forms.TabPage()
+        Me.lblMarg = New System.Windows.Forms.Label()
+        Me.lblFixed = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.tbDayPrice2 = New System.Windows.Forms.TextBox()
@@ -207,8 +209,8 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
-        Me.lblFixed = New System.Windows.Forms.Label()
-        Me.lblMarg = New System.Windows.Forms.Label()
+        Me.cbChoosePackage = New System.Windows.Forms.ComboBox()
+        Me.lblChoosePackage = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1388,6 +1390,8 @@ Partial Class GUIMain
         '
         'tabClientConsumptionHistory
         '
+        Me.tabClientConsumptionHistory.Controls.Add(Me.lblChoosePackage)
+        Me.tabClientConsumptionHistory.Controls.Add(Me.cbChoosePackage)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblMarg)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblFixed)
         Me.tabClientConsumptionHistory.Controls.Add(Me.Label16)
@@ -1418,6 +1422,24 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.TabIndex = 1
         Me.tabClientConsumptionHistory.Text = "Simuleeri oma tarbimise ajalugu"
         Me.tabClientConsumptionHistory.UseVisualStyleBackColor = True
+        '
+        'lblMarg
+        '
+        Me.lblMarg.AutoSize = True
+        Me.lblMarg.Location = New System.Drawing.Point(52, 128)
+        Me.lblMarg.Name = "lblMarg"
+        Me.lblMarg.Size = New System.Drawing.Size(56, 13)
+        Me.lblMarg.TabIndex = 30
+        Me.lblMarg.Text = "Marginaal:"
+        '
+        'lblFixed
+        '
+        Me.lblFixed.AutoSize = True
+        Me.lblFixed.Location = New System.Drawing.Point(7, 97)
+        Me.lblFixed.Name = "lblFixed"
+        Me.lblFixed.Size = New System.Drawing.Size(101, 13)
+        Me.lblFixed.TabIndex = 29
+        Me.lblFixed.Text = "Fiktsioneeritud hind:"
         '
         'Label16
         '
@@ -1537,7 +1559,7 @@ Partial Class GUIMain
         '
         'btnConfirmSimuCSV
         '
-        Me.btnConfirmSimuCSV.Location = New System.Drawing.Point(44, 408)
+        Me.btnConfirmSimuCSV.Location = New System.Drawing.Point(62, 431)
         Me.btnConfirmSimuCSV.Name = "btnConfirmSimuCSV"
         Me.btnConfirmSimuCSV.Size = New System.Drawing.Size(150, 34)
         Me.btnConfirmSimuCSV.TabIndex = 16
@@ -1557,7 +1579,7 @@ Partial Class GUIMain
         'lblToDateTime
         '
         Me.lblToDateTime.AutoSize = True
-        Me.lblToDateTime.Location = New System.Drawing.Point(59, 329)
+        Me.lblToDateTime.Location = New System.Drawing.Point(61, 301)
         Me.lblToDateTime.Name = "lblToDateTime"
         Me.lblToDateTime.Size = New System.Drawing.Size(95, 13)
         Me.lblToDateTime.TabIndex = 14
@@ -1575,7 +1597,7 @@ Partial Class GUIMain
         'dtpEnd
         '
         Me.dtpEnd.Enabled = False
-        Me.dtpEnd.Location = New System.Drawing.Point(60, 358)
+        Me.dtpEnd.Location = New System.Drawing.Point(62, 330)
         Me.dtpEnd.Name = "dtpEnd"
         Me.dtpEnd.Size = New System.Drawing.Size(200, 20)
         Me.dtpEnd.TabIndex = 12
@@ -2066,23 +2088,23 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
         '
-        'lblFixed
+        'cbChoosePackage
         '
-        Me.lblFixed.AutoSize = True
-        Me.lblFixed.Location = New System.Drawing.Point(7, 97)
-        Me.lblFixed.Name = "lblFixed"
-        Me.lblFixed.Size = New System.Drawing.Size(101, 13)
-        Me.lblFixed.TabIndex = 29
-        Me.lblFixed.Text = "Fiktsioneeritud hind:"
+        Me.cbChoosePackage.FormattingEnabled = True
+        Me.cbChoosePackage.Items.AddRange(New Object() {"Kindel 6", "Kindel 36", "Kindel Pluss", "Muutuv", "Universaalteenus", "Pingevaba + Ühisarve", "Tähtajaline fikseeritud hind", "Kodupakett börsihinnaga", "Universaalteenus Alexela", "Universaalteenus Alexela + roheline", "Tähtajaline fikseeritud hind + roheline", "220 Börsihind", "220 Börsihind + Roheline", "220 Tähtajaline kindel hind", "220 Tähtajaline kindel hind + roheline", "220 Universaalteenus", "220 Universaalteenus + roheline", "Kindel pakett gaas", "Muutuvhinnaga pakett", "Universaalteenus Eesti gaas", "Universaalteenus VKG", "Not-fix", "Roheline Klõps", "Roheline Börsi Klõps", "Börsi Klõps", "Universaalteenus Elektrum", "Kaljukindel Klõps kindlustusega"})
+        Me.cbChoosePackage.Location = New System.Drawing.Point(63, 390)
+        Me.cbChoosePackage.Name = "cbChoosePackage"
+        Me.cbChoosePackage.Size = New System.Drawing.Size(198, 21)
+        Me.cbChoosePackage.TabIndex = 31
         '
-        'lblMarg
+        'lblChoosePackage
         '
-        Me.lblMarg.AutoSize = True
-        Me.lblMarg.Location = New System.Drawing.Point(52, 128)
-        Me.lblMarg.Name = "lblMarg"
-        Me.lblMarg.Size = New System.Drawing.Size(56, 13)
-        Me.lblMarg.TabIndex = 30
-        Me.lblMarg.Text = "Marginaal:"
+        Me.lblChoosePackage.AutoSize = True
+        Me.lblChoosePackage.Location = New System.Drawing.Point(63, 364)
+        Me.lblChoosePackage.Name = "lblChoosePackage"
+        Me.lblChoosePackage.Size = New System.Drawing.Size(60, 13)
+        Me.lblChoosePackage.TabIndex = 32
+        Me.lblChoosePackage.Text = "Vali pakett:"
         '
         'GUIMain
         '
@@ -2311,4 +2333,6 @@ Partial Class GUIMain
     Friend WithEvents tbDayPrice1 As TextBox
     Friend WithEvents lblMarg As Label
     Friend WithEvents lblFixed As Label
+    Friend WithEvents lblChoosePackage As Label
+    Friend WithEvents cbChoosePackage As ComboBox
 End Class
