@@ -1689,8 +1689,6 @@ Public Class GUIMain
             returnString = New PrjDatabaseComponent.CDatabase
             Dim packageone = returnString.onePackageInfo(packet1) ' get info about packages from database
             Dim packagetwo = returnString.onePackageInfo(packet2)
-            Console.WriteLine(packageone.Item8)
-            Console.WriteLine(packagetwo.Item8)
             compOne.Text = packageone.Item2 'company name
             compTwo.Text = packagetwo.Item2
             priceOfCont.Text = packageone.Item4 'price of the contract
@@ -2011,6 +2009,8 @@ Public Class GUIMain
     End Sub
 
     Private Sub btnKinnitaAndmed_Click(sender As Object, e As EventArgs) Handles btnKinnitaAndmed.Click
+        chrtBorsihinnaVordlus.Series.Clear() 'clear chart
+        chrtBorsihinnaVordlus.Titles.Clear() 'clear chart
         Dim returnString As PrjAPIComponent.APIInterface
         returnString = New PrjAPIComponent.APIComponent
 
@@ -2019,8 +2019,6 @@ Public Class GUIMain
         Dim pakett = returnStringDatabase.onePackageInfo(cbBorsiPakettid.Text)
         Dim strMarginaal As String = pakett.Item3.ToString()
         lblMarginaal.Text = strMarginaal
-
-        Console.WriteLine(pakett.Item8)
 
         Dim BorsihinnaVordlusEnd As DateTime = dtpBorsihinnaVordlusEnd.Value
         Dim BorsihinnaVordlusStart As DateTime = dtpBorsihinnaVordlusStart.Value
@@ -2032,7 +2030,8 @@ Public Class GUIMain
             Return
         End If
 
-        chrtBorsihinnaVordlus.Series.Clear() 'clear chart
+        ' Reset X and Y axis of chart1
+        chrtBorsihinnaVordlus.ChartAreas(0).AxisY.Maximum = 25
 
         chrtBorsihinnaVordlus.Width = 900 ' set chart the width to 600 pixels
         chrtBorsihinnaVordlus.Height = 400 'set chart height to 400 lines
@@ -2046,8 +2045,6 @@ Public Class GUIMain
         chrtBorsihinnaVordlus.ChartAreas(0).CursorX.IsUserSelectionEnabled = True
         chrtBorsihinnaVordlus.ChartAreas(0).CursorY.IsUserEnabled = True
         chrtBorsihinnaVordlus.ChartAreas(0).CursorY.IsUserSelectionEnabled = True
-        chrtBorsihinnaVordlus.ChartAreas(0).AxisX.ScaleView.Zoomable = True
-        chrtBorsihinnaVordlus.ChartAreas(0).AxisY.ScaleView.Zoomable = True
         chrtBorsihinnaVordlus.ChartAreas(0).AxisX.ScrollBar.IsPositionedInside = True
         chrtBorsihinnaVordlus.ChartAreas(0).AxisY.ScrollBar.IsPositionedInside = True
 
@@ -2072,8 +2069,8 @@ Public Class GUIMain
         chrtBorsihinnaVordlus.Series.Add(seriesStock)
         chrtBorsihinnaVordlus.Series.Add(seriesPakett)
         'chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
-        chrtBorsihinnaVordlus.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
-        chrtBorsihinnaVordlus.ChartAreas(0).AxisY.Interval = 1 'more lines Y axis
+        'chrtBorsihinnaVordlus.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
+        'chrtBorsihinnaVordlus.ChartAreas(0).AxisY.Interval = 1 'more lines Y axis
         chrtBorsihinnaVordlus.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.StepLine
         chrtBorsihinnaVordlus.Series(0).Color = Color.Red
         chrtBorsihinnaVordlus.Series(0).BorderWidth = 3
@@ -2085,16 +2082,59 @@ Public Class GUIMain
             dblPrices(i) = Double.Parse(strPrices(i))
         Next
 
+        If rbOoPaevSamaHind.Checked = True Then
+            If pakett.Item7 = True Then
+                MessageBox.Show("Antud pakettil on öö ja päeva hinnad erinevad.")
+                Return
+            End If
+        End If
+
+        If rbOoPaevErinevHind.Checked = True Then
+            If pakett.Item7 = False Then
+                MessageBox.Show("Antud pakettil on öö ja päeva hinnad samad.")
+                Return
+            End If
+        End If
+
         'fills chart
         For i As Integer = 1 To strPrices.Length - 1
             'ADDS DATE AND PRICE TO CHART, PRICE IS CONVERTED FROM €/MWh to cent/kWh
-            If rbKaibemaksuga.Checked = True Then
-                chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) * 1.2 / 1000) * 100)
-                chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), (((dblPrices(i) + pakett.Item3) * 1.2) / 1000) * 100)
-            ElseIf rbKaibemaksuta.Checked = True Then
-                chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) / 1000) * 100)
-                chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), ((dblPrices(i) + pakett.Item3) / 1000) * 100)
+            If pakett.Item5 = True Then
+                If rbKaibemaksuga.Checked = True Then
+                    chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) * 1.2 / 1000) * 100)
+                    chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), (((dblPrices(i) + pakett.Item3) * 1.2) / 1000) * 100)
+                ElseIf rbKaibemaksuta.Checked = True Then
+                    chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) / 1000) * 100)
+                    chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), ((dblPrices(i) + pakett.Item3) / 1000) * 100)
+                End If
+            Else
+                If pakett.Item7 = True Then
+                    If rbKaibemaksuga.Checked = True Then
+                        chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) * 1.2 / 1000) * 100)
+                        If strTimes(i).Substring(11, 2) >= 12 Then
+                            chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), pakett.Item3 * 1.2)
+                        Else
+                            chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), pakett.Item8 * 1.2)
+                        End If
+                    ElseIf rbKaibemaksuta.Checked = True Then
+                        chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) / 1000) * 100)
+                        If strTimes(i).Substring(11, 2) >= 12 Then
+                            chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), pakett.Item3)
+                        Else
+                            chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), pakett.Item8)
+                        End If
+                    End If
+                Else
+                    If rbKaibemaksuga.Checked = True Then
+                        chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) * 1.2 / 1000) * 100)
+                        chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), pakett.Item3 * 1.2)
+                    ElseIf rbKaibemaksuta.Checked = True Then
+                        chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) / 1000) * 100)
+                        chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), pakett.Item3)
+                    End If
+                End If
             End If
         Next
     End Sub
+
 End Class

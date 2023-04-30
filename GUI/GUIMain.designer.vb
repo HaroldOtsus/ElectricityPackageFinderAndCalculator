@@ -1285,7 +1285,7 @@ Partial Class GUIMain
         'cbBorsiPakettid
         '
         Me.cbBorsiPakettid.FormattingEnabled = True
-        Me.cbBorsiPakettid.Items.AddRange(New Object() {"Muutuv", "Kodupakett börsihinnaga", "220 Börsihind", "220 Börsihind + Roheline", "Muutuvhinnaga pakett", "Not-fix", "Roheline Börsi Klõps", "Börsi Klõps"})
+        Me.cbBorsiPakettid.Items.AddRange(New Object() {"Kindel 6", "Kindel 36", "Kindel Pluss", "Muutuv", "Universaalteenus", "Pingevaba + Ühisarve", "Tähtajaline fikseeritud hind", "Kodupakett börsihinnaga", "Universaalteenus Alexela", "Universaalteenus Alexela + roheline", "Tähtajaline fikseeritud hind + roheline", "220 Börsihind", "220 Börsihind + Roheline", "220 Tähtajaline kindel hind", "220 Tähtajaline kindel hind + roheline", "220 Universaalteenus", "220 Universaalteenus + roheline", "Kindel pakett gaas", "Muutuvhinnaga pakett", "Universaalteenus Eesti gaas", "Universaalteenus VKG", "Not-fix", "Roheline Klõps", "Roheline Börsi Klõps", "Börsi Klõps", "Universaalteenus Elektrum", "Kaljukindel Klõps kindlustusega"})
         Me.cbBorsiPakettid.Location = New System.Drawing.Point(798, 49)
         Me.cbBorsiPakettid.Name = "cbBorsiPakettid"
         Me.cbBorsiPakettid.Size = New System.Drawing.Size(121, 21)
