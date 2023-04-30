@@ -4,7 +4,7 @@ Imports System.IO
 Imports System.Windows.Forms.DataVisualization.Charting
 Imports Microsoft.VisualBasic.FileIO.TextFieldParser
 Imports System.Globalization
-Imports System.Text
+Imports Microsoft.VisualBasic.FileIO
 
 Public Class GUIMain
     Public Structure PriceDateStruct
@@ -139,6 +139,8 @@ Public Class GUIMain
         End If
 
     End Sub
+
+
     Private Sub rdioCoffeeMaker_CheckedChanged(sender As Object, e As EventArgs) Handles rdioCoffeeMaker.CheckedChanged
         applianceID = "1"
     End Sub
@@ -746,140 +748,127 @@ Public Class GUIMain
     End Sub
 
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
+        Dim openFileDialogImportCSV As New OpenFileDialog()
+        Dim fields As String()
 
-        'tblCSVfile.Controls.Clear()
-        chrtCSV.Series.Clear()
-        Dim records As List(Of DateWattageStruct)
-        records = New List(Of DateWattageStruct)
-        Dim p As DateWattageStruct
+        openFileDialogImportCSV.Filter = "CSV Files (*.csv)|*.csv"
+        openFileDialogImportCSV.Multiselect = False
 
+        'Reads data from CSV file
+        If openFileDialogImportCSV.ShowDialog() = DialogResult.OK Then
+            Dim filePath As String = openFileDialogImportCSV.FileName
+            Dim fileInfo As New FileInfo(filePath)
 
+            'Checks if the data is in the correct format in the file
+            Dim csvData As String = File.ReadAllText(filePath)
 
-        Dim openFileDialog As New OpenFileDialog()
-        'Filter to only show CSV files and all files
-        openFileDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*"
+            If Not (csvData.Contains(",")) Or fileInfo.Length = 0 Then
+                'Show an error message
+                MessageBox.Show("Fail ei ole CSV formaadis.")
+                Return
+            End If
 
+            Using parser As New TextFieldParser(filePath)
+                parser.TextFieldType = FieldType.Delimited
+                parser.SetDelimiters(",")
 
-        'If the user selects a file and presses OK
-        If openFileDialog.ShowDialog() = DialogResult.OK Then
-
-            Dim selectedFileName As String = openFileDialog.FileName
-
-            'TABLE
-            Dim table As New DataTable()
-
-            Using parser As New Microsoft.VisualBasic.FileIO.TextFieldParser(selectedFileName)
-                parser.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited
-                parser.SetDelimiters(";")
-
-                Dim headerLinesToSkip As Integer = 9
-                For i As Integer = 1 To headerLinesToSkip
-                    parser.ReadLine()
-                Next
-
-
-                'Filling ze table
-                ' Read the header row and add the columns to the table
-                Dim column As Integer = 0
-                Dim headerRow As String() = parser.ReadFields()
-                For Each header As String In headerRow
-                    table.Columns.Add(header)
-                    column += 1
-                Next
-                If column > 2 Then
-
-
-
-                    ' Read the data rows and add them to the table
-                    While Not parser.EndOfData
-                        Dim fields As String() = parser.ReadFields()
-                        table.Rows.Add(fields)
-                        'p.dateAndTime = fields(0)
-                        'p.wattage = fields(2)
-
-                    End While
-                    'chrtCSV.Titles.Add("My Chart")
-
-                    'Add a new series to the chart
-                    Dim series As New Series()
-                    series.Name = "Aeg/Võimsus"
-                    series.ChartType = SeriesChartType.Line
-                    chrtCSV.Series.Add(series)
-
-                    'Loop through the rows of the DataTable and add data points to the chart series
-                    'For Each row As DataRow In table.Rows
-                    '    Dim xValue As String = row("Algus").ToString()
-                    '    Dim yValue As String = row("Kogus (kWh)").ToString()
-                    '    series.Points.AddXY(xValue, yValue)
-                    'Next
-                    Dim rowCount As Integer = table.Rows.Count
-                    Dim rowCountInForEach As Integer = 0
-
-                    If table.Columns(0).ColumnName = "Algus" And table.Columns(2).ColumnName = "Kogus (kWh)" Then
-
-                        'For i As Integer = 0 To 9
-                        For Each row As DataRow In table.Rows
-                            rowCountInForEach += 1
-                            If rowCountInForEach = 24 * 3 Then
-                                Exit For
-                            End If
-                            'Dim row As DataRow = table.Rows(i)
-
-                            Dim xValue As String = row("Algus").ToString()
-                            Dim yValue As String = row("Kogus (kWh)").ToString()
-                            series.Points.AddXY(xValue, yValue)
-                            Dim xAxis As Axis = chrtCSV.ChartAreas(0).AxisX
-
-                            'Set the width of the axis labels
-
-                            chrtCSV.ChartAreas(0).AxisX.Interval = 1
-
-
-                            'xAxis.LabelStyle.Font = New Font(xAxis.LabelStyle.Font.Name, 8.25)
-                            xAxis.LabelStyle.Angle = 90
-                        Next
-
-                    Else
-                        MessageBox.Show("VALE FORMAAT!")
-                    End If
-
-
-                Else
-                    MessageBox.Show("VALE FORMAAT!")
-                End If
+                While Not parser.EndOfData
+                    fields = parser.ReadFields()
+                End While
             End Using
         End If
 
-
-
+        'Checks the values received from the CSV file to set the values for Radio Buttons
+        For i As Integer = 0 To fields.Length - 1
+            If fields(0) = "sama" Then
+                rbOoPaevSamaHind.Checked = True
+            Else
+                rbOoPaevErinevHind.Checked = True
+            End If
+            If fields(1) = "maksuga" Then
+                rbKaibemaksuga.Checked = True
+            Else
+                rbKaibemaksuta.Checked = True
+            End If
+        Next
     End Sub
 
+    Public filePath As String
+    ' Tarmo mandatory export component
     Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
-        Dim saveFileDialog As New SaveFileDialog()
 
-        'Filter to only take CSV files
-        saveFileDialog.Filter = "CSV files (*.csv)|*.csv"
+        Dim CSVObject As CSVExporterDNF.IExporter ' a way to give data to a protected variable, in another dll file
+        CSVObject = New CSVExporterDNF.CExporter
+        ' check if delimiter is empty or not, to not send an empty/null
+        If Not String.IsNullOrEmpty(txtboxValjadeEraldaja.Text) Then
+            CSVObject.delimiter = txtboxValjadeEraldaja.Text
+        End If
+        CSVObject.textQualifier = txtboxTekstiKvalifikaator.Text
+        ' data to be saved
+        Dim someData(1, 1) As String
+        someData(0, 0) = "ooPaevHind"
+        someData(1, 0) = "kaibemaks"
 
-        'Initial directory and the name of the file
-        saveFileDialog.InitialDirectory = "C:\"
-        saveFileDialog.FileName = "exported_data.csv"
+        If rbOoPaevSamaHind.Checked Then
+            someData(0, 1) = "sama"
+        ElseIf rbOoPaevErinevHind.Checked Then
+            someData(0, 1) = "erinev"
+        End If
+        If rbKaibemaksuga.Checked Then
+            someData(1, 1) = "maksuga"
+        ElseIf rbKaibemaksuta.Checked Then
+            someData(1, 1) = "maksuta"
+        End If
+        ' end of data
+        ' check whether data array is empty
+        Dim failSafe As Boolean = True
+        For Each str As String In someData
+            If String.IsNullOrEmpty(str) Then
+                failSafe = False
+            End If
+        Next
+        ' whether data is appended to the end of a file or written over
+        Dim append As Boolean = False
+        If failSafe Then
+            If rbFailiUlekirjutamine.Checked Then ' write over
+                append = False
+            ElseIf rbLisaFailiLoppu.Checked Then ' append
+                append = True
+            End If
+            ' check different radio buttons 
+            If rbValiCSVFail.Checked Then
+                filePath = CSVObject.setFileToSave() ' find file path interactivly
+                lblFailiPath.Text = filePath
+                If IsFileAvailable(filePath) Then ' check if file is open or available at all
+                    CSVObject.saveDataToCsv(someData, append)
+                Else
+                    MessageBox.Show("Fail on lahti või ei eksisteeri!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
+            ElseIf rbUusCSVFail.Checked Then
+                If String.IsNullOrEmpty(filePath) Then
+                    MessageBox.Show("Faili path ei ole seatud! Vali ise CSV fail.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Else
 
-        'If the user presses OK
-        If saveFileDialog.ShowDialog() = DialogResult.OK Then
-            'Get the selected file name
-            Dim fileName As String = saveFileDialog.FileName
-
-            'Write the CSV data to the selected file
-            Using writer As New StreamWriter(fileName)
-                writer.WriteLine("Column1,Column2,Column3")
-                writer.WriteLine("Value1,Value2,Value3")
-                writer.WriteLine("Value4,Value5,Value6")
-            End Using
-
-            'Shows a message that the export was successful
-            MessageBox.Show("File exported successfully to " & fileName)
+                    If IsFileAvailable(filePath) Then ' check if file is open or available at all
+                        'filePath = CSVObject.setFileToSave()
+                        'CSVObject.saveDataToCsv(someData, append)
+                    Else
+                        MessageBox.Show("Fail on lahti või ei eksisteeri!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End If
+                End If
+            End If
         End If
     End Sub
+    ' checks file availability
+    Public Shared Function IsFileAvailable(ByVal path As String) As Boolean
+        Try
+            Dim fs As New FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None)
+            fs.Close()
+        Catch ex As IOException When System.Runtime.InteropServices.Marshal.GetLastWin32Error() = 32
+            Return False
+        End Try
+        Return True
+    End Function
 
     Private Sub cbColor_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbColor.SelectedIndexChanged
 
@@ -965,10 +954,11 @@ Public Class GUIMain
             tBoxUsageTime.Width += 10
             tBoxElectricityConsumptionRate.Width += 10
             tBoxApproxPrice.Width += 10
-            tboxStartTime.Width += 10
-            tBoxEndTime.Width += 10
-            tBoxCondition1.Width += 10
-            tBoxCondition2.Width += 10
+            'Nende asemele lisada uued Börsihinnavõrdluse Tabis
+            'tboxStartTime.Width += 10
+            'tBoxEndTime.Width += 10
+            'tBoxCondition1.Width += 10
+            'tBoxCondition2.Width += 10
             tBoxMonthlyCost2.Width += 10
             cBoxPackage1.Width += 10
             cBoxPackage2.Width += 10
@@ -1022,10 +1012,11 @@ Public Class GUIMain
             tBoxUsageTime.Width -= 10
             tBoxElectricityConsumptionRate.Width -= 10
             tBoxApproxPrice.Width -= 10
-            tboxStartTime.Width -= 10
-            tBoxEndTime.Width -= 10
-            tBoxCondition1.Width -= 10
-            tBoxCondition2.Width -= 10
+            'Nende asemele lisada uued Börsihinnavõrdluse Tabis
+            'tboxStartTime.Width -= 10
+            'tBoxEndTime.Width -= 10
+            'tBoxCondition1.Width -= 10
+            'tBoxCondition2.Width -= 10
             tBoxMonthlyCost2.Width -= 10
             cBoxPackage1.Width -= 10
             cBoxPackage2.Width -= 10
@@ -1085,10 +1076,11 @@ Public Class GUIMain
             tBoxUsageTime.Width -= 10 * coef
             tBoxElectricityConsumptionRate.Width -= 10 * coef
             tBoxApproxPrice.Width -= 10 * coef
-            tboxStartTime.Width -= 10 * coef
-            tBoxEndTime.Width -= 10 * coef
-            tBoxCondition1.Width -= 10 * coef
-            tBoxCondition2.Width -= 10 * coef
+            'Nende asemele lisada uued Börsihinnavõrdluse Tabis
+            'tboxStartTime.Width -= 10 * coef
+            'tBoxEndTime.Width -= 10 * coef
+            'tBoxCondition1.Width -= 10 * coef
+            'tBoxCondition2.Width -= 10 * coef
             tBoxMonthlyCost2.Width -= 10 * coef
             cBoxPackage1.Width -= 10 * coef
             cBoxPackage2.Width -= 10 * coef
@@ -1522,7 +1514,7 @@ Public Class GUIMain
     'SCHIZO RAMBLINGS
     Private Sub btnImportCSVFileSimu_Click(sender As Object, e As EventArgs) Handles btnImportCSVFileSimu.Click
         'tblCSVfile.Controls.Clear()
-        chrtCSV.Series.Clear()
+        'chrtCSV.Series.Clear()
 
         'opens a window for user to select their CSV file
         Dim openFileDialog As New OpenFileDialog()
@@ -1628,8 +1620,6 @@ Public Class GUIMain
 
 
 
-
-
     End Sub
 
     Private Sub tabPackageComparison_Enter(sender As Object, e As EventArgs) Handles tabPackageComparison.Enter
@@ -1640,6 +1630,7 @@ Public Class GUIMain
         Dim packet1 As String = cBoxPackage1.Text 'get packet name
         Dim packet2 As String = cBoxPackage2.Text
         Dim result As Integer = StrComp(packet1, packet2, 0) 'check if strings are same
+
         If result <> 0 Then ' if strings are not same
             Dim returnString As PrjDatabaseComponent.IDatabase
             returnString = New PrjDatabaseComponent.CDatabase
@@ -1789,12 +1780,8 @@ Public Class GUIMain
 
     End Sub
 
-    Private Sub Label13_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
     Private Sub btnConfirmSimuCSV_Click(sender As Object, e As EventArgs) Handles btnConfirmSimuCSV.Click
-
+        chrtHistory.Series.Clear()
         Dim userSeries As String = "Sinu pakett"
         Dim beggingDate = dtpBeginning.Value
         Dim endDate = dtpEnd.Value
@@ -2074,8 +2061,9 @@ Public Class GUIMain
             End If
         End If
         ' End If
+    End Sub
 
-
+    Private Sub lblSimulateClientConsumptionHistory_Click(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -2086,29 +2074,30 @@ Public Class GUIMain
                 cbMarginal.Visible = False
                 tbPrice.Visible = True
                 lblFixed.Visible = True
-                lblMarg.Visible = False
             Case rbStock.Checked
                 cbMarginal.Visible = True
                 cbNighPrice.Visible = False
                 tbPrice.Visible = False
                 lblFixed.Visible = False
-
         End Select
     End Sub
 
     Private Sub cbNighPrice_CheckedChanged(sender As Object, e As EventArgs) Handles cbNighPrice.CheckedChanged
         If cbNighPrice.Checked Then
             tbNightOrMarginal.Visible = True
-            tbDayPrice1.Visible = True
-            tbDayPrice2.Visible = True
             lblMarg.Visible = True
             lblMarg.Text = "Ööhind:"
+            tbDayPrice1.Visible = True
+            tbDayPrice2.Visible = True
+            lblDayPrice.Visible = True
+            lblNightPrice.Visible = True
         Else
             tbNightOrMarginal.Visible = False
+            lblMarg.Visible = False
             tbDayPrice1.Visible = False
             tbDayPrice2.Visible = False
-            lblMarg.Visible = False
-            lblMarg.Text = "Marginaal:"
+            lblDayPrice.Visible = False
+            lblNightPrice.Visible = False
         End If
     End Sub
 
@@ -2122,16 +2111,201 @@ Public Class GUIMain
             lblMarg.Visible = False
         End If
     End Sub
+    Private Sub tabExchangeComparison_Enter(sender As Object, e As EventArgs) Handles tabExchangeComparison.Enter
+        'Sets the maximum date one day after current date
+        dtpBorsihinnaVordlusStart.MaxDate = DateTime.Now.AddDays(1)
+        dtpBorsihinnaVordlusEnd.MaxDate = DateTime.Now.AddDays(1)
 
-    Private Sub tBoxCondition1_TextChanged(sender As Object, e As EventArgs) Handles tBoxCondition1.TextChanged
+    End Sub
+
+    Private Sub txtboxValjadeEraldaja_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtboxValjadeEraldaja.KeyPress
+        'Checks if the entered key was a backspace
+        If Asc(e.KeyChar) = Keys.Back Then
+            'Clears the textbox
+            txtboxValjadeEraldaja.Clear()
+        ElseIf txtboxValjadeEraldaja.Text.Length = 1 Then
+            'Lets only one character to be in the textbox
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub txtboxTekstiKvalifikaator_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtboxTekstiKvalifikaator.KeyPress
+        'Checks if the entered key was a backspace
+        If Asc(e.KeyChar) = Keys.Back Then
+            'Clears the textbox
+            txtboxTekstiKvalifikaator.Clear()
+        ElseIf txtboxTekstiKvalifikaator.Text.Length = 1 Then
+            'Lets only one character to be in the textbox
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub llNaidisCSV_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llNaidisCSV.LinkClicked
+        Dim saveFileDialog As New SaveFileDialog()
+
+        saveFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*"
+        saveFileDialog.RestoreDirectory = True
+        saveFileDialog.FileName = "NäidisCSV"
+
+        If saveFileDialog.ShowDialog() <> DialogResult.OK Then
+            Return
+        End If
+
+        Using writer As New StreamWriter(saveFileDialog.FileName)
+            'Write headers
+            writer.WriteLine("ooPaevHind,kaibemaks")
+
+            'Write data
+            writer.WriteLine("sama/erinev,maksuga/maksuta")
+
+        End Using
+
+    End Sub
+
+    Private Sub btnKinnitaAndmed_Click(sender As Object, e As EventArgs) Handles btnKinnitaAndmed.Click
+        chrtBorsihinnaVordlus.Series.Clear() 'clear chart
+        chrtBorsihinnaVordlus.Titles.Clear() 'clear chart
+        Dim returnString As PrjAPIComponent.APIInterface
+        returnString = New PrjAPIComponent.APIComponent
+
+        Dim returnStringDatabase As PrjDatabaseComponent.IDatabase
+        returnStringDatabase = New PrjDatabaseComponent.CDatabase
+        Dim pakett = returnStringDatabase.onePackageInfo(cbBorsiPakettid.Text)
+        Dim strMarginaal As String = pakett.Item3.ToString()
+        lblMarginaal.Text = strMarginaal
+
+        Dim BorsihinnaVordlusEnd As DateTime = dtpBorsihinnaVordlusEnd.Value
+        Dim BorsihinnaVordlusStart As DateTime = dtpBorsihinnaVordlusStart.Value
+        Dim result As TimeSpan = BorsihinnaVordlusEnd.Subtract(BorsihinnaVordlusStart)
+        Dim days As Integer = result.TotalDays
+
+        If days >= 5 Then
+            MessageBox.Show("Valige ajavahemik maksimaalselt 5 päeva vahemikus.")
+            Return
+        End If
+
+        ' Reset X and Y axis of chart1
+        chrtBorsihinnaVordlus.ChartAreas(0).AxisY.Maximum = 25
+
+        chrtBorsihinnaVordlus.Width = 900 ' set chart the width to 600 pixels
+        chrtBorsihinnaVordlus.Height = 400 'set chart height to 400 lines
+        chrtBorsihinnaVordlus.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
+        chrtBorsihinnaVordlus.ChartAreas(0).AxisY.Interval = 5 'more lines Y axis
+        chrtBorsihinnaVordlus.ChartAreas(0).AxisX.ScaleView.Zoomable = True
+        chrtBorsihinnaVordlus.ChartAreas(0).AxisY.ScaleView.Zoomable = True
+
+        'Set zooming mode to allow zooming in both directions
+        chrtBorsihinnaVordlus.ChartAreas(0).CursorX.IsUserEnabled = True
+        chrtBorsihinnaVordlus.ChartAreas(0).CursorX.IsUserSelectionEnabled = True
+        chrtBorsihinnaVordlus.ChartAreas(0).CursorY.IsUserEnabled = True
+        chrtBorsihinnaVordlus.ChartAreas(0).CursorY.IsUserSelectionEnabled = True
+        chrtBorsihinnaVordlus.ChartAreas(0).AxisX.ScrollBar.IsPositionedInside = True
+        chrtBorsihinnaVordlus.ChartAreas(0).AxisY.ScrollBar.IsPositionedInside = True
+
+        Dim seriesStock As New Series("Börsihind")
+        seriesStock.ChartType = DataVisualization.Charting.SeriesChartType.StepLine
+        seriesStock.BorderWidth = 3
+        Dim seriesPakett As New Series(pakett.Item1)
+        seriesPakett.ChartType = DataVisualization.Charting.SeriesChartType.StepLine
+        seriesPakett.BorderWidth = 3
+
+        Dim startDate As DateTime = dtpBorsihinnaVordlusStart.Value
+        Dim endDate As DateTime = dtpBorsihinnaVordlusEnd.Value
+        Dim strStartDate As String = startDate.ToString("yyyy-MM-dd HH:mm:ss")
+        Dim strEndDate As String = endDate.ToString("yyyy-MM-dd HH:mm:ss")
+        Dim data = returnString.GetDataFromEleringAPIWithDates(strStartDate, strEndDate) 'get stock prices and dates from database
+
+        Dim strPrices As String() = data.Item1
+        Dim strTimes As String() = data.Item2
+        Dim dateTimes(strPrices.Length) As DateTime
+
+        'CHART
+        chrtBorsihinnaVordlus.Series.Add(seriesStock)
+        chrtBorsihinnaVordlus.Series.Add(seriesPakett)
+        'chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
+        'chrtBorsihinnaVordlus.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
+        'chrtBorsihinnaVordlus.ChartAreas(0).AxisY.Interval = 1 'more lines Y axis
+        chrtBorsihinnaVordlus.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.StepLine
+        chrtBorsihinnaVordlus.Series(0).Color = Color.Red
+        chrtBorsihinnaVordlus.Series(0).BorderWidth = 3
+
+        Dim dblPrices(strPrices.Length) As Double
+
+        For i As Integer = 1 To strPrices.Length - 1
+            strPrices(i) = strPrices(i).Replace(".", ",")
+            dblPrices(i) = Double.Parse(strPrices(i))
+        Next
+
+        If rbOoPaevSamaHind.Checked = True Then
+            If pakett.Item7 = True Then
+                MessageBox.Show("Antud pakettil on öö ja päeva hinnad erinevad.")
+                Return
+            End If
+        End If
+
+        If rbOoPaevErinevHind.Checked = True Then
+            If pakett.Item7 = False Then
+                MessageBox.Show("Antud pakettil on öö ja päeva hinnad samad.")
+                Return
+            End If
+        End If
+
+        'fills chart
+        For i As Integer = 1 To strPrices.Length - 1
+            'ADDS DATE AND PRICE TO CHART, PRICE IS CONVERTED FROM €/MWh to cent/kWh
+            If pakett.Item5 = True Then
+                If rbKaibemaksuga.Checked = True Then
+                    chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) * 1.2 / 1000) * 100)
+                    chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), (((dblPrices(i) + pakett.Item3) * 1.2) / 1000) * 100)
+                ElseIf rbKaibemaksuta.Checked = True Then
+                    chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) / 1000) * 100)
+                    chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), ((dblPrices(i) + pakett.Item3) / 1000) * 100)
+                End If
+            Else
+                If pakett.Item7 = True Then
+                    If rbKaibemaksuga.Checked = True Then
+                        chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) * 1.2 / 1000) * 100)
+                        If strTimes(i).Substring(11, 2) >= 12 Then
+                            chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), pakett.Item3 * 1.2)
+                        Else
+                            chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), pakett.Item8 * 1.2)
+                        End If
+                    ElseIf rbKaibemaksuta.Checked = True Then
+                        chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) / 1000) * 100)
+                        If strTimes(i).Substring(11, 2) >= 12 Then
+                            chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), pakett.Item3)
+                        Else
+                            chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), pakett.Item8)
+                        End If
+                    End If
+                Else
+                    If rbKaibemaksuga.Checked = True Then
+                        chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) * 1.2 / 1000) * 100)
+                        chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), pakett.Item3 * 1.2)
+                    ElseIf rbKaibemaksuta.Checked = True Then
+                        chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) / 1000) * 100)
+                        chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), pakett.Item3)
+                    End If
+                End If
+            End If
+        Next
+    End Sub
+
+
+
+    Private Sub tabClientConsumptionHistory_Enter(sender As Object, e As EventArgs) Handles tabClientConsumptionHistory.Enter
+        lblMarg.Visible = False
+        lblFixed.Visible = False
+        lblMarg.Visible = False
+        lblDayPrice.Visible = False
+        lblNightPrice.Visible = False
+    End Sub
+
+    Private Sub rbFix_CheckedChanged(sender As Object, e As EventArgs) Handles rbFix.CheckedChanged
 
     End Sub
 
     Private Sub rbStock_CheckedChanged(sender As Object, e As EventArgs) Handles rbStock.CheckedChanged
-
-    End Sub
-
-    Private Sub tabPackageComparison_Click(sender As Object, e As EventArgs) Handles tabPackageComparison.Click
 
     End Sub
 End Class

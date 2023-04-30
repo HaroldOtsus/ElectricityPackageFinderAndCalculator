@@ -123,17 +123,37 @@ Partial Class GUIMain
         Me.lblApplianceChoice = New System.Windows.Forms.Label()
         Me.btnBack1 = New System.Windows.Forms.Button()
         Me.tabExchangeComparison = New System.Windows.Forms.TabPage()
-        Me.chrtCSV = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.lblMarginaal = New System.Windows.Forms.Label()
+        Me.lblDontuse = New System.Windows.Forms.Label()
+        Me.btnKinnitaAndmed = New System.Windows.Forms.Button()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.cbBorsiPakettid = New System.Windows.Forms.ComboBox()
+        Me.llNaidisCSV = New System.Windows.Forms.LinkLabel()
+        Me.lblFailiPath = New System.Windows.Forms.Label()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.rbUusCSVFail = New System.Windows.Forms.RadioButton()
+        Me.rbValiCSVFail = New System.Windows.Forms.RadioButton()
+        Me.gbFailid = New System.Windows.Forms.GroupBox()
+        Me.rbFailiUlekirjutamine = New System.Windows.Forms.RadioButton()
+        Me.rbLisaFailiLoppu = New System.Windows.Forms.RadioButton()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.txtboxTekstiKvalifikaator = New System.Windows.Forms.TextBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.txtboxValjadeEraldaja = New System.Windows.Forms.TextBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.gbKaibemaks = New System.Windows.Forms.GroupBox()
+        Me.rbKaibemaksuga = New System.Windows.Forms.RadioButton()
+        Me.rbKaibemaksuta = New System.Windows.Forms.RadioButton()
+        Me.gpOoPaevaHind = New System.Windows.Forms.GroupBox()
+        Me.rbOoPaevSamaHind = New System.Windows.Forms.RadioButton()
+        Me.rbOoPaevErinevHind = New System.Windows.Forms.RadioButton()
+        Me.dtpBorsihinnaVordlusEnd = New System.Windows.Forms.DateTimePicker()
+        Me.dtpBorsihinnaVordlusStart = New System.Windows.Forms.DateTimePicker()
+        Me.chrtBorsihinnaVordlus = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.btnExport = New System.Windows.Forms.Button()
         Me.btnImport = New System.Windows.Forms.Button()
         Me.lblExchangeComparisonResult = New System.Windows.Forms.Label()
-        Me.tBoxCondition2 = New System.Windows.Forms.TextBox()
-        Me.tBoxCondition1 = New System.Windows.Forms.TextBox()
-        Me.tBoxEndTime = New System.Windows.Forms.TextBox()
-        Me.tboxStartTime = New System.Windows.Forms.TextBox()
         Me.lblExchangeChoice = New System.Windows.Forms.Label()
-        Me.lblCase2 = New System.Windows.Forms.Label()
-        Me.lblCase1 = New System.Windows.Forms.Label()
         Me.lblEnterPrice = New System.Windows.Forms.Label()
         Me.lblEndTime = New System.Windows.Forms.Label()
         Me.lblStartTime = New System.Windows.Forms.Label()
@@ -142,12 +162,14 @@ Partial Class GUIMain
         Me.tabConsumptionHistory = New System.Windows.Forms.TabPage()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.tabClientConsumptionHistory = New System.Windows.Forms.TabPage()
+        Me.lblPriceTotalFromPackage = New System.Windows.Forms.Label()
+        Me.lblPriceTotalFromImport = New System.Windows.Forms.Label()
         Me.lblChoosePackage = New System.Windows.Forms.Label()
         Me.cbChoosePackage = New System.Windows.Forms.ComboBox()
         Me.lblMarg = New System.Windows.Forms.Label()
         Me.lblFixed = New System.Windows.Forms.Label()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.Label15 = New System.Windows.Forms.Label()
+        Me.lblNightPrice = New System.Windows.Forms.Label()
+        Me.lblDayPrice = New System.Windows.Forms.Label()
         Me.tbDayPrice2 = New System.Windows.Forms.TextBox()
         Me.tbDayPrice1 = New System.Windows.Forms.TextBox()
         Me.chrtHistory = New System.Windows.Forms.DataVisualization.Charting.Chart()
@@ -164,7 +186,7 @@ Partial Class GUIMain
         Me.lblFromDateTime = New System.Windows.Forms.Label()
         Me.dtpEnd = New System.Windows.Forms.DateTimePicker()
         Me.dtpBeginning = New System.Windows.Forms.DateTimePicker()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
         Me.btnImportCSVFileSimu = New System.Windows.Forms.Button()
         Me.lblSimulateClientConsumptionHistory = New System.Windows.Forms.Label()
         Me.lblConsumptionGraph = New System.Windows.Forms.Label()
@@ -211,8 +233,6 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
-        Me.lblPriceTotalFromImport = New System.Windows.Forms.Label()
-        Me.lblPriceTotalFromPackage = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -224,7 +244,11 @@ Partial Class GUIMain
         Me.Panel2.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.tabExchangeComparison.SuspendLayout()
-        CType(Me.chrtCSV, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
+        Me.gbFailid.SuspendLayout()
+        Me.gbKaibemaks.SuspendLayout()
+        Me.gpOoPaevaHind.SuspendLayout()
+        CType(Me.chrtBorsihinnaVordlus, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabConsumptionHistory.SuspendLayout()
         Me.TabControl2.SuspendLayout()
         Me.tabClientConsumptionHistory.SuspendLayout()
@@ -1203,17 +1227,29 @@ Partial Class GUIMain
         '
         'tabExchangeComparison
         '
-        Me.tabExchangeComparison.Controls.Add(Me.chrtCSV)
+        Me.tabExchangeComparison.Controls.Add(Me.lblMarginaal)
+        Me.tabExchangeComparison.Controls.Add(Me.lblDontuse)
+        Me.tabExchangeComparison.Controls.Add(Me.btnKinnitaAndmed)
+        Me.tabExchangeComparison.Controls.Add(Me.Label18)
+        Me.tabExchangeComparison.Controls.Add(Me.cbBorsiPakettid)
+        Me.tabExchangeComparison.Controls.Add(Me.llNaidisCSV)
+        Me.tabExchangeComparison.Controls.Add(Me.lblFailiPath)
+        Me.tabExchangeComparison.Controls.Add(Me.GroupBox1)
+        Me.tabExchangeComparison.Controls.Add(Me.gbFailid)
+        Me.tabExchangeComparison.Controls.Add(Me.Label17)
+        Me.tabExchangeComparison.Controls.Add(Me.txtboxTekstiKvalifikaator)
+        Me.tabExchangeComparison.Controls.Add(Me.Label16)
+        Me.tabExchangeComparison.Controls.Add(Me.txtboxValjadeEraldaja)
+        Me.tabExchangeComparison.Controls.Add(Me.Label15)
+        Me.tabExchangeComparison.Controls.Add(Me.gbKaibemaks)
+        Me.tabExchangeComparison.Controls.Add(Me.gpOoPaevaHind)
+        Me.tabExchangeComparison.Controls.Add(Me.dtpBorsihinnaVordlusEnd)
+        Me.tabExchangeComparison.Controls.Add(Me.dtpBorsihinnaVordlusStart)
+        Me.tabExchangeComparison.Controls.Add(Me.chrtBorsihinnaVordlus)
         Me.tabExchangeComparison.Controls.Add(Me.btnExport)
         Me.tabExchangeComparison.Controls.Add(Me.btnImport)
         Me.tabExchangeComparison.Controls.Add(Me.lblExchangeComparisonResult)
-        Me.tabExchangeComparison.Controls.Add(Me.tBoxCondition2)
-        Me.tabExchangeComparison.Controls.Add(Me.tBoxCondition1)
-        Me.tabExchangeComparison.Controls.Add(Me.tBoxEndTime)
-        Me.tabExchangeComparison.Controls.Add(Me.tboxStartTime)
         Me.tabExchangeComparison.Controls.Add(Me.lblExchangeChoice)
-        Me.tabExchangeComparison.Controls.Add(Me.lblCase2)
-        Me.tabExchangeComparison.Controls.Add(Me.lblCase1)
         Me.tabExchangeComparison.Controls.Add(Me.lblEnterPrice)
         Me.tabExchangeComparison.Controls.Add(Me.lblEndTime)
         Me.tabExchangeComparison.Controls.Add(Me.lblStartTime)
@@ -1227,31 +1263,283 @@ Partial Class GUIMain
         Me.tabExchangeComparison.Text = "Börsihinna võrdlus"
         Me.tabExchangeComparison.UseVisualStyleBackColor = True
         '
-        'chrtCSV
+        'lblMarginaal
+        '
+        Me.lblMarginaal.AutoSize = True
+        Me.lblMarginaal.Location = New System.Drawing.Point(774, 82)
+        Me.lblMarginaal.Name = "lblMarginaal"
+        Me.lblMarginaal.Size = New System.Drawing.Size(0, 13)
+        Me.lblMarginaal.TabIndex = 41
+        '
+        'lblDontuse
+        '
+        Me.lblDontuse.AutoSize = True
+        Me.lblDontuse.Location = New System.Drawing.Point(723, 82)
+        Me.lblDontuse.Name = "lblDontuse"
+        Me.lblDontuse.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.lblDontuse.Size = New System.Drawing.Size(56, 13)
+        Me.lblDontuse.TabIndex = 40
+        Me.lblDontuse.Text = "Marginaal:"
+        '
+        'btnKinnitaAndmed
+        '
+        Me.btnKinnitaAndmed.Location = New System.Drawing.Point(726, 218)
+        Me.btnKinnitaAndmed.Name = "btnKinnitaAndmed"
+        Me.btnKinnitaAndmed.Size = New System.Drawing.Size(91, 34)
+        Me.btnKinnitaAndmed.TabIndex = 39
+        Me.btnKinnitaAndmed.Text = "Kinnita andmed"
+        Me.btnKinnitaAndmed.UseVisualStyleBackColor = True
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(723, 55)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(69, 13)
+        Me.Label18.TabIndex = 38
+        Me.Label18.Text = "Elektripakett:"
+        '
+        'cbBorsiPakettid
+        '
+        Me.cbBorsiPakettid.FormattingEnabled = True
+        Me.cbBorsiPakettid.Items.AddRange(New Object() {"Kindel 6", "Kindel 36", "Kindel Pluss", "Muutuv", "Universaalteenus", "Pingevaba + Ühisarve", "Tähtajaline fikseeritud hind", "Kodupakett börsihinnaga", "Universaalteenus Alexela", "Universaalteenus Alexela + roheline", "Tähtajaline fikseeritud hind + roheline", "220 Börsihind", "220 Börsihind + Roheline", "220 Tähtajaline kindel hind", "220 Tähtajaline kindel hind + roheline", "220 Universaalteenus", "220 Universaalteenus + roheline", "Kindel pakett gaas", "Muutuvhinnaga pakett", "Universaalteenus Eesti gaas", "Universaalteenus VKG", "Not-fix", "Roheline Klõps", "Roheline Börsi Klõps", "Börsi Klõps", "Universaalteenus Elektrum", "Kaljukindel Klõps kindlustusega"})
+        Me.cbBorsiPakettid.Location = New System.Drawing.Point(798, 49)
+        Me.cbBorsiPakettid.Name = "cbBorsiPakettid"
+        Me.cbBorsiPakettid.Size = New System.Drawing.Size(121, 21)
+        Me.cbBorsiPakettid.TabIndex = 37
+        '
+        'llNaidisCSV
+        '
+        Me.llNaidisCSV.AutoSize = True
+        Me.llNaidisCSV.Location = New System.Drawing.Point(200, 239)
+        Me.llNaidisCSV.Name = "llNaidisCSV"
+        Me.llNaidisCSV.Size = New System.Drawing.Size(114, 13)
+        Me.llNaidisCSV.TabIndex = 36
+        Me.llNaidisCSV.TabStop = True
+        Me.llNaidisCSV.Text = "Lae alla näidis CSV fail"
+        '
+        'lblFailiPath
+        '
+        Me.lblFailiPath.AutoSize = True
+        Me.lblFailiPath.Location = New System.Drawing.Point(529, 239)
+        Me.lblFailiPath.Name = "lblFailiPath"
+        Me.lblFailiPath.Size = New System.Drawing.Size(78, 13)
+        Me.lblFailiPath.TabIndex = 35
+        Me.lblFailiPath.Text = "<Faili asukoht>"
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.rbUusCSVFail)
+        Me.GroupBox1.Controls.Add(Me.rbValiCSVFail)
+        Me.GroupBox1.Location = New System.Drawing.Point(439, 130)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(263, 32)
+        Me.GroupBox1.TabIndex = 30
+        Me.GroupBox1.TabStop = False
+        '
+        'rbUusCSVFail
+        '
+        Me.rbUusCSVFail.AutoSize = True
+        Me.rbUusCSVFail.Location = New System.Drawing.Point(157, 9)
+        Me.rbUusCSVFail.Name = "rbUusCSVFail"
+        Me.rbUusCSVFail.Size = New System.Drawing.Size(103, 17)
+        Me.rbUusCSVFail.TabIndex = 25
+        Me.rbUusCSVFail.TabStop = True
+        Me.rbUusCSVFail.Text = "Loo uus CSV fail"
+        Me.rbUusCSVFail.UseVisualStyleBackColor = True
+        '
+        'rbValiCSVFail
+        '
+        Me.rbValiCSVFail.AutoSize = True
+        Me.rbValiCSVFail.Location = New System.Drawing.Point(11, 9)
+        Me.rbValiCSVFail.Name = "rbValiCSVFail"
+        Me.rbValiCSVFail.Size = New System.Drawing.Size(98, 17)
+        Me.rbValiCSVFail.TabIndex = 24
+        Me.rbValiCSVFail.TabStop = True
+        Me.rbValiCSVFail.Text = "Vali ise CSV fail"
+        Me.rbValiCSVFail.UseVisualStyleBackColor = True
+        '
+        'gbFailid
+        '
+        Me.gbFailid.Controls.Add(Me.rbFailiUlekirjutamine)
+        Me.gbFailid.Controls.Add(Me.rbLisaFailiLoppu)
+        Me.gbFailid.Location = New System.Drawing.Point(439, 98)
+        Me.gbFailid.Name = "gbFailid"
+        Me.gbFailid.Size = New System.Drawing.Size(263, 32)
+        Me.gbFailid.TabIndex = 29
+        Me.gbFailid.TabStop = False
+        '
+        'rbFailiUlekirjutamine
+        '
+        Me.rbFailiUlekirjutamine.AutoSize = True
+        Me.rbFailiUlekirjutamine.Location = New System.Drawing.Point(11, 9)
+        Me.rbFailiUlekirjutamine.Name = "rbFailiUlekirjutamine"
+        Me.rbFailiUlekirjutamine.Size = New System.Drawing.Size(110, 17)
+        Me.rbFailiUlekirjutamine.TabIndex = 24
+        Me.rbFailiUlekirjutamine.TabStop = True
+        Me.rbFailiUlekirjutamine.Text = "Faili ülekirjutamine"
+        Me.rbFailiUlekirjutamine.UseVisualStyleBackColor = True
+        '
+        'rbLisaFailiLoppu
+        '
+        Me.rbLisaFailiLoppu.AutoSize = True
+        Me.rbLisaFailiLoppu.Location = New System.Drawing.Point(157, 9)
+        Me.rbLisaFailiLoppu.Name = "rbLisaFailiLoppu"
+        Me.rbLisaFailiLoppu.Size = New System.Drawing.Size(91, 17)
+        Me.rbLisaFailiLoppu.TabIndex = 26
+        Me.rbLisaFailiLoppu.TabStop = True
+        Me.rbLisaFailiLoppu.Text = "Lisa faili lõppu"
+        Me.rbLisaFailiLoppu.UseVisualStyleBackColor = True
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(437, 75)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(99, 13)
+        Me.Label17.TabIndex = 33
+        Me.Label17.Text = "Teksti kvalifikaator:"
+        Me.Label17.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
+        'txtboxTekstiKvalifikaator
+        '
+        Me.txtboxTekstiKvalifikaator.Location = New System.Drawing.Point(542, 72)
+        Me.txtboxTekstiKvalifikaator.Name = "txtboxTekstiKvalifikaator"
+        Me.txtboxTekstiKvalifikaator.Size = New System.Drawing.Size(19, 20)
+        Me.txtboxTekstiKvalifikaator.TabIndex = 32
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(436, 48)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(85, 13)
+        Me.Label16.TabIndex = 31
+        Me.Label16.Text = "Väljade eraldaja:"
+        Me.Label16.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
+        'txtboxValjadeEraldaja
+        '
+        Me.txtboxValjadeEraldaja.Location = New System.Drawing.Point(542, 41)
+        Me.txtboxValjadeEraldaja.Name = "txtboxValjadeEraldaja"
+        Me.txtboxValjadeEraldaja.Size = New System.Drawing.Size(19, 20)
+        Me.txtboxValjadeEraldaja.TabIndex = 30
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(109, 202)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(152, 13)
+        Me.Label15.TabIndex = 29
+        Me.Label15.Text = "Impordi hinnastamistingimused:"
+        '
+        'gbKaibemaks
+        '
+        Me.gbKaibemaks.Controls.Add(Me.rbKaibemaksuga)
+        Me.gbKaibemaks.Controls.Add(Me.rbKaibemaksuta)
+        Me.gbKaibemaks.Location = New System.Drawing.Point(110, 165)
+        Me.gbKaibemaks.Name = "gbKaibemaks"
+        Me.gbKaibemaks.Size = New System.Drawing.Size(307, 32)
+        Me.gbKaibemaks.TabIndex = 28
+        Me.gbKaibemaks.TabStop = False
+        '
+        'rbKaibemaksuga
+        '
+        Me.rbKaibemaksuga.AutoSize = True
+        Me.rbKaibemaksuga.Location = New System.Drawing.Point(11, 9)
+        Me.rbKaibemaksuga.Name = "rbKaibemaksuga"
+        Me.rbKaibemaksuga.Size = New System.Drawing.Size(95, 17)
+        Me.rbKaibemaksuga.TabIndex = 24
+        Me.rbKaibemaksuga.TabStop = True
+        Me.rbKaibemaksuga.Text = "Käibemaksuga"
+        Me.rbKaibemaksuga.UseVisualStyleBackColor = True
+        '
+        'rbKaibemaksuta
+        '
+        Me.rbKaibemaksuta.AutoSize = True
+        Me.rbKaibemaksuta.Location = New System.Drawing.Point(157, 9)
+        Me.rbKaibemaksuta.Name = "rbKaibemaksuta"
+        Me.rbKaibemaksuta.Size = New System.Drawing.Size(92, 17)
+        Me.rbKaibemaksuta.TabIndex = 26
+        Me.rbKaibemaksuta.TabStop = True
+        Me.rbKaibemaksuta.Text = "Käibemaksuta"
+        Me.rbKaibemaksuta.UseVisualStyleBackColor = True
+        '
+        'gpOoPaevaHind
+        '
+        Me.gpOoPaevaHind.Controls.Add(Me.rbOoPaevSamaHind)
+        Me.gpOoPaevaHind.Controls.Add(Me.rbOoPaevErinevHind)
+        Me.gpOoPaevaHind.Location = New System.Drawing.Point(110, 127)
+        Me.gpOoPaevaHind.Name = "gpOoPaevaHind"
+        Me.gpOoPaevaHind.Size = New System.Drawing.Size(307, 32)
+        Me.gpOoPaevaHind.TabIndex = 27
+        Me.gpOoPaevaHind.TabStop = False
+        '
+        'rbOoPaevSamaHind
+        '
+        Me.rbOoPaevSamaHind.AutoSize = True
+        Me.rbOoPaevSamaHind.Location = New System.Drawing.Point(11, 9)
+        Me.rbOoPaevSamaHind.Name = "rbOoPaevSamaHind"
+        Me.rbOoPaevSamaHind.Size = New System.Drawing.Size(140, 17)
+        Me.rbOoPaevSamaHind.TabIndex = 23
+        Me.rbOoPaevSamaHind.TabStop = True
+        Me.rbOoPaevSamaHind.Text = "Öösel/päeval sama hind"
+        Me.rbOoPaevSamaHind.UseVisualStyleBackColor = True
+        '
+        'rbOoPaevErinevHind
+        '
+        Me.rbOoPaevErinevHind.AutoSize = True
+        Me.rbOoPaevErinevHind.Location = New System.Drawing.Point(157, 9)
+        Me.rbOoPaevErinevHind.Name = "rbOoPaevErinevHind"
+        Me.rbOoPaevErinevHind.Size = New System.Drawing.Size(144, 17)
+        Me.rbOoPaevErinevHind.TabIndex = 25
+        Me.rbOoPaevErinevHind.TabStop = True
+        Me.rbOoPaevErinevHind.Text = "Öösel/päeval erinev hind"
+        Me.rbOoPaevErinevHind.UseVisualStyleBackColor = True
+        '
+        'dtpBorsihinnaVordlusEnd
+        '
+        Me.dtpBorsihinnaVordlusEnd.Location = New System.Drawing.Point(197, 75)
+        Me.dtpBorsihinnaVordlusEnd.MinDate = New Date(1970, 1, 1, 0, 0, 0, 0)
+        Me.dtpBorsihinnaVordlusEnd.Name = "dtpBorsihinnaVordlusEnd"
+        Me.dtpBorsihinnaVordlusEnd.Size = New System.Drawing.Size(200, 20)
+        Me.dtpBorsihinnaVordlusEnd.TabIndex = 22
+        '
+        'dtpBorsihinnaVordlusStart
+        '
+        Me.dtpBorsihinnaVordlusStart.Location = New System.Drawing.Point(197, 49)
+        Me.dtpBorsihinnaVordlusStart.MinDate = New Date(1970, 1, 1, 0, 0, 0, 0)
+        Me.dtpBorsihinnaVordlusStart.Name = "dtpBorsihinnaVordlusStart"
+        Me.dtpBorsihinnaVordlusStart.Size = New System.Drawing.Size(200, 20)
+        Me.dtpBorsihinnaVordlusStart.TabIndex = 21
+        Me.dtpBorsihinnaVordlusStart.Value = New Date(2023, 4, 29, 14, 29, 0, 0)
+        '
+        'chrtBorsihinnaVordlus
         '
         ChartArea3.Name = "ChartArea1"
-        Me.chrtCSV.ChartAreas.Add(ChartArea3)
+        Me.chrtBorsihinnaVordlus.ChartAreas.Add(ChartArea3)
         Legend3.Name = "Legend1"
-        Me.chrtCSV.Legends.Add(Legend3)
-        Me.chrtCSV.Location = New System.Drawing.Point(3, 284)
-        Me.chrtCSV.Name = "chrtCSV"
-        Me.chrtCSV.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None
-        Me.chrtCSV.Size = New System.Drawing.Size(940, 292)
-        Me.chrtCSV.TabIndex = 20
-        Me.chrtCSV.Text = "CSV"
+        Me.chrtBorsihinnaVordlus.Legends.Add(Legend3)
+        Me.chrtBorsihinnaVordlus.Location = New System.Drawing.Point(3, 258)
+        Me.chrtBorsihinnaVordlus.Name = "chrtBorsihinnaVordlus"
+        Me.chrtBorsihinnaVordlus.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None
+        Me.chrtBorsihinnaVordlus.Size = New System.Drawing.Size(940, 318)
+        Me.chrtBorsihinnaVordlus.TabIndex = 20
+        Me.chrtBorsihinnaVordlus.Text = "CSV"
         '
         'btnExport
         '
-        Me.btnExport.Location = New System.Drawing.Point(237, 240)
+        Me.btnExport.Location = New System.Drawing.Point(439, 218)
         Me.btnExport.Name = "btnExport"
         Me.btnExport.Size = New System.Drawing.Size(84, 34)
         Me.btnExport.TabIndex = 18
-        Me.btnExport.Text = "Export"
+        Me.btnExport.Text = "Eksport"
         Me.btnExport.UseVisualStyleBackColor = True
         '
         'btnImport
         '
-        Me.btnImport.Location = New System.Drawing.Point(128, 240)
+        Me.btnImport.Location = New System.Drawing.Point(110, 218)
         Me.btnImport.Name = "btnImport"
         Me.btnImport.Size = New System.Drawing.Size(84, 34)
         Me.btnImport.TabIndex = 17
@@ -1261,66 +1549,20 @@ Partial Class GUIMain
         'lblExchangeComparisonResult
         '
         Me.lblExchangeComparisonResult.AutoSize = True
-        Me.lblExchangeComparisonResult.Location = New System.Drawing.Point(411, 22)
+        Me.lblExchangeComparisonResult.Location = New System.Drawing.Point(723, 22)
         Me.lblExchangeComparisonResult.Name = "lblExchangeComparisonResult"
-        Me.lblExchangeComparisonResult.Size = New System.Drawing.Size(50, 13)
+        Me.lblExchangeComparisonResult.Size = New System.Drawing.Size(197, 13)
         Me.lblExchangeComparisonResult.TabIndex = 15
-        Me.lblExchangeComparisonResult.Text = "Tulemus:"
-        '
-        'tBoxCondition2
-        '
-        Me.tBoxCondition2.Location = New System.Drawing.Point(197, 158)
-        Me.tBoxCondition2.Name = "tBoxCondition2"
-        Me.tBoxCondition2.Size = New System.Drawing.Size(100, 20)
-        Me.tBoxCondition2.TabIndex = 14
-        '
-        'tBoxCondition1
-        '
-        Me.tBoxCondition1.Location = New System.Drawing.Point(197, 132)
-        Me.tBoxCondition1.Name = "tBoxCondition1"
-        Me.tBoxCondition1.Size = New System.Drawing.Size(100, 20)
-        Me.tBoxCondition1.TabIndex = 13
-        '
-        'tBoxEndTime
-        '
-        Me.tBoxEndTime.Location = New System.Drawing.Point(197, 78)
-        Me.tBoxEndTime.Name = "tBoxEndTime"
-        Me.tBoxEndTime.Size = New System.Drawing.Size(100, 20)
-        Me.tBoxEndTime.TabIndex = 12
-        '
-        'tboxStartTime
-        '
-        Me.tboxStartTime.Location = New System.Drawing.Point(197, 52)
-        Me.tboxStartTime.Name = "tboxStartTime"
-        Me.tboxStartTime.Size = New System.Drawing.Size(100, 20)
-        Me.tboxStartTime.TabIndex = 11
+        Me.lblExchangeComparisonResult.Text = "Võrdle börsihinda erinevate pakkujatega"
         '
         'lblExchangeChoice
         '
         Me.lblExchangeChoice.AutoSize = True
-        Me.lblExchangeChoice.Location = New System.Drawing.Point(107, 209)
+        Me.lblExchangeChoice.Location = New System.Drawing.Point(436, 22)
         Me.lblExchangeChoice.Name = "lblExchangeChoice"
-        Me.lblExchangeChoice.Size = New System.Drawing.Size(55, 13)
+        Me.lblExchangeChoice.Size = New System.Drawing.Size(155, 13)
         Me.lblExchangeChoice.TabIndex = 8
-        Me.lblExchangeChoice.Text = "Valikuline:"
-        '
-        'lblCase2
-        '
-        Me.lblCase2.AutoSize = True
-        Me.lblCase2.Location = New System.Drawing.Point(107, 161)
-        Me.lblCase2.Name = "lblCase2"
-        Me.lblCase2.Size = New System.Drawing.Size(61, 13)
-        Me.lblCase2.TabIndex = 7
-        Me.lblCase2.Text = "Tingimus 2:"
-        '
-        'lblCase1
-        '
-        Me.lblCase1.AutoSize = True
-        Me.lblCase1.Location = New System.Drawing.Point(107, 135)
-        Me.lblCase1.Name = "lblCase1"
-        Me.lblCase1.Size = New System.Drawing.Size(61, 13)
-        Me.lblCase1.TabIndex = 6
-        Me.lblCase1.Text = "Tingimus 1:"
+        Me.lblExchangeChoice.Text = "Lae alla hinnastamistingimused:"
         '
         'lblEnterPrice
         '
@@ -1398,8 +1640,8 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.Controls.Add(Me.cbChoosePackage)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblMarg)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblFixed)
-        Me.tabClientConsumptionHistory.Controls.Add(Me.Label16)
-        Me.tabClientConsumptionHistory.Controls.Add(Me.Label15)
+        Me.tabClientConsumptionHistory.Controls.Add(Me.lblNightPrice)
+        Me.tabClientConsumptionHistory.Controls.Add(Me.lblDayPrice)
         Me.tabClientConsumptionHistory.Controls.Add(Me.tbDayPrice2)
         Me.tabClientConsumptionHistory.Controls.Add(Me.tbDayPrice1)
         Me.tabClientConsumptionHistory.Controls.Add(Me.chrtHistory)
@@ -1414,7 +1656,7 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblFromDateTime)
         Me.tabClientConsumptionHistory.Controls.Add(Me.dtpEnd)
         Me.tabClientConsumptionHistory.Controls.Add(Me.dtpBeginning)
-        Me.tabClientConsumptionHistory.Controls.Add(Me.Label2)
+        Me.tabClientConsumptionHistory.Controls.Add(Me.Label20)
         Me.tabClientConsumptionHistory.Controls.Add(Me.btnImportCSVFileSimu)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblSimulateClientConsumptionHistory)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblConsumptionGraph)
@@ -1427,74 +1669,92 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.Text = "Simuleeri oma tarbimise ajalugu"
         Me.tabClientConsumptionHistory.UseVisualStyleBackColor = True
         '
+        'lblPriceTotalFromPackage
+        '
+        Me.lblPriceTotalFromPackage.AutoSize = True
+        Me.lblPriceTotalFromPackage.Location = New System.Drawing.Point(11, 513)
+        Me.lblPriceTotalFromPackage.Name = "lblPriceTotalFromPackage"
+        Me.lblPriceTotalFromPackage.Size = New System.Drawing.Size(258, 13)
+        Me.lblPriceTotalFromPackage.TabIndex = 61
+        Me.lblPriceTotalFromPackage.Text = "Kogu vahemiku elektri hind vastavalt valitud paketile:"
+        '
+        'lblPriceTotalFromImport
+        '
+        Me.lblPriceTotalFromImport.AutoSize = True
+        Me.lblPriceTotalFromImport.Location = New System.Drawing.Point(11, 495)
+        Me.lblPriceTotalFromImport.Name = "lblPriceTotalFromImport"
+        Me.lblPriceTotalFromImport.Size = New System.Drawing.Size(246, 13)
+        Me.lblPriceTotalFromImport.TabIndex = 60
+        Me.lblPriceTotalFromImport.Text = "Kogu vahemiku elektri hind vastavalt sinu paketile:"
+        '
         'lblChoosePackage
         '
         Me.lblChoosePackage.AutoSize = True
-        Me.lblChoosePackage.Location = New System.Drawing.Point(63, 364)
+        Me.lblChoosePackage.Location = New System.Drawing.Point(67, 370)
         Me.lblChoosePackage.Name = "lblChoosePackage"
         Me.lblChoosePackage.Size = New System.Drawing.Size(60, 13)
-        Me.lblChoosePackage.TabIndex = 32
+        Me.lblChoosePackage.TabIndex = 59
         Me.lblChoosePackage.Text = "Vali pakett:"
         '
         'cbChoosePackage
         '
         Me.cbChoosePackage.FormattingEnabled = True
         Me.cbChoosePackage.Items.AddRange(New Object() {"Kindel 6", "Kindel 36", "Kindel Pluss", "Muutuv", "Universaalteenus", "Pingevaba + Ühisarve", "Tähtajaline fikseeritud hind", "Kodupakett börsihinnaga", "Universaalteenus Alexela", "Universaalteenus Alexela + roheline", "Tähtajaline fikseeritud hind + roheline", "220 Börsihind", "220 Börsihind + Roheline", "220 Tähtajaline kindel hind", "220 Tähtajaline kindel hind + roheline", "220 Universaalteenus", "220 Universaalteenus + roheline", "Kindel pakett gaas", "Muutuvhinnaga pakett", "Universaalteenus Eesti gaas", "Universaalteenus VKG", "Not-fix", "Roheline Klõps", "Roheline Börsi Klõps", "Börsi Klõps", "Universaalteenus Elektrum", "Kaljukindel Klõps kindlustusega"})
-        Me.cbChoosePackage.Location = New System.Drawing.Point(63, 390)
+        Me.cbChoosePackage.Location = New System.Drawing.Point(67, 396)
         Me.cbChoosePackage.Name = "cbChoosePackage"
         Me.cbChoosePackage.Size = New System.Drawing.Size(198, 21)
-        Me.cbChoosePackage.TabIndex = 31
+        Me.cbChoosePackage.TabIndex = 58
         '
         'lblMarg
         '
         Me.lblMarg.AutoSize = True
-        Me.lblMarg.Location = New System.Drawing.Point(52, 128)
+        Me.lblMarg.Location = New System.Drawing.Point(56, 134)
         Me.lblMarg.Name = "lblMarg"
         Me.lblMarg.Size = New System.Drawing.Size(56, 13)
-        Me.lblMarg.TabIndex = 30
+        Me.lblMarg.TabIndex = 57
         Me.lblMarg.Text = "Marginaal:"
         '
         'lblFixed
         '
         Me.lblFixed.AutoSize = True
-        Me.lblFixed.Location = New System.Drawing.Point(7, 97)
+        Me.lblFixed.Location = New System.Drawing.Point(11, 103)
         Me.lblFixed.Name = "lblFixed"
         Me.lblFixed.Size = New System.Drawing.Size(101, 13)
-        Me.lblFixed.TabIndex = 29
+        Me.lblFixed.TabIndex = 56
         Me.lblFixed.Text = "Fiktsioneeritud hind:"
         '
-        'Label16
+        'lblNightPrice
         '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(139, 155)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(27, 13)
-        Me.Label16.TabIndex = 28
-        Me.Label16.Text = "kuni"
+        Me.lblNightPrice.AutoSize = True
+        Me.lblNightPrice.Location = New System.Drawing.Point(143, 161)
+        Me.lblNightPrice.Name = "lblNightPrice"
+        Me.lblNightPrice.Size = New System.Drawing.Size(27, 13)
+        Me.lblNightPrice.TabIndex = 55
+        Me.lblNightPrice.Text = "kuni"
         '
-        'Label15
+        'lblDayPrice
         '
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(24, 154)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(58, 13)
-        Me.Label15.TabIndex = 27
-        Me.Label15.Text = "Päevahind"
+        Me.lblDayPrice.AutoSize = True
+        Me.lblDayPrice.Location = New System.Drawing.Point(28, 160)
+        Me.lblDayPrice.Name = "lblDayPrice"
+        Me.lblDayPrice.Size = New System.Drawing.Size(58, 13)
+        Me.lblDayPrice.TabIndex = 54
+        Me.lblDayPrice.Text = "Päevahind"
         '
         'tbDayPrice2
         '
-        Me.tbDayPrice2.Location = New System.Drawing.Point(170, 151)
+        Me.tbDayPrice2.Location = New System.Drawing.Point(174, 157)
         Me.tbDayPrice2.Name = "tbDayPrice2"
         Me.tbDayPrice2.Size = New System.Drawing.Size(43, 20)
-        Me.tbDayPrice2.TabIndex = 26
+        Me.tbDayPrice2.TabIndex = 53
         Me.tbDayPrice2.Visible = False
         '
         'tbDayPrice1
         '
-        Me.tbDayPrice1.Location = New System.Drawing.Point(88, 152)
+        Me.tbDayPrice1.Location = New System.Drawing.Point(92, 158)
         Me.tbDayPrice1.Name = "tbDayPrice1"
         Me.tbDayPrice1.Size = New System.Drawing.Size(43, 20)
-        Me.tbDayPrice1.TabIndex = 25
+        Me.tbDayPrice1.TabIndex = 52
         Me.tbDayPrice1.Visible = False
         '
         'chrtHistory
@@ -1503,21 +1763,21 @@ Partial Class GUIMain
         Me.chrtHistory.ChartAreas.Add(ChartArea4)
         Legend4.Name = "Legend1"
         Me.chrtHistory.Legends.Add(Legend4)
-        Me.chrtHistory.Location = New System.Drawing.Point(341, 94)
+        Me.chrtHistory.Location = New System.Drawing.Point(345, 100)
         Me.chrtHistory.Margin = New System.Windows.Forms.Padding(2)
         Me.chrtHistory.Name = "chrtHistory"
         Me.chrtHistory.Size = New System.Drawing.Size(515, 400)
-        Me.chrtHistory.TabIndex = 24
+        Me.chrtHistory.TabIndex = 51
         Me.chrtHistory.Text = "Chart1"
         '
         'Panel4
         '
         Me.Panel4.Controls.Add(Me.rbFix)
         Me.Panel4.Controls.Add(Me.rbStock)
-        Me.Panel4.Location = New System.Drawing.Point(21, 20)
+        Me.Panel4.Location = New System.Drawing.Point(25, 26)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(232, 31)
-        Me.Panel4.TabIndex = 23
+        Me.Panel4.TabIndex = 50
         '
         'rbFix
         '
@@ -1543,19 +1803,19 @@ Partial Class GUIMain
         '
         'tbNightOrMarginal
         '
-        Me.tbNightOrMarginal.Location = New System.Drawing.Point(114, 125)
+        Me.tbNightOrMarginal.Location = New System.Drawing.Point(118, 131)
         Me.tbNightOrMarginal.Name = "tbNightOrMarginal"
         Me.tbNightOrMarginal.Size = New System.Drawing.Size(99, 20)
-        Me.tbNightOrMarginal.TabIndex = 22
+        Me.tbNightOrMarginal.TabIndex = 49
         Me.tbNightOrMarginal.Visible = False
         '
         'cbMarginal
         '
         Me.cbMarginal.AutoSize = True
-        Me.cbMarginal.Location = New System.Drawing.Point(134, 59)
+        Me.cbMarginal.Location = New System.Drawing.Point(138, 65)
         Me.cbMarginal.Name = "cbMarginal"
         Me.cbMarginal.Size = New System.Drawing.Size(117, 17)
-        Me.cbMarginal.TabIndex = 20
+        Me.cbMarginal.TabIndex = 47
         Me.cbMarginal.Text = "Lisandub marginaal"
         Me.cbMarginal.UseVisualStyleBackColor = True
         Me.cbMarginal.Visible = False
@@ -1563,118 +1823,118 @@ Partial Class GUIMain
         'cbNighPrice
         '
         Me.cbNighPrice.AutoSize = True
-        Me.cbNighPrice.Location = New System.Drawing.Point(21, 59)
+        Me.cbNighPrice.Location = New System.Drawing.Point(25, 65)
         Me.cbNighPrice.Name = "cbNighPrice"
         Me.cbNighPrice.Size = New System.Drawing.Size(110, 17)
-        Me.cbNighPrice.TabIndex = 19
+        Me.cbNighPrice.TabIndex = 46
         Me.cbNighPrice.Text = "Öö hind on erinev"
         Me.cbNighPrice.UseVisualStyleBackColor = True
         Me.cbNighPrice.Visible = False
         '
         'tbPrice
         '
-        Me.tbPrice.Location = New System.Drawing.Point(114, 94)
+        Me.tbPrice.Location = New System.Drawing.Point(118, 100)
         Me.tbPrice.Name = "tbPrice"
         Me.tbPrice.Size = New System.Drawing.Size(99, 20)
-        Me.tbPrice.TabIndex = 21
+        Me.tbPrice.TabIndex = 48
         Me.tbPrice.Visible = False
         '
         'btnConfirmSimuCSV
         '
-        Me.btnConfirmSimuCSV.Location = New System.Drawing.Point(62, 431)
+        Me.btnConfirmSimuCSV.Location = New System.Drawing.Point(66, 437)
         Me.btnConfirmSimuCSV.Name = "btnConfirmSimuCSV"
         Me.btnConfirmSimuCSV.Size = New System.Drawing.Size(150, 34)
-        Me.btnConfirmSimuCSV.TabIndex = 16
+        Me.btnConfirmSimuCSV.TabIndex = 45
         Me.btnConfirmSimuCSV.Text = "Kinnita andmed"
         Me.btnConfirmSimuCSV.UseVisualStyleBackColor = True
         '
         'tbDebug
         '
-        Me.tbDebug.Location = New System.Drawing.Point(341, 499)
+        Me.tbDebug.Location = New System.Drawing.Point(345, 505)
         Me.tbDebug.Multiline = True
         Me.tbDebug.Name = "tbDebug"
         Me.tbDebug.ReadOnly = True
         Me.tbDebug.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.tbDebug.Size = New System.Drawing.Size(515, 21)
-        Me.tbDebug.TabIndex = 15
+        Me.tbDebug.TabIndex = 44
         '
         'lblToDateTime
         '
         Me.lblToDateTime.AutoSize = True
-        Me.lblToDateTime.Location = New System.Drawing.Point(61, 301)
+        Me.lblToDateTime.Location = New System.Drawing.Point(65, 307)
         Me.lblToDateTime.Name = "lblToDateTime"
         Me.lblToDateTime.Size = New System.Drawing.Size(95, 13)
-        Me.lblToDateTime.TabIndex = 14
+        Me.lblToDateTime.TabIndex = 43
         Me.lblToDateTime.Text = "Vali lõpp kuupäev:"
         '
         'lblFromDateTime
         '
         Me.lblFromDateTime.AutoSize = True
-        Me.lblFromDateTime.Location = New System.Drawing.Point(60, 248)
+        Me.lblFromDateTime.Location = New System.Drawing.Point(64, 254)
         Me.lblFromDateTime.Name = "lblFromDateTime"
         Me.lblFromDateTime.Size = New System.Drawing.Size(100, 13)
-        Me.lblFromDateTime.TabIndex = 13
+        Me.lblFromDateTime.TabIndex = 42
         Me.lblFromDateTime.Text = "Vali algus kuupäev:"
         '
         'dtpEnd
         '
         Me.dtpEnd.Enabled = False
-        Me.dtpEnd.Location = New System.Drawing.Point(62, 330)
+        Me.dtpEnd.Location = New System.Drawing.Point(66, 336)
         Me.dtpEnd.Name = "dtpEnd"
         Me.dtpEnd.Size = New System.Drawing.Size(200, 20)
-        Me.dtpEnd.TabIndex = 12
+        Me.dtpEnd.TabIndex = 41
         '
         'dtpBeginning
         '
         Me.dtpBeginning.Enabled = False
-        Me.dtpBeginning.Location = New System.Drawing.Point(62, 265)
+        Me.dtpBeginning.Location = New System.Drawing.Point(66, 271)
         Me.dtpBeginning.Name = "dtpBeginning"
         Me.dtpBeginning.Size = New System.Drawing.Size(200, 20)
-        Me.dtpBeginning.TabIndex = 11
+        Me.dtpBeginning.TabIndex = 40
         '
-        'Label2
+        'Label20
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(59, 185)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(176, 13)
-        Me.Label2.TabIndex = 8
-        Me.Label2.Text = "Lae üles enda tarbimisajalugu(CSV):"
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(63, 191)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(176, 13)
+        Me.Label20.TabIndex = 39
+        Me.Label20.Text = "Lae üles enda tarbimisajalugu(CSV):"
         '
         'btnImportCSVFileSimu
         '
-        Me.btnImportCSVFileSimu.Location = New System.Drawing.Point(62, 202)
+        Me.btnImportCSVFileSimu.Location = New System.Drawing.Point(66, 208)
         Me.btnImportCSVFileSimu.Name = "btnImportCSVFileSimu"
         Me.btnImportCSVFileSimu.Size = New System.Drawing.Size(150, 34)
-        Me.btnImportCSVFileSimu.TabIndex = 7
+        Me.btnImportCSVFileSimu.TabIndex = 38
         Me.btnImportCSVFileSimu.Text = "Impordi CSV fail"
         Me.btnImportCSVFileSimu.UseVisualStyleBackColor = True
         '
         'lblSimulateClientConsumptionHistory
         '
         Me.lblSimulateClientConsumptionHistory.AutoSize = True
-        Me.lblSimulateClientConsumptionHistory.Location = New System.Drawing.Point(11, 3)
+        Me.lblSimulateClientConsumptionHistory.Location = New System.Drawing.Point(15, 9)
         Me.lblSimulateClientConsumptionHistory.Name = "lblSimulateClientConsumptionHistory"
         Me.lblSimulateClientConsumptionHistory.Size = New System.Drawing.Size(225, 13)
-        Me.lblSimulateClientConsumptionHistory.TabIndex = 6
+        Me.lblSimulateClientConsumptionHistory.TabIndex = 37
         Me.lblSimulateClientConsumptionHistory.Text = "Vali oma paketi tüüp     Kõik hinnad sent/kWh"
         '
         'lblConsumptionGraph
         '
         Me.lblConsumptionGraph.AutoSize = True
-        Me.lblConsumptionGraph.Location = New System.Drawing.Point(338, 79)
+        Me.lblConsumptionGraph.Location = New System.Drawing.Point(342, 85)
         Me.lblConsumptionGraph.Name = "lblConsumptionGraph"
         Me.lblConsumptionGraph.Size = New System.Drawing.Size(78, 13)
-        Me.lblConsumptionGraph.TabIndex = 4
+        Me.lblConsumptionGraph.TabIndex = 36
         Me.lblConsumptionGraph.Text = "Tarbimisgraafik"
         '
         'lblClientConsumptionHistoryResult
         '
         Me.lblClientConsumptionHistoryResult.AutoSize = True
-        Me.lblClientConsumptionHistoryResult.Location = New System.Drawing.Point(338, 25)
+        Me.lblClientConsumptionHistoryResult.Location = New System.Drawing.Point(342, 31)
         Me.lblClientConsumptionHistoryResult.Name = "lblClientConsumptionHistoryResult"
         Me.lblClientConsumptionHistoryResult.Size = New System.Drawing.Size(50, 13)
-        Me.lblClientConsumptionHistoryResult.TabIndex = 3
+        Me.lblClientConsumptionHistoryResult.TabIndex = 35
         Me.lblClientConsumptionHistoryResult.Text = "Tulemus:"
         '
         'tabSimulateExchangeHistory
@@ -2031,10 +2291,10 @@ Partial Class GUIMain
         'btnProduction
         '
         Me.btnProduction.BackColor = System.Drawing.SystemColors.GradientActiveCaption
-        Me.btnProduction.Location = New System.Drawing.Point(268, 280)
+        Me.btnProduction.Location = New System.Drawing.Point(275, 277)
         Me.btnProduction.Margin = New System.Windows.Forms.Padding(2)
         Me.btnProduction.Name = "btnProduction"
-        Me.btnProduction.Size = New System.Drawing.Size(85, 58)
+        Me.btnProduction.Size = New System.Drawing.Size(103, 62)
         Me.btnProduction.TabIndex = 3
         Me.btnProduction.Text = "Tootmine"
         Me.btnProduction.UseVisualStyleBackColor = False
@@ -2057,7 +2317,7 @@ Partial Class GUIMain
         Me.btnWeather.Location = New System.Drawing.Point(275, 84)
         Me.btnWeather.Margin = New System.Windows.Forms.Padding(2)
         Me.btnWeather.Name = "btnWeather"
-        Me.btnWeather.Size = New System.Drawing.Size(85, 58)
+        Me.btnWeather.Size = New System.Drawing.Size(103, 58)
         Me.btnWeather.TabIndex = 1
         Me.btnWeather.Text = "Ilm Tallinnas Praegu"
         Me.btnWeather.UseVisualStyleBackColor = False
@@ -2110,29 +2370,11 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
         '
-        'lblPriceTotalFromImport
-        '
-        Me.lblPriceTotalFromImport.AutoSize = True
-        Me.lblPriceTotalFromImport.Location = New System.Drawing.Point(7, 489)
-        Me.lblPriceTotalFromImport.Name = "lblPriceTotalFromImport"
-        Me.lblPriceTotalFromImport.Size = New System.Drawing.Size(246, 13)
-        Me.lblPriceTotalFromImport.TabIndex = 33
-        Me.lblPriceTotalFromImport.Text = "Kogu vahemiku elektri hind vastavalt sinu paketile:"
-        '
-        'lblPriceTotalFromPackage
-        '
-        Me.lblPriceTotalFromPackage.AutoSize = True
-        Me.lblPriceTotalFromPackage.Location = New System.Drawing.Point(7, 507)
-        Me.lblPriceTotalFromPackage.Name = "lblPriceTotalFromPackage"
-        Me.lblPriceTotalFromPackage.Size = New System.Drawing.Size(258, 13)
-        Me.lblPriceTotalFromPackage.TabIndex = 34
-        Me.lblPriceTotalFromPackage.Text = "Kogu vahemiku elektri hind vastavalt valitud paketile:"
-        '
         'GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(981, 687)
+        Me.ClientSize = New System.Drawing.Size(981, 681)
         Me.Controls.Add(Me.btnRestoreFontSize)
         Me.Controls.Add(Me.btnFontDecrease)
         Me.Controls.Add(Me.btnFontIncrease)
@@ -2159,7 +2401,15 @@ Partial Class GUIMain
         Me.Panel1.PerformLayout()
         Me.tabExchangeComparison.ResumeLayout(False)
         Me.tabExchangeComparison.PerformLayout()
-        CType(Me.chrtCSV, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.gbFailid.ResumeLayout(False)
+        Me.gbFailid.PerformLayout()
+        Me.gbKaibemaks.ResumeLayout(False)
+        Me.gbKaibemaks.PerformLayout()
+        Me.gpOoPaevaHind.ResumeLayout(False)
+        Me.gpOoPaevaHind.PerformLayout()
+        CType(Me.chrtBorsihinnaVordlus, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabConsumptionHistory.ResumeLayout(False)
         Me.TabControl2.ResumeLayout(False)
         Me.tabClientConsumptionHistory.ResumeLayout(False)
@@ -2239,22 +2489,14 @@ Partial Class GUIMain
     Friend WithEvents rdioRouter As RadioButton
     Friend WithEvents rdioSewingMachine As RadioButton
     Friend WithEvents lblExchangeChoice As Label
-    Friend WithEvents lblCase2 As Label
-    Friend WithEvents lblCase1 As Label
     Friend WithEvents lblEnterPrice As Label
     Friend WithEvents lblEndTime As Label
     Friend WithEvents lblStartTime As Label
     Friend WithEvents lblTimePeriodSelection As Label
-    Friend WithEvents tBoxCondition2 As TextBox
-    Friend WithEvents tBoxCondition1 As TextBox
-    Friend WithEvents tBoxEndTime As TextBox
-    Friend WithEvents tboxStartTime As TextBox
     Friend WithEvents lblExchangeComparisonResult As Label
     Friend WithEvents TabControl2 As TabControl
     Friend WithEvents tabClientConsumptionHistory As TabPage
     Friend WithEvents tabSimulateExchangeHistory As TabPage
-    Friend WithEvents lblConsumptionGraph As Label
-    Friend WithEvents lblClientConsumptionHistoryResult As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents btnSeeHistory As Button
     Friend WithEvents tBoxMonthlyCost2 As TextBox
@@ -2262,7 +2504,6 @@ Partial Class GUIMain
     Friend WithEvents RadioButton3 As RadioButton
     Friend WithEvents RadioButton4 As RadioButton
     Friend WithEvents Label10 As Label
-    Friend WithEvents lblSimulateClientConsumptionHistory As Label
     Friend WithEvents lblExchangePackageHistory As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents lblPackage1 As Label
@@ -2302,7 +2543,7 @@ Partial Class GUIMain
     Friend WithEvents lblSKwh1 As Label
     Friend WithEvents btnPackets As Button
     Friend WithEvents chartPackages As DataVisualization.Charting.Chart
-    Friend WithEvents chrtCSV As DataVisualization.Charting.Chart
+    Friend WithEvents chrtBorsihinnaVordlus As DataVisualization.Charting.Chart
     Friend WithEvents tbMarginalOfStock As TextBox
     Friend WithEvents rdiobtnStockPlussMarginal As RadioButton
     Friend WithEvents rdioBtnUniversalP As RadioButton
@@ -2312,14 +2553,6 @@ Partial Class GUIMain
     Friend WithEvents lblSKwh3 As Label
     Friend WithEvents lblTableState As Label
     Friend WithEvents lblBestTime As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents btnImportCSVFileSimu As Button
-    Friend WithEvents lblToDateTime As Label
-    Friend WithEvents lblFromDateTime As Label
-    Friend WithEvents dtpEnd As DateTimePicker
-    Friend WithEvents dtpBeginning As DateTimePicker
-    Friend WithEvents tbDebug As TextBox
-    Friend WithEvents btnConfirmSimuCSV As Button
     Friend WithEvents btnTwoPackets As Button
     Friend WithEvents compOne As TextBox
     Friend WithEvents Label4 As Label
@@ -2341,22 +2574,59 @@ Partial Class GUIMain
     Friend WithEvents Label13 As Label
     Friend WithEvents Label12 As Label
     Friend WithEvents Label14 As Label
-    Friend WithEvents rbFix As RadioButton
-    Friend WithEvents cbNighPrice As CheckBox
-    Friend WithEvents rbStock As RadioButton
-    Friend WithEvents Panel4 As Panel
-    Friend WithEvents tbNightOrMarginal As TextBox
-    Friend WithEvents tbPrice As TextBox
-    Friend WithEvents cbMarginal As CheckBox
-    Friend WithEvents chrtHistory As DataVisualization.Charting.Chart
+    Friend WithEvents dtpBorsihinnaVordlusEnd As DateTimePicker
+    Friend WithEvents dtpBorsihinnaVordlusStart As DateTimePicker
+    Friend WithEvents rbKaibemaksuta As RadioButton
+    Friend WithEvents rbOoPaevErinevHind As RadioButton
+    Friend WithEvents rbKaibemaksuga As RadioButton
+    Friend WithEvents rbOoPaevSamaHind As RadioButton
+    Friend WithEvents gpOoPaevaHind As GroupBox
+    Friend WithEvents gbKaibemaks As GroupBox
     Friend WithEvents Label16 As Label
+    Friend WithEvents txtboxValjadeEraldaja As TextBox
     Friend WithEvents Label15 As Label
-    Friend WithEvents tbDayPrice2 As TextBox
-    Friend WithEvents tbDayPrice1 As TextBox
-    Friend WithEvents lblMarg As Label
-    Friend WithEvents lblFixed As Label
-    Friend WithEvents lblChoosePackage As Label
-    Friend WithEvents cbChoosePackage As ComboBox
+    Friend WithEvents Label17 As Label
+    Friend WithEvents txtboxTekstiKvalifikaator As TextBox
+    Friend WithEvents gbFailid As GroupBox
+    Friend WithEvents rbFailiUlekirjutamine As RadioButton
+    Friend WithEvents rbLisaFailiLoppu As RadioButton
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents rbValiCSVFail As RadioButton
+    Friend WithEvents rbUusCSVFail As RadioButton
+    Friend WithEvents lblFailiPath As Label
+    Friend WithEvents llNaidisCSV As LinkLabel
+    Friend WithEvents cbBorsiPakettid As ComboBox
+    Friend WithEvents Label18 As Label
+    Friend WithEvents btnKinnitaAndmed As Button
+    Friend WithEvents lblDontuse As Label
+    Friend WithEvents lblMarginaal As Label
     Friend WithEvents lblPriceTotalFromPackage As Label
     Friend WithEvents lblPriceTotalFromImport As Label
+    Friend WithEvents lblChoosePackage As Label
+    Friend WithEvents cbChoosePackage As ComboBox
+    Friend WithEvents lblMarg As Label
+    Friend WithEvents lblFixed As Label
+    Friend WithEvents lblNightPrice As Label
+    Friend WithEvents lblDayPrice As Label
+    Friend WithEvents tbDayPrice2 As TextBox
+    Friend WithEvents tbDayPrice1 As TextBox
+    Friend WithEvents chrtHistory As DataVisualization.Charting.Chart
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents rbFix As RadioButton
+    Friend WithEvents rbStock As RadioButton
+    Friend WithEvents tbNightOrMarginal As TextBox
+    Friend WithEvents cbMarginal As CheckBox
+    Friend WithEvents cbNighPrice As CheckBox
+    Friend WithEvents tbPrice As TextBox
+    Friend WithEvents btnConfirmSimuCSV As Button
+    Friend WithEvents tbDebug As TextBox
+    Friend WithEvents lblToDateTime As Label
+    Friend WithEvents lblFromDateTime As Label
+    Friend WithEvents dtpEnd As DateTimePicker
+    Friend WithEvents dtpBeginning As DateTimePicker
+    Friend WithEvents Label20 As Label
+    Friend WithEvents btnImportCSVFileSimu As Button
+    Friend WithEvents lblSimulateClientConsumptionHistory As Label
+    Friend WithEvents lblConsumptionGraph As Label
+    Friend WithEvents lblClientConsumptionHistoryResult As Label
 End Class
