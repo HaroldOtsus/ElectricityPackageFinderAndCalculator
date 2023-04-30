@@ -142,6 +142,8 @@ Partial Class GUIMain
         Me.tabConsumptionHistory = New System.Windows.Forms.TabPage()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.tabClientConsumptionHistory = New System.Windows.Forms.TabPage()
+        Me.lblChoosePackage = New System.Windows.Forms.Label()
+        Me.cbChoosePackage = New System.Windows.Forms.ComboBox()
         Me.lblMarg = New System.Windows.Forms.Label()
         Me.lblFixed = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
@@ -209,8 +211,8 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
-        Me.cbChoosePackage = New System.Windows.Forms.ComboBox()
-        Me.lblChoosePackage = New System.Windows.Forms.Label()
+        Me.lblPriceTotalFromImport = New System.Windows.Forms.Label()
+        Me.lblPriceTotalFromPackage = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1390,6 +1392,8 @@ Partial Class GUIMain
         '
         'tabClientConsumptionHistory
         '
+        Me.tabClientConsumptionHistory.Controls.Add(Me.lblPriceTotalFromPackage)
+        Me.tabClientConsumptionHistory.Controls.Add(Me.lblPriceTotalFromImport)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblChoosePackage)
         Me.tabClientConsumptionHistory.Controls.Add(Me.cbChoosePackage)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblMarg)
@@ -1422,6 +1426,24 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.TabIndex = 1
         Me.tabClientConsumptionHistory.Text = "Simuleeri oma tarbimise ajalugu"
         Me.tabClientConsumptionHistory.UseVisualStyleBackColor = True
+        '
+        'lblChoosePackage
+        '
+        Me.lblChoosePackage.AutoSize = True
+        Me.lblChoosePackage.Location = New System.Drawing.Point(63, 364)
+        Me.lblChoosePackage.Name = "lblChoosePackage"
+        Me.lblChoosePackage.Size = New System.Drawing.Size(60, 13)
+        Me.lblChoosePackage.TabIndex = 32
+        Me.lblChoosePackage.Text = "Vali pakett:"
+        '
+        'cbChoosePackage
+        '
+        Me.cbChoosePackage.FormattingEnabled = True
+        Me.cbChoosePackage.Items.AddRange(New Object() {"Kindel 6", "Kindel 36", "Kindel Pluss", "Muutuv", "Universaalteenus", "Pingevaba + Ühisarve", "Tähtajaline fikseeritud hind", "Kodupakett börsihinnaga", "Universaalteenus Alexela", "Universaalteenus Alexela + roheline", "Tähtajaline fikseeritud hind + roheline", "220 Börsihind", "220 Börsihind + Roheline", "220 Tähtajaline kindel hind", "220 Tähtajaline kindel hind + roheline", "220 Universaalteenus", "220 Universaalteenus + roheline", "Kindel pakett gaas", "Muutuvhinnaga pakett", "Universaalteenus Eesti gaas", "Universaalteenus VKG", "Not-fix", "Roheline Klõps", "Roheline Börsi Klõps", "Börsi Klõps", "Universaalteenus Elektrum", "Kaljukindel Klõps kindlustusega"})
+        Me.cbChoosePackage.Location = New System.Drawing.Point(63, 390)
+        Me.cbChoosePackage.Name = "cbChoosePackage"
+        Me.cbChoosePackage.Size = New System.Drawing.Size(198, 21)
+        Me.cbChoosePackage.TabIndex = 31
         '
         'lblMarg
         '
@@ -1568,12 +1590,12 @@ Partial Class GUIMain
         '
         'tbDebug
         '
-        Me.tbDebug.Location = New System.Drawing.Point(332, 499)
+        Me.tbDebug.Location = New System.Drawing.Point(341, 499)
         Me.tbDebug.Multiline = True
         Me.tbDebug.Name = "tbDebug"
         Me.tbDebug.ReadOnly = True
         Me.tbDebug.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.tbDebug.Size = New System.Drawing.Size(524, 21)
+        Me.tbDebug.Size = New System.Drawing.Size(515, 21)
         Me.tbDebug.TabIndex = 15
         '
         'lblToDateTime
@@ -2088,23 +2110,23 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
         '
-        'cbChoosePackage
+        'lblPriceTotalFromImport
         '
-        Me.cbChoosePackage.FormattingEnabled = True
-        Me.cbChoosePackage.Items.AddRange(New Object() {"Kindel 6", "Kindel 36", "Kindel Pluss", "Muutuv", "Universaalteenus", "Pingevaba + Ühisarve", "Tähtajaline fikseeritud hind", "Kodupakett börsihinnaga", "Universaalteenus Alexela", "Universaalteenus Alexela + roheline", "Tähtajaline fikseeritud hind + roheline", "220 Börsihind", "220 Börsihind + Roheline", "220 Tähtajaline kindel hind", "220 Tähtajaline kindel hind + roheline", "220 Universaalteenus", "220 Universaalteenus + roheline", "Kindel pakett gaas", "Muutuvhinnaga pakett", "Universaalteenus Eesti gaas", "Universaalteenus VKG", "Not-fix", "Roheline Klõps", "Roheline Börsi Klõps", "Börsi Klõps", "Universaalteenus Elektrum", "Kaljukindel Klõps kindlustusega"})
-        Me.cbChoosePackage.Location = New System.Drawing.Point(63, 390)
-        Me.cbChoosePackage.Name = "cbChoosePackage"
-        Me.cbChoosePackage.Size = New System.Drawing.Size(198, 21)
-        Me.cbChoosePackage.TabIndex = 31
+        Me.lblPriceTotalFromImport.AutoSize = True
+        Me.lblPriceTotalFromImport.Location = New System.Drawing.Point(7, 489)
+        Me.lblPriceTotalFromImport.Name = "lblPriceTotalFromImport"
+        Me.lblPriceTotalFromImport.Size = New System.Drawing.Size(246, 13)
+        Me.lblPriceTotalFromImport.TabIndex = 33
+        Me.lblPriceTotalFromImport.Text = "Kogu vahemiku elektri hind vastavalt sinu paketile:"
         '
-        'lblChoosePackage
+        'lblPriceTotalFromPackage
         '
-        Me.lblChoosePackage.AutoSize = True
-        Me.lblChoosePackage.Location = New System.Drawing.Point(63, 364)
-        Me.lblChoosePackage.Name = "lblChoosePackage"
-        Me.lblChoosePackage.Size = New System.Drawing.Size(60, 13)
-        Me.lblChoosePackage.TabIndex = 32
-        Me.lblChoosePackage.Text = "Vali pakett:"
+        Me.lblPriceTotalFromPackage.AutoSize = True
+        Me.lblPriceTotalFromPackage.Location = New System.Drawing.Point(7, 507)
+        Me.lblPriceTotalFromPackage.Name = "lblPriceTotalFromPackage"
+        Me.lblPriceTotalFromPackage.Size = New System.Drawing.Size(258, 13)
+        Me.lblPriceTotalFromPackage.TabIndex = 34
+        Me.lblPriceTotalFromPackage.Text = "Kogu vahemiku elektri hind vastavalt valitud paketile:"
         '
         'GUIMain
         '
@@ -2335,4 +2357,6 @@ Partial Class GUIMain
     Friend WithEvents lblFixed As Label
     Friend WithEvents lblChoosePackage As Label
     Friend WithEvents cbChoosePackage As ComboBox
+    Friend WithEvents lblPriceTotalFromPackage As Label
+    Friend WithEvents lblPriceTotalFromImport As Label
 End Class
