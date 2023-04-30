@@ -2070,9 +2070,9 @@ Public Class GUIMain
                 End If
                 lblPriceTotalFromImport.Text = "Kogu vahemiku elektri hind vastavalt sinu paketile: " & Math.Round(userPackagePriceSum, 2) & " senti."
             Else
-                    MsgBox("Algus kuupäev ei saa olla peale lõpp kuupäeva!")
-                End If
+                MsgBox("Algus kuupäev ei saa olla peale lõpp kuupäeva!")
             End If
+        End If
         ' End If
 
 
