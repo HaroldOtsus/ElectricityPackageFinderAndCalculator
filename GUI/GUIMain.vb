@@ -806,32 +806,82 @@ Public Class GUIMain
         Next
     End Sub
 
+    Public filePath As String
+    ' Tarmo mandatory export component
     Private Sub btnExport_Click(sender As Object, e As EventArgs) Handles btnExport.Click
-        Dim saveFileDialog As New SaveFileDialog()
 
-        'Filter to only take CSV files
-        saveFileDialog.Filter = "CSV files (*.csv)|*.csv"
+        Dim CSVObject As CSVExporterDNF.IExporter ' a way to give data to a protected variable, in another dll file
+        CSVObject = New CSVExporterDNF.CExporter
+        ' check if delimiter is empty or not, to not send an empty/null
+        If Not String.IsNullOrEmpty(txtboxValjadeEraldaja.Text) Then
+            CSVObject.delimiter = txtboxValjadeEraldaja.Text
+        End If
+        CSVObject.textQualifier = txtboxTekstiKvalifikaator.Text
+        ' data to be saved
+        Dim someData(1, 1) As String
+        someData(0, 0) = "ooPaevHind"
+        someData(1, 0) = "kaibemaks"
 
-        'Initial directory and the name of the file
-        saveFileDialog.InitialDirectory = "C:\"
-        saveFileDialog.FileName = "exported_data.csv"
+        If rbOoPaevSamaHind.Checked Then
+            someData(0, 1) = "sama"
+        ElseIf rbOoPaevErinevHind.Checked Then
+            someData(0, 1) = "erinev"
+        End If
+        If rbKaibemaksuga.Checked Then
+            someData(1, 1) = "maksuga"
+        ElseIf rbKaibemaksuta.Checked Then
+            someData(1, 1) = "maksuta"
+        End If
+        ' end of data
+        ' check whether data array is empty
+        Dim failSafe As Boolean = True
+        For Each str As String In someData
+            If String.IsNullOrEmpty(str) Then
+                failSafe = False
+            End If
+        Next
+        ' whether data is appended to the end of a file or written over
+        Dim append As Boolean = False
+        If failSafe Then
+            If rbFailiUlekirjutamine.Checked Then ' write over
+                append = False
+            ElseIf rbLisaFailiLoppu.Checked Then ' append
+                append = True
+            End If
+            ' check different radio buttons 
+            If rbValiCSVFail.Checked Then
+                filePath = CSVObject.setFileToSave() ' find file path interactivly
+                lblFailiPath.Text = filePath
+                If IsFileAvailable(filePath) Then ' check if file is open or available at all
+                    CSVObject.saveDataToCsv(someData, append)
+                Else
+                    MessageBox.Show("Fail on lahti või ei eksisteeri!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
+            ElseIf rbUusCSVFail.Checked Then
+                If String.IsNullOrEmpty(filePath) Then
+                    MessageBox.Show("Faili path ei ole seatud! Vali ise CSV fail.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Else
 
-        'If the user presses OK
-        If saveFileDialog.ShowDialog() = DialogResult.OK Then
-            'Get the selected file name
-            Dim fileName As String = saveFileDialog.FileName
-
-            'Write the CSV data to the selected file
-            Using writer As New StreamWriter(fileName)
-                writer.WriteLine("Column1,Column2,Column3")
-                writer.WriteLine("Value1,Value2,Value3")
-                writer.WriteLine("Value4,Value5,Value6")
-            End Using
-
-            'Shows a message that the export was successful
-            MessageBox.Show("File exported successfully to " & fileName)
+                    If IsFileAvailable(filePath) Then ' check if file is open or available at all
+                        'filePath = CSVObject.setFileToSave()
+                        'CSVObject.saveDataToCsv(someData, append)
+                    Else
+                        MessageBox.Show("Fail on lahti või ei eksisteeri!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End If
+                End If
+            End If
         End If
     End Sub
+    ' checks file availability
+    Public Shared Function IsFileAvailable(ByVal path As String) As Boolean
+        Try
+            Dim fs As New FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None)
+            fs.Close()
+        Catch ex As IOException When System.Runtime.InteropServices.Marshal.GetLastWin32Error() = 32
+            Return False
+        End Try
+        Return True
+    End Function
 
     Private Sub cbColor_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbColor.SelectedIndexChanged
 
@@ -1782,10 +1832,6 @@ Public Class GUIMain
 
     End Sub
 
-    Private Sub Label13_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
     Private Sub btnConfirmSimuCSV_Click(sender As Object, e As EventArgs) Handles btnConfirmSimuCSV.Click
         'For Each row As DataRow In tableOfCSV.Rows
         '    If row("Kogus (kWh)").GetType() Is GetType(String) AndAlso row("Kogus (kWh)").ToString().Contains(",") Then
@@ -2040,4 +2086,5 @@ Public Class GUIMain
         Next
 
     End Sub
+
 End Class
