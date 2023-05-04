@@ -430,16 +430,17 @@ Public Class GUIMain
         sPrices = returnString.stockPrice().prices
         sDates = returnString.stockPrice().dates
         dPrices = New Double(sPrices.Length) {}
+        Dim length As Integer = 1
         'Sets the values in the double array
         For i As Integer = 1 To 24
-            sPrices(i) = sPrices(i).Replace(".", ",") '
-            dPrices(i) = Double.Parse(sPrices(i))
-            'OLD CODE
-            ' NextteTimeOffset = DateTimeOffset.FromUnixTimeSeconds(sDates(i)) 'new datetimeoffset from sDate string
-            '  Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
-            ' dDates(i) = CDbl(dateValue.Hour) 'convert to integer
-            'TextBox1.Text = dDates(i) 'put hour to textbox for testing
+            If sPrices(i) IsNot Nothing Then 'check if there is something in array
+                sPrices(i) = sPrices(i).Replace(".", ",") '
+                dPrices(i) = Double.Parse(sPrices(i))
+                length += 1
+            Else 'if sPrices is nothing at i then exit for loop
+                Exit For
 
+            End If
         Next
 
 
@@ -451,8 +452,7 @@ Public Class GUIMain
 
         Dim p As PriceDateStruct
 
-        For i As Integer = 1 To 24 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
-
+        For i As Integer = 1 To length - 1 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
             p.price = dPrices(i)
             p.sDate = sDates(i)
             records.Add(p)
@@ -470,7 +470,7 @@ Public Class GUIMain
         chrtFrontPage.Series(0).BorderWidth = 3
 
         'fills chart
-        For i As Integer = 0 To 23
+        For i As Integer = 0 To length - 2
             'ADDS DATE AND PRICE TO CHART, PRICE IS CONVERTED FROM €/MWh to cent/kWh
             chrtFrontPage.Series(seriesName).Points.AddXY(records(i).sDate, (records(i).price / 1000) * 100)
 
@@ -2132,6 +2132,10 @@ Public Class GUIMain
     End Sub
 
     Private Sub tabPackageComparison_Click(sender As Object, e As EventArgs) Handles tabPackageComparison.Click
+
+    End Sub
+
+    Private Sub chrtFrontPage_Click(sender As Object, e As EventArgs) Handles chrtFrontPage.Click
 
     End Sub
 End Class
