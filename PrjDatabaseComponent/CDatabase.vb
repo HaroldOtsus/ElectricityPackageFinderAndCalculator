@@ -355,8 +355,8 @@ Public Class CDatabase
                 Return sPrices
             End If
         Catch ex As Exception
-            stringOfErrors = {"error", "error", "error"}
-            Return stringOfErrors
+
+            Return Nothing 'error
         End Try
 
     End Function
@@ -400,8 +400,7 @@ Public Class CDatabase
             End If
             conn.Close()
         Catch ex As Exception
-            stringOfErrors = {"error", "error", "error"}
-            Return stringOfErrors
+            Return Nothing
         End Try
 
     End Function
@@ -445,8 +444,7 @@ Public Class CDatabase
             Return (stringOfPackageNames, stringOfCompanyNames, pricePerKWh, monthlyFeeForContract, usesMarketPrice, greenEnergy, isNightPriceDifferent, nightPrice)
         Catch ex As Exception
             'exception using database
-            '   stringOfErrors = {"error", "error", "error"}
-            '  Return stringOfErrors
+            Return (Nothing, Nothing, {0.0}, {0.0}, {False}, {False}, {False}, {0.0}) 'error getting info
         End Try
     End Function
 
@@ -528,7 +526,7 @@ Public Class CDatabase
         Dim hour As Integer
         hour = hourofDatabasestockPricesFuture() 'get hour from database string
 
-        If hour = currentHour Then 'if it is same as hour now get info from database
+        If hour = currentHour + 1 Then 'if it is same as hour now get info from database
             Dim sPrices As String()
             Dim stringOfDates As String()
             sPrices = stringsOfStockPriceFuture()
@@ -705,8 +703,7 @@ Public Class CDatabase
             conn.Close()
 
         Catch ex As Exception
-            'stringOfErrors = {"error", "error", "error"}
-            'Return stringOfErrors
+            Return Nothing
         End Try
         Return sPrices
     End Function
@@ -784,9 +781,8 @@ Public Class CDatabase
             command.ExecuteNonQuery()
 
         Catch ex As Exception
-            stringOfErrors = {"error", "error", "error"}
-            Return sDates
-            Return stringOfErrors
+
+            Return Nothing
         End Try
         Return sDates
 
@@ -928,9 +924,7 @@ Public Class CDatabase
             'return arrays
             Return (stringOfPackageNames, stringOfCompanyNames, pricePerKWh, monthlyFeeForContract, usesMarketPrice, greenEnergy, isNightPriceDifferent, nightPrice)
         Catch ex As Exception
-            'exception using database
-            '   stringOfErrors = {"error", "error", "error"}
-            '  Return stringOfErrors
+            Return (Nothing, Nothing, 0.0, 0.0, False, False, False, 0.0) 'error getting info
             conn.Close()
         End Try
     End Function
@@ -957,9 +951,7 @@ Public Class CDatabase
             Return count
 
         Catch ex As Exception
-            'database error 
-            '   stringOfErrors = {"error", "error", "error"}
-            '  Return stringOfErrors
+            Return -1
         End Try
     End Function
 
