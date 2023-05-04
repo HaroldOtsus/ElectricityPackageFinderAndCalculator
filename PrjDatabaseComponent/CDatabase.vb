@@ -445,8 +445,7 @@ Public Class CDatabase
             Return (stringOfPackageNames, stringOfCompanyNames, pricePerKWh, monthlyFeeForContract, usesMarketPrice, greenEnergy, isNightPriceDifferent, nightPrice)
         Catch ex As Exception
             'exception using database
-            '   stringOfErrors = {"error", "error", "error"}
-            '  Return stringOfErrors
+            Return (Nothing, Nothing, {0.0}, {0.0}, {False}, {False}, {False}, {0.0}) 'error getting info
         End Try
     End Function
 
@@ -928,9 +927,7 @@ Public Class CDatabase
             'return arrays
             Return (stringOfPackageNames, stringOfCompanyNames, pricePerKWh, monthlyFeeForContract, usesMarketPrice, greenEnergy, isNightPriceDifferent, nightPrice)
         Catch ex As Exception
-            'exception using database
-            '   stringOfErrors = {"error", "error", "error"}
-            '  Return stringOfErrors
+            Return (Nothing, Nothing, 0.0, 0.0, False, False, False, 0.0) 'error getting info
             conn.Close()
         End Try
     End Function
