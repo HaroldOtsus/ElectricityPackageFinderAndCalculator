@@ -1196,99 +1196,103 @@ Public Class GUIMain
         returnString = New PrjDatabaseComponent.CDatabase 'use database component
         Dim count As Integer
         count = returnString.electricityPackagesCount 'find out how many packages there are
-        Dim packages = returnString.electricityPackagesInfo ' get info about packages
-        Dim rand As New Random() 'for creating random color lines
-        chartPackages.Width = 600 ' set chart the width to 600 pixels
-        chartPackages.Height = 400 'set chart height to 400 lines
-        chartPackages.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
-        chartPackages.ChartAreas(0).AxisY.Interval = 5 'more lines Y axis
-        chartPackages.ChartAreas(0).AxisX.ScaleView.Zoomable = True
-        chartPackages.ChartAreas(0).AxisY.ScaleView.Zoomable = True
+        If count = -1 Then 'could not get info from database
+            MsgBox("Andmete saamine ebaõnnestus")
+        Else
+            Dim packages = returnString.electricityPackagesInfo ' get info about packages
+            Dim rand As New Random() 'for creating random color lines
+            chartPackages.Width = 600 ' set chart the width to 600 pixels
+            chartPackages.Height = 400 'set chart height to 400 lines
+            chartPackages.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
+            chartPackages.ChartAreas(0).AxisY.Interval = 5 'more lines Y axis
+            chartPackages.ChartAreas(0).AxisX.ScaleView.Zoomable = True
+            chartPackages.ChartAreas(0).AxisY.ScaleView.Zoomable = True
 
 
-        ' Set zooming mode to allow zooming in both directions
-        chartPackages.ChartAreas(0).CursorX.IsUserEnabled = True
-        chartPackages.ChartAreas(0).CursorX.IsUserSelectionEnabled = True
-        chartPackages.ChartAreas(0).CursorY.IsUserEnabled = True
-        chartPackages.ChartAreas(0).CursorY.IsUserSelectionEnabled = True
-        chartPackages.ChartAreas(0).AxisX.ScaleView.Zoomable = True
-        chartPackages.ChartAreas(0).AxisY.ScaleView.Zoomable = True
-        chartPackages.ChartAreas(0).AxisX.ScrollBar.IsPositionedInside = True
-        chartPackages.ChartAreas(0).AxisY.ScrollBar.IsPositionedInside = True
+            ' Set zooming mode to allow zooming in both directions
+            chartPackages.ChartAreas(0).CursorX.IsUserEnabled = True
+            chartPackages.ChartAreas(0).CursorX.IsUserSelectionEnabled = True
+            chartPackages.ChartAreas(0).CursorY.IsUserEnabled = True
+            chartPackages.ChartAreas(0).CursorY.IsUserSelectionEnabled = True
+            chartPackages.ChartAreas(0).AxisX.ScaleView.Zoomable = True
+            chartPackages.ChartAreas(0).AxisY.ScaleView.Zoomable = True
+            chartPackages.ChartAreas(0).AxisX.ScrollBar.IsPositionedInside = True
+            chartPackages.ChartAreas(0).AxisY.ScrollBar.IsPositionedInside = True
 
-        For j As Integer = 0 To (count - 1) 'loop thorugh all packages
+            For j As Integer = 0 To (count - 1) 'loop thorugh all packages
 
-            Dim series As New Series(packages.Item1(j)) ' create a new series with the package name
-            chartPackages.Series.Add(series)
-            series.ChartType = DataVisualization.Charting.SeriesChartType.StepLine
-            Dim r As Integer = rand.Next(0, 256) 'create random red value
-            Dim g As Integer = rand.Next(0, 256) 'green value
-            Dim b As Integer = rand.Next(0, 256) 'blue value
-            Dim colorofLine As Color = Color.FromArgb(r, g, b) 'random color
-            series.Color = colorofLine
-            series.BorderWidth = 3
-            'all the packages are right except Muutuv 
-            Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") 'current date
-            Dim futureDate As DateTime = DateTime.Now.AddHours(24) 'date 24h from now
-            Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
-            Dim data = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString) 'get stock prices and date from database
-            Dim hour2(24) As Integer
-            Dim dateFromUnix(24) As String
-            For k As Integer = 1 To 10
-                'Dim unixTimestamp As Long = Long.Parse(data.Item2(k))
+                Dim series As New Series(packages.Item1(j)) ' create a new series with the package name
+                chartPackages.Series.Add(series)
+                series.ChartType = DataVisualization.Charting.SeriesChartType.StepLine
+                Dim r As Integer = rand.Next(0, 256) 'create random red value
+                Dim g As Integer = rand.Next(0, 256) 'green value
+                Dim b As Integer = rand.Next(0, 256) 'blue value
+                Dim colorofLine As Color = Color.FromArgb(r, g, b) 'random color
+                series.Color = colorofLine
+                series.BorderWidth = 3
+                'all the packages are right except Muutuv 
+                Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") 'current date
+                Dim futureDate As DateTime = DateTime.Now.AddHours(24) 'date 24h from now
+                Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
+                Dim data = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString) 'get stock prices and date from database
+                Dim hour2(24) As Integer
+                Dim dateFromUnix(24) As String
+                For k As Integer = 1 To 10
+                    'Dim unixTimestamp As Long = Long.Parse(data.Item2(k))
 
-                ' Dim dateTime As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTimestamp)
-                'dateFromUnix(k) = dateTime.ToString("yyyy-MM-dd HH:mm:ss")
-                'hour2(k) = dateTime.Hour
-                Dim oDate As DateTime = Convert.ToDateTime(data.Item2(k))
-                hour2(k) = oDate.Hour 'get hour from 
-            Next
-            If Not packages.Item5(j) Then 'is the package price tied to market price?
-                If packages.Item7(j) = True Then 'if package has different night and day prices
-                    For i As Integer = 1 To 10
+                    ' Dim dateTime As DateTime = New DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixTimestamp)
+                    'dateFromUnix(k) = dateTime.ToString("yyyy-MM-dd HH:mm:ss")
+                    'hour2(k) = dateTime.Hour
+                    Dim oDate As DateTime = Convert.ToDateTime(data.Item2(k))
+                    hour2(k) = oDate.Hour 'get hour from 
+                Next
+                If Not packages.Item5(j) Then 'is the package price tied to market price?
+                    If packages.Item7(j) = True Then 'if package has different night and day prices
+                        For i As Integer = 1 To 10
 
-                        If hour2(i) > 11 And hour2(i) < 24 Then 'day price
+                            If hour2(i) > 11 And hour2(i) < 24 Then 'day price
+                                series.Points.AddXY(data.Item2(i), packages.Item3(j))
+                            Else
+                                series.Points.AddXY(data.Item2(i), packages.Item8(j)) 'night price
+                            End If
+                        Next
+
+                    Else
+                        For i As Integer = 1 To 10 'package has fixed price
+
+
                             series.Points.AddXY(data.Item2(i), packages.Item3(j))
-                        Else
-                            series.Points.AddXY(data.Item2(i), packages.Item8(j)) 'night price
-                        End If
-                    Next
 
+
+                        Next
+                    End If
                 Else
-                    For i As Integer = 1 To 10 'package has fixed price
 
 
-                        series.Points.AddXY(data.Item2(i), packages.Item3(j))
 
+                    For i As Integer = 1 To 10 'package is tied to market price
+                        ' Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.Item2(i)) 'new datetimeoffset from sDate string
+                        'Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
+                        Dim oDate As DateTime = Convert.ToDateTime(data.Item2(i))
+                        Dim hour As Integer = oDate.Hour 'get hour from string
+                        Dim price As Double
+                        Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+                        Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+                        'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
+                        data.Item1(i) = data.Item1(i).Replace(".", ",")
+                        'packages.Item3(j) = packages.Item3(j).Replace(".-", ",")
+                        'End If
+                        Dim pricesD As Double = Double.Parse(data.Item1(i))
+                        pricesD = (pricesD / 1000) * 100 'MWH/eur to kWh/s
+                        price = pricesD + packages.Item3(j)
+
+                        ' series.Points.AddXY(hour, price)
+                        chartPackages.Series(j).Points.AddXY(data.Item2(i), price) 'line
 
                     Next
                 End If
-            Else
-
-
-
-                For i As Integer = 1 To 10 'package is tied to market price
-                    ' Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.Item2(i)) 'new datetimeoffset from sDate string
-                    'Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
-                    Dim oDate As DateTime = Convert.ToDateTime(data.Item2(i))
-                    Dim hour As Integer = oDate.Hour 'get hour from string
-                    Dim price As Double
-                    Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
-                    Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-                    'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
-                    data.Item1(i) = data.Item1(i).Replace(".", ",")
-                    'packages.Item3(j) = packages.Item3(j).Replace(".-", ",")
-                    'End If
-                    Dim pricesD As Double = Double.Parse(data.Item1(i))
-                    pricesD = (pricesD / 1000) * 100 'MWH/eur to kWh/s
-                    price = pricesD + packages.Item3(j)
-
-                    ' series.Points.AddXY(hour, price)
-                    chartPackages.Series(j).Points.AddXY(data.Item2(i), price) 'line
-
-                Next
-            End If
-        Next
+            Next
+        End If
     End Function
     Private Sub btnPackets_Click(sender As Object, e As EventArgs) Handles btnPackets.Click
         packageChartOfElectricity() 'create chart for packets

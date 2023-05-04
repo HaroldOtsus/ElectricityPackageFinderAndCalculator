@@ -957,9 +957,7 @@ Public Class CDatabase
             Return count
 
         Catch ex As Exception
-            'database error 
-            '   stringOfErrors = {"error", "error", "error"}
-            '  Return stringOfErrors
+            Return -1
         End Try
     End Function
 
