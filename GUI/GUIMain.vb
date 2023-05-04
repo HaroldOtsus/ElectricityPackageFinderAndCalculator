@@ -7,18 +7,7 @@ Imports System.Globalization
 Imports Microsoft.VisualBasic.FileIO
 
 Public Class GUIMain
-    Protected Overrides Sub OnPaint(ByVal e As PaintEventArgs)
-        MyBase.OnPaint(e)
 
-        ' Create a new Clouds object and draw it on the panel's surface
-        Dim cloudBrush As New System.Drawing.Drawing2D.HatchBrush(System.Drawing.Drawing2D.HatchStyle.LargeConfetti, Color.White, Color.Gray)
-        Dim cloudRect As New Rectangle(0, 0, Me.Width, Me.Height)
-        Dim clouds As New System.Drawing.Drawing2D.GraphicsPath
-        clouds.AddArc(cloudRect, 0, 180)
-        clouds.AddArc(cloudRect.Width - cloudRect.Height, 0, cloudRect.Height, cloudRect.Height, 270, 180)
-        clouds.CloseFigure()
-        e.Graphics.FillPath(cloudBrush, clouds)
-    End Sub
 
     Public Structure PriceDateStruct
 
@@ -1525,7 +1514,7 @@ Public Class GUIMain
     'IN THE TARBIMISE AJALUGU TAB, tabClientConsumptionHistory subtab
     'this is work in progress, NOT FUNCTIONAAAAAAAAL!
     'SCHIZO RAMBLINGS
-    Private Sub btnImportCSVFileSimu_Click(sender As Object, e As EventArgs) 
+    Private Sub btnImportCSVFileSimu_Click(sender As Object, e As EventArgs) Handles btnImportCSVFileSimu.Click
         'tblCSVfile.Controls.Clear()
         chrtBorsihinnaVordlus.Series.Clear()
         'opens a window for user to select their CSV file
@@ -1833,7 +1822,7 @@ Public Class GUIMain
 
     End Sub
 
-    Private Sub btnConfirmSimuCSV_Click(sender As Object, e As EventArgs) 
+    Private Sub btnConfirmSimuCSV_Click(sender As Object, e As EventArgs) Handles btnConfirmSimuCSV.Click
         'For Each row As DataRow In tableOfCSV.Rows
         '    If row("Kogus (kWh)").GetType() Is GetType(String) AndAlso row("Kogus (kWh)").ToString().Contains(",") Then
         '        row("Kogus (kWh)") = row("Kogus (kWh)").ToString().Replace(",", ".")
@@ -1925,11 +1914,9 @@ Public Class GUIMain
 
     End Sub
 
-    Private Sub lblSimulateClientConsumptionHistory_Click(sender As Object, e As EventArgs) 
 
-    End Sub
 
-    Private Sub Panel4_Paint(sender As Object, e As PaintEventArgs) 
+    Private Sub Panel4_Paint(sender As Object, e As PaintEventArgs) Handles Panel4.Paint
         Select Case True
             Case rbFix.Checked
                 cbNighPrice.Visible = True
@@ -1942,7 +1929,7 @@ Public Class GUIMain
         End Select
     End Sub
 
-    Private Sub cbNighPrice_CheckedChanged(sender As Object, e As EventArgs) 
+    Private Sub cbNighPrice_CheckedChanged(sender As Object, e As EventArgs) Handles cbNighPrice.CheckedChanged
         If cbNighPrice.Checked Then
             tbNightOrMarginal.Visible = True
         Else
@@ -1950,7 +1937,7 @@ Public Class GUIMain
         End If
     End Sub
 
-    Private Sub cbMarginal_CheckedChanged(sender As Object, e As EventArgs) 
+    Private Sub cbMarginal_CheckedChanged(sender As Object, e As EventArgs) Handles cbMarginal.CheckedChanged
         If cbMarginal.Checked Then
             tbNightOrMarginal.Visible = True
         Else
@@ -2136,5 +2123,6 @@ Public Class GUIMain
             End If
         Next
     End Sub
+
 
 End Class
