@@ -433,86 +433,88 @@ Public Class GUIMain
         returnString = New PrjDatabaseComponent.CDatabase
         sPrices = returnString.stockPrice().prices
         sDates = returnString.stockPrice().dates
-        dPrices = New Double(sPrices.Length) {}
-        'Sets the values in the double array
-        For i As Integer = 1 To 24
-            sPrices(i) = sPrices(i).Replace(".", ",") '
-            dPrices(i) = Double.Parse(sPrices(i))
-            'OLD CODE
-            ' NextteTimeOffset = DateTimeOffset.FromUnixTimeSeconds(sDates(i)) 'new datetimeoffset from sDate string
-            '  Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
-            ' dDates(i) = CDbl(dateValue.Hour) 'convert to integer
-            'TextBox1.Text = dDates(i) 'put hour to textbox for testing
+        If sPrices IsNot Nothing And sDates IsNot Nothing Then
+            dPrices = New Double(sPrices.Length) {}
+            'Sets the values in the double array
+            For i As Integer = 1 To 24
+                If sPrices(i) IsNot Nothing Then
 
-        Next
+                    sPrices(i) = sPrices(i).Replace(".", ",") '
+                    dPrices(i) = Double.Parse(sPrices(i))
+                Else
+                    Exit For
+                End If
 
-
-
-        'LIST
-        'Dim priceAndDate As PriceDateStruct
-        Dim records As List(Of PriceDateStruct)
-        records = New List(Of PriceDateStruct)
-
-        Dim p As PriceDateStruct
-
-        For i As Integer = 1 To 24 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
-
-            p.price = dPrices(i)
-            p.sDate = sDates(i)
-            records.Add(p)
-            'records(i) = p
-        Next
-
-        'CHART
-        Dim seriesName As String = "Börsihind"
-        chrtFrontPage.Series.Add(seriesName)
-        'chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
-        chrtFrontPage.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
-        chrtFrontPage.ChartAreas(0).AxisY.Interval = 1 'more lines Y axis
-        chrtFrontPage.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.StepLine
-        chrtFrontPage.Series(0).Color = Color.Red
-        chrtFrontPage.Series(0).BorderWidth = 3
-
-        'fills chart
-        For i As Integer = 0 To 23
-            'ADDS DATE AND PRICE TO CHART, PRICE IS CONVERTED FROM €/MWh to cent/kWh
-            chrtFrontPage.Series(seriesName).Points.AddXY(records(i).sDate, (records(i).price / 1000) * 100)
-
-        Next
-
-        'chart cosmetics
-        Dim selectedItem As String = cbColor.SelectedItem
+            Next
 
 
-        Select Case selectedItem 'change color based on the item the user choosed
-            Case "Punane"
-                chrtFrontPage.Series(0).Color = Color.Red
 
-            Case "Sinine"
+            'LIST
+            'Dim priceAndDate As PriceDateStruct
+            Dim records As List(Of PriceDateStruct)
+            records = New List(Of PriceDateStruct)
 
-                chrtFrontPage.Series(0).Color = Color.Blue
+            Dim p As PriceDateStruct
 
-            Case "Roheline"
+            For i As Integer = 1 To 24 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
 
-                chrtFrontPage.Series(0).Color = Color.Green
+                p.price = dPrices(i)
+                p.sDate = sDates(i)
+                records.Add(p)
+                'records(i) = p
+            Next
 
-            Case "Roosa"
-                Dim myColorDarkPink As Color = Color.FromArgb(252, 10, 167) 'creating dark pink color bc it does not exist
-                chrtFrontPage.Series(0).Color = myColorDarkPink 'change chart line color
+            'CHART
+            Dim seriesName As String = "Börsihind"
+            chrtFrontPage.Series.Add(seriesName)
+            'chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
+            chrtFrontPage.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
+            chrtFrontPage.ChartAreas(0).AxisY.Interval = 1 'more lines Y axis
+            chrtFrontPage.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.StepLine
+            chrtFrontPage.Series(0).Color = Color.Red
+            chrtFrontPage.Series(0).BorderWidth = 3
 
-            Case "Tumehall"
+            'fills chart
+            For i As Integer = 0 To 23
+                'ADDS DATE AND PRICE TO CHART, PRICE IS CONVERTED FROM €/MWh to cent/kWh
+                chrtFrontPage.Series(seriesName).Points.AddXY(records(i).sDate, (records(i).price / 1000) * 100)
 
-                chrtFrontPage.Series(0).Color = Color.Black
+            Next
 
-            Case "Valge"
+            'chart cosmetics
+            Dim selectedItem As String = cbColor.SelectedItem
 
-                chrtFrontPage.Series(0).Color = Color.Black
 
-            Case Else
+            Select Case selectedItem 'change color based on the item the user choosed
+                Case "Punane"
+                    chrtFrontPage.Series(0).Color = Color.Red
 
-                chrtFrontPage.Series(0).Color = Color.Red
+                Case "Sinine"
 
-        End Select
+                    chrtFrontPage.Series(0).Color = Color.Blue
+
+                Case "Roheline"
+
+                    chrtFrontPage.Series(0).Color = Color.Green
+
+                Case "Roosa"
+                    Dim myColorDarkPink As Color = Color.FromArgb(252, 10, 167) 'creating dark pink color bc it does not exist
+                    chrtFrontPage.Series(0).Color = myColorDarkPink 'change chart line color
+
+                Case "Tumehall"
+
+                    chrtFrontPage.Series(0).Color = Color.Black
+
+                Case "Valge"
+
+                    chrtFrontPage.Series(0).Color = Color.Black
+
+                Case Else
+
+                    chrtFrontPage.Series(0).Color = Color.Red
+
+            End Select
+        End If
     End Function
 
     'home appliance tab 
