@@ -586,6 +586,7 @@ Public Class GUIMain
         Dim sPrices As String()
         sPrices = returnString.stockPrice().prices
 
+
         sPrices(24) = sPrices(24).Replace(".", ",")
         Dim calculateKWH As Double = Double.Parse(sPrices(24))
         'calculateKWH = (calculateKWH / 10) / 100
@@ -1110,9 +1111,7 @@ Public Class GUIMain
     End Sub
 
     Private Sub rdioUniversalPackage_CheckedChanged(sender As Object, e As EventArgs) Handles rdioUniversalPackage.CheckedChanged
-        Dim returnString As PrjDatabaseComponent.IDatabase
-        returnString = New PrjDatabaseComponent.CDatabase
-        Dim universalPrice As Double = returnString.universalServicePrice
+        Dim universalPrice As Double = 18.49
         tBoxPackagePrice.Text = universalPrice
         tBoxPackagePrice.Enabled = False
     End Sub
@@ -1470,7 +1469,7 @@ Public Class GUIMain
         tboxMonthlyCost.Clear()
         Dim returnString As PrjDatabaseComponent.IDatabase
         returnString = New PrjDatabaseComponent.CDatabase
-        Dim universalPrice As Double = returnString.universalServicePrice
+        Dim universalPrice As Double = 18.49
         'tboxMonthlyCost.Text = universalPrice & " [s/kWh]"
         tboxMonthlyCost.Enabled = False
         btnTableAsc.Enabled = False
@@ -2014,110 +2013,113 @@ Public Class GUIMain
                     Dim returnString As PrjDatabaseComponent.IDatabase
                     returnString = New PrjDatabaseComponent.CDatabase
                     Dim packageone = returnString.onePackageInfo(packet1) ' get info about packages from database
+                    If packageone.Item1 IsNot Nothing Then
 
-                    Dim series2 As New Series(packageone.Item1) ' create a new series with the package name
-                    chrtHistory.Series.Add(series2)
-                    series2.ChartType = DataVisualization.Charting.SeriesChartType.Line
-                    series2.BorderWidth = 3
-                    'Dim currentDate As String = beggingDate
-                    'Dim futureDateString As String = endDate
 
-                    'Dim data = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString) 'get stock prices and dates from database
-                    'stringOfPackageNames = reader.GetString(0)
-                    'stringOfCompanyNames = reader.GetString(1)
-                    'pricePerKWh = reader.GetString(2)
-                    'monthlyFeeForContract = reader.GetString(3)
-                    'usesMarketPrice = reader.GetString(4)
-                    'greenEnergy = reader.GetString(5)
-                    'isNightPriceDifferent = reader.GetString(6)
-                    'nightPrice = reader.GetString(7)
+                        Dim series2 As New Series(packageone.Item1) ' create a new series with the package name
+                        chrtHistory.Series.Add(series2)
+                        series2.ChartType = DataVisualization.Charting.SeriesChartType.Line
+                        series2.BorderWidth = 3
+                        'Dim currentDate As String = beggingDate
+                        'Dim futureDateString As String = endDate
 
-                    If packageone.Item5 = False And packageone.Item7 = False Then 'one fix price
-                        ' price is fixed and night price is not checked
+                        'Dim data = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString) 'get stock prices and dates from database
+                        'stringOfPackageNames = reader.GetString(0)
+                        'stringOfCompanyNames = reader.GetString(1)
+                        'pricePerKWh = reader.GetString(2)
+                        'monthlyFeeForContract = reader.GetString(3)
+                        'usesMarketPrice = reader.GetString(4)
+                        'greenEnergy = reader.GetString(5)
+                        'isNightPriceDifferent = reader.GetString(6)
+                        'nightPrice = reader.GetString(7)
 
-                        ' chrtHistory.Series.Add(New Series())
-                        'chrtHistory.Series(0).ChartType = SeriesChartType.Line
-                        ' Dim priceCentsPerKWh As Double = Double.Parse(tbPrice.Text)
-                        ' copy the data into the chart
-                        For Each row As DataRow In tableOfCSV.Rows
-                            If row("Algus") >= beggingDate And row("Lõpp") <= endDate Then
-                                If row("Kogus (kWh)").GetType() Is GetType(String) AndAlso row("Kogus (kWh)").ToString().Contains(",") Then
-                                    row("Kogus (kWh)") = row("Kogus (kWh)").ToString().Replace(",", ".")
-                                End If
-                                Dim inputString As String = row("Kogus (kWh)").ToString().Trim()
-                                Dim kWh As Double
-                                If Double.TryParse(inputString, NumberStyles.Float, CultureInfo.InvariantCulture, kWh) Then
-                                    'Setting the price kWh is the consumed amount, priceCentsPerKWh is the price
-                                    'in €/MWh and by dividing it by 10 we get cents/kWh
-                                    Dim price As Double = kWh * packageone.Item3
-                                    chrtHistory.Series(1).Points.AddXY(row("Algus"), price)
-                                    dBPackagePriceSum += price
-                                End If
-                            End If
+                        If packageone.Item5 = False And packageone.Item7 = False Then 'one fix price
+                            ' price is fixed and night price is not checked
 
-                        Next
-
-                    ElseIf packageone.Item5 = False And packageone.Item7 = True Then
-                        For Each row As DataRow In tableOfCSV.Rows
-                            If row("Algus") >= beggingDate And row("Lõpp") <= endDate Then
-                                If row("Kogus (kWh)").GetType() Is GetType(String) AndAlso row("Kogus (kWh)").ToString().Contains(",") Then
-                                    row("Kogus (kWh)") = row("Kogus (kWh)").ToString().Replace(",", ".")
-                                End If
-                                Dim inputString As String = row("Kogus (kWh)").ToString().Trim()
-                                Dim AlgusString As String = row("Algus").ToString().Trim()
-                                Dim format As String = "dd.MM.yyyy HH:mm"
-                                Dim dateValue As DateTime = DateTime.ParseExact(AlgusString, format, CultureInfo.InvariantCulture)
-                                Dim hour As Integer = dateValue.Hour
-                                Dim kWh As Double
-                                If hour > 11 And hour < 23 Then 'day price
+                            ' chrtHistory.Series.Add(New Series())
+                            'chrtHistory.Series(0).ChartType = SeriesChartType.Line
+                            ' Dim priceCentsPerKWh As Double = Double.Parse(tbPrice.Text)
+                            ' copy the data into the chart
+                            For Each row As DataRow In tableOfCSV.Rows
+                                If row("Algus") >= beggingDate And row("Lõpp") <= endDate Then
+                                    If row("Kogus (kWh)").GetType() Is GetType(String) AndAlso row("Kogus (kWh)").ToString().Contains(",") Then
+                                        row("Kogus (kWh)") = row("Kogus (kWh)").ToString().Replace(",", ".")
+                                    End If
+                                    Dim inputString As String = row("Kogus (kWh)").ToString().Trim()
+                                    Dim kWh As Double
                                     If Double.TryParse(inputString, NumberStyles.Float, CultureInfo.InvariantCulture, kWh) Then
+                                        'Setting the price kWh is the consumed amount, priceCentsPerKWh is the price
+                                        'in €/MWh and by dividing it by 10 we get cents/kWh
                                         Dim price As Double = kWh * packageone.Item3
                                         chrtHistory.Series(1).Points.AddXY(row("Algus"), price)
                                         dBPackagePriceSum += price
                                     End If
-                                Else
-                                    If Double.TryParse(inputString, NumberStyles.Float, CultureInfo.InvariantCulture, kWh) Then
-                                        Dim price As Double = kWh * packageone.Item8
-                                        chrtHistory.Series(1).Points.AddXY(row("Algus"), price) 'night price
-                                        dBPackagePriceSum += price
+                                End If
+
+                            Next
+
+                        ElseIf packageone.Item5 = False And packageone.Item7 = True Then
+                            For Each row As DataRow In tableOfCSV.Rows
+                                If row("Algus") >= beggingDate And row("Lõpp") <= endDate Then
+                                    If row("Kogus (kWh)").GetType() Is GetType(String) AndAlso row("Kogus (kWh)").ToString().Contains(",") Then
+                                        row("Kogus (kWh)") = row("Kogus (kWh)").ToString().Replace(",", ".")
+                                    End If
+                                    Dim inputString As String = row("Kogus (kWh)").ToString().Trim()
+                                    Dim AlgusString As String = row("Algus").ToString().Trim()
+                                    Dim format As String = "dd.MM.yyyy HH:mm"
+                                    Dim dateValue As DateTime = DateTime.ParseExact(AlgusString, format, CultureInfo.InvariantCulture)
+                                    Dim hour As Integer = dateValue.Hour
+                                    Dim kWh As Double
+                                    If hour > 11 And hour < 23 Then 'day price
+                                        If Double.TryParse(inputString, NumberStyles.Float, CultureInfo.InvariantCulture, kWh) Then
+                                            Dim price As Double = kWh * packageone.Item3
+                                            chrtHistory.Series(1).Points.AddXY(row("Algus"), price)
+                                            dBPackagePriceSum += price
+                                        End If
+                                    Else
+                                        If Double.TryParse(inputString, NumberStyles.Float, CultureInfo.InvariantCulture, kWh) Then
+                                            Dim price As Double = kWh * packageone.Item8
+                                            chrtHistory.Series(1).Points.AddXY(row("Algus"), price) 'night price
+                                            dBPackagePriceSum += price
+                                        End If
                                     End If
                                 End If
-                            End If
 
-                        Next
+                            Next
 
-                    ElseIf packageone.Item5 = True Then 'fix price but night price is different
+                        ElseIf packageone.Item5 = True Then 'fix price but night price is different
 
-                        ' copy the data into the chart
-                        For Each row As DataRow In tableOfCSV.Rows
-                            If row("Algus") >= beggingDate And row("Lõpp") <= endDate Then
-                                If row("Kogus (kWh)").GetType() Is GetType(String) AndAlso row("Kogus (kWh)").ToString().Contains(",") Then
-                                    row("Kogus (kWh)") = row("Kogus (kWh)").ToString().Replace(",", ".")
+                            ' copy the data into the chart
+                            For Each row As DataRow In tableOfCSV.Rows
+                                If row("Algus") >= beggingDate And row("Lõpp") <= endDate Then
+                                    If row("Kogus (kWh)").GetType() Is GetType(String) AndAlso row("Kogus (kWh)").ToString().Contains(",") Then
+                                        row("Kogus (kWh)") = row("Kogus (kWh)").ToString().Replace(",", ".")
+                                    End If
+                                    If row("Börsihind (EUR / MWh)").GetType() Is GetType(String) AndAlso row("Börsihind (EUR / MWh)").ToString().Contains(",") Then
+                                        row("Börsihind (EUR / MWh)") = row("Börsihind (EUR / MWh)").ToString().Replace(",", ".")
+                                    End If
+                                    Dim inputString As String = row("Kogus (kWh)").ToString().Trim()
+                                    Dim priceOfStock As String = row("Börsihind (EUR / MWh)").ToString().Trim()
+                                    Dim pricePerMWh As Double
+                                    Dim kWh As Double
+                                    If Double.TryParse(inputString, NumberStyles.Float, CultureInfo.InvariantCulture, kWh) And Double.TryParse(priceOfStock, NumberStyles.Float, CultureInfo.InvariantCulture, pricePerMWh) Then
+                                        '  Dim price As Double = kWh * (priceCentsPerKWh / 100)
+                                        Dim cost As Double = (pricePerMWh / 10) + packageone.Item3
+                                        Dim finalCost As Double = cost * kWh
+                                        chrtHistory.Series(1).Points.AddXY(row("Algus"), finalCost)
+                                        dBPackagePriceSum += finalCost
+                                    End If
                                 End If
-                                If row("Börsihind (EUR / MWh)").GetType() Is GetType(String) AndAlso row("Börsihind (EUR / MWh)").ToString().Contains(",") Then
-                                    row("Börsihind (EUR / MWh)") = row("Börsihind (EUR / MWh)").ToString().Replace(",", ".")
-                                End If
-                                Dim inputString As String = row("Kogus (kWh)").ToString().Trim()
-                                Dim priceOfStock As String = row("Börsihind (EUR / MWh)").ToString().Trim()
-                                Dim pricePerMWh As Double
-                                Dim kWh As Double
-                                If Double.TryParse(inputString, NumberStyles.Float, CultureInfo.InvariantCulture, kWh) And Double.TryParse(priceOfStock, NumberStyles.Float, CultureInfo.InvariantCulture, pricePerMWh) Then
-                                    '  Dim price As Double = kWh * (priceCentsPerKWh / 100)
-                                    Dim cost As Double = (pricePerMWh / 10) + packageone.Item3
-                                    Dim finalCost As Double = cost * kWh
-                                    chrtHistory.Series(1).Points.AddXY(row("Algus"), finalCost)
-                                    dBPackagePriceSum += finalCost
-                                End If
-                            End If
 
-                        Next
+                            Next
 
 
+                        End If
+
+                        lblPriceTotalFromPackage.Text = "Kogu vahemiku elektri hind vastavalt valitud paketile: " & Math.Round(dBPackagePriceSum, 2) & " senti."
                     End If
-
-                    lblPriceTotalFromPackage.Text = "Kogu vahemiku elektri hind vastavalt valitud paketile: " & Math.Round(dBPackagePriceSum, 2) & " senti."
+                    lblPriceTotalFromImport.Text = "Kogu vahemiku elektri hind vastavalt sinu paketile: " & Math.Round(userPackagePriceSum, 2) & " senti."
                 End If
-                lblPriceTotalFromImport.Text = "Kogu vahemiku elektri hind vastavalt sinu paketile: " & Math.Round(userPackagePriceSum, 2) & " senti."
             Else
                 MsgBox("Algus kuupäev ei saa olla peale lõpp kuupäeva!")
             End If
@@ -2216,9 +2218,11 @@ Public Class GUIMain
         returnStringDatabase = New PrjDatabaseComponent.CDatabase
         Dim pakett = returnStringDatabase.onePackageInfo(cbBorsiPakettid.Text)
         Dim strMarginaal As String = pakett.Item3.ToString()
-        lblMarginaal.Text = strMarginaal
 
-        Dim BorsihinnaVordlusEnd As DateTime = dtpBorsihinnaVordlusEnd.Value
+            lblMarginaal.Text = strMarginaal
+
+
+            Dim BorsihinnaVordlusEnd As DateTime = dtpBorsihinnaVordlusEnd.Value
         Dim BorsihinnaVordlusStart As DateTime = dtpBorsihinnaVordlusStart.Value
         Dim result As TimeSpan = BorsihinnaVordlusEnd.Subtract(BorsihinnaVordlusStart)
         Dim days As Integer = result.TotalDays

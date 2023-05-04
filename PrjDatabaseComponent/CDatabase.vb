@@ -57,7 +57,7 @@ Public Class CDatabase
             End While
 
         Catch ex As Exception
-            'Return False
+            'Does not return anything
         End Try
 
 
@@ -75,7 +75,7 @@ Public Class CDatabase
             command.ExecuteNonQuery()
 
         Catch ex As Exception
-            'Return False
+            'Does not return anything
         End Try
         conn.Close()
 
@@ -91,27 +91,7 @@ Public Class CDatabase
     End Function
 
 
-    Private Function universalServicePrice() As Double Implements IDatabase.universalServicePrice
-        ' Dim connString = GetConnectionString()
-        Dim conn As New MySqlConnection(connString)
-        Dim price As Double
-        Try
-            conn.Open() 'get universal price from database
-            Dim command As New MySqlCommand("select pricePerKWh from electricitypackages where packageName = @universaalteenus", conn)
-            command.Parameters.AddWithValue("@universaalteenus", "Universaalteenus")
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read()
-                price = reader.GetString(0)
 
-            End While
-            conn.Close()
-            Return price
-        Catch ex As Exception
-            'Return False
-        End Try
-
-
-    End Function
 
     Private Function login(ByVal username As String, ByVal password As String) As Boolean Implements ILogin.login
         Dim connString = GetConnectionString()
@@ -287,8 +267,7 @@ Public Class CDatabase
                 Return sPrices
             End If
         Catch ex As Exception
-            stringOfErrors = {"error", "error", "error"}
-            Return stringOfErrors
+            Return Nothing
         End Try
 
     End Function
@@ -322,8 +301,7 @@ Public Class CDatabase
                 Return sPrices
             End If
         Catch ex As Exception 'if there is expception return error
-            stringOfErrors = {"error", "error", "error"}
-            Return stringOfErrors
+            Return Nothing
         End Try
 
     End Function
@@ -469,7 +447,7 @@ Public Class CDatabase
             Dim hour As Integer = oDate.Hour 'get hour from database string
             Return hour
         Catch ex As Exception
-
+            Return -1
         End Try
     End Function
 
@@ -515,7 +493,7 @@ Public Class CDatabase
             Dim hour As Integer = oDate.Hour
             Return hour
         Catch ex As Exception
-
+            Return -1
         End Try
     End Function
 
@@ -619,8 +597,7 @@ Public Class CDatabase
             conn.Close()
             Return sPrices
         Catch ex As Exception
-            stringOfErrors = {"error", "error", "error"}
-            Return stringOfErrors
+            Return Nothing
         End Try
 
     End Function
@@ -865,8 +842,7 @@ Public Class CDatabase
 
             Return sDates
         Catch ex As Exception
-            stringOfErrors = {"error", "error", "error"}
-            Return stringOfErrors
+            Return Nothing
         End Try
 
     End Function
