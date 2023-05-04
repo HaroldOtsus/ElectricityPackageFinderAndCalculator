@@ -355,8 +355,8 @@ Public Class CDatabase
                 Return sPrices
             End If
         Catch ex As Exception
-            stringOfErrors = {"error", "error", "error"}
-            Return stringOfErrors
+
+            Return Nothing 'error
         End Try
 
     End Function
@@ -400,8 +400,7 @@ Public Class CDatabase
             End If
             conn.Close()
         Catch ex As Exception
-            stringOfErrors = {"error", "error", "error"}
-            Return stringOfErrors
+            Return Nothing
         End Try
 
     End Function
@@ -527,7 +526,7 @@ Public Class CDatabase
         Dim hour As Integer
         hour = hourofDatabasestockPricesFuture() 'get hour from database string
 
-        If hour = currentHour Then 'if it is same as hour now get info from database
+        If hour = currentHour + 1 Then 'if it is same as hour now get info from database
             Dim sPrices As String()
             Dim stringOfDates As String()
             sPrices = stringsOfStockPriceFuture()
@@ -704,8 +703,7 @@ Public Class CDatabase
             conn.Close()
 
         Catch ex As Exception
-            'stringOfErrors = {"error", "error", "error"}
-            'Return stringOfErrors
+            Return Nothing
         End Try
         Return sPrices
     End Function
@@ -783,9 +781,8 @@ Public Class CDatabase
             command.ExecuteNonQuery()
 
         Catch ex As Exception
-            stringOfErrors = {"error", "error", "error"}
-            Return sDates
-            Return stringOfErrors
+
+            Return Nothing
         End Try
         Return sDates
 
