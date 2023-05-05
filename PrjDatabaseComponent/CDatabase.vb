@@ -12,18 +12,23 @@ Public Class CDatabase
 
     Public Function GetConnectionString() As String
         If String.IsNullOrEmpty(connString) Then
-            Dim config As IConfigurationRoot = New ConfigurationBuilder().
-            SetBasePath(AppDomain.CurrentDomain.BaseDirectory).
-            AddIniFile("config.ini", optional:=False, reloadOnChange:=True).
-            Build()
+            Try
+                Dim config As IConfigurationRoot = New ConfigurationBuilder().
+                            SetBasePath(AppDomain.CurrentDomain.BaseDirectory).
+                            AddIniFile("config.ini", optional:=False, reloadOnChange:=True).
+                            Build()
 
-            Dim server As String = config.GetSection("database")("Server")
-            Dim user As String = config.GetSection("database")("user")
-            Dim password As String = config.GetSection("database")("password")
-            Dim database As String = config.GetSection("database")("database")
+                Dim server As String = config.GetSection("database")("Server")
+                Dim user As String = config.GetSection("database")("user")
+                Dim password As String = config.GetSection("database")("password")
+                Dim database As String = config.GetSection("database")("database")
 
-            connString = $"server={server};user id={user};password={password};database={database};Pooling=true;"
-            Return connString
+                connString = $"server={server};user id={user};password={password};database={database};Pooling=true;"
+                Return connString
+            Catch ex As Exception
+                Return Nothing
+            End Try
+
         End If
 
         Return connString
@@ -95,6 +100,11 @@ Public Class CDatabase
 
     Private Function login(ByVal username As String, ByVal password As String) As Boolean Implements ILogin.login
         Dim connString = GetConnectionString()
+        If connString = Nothing Then
+
+            MsgBox("Missing config.ini file!")
+            Return False
+        End If
         '  Dim conn As New MySqlConnection(connString)
         Dim pass As String = ""
         Try
@@ -215,27 +225,18 @@ Public Class CDatabase
             reader.Close()
 
             conn.Close()
-        Catch ex As MySqlException ''code for troubleshooting will have to change it if want to use with GUI
-            ' Handle MySqlException here
-            strVar = "MySqlException:"
-            strVar &= ex.Message
-            ' Return strVar
-        Catch ex As InvalidOperationException
-            ' Handle InvalidOperationException here
-            Console.WriteLine("InvalidOperationException: " & ex.Message)
-            strVar = "Invalidoperationexception:"
-            strVar &= ex.Message
-            ' Return strVar
+
         Catch ex As Exception
             ' Handle all other exceptions here
             ' Console.WriteLine("Exception: " & ex.Message)
 
             'StrVar = "excemption occured"
             'Return ex.Message
+            consumptionPerHour = Nothing
+            usageTime = Nothing
+            Return (consumptionPerHour, usageTime)
         End Try
-        consumptionPerHour = "Error"
-        usageTime = "Error"
-        Return (consumptionPerHour, usageTime)
+
     End Function
 
     Private Function datesOfStockPrice() As String() 'get stockprice dates from database
@@ -461,15 +462,20 @@ Public Class CDatabase
         Dim stringOfDates As String()
         Dim sPrices As String()
         'will need to check if the date is same
-        If databaseHour = currentHour Then 'if hour in database is same as hour right now
-            sPrices = stringsOfStockPrice() 'get info from database
-            stringOfDates = datesOfStockPrice()
-            Return (sPrices, stringOfDates)
-        Else 'ask it from API and update info in database
-            sPrices = insertStockPriceToDatabase()
-            stringOfDates = insertDatesToDatabase()
-            Return (sPrices, stringOfDates) 'return strings
+        If databaseHour = -1 Then
+            Return (Nothing, Nothing)
+        Else
+            If databaseHour = currentHour Then 'if hour in database is same as hour right now
+                sPrices = stringsOfStockPrice() 'get info from database
+                stringOfDates = datesOfStockPrice()
+                Return (sPrices, stringOfDates)
+            Else 'ask it from API and update info in database
+                sPrices = insertStockPriceToDatabase()
+                stringOfDates = insertDatesToDatabase()
+                Return (sPrices, stringOfDates) 'return strings
+            End If
         End If
+
 
     End Function
 

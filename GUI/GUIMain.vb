@@ -108,34 +108,40 @@ Public Class GUIMain
                     returnString = New PrjDatabaseComponent.CDatabase
                     Dim actualOutput = returnString.stringReturn(applianceID)
 
-
-                    tBoxConsumptionPerHour.Text = actualOutput.consumptionPerHour
-                    tBoxUsageTime.Text = actualOutput.usageTime
-
-                    Dim incoming As Computing_Component.ICalculating
-                    incoming = New Computing_Component.CCalculating
-                    Dim actualOutput2 = incoming.applianceConsumption(tBoxConsumptionPerHour.Text, tBoxUsageTime.Text, tBoxPackagePrice.Text)
-
-                    'Shows only 3 decimal spaces
-                    Dim cons As Decimal = actualOutput2.consumption
-                    Dim consOut As String = cons.ToString("N3")
-
-                    Dim aprox As Decimal = actualOutput2.aproxPrice
-                    Dim aproxOut As String = aprox.ToString("N3")
-
-                    Dim aproxYearly As Decimal = actualOutput2.yearlyAproxPrice
-                    If aproxYearly > 100 Then
-                        aproxYearly = aproxYearly / 100 ' kuna tulemus on sentides, siis kui sente on liiga palju, jagan 100'ga, et eurod saada
-                        lblAproxYearlyPrice.Text = "eur"
+                    'Check to see if we received any data from the database
+                    If actualOutput.consumptionPerHour Is Nothing Or actualOutput.usageTime Is Nothing Then
+                        MsgBox("Andmebaasi error!")
                     Else
-                        lblAproxYearlyPrice.Text = "senti"
+                        tBoxConsumptionPerHour.Text = actualOutput.consumptionPerHour
+                        tBoxUsageTime.Text = actualOutput.usageTime
+
+                        Dim incoming As Computing_Component.ICalculating
+                        incoming = New Computing_Component.CCalculating
+                        Dim actualOutput2 = incoming.applianceConsumption(tBoxConsumptionPerHour.Text, tBoxUsageTime.Text, tBoxPackagePrice.Text)
+
+                        'Shows only 3 decimal spaces
+                        Dim cons As Decimal = actualOutput2.consumption
+                        Dim consOut As String = cons.ToString("N3")
+
+                        Dim aprox As Decimal = actualOutput2.aproxPrice
+                        Dim aproxOut As String = aprox.ToString("N3")
+
+                        Dim aproxYearly As Decimal = actualOutput2.yearlyAproxPrice
+                        If aproxYearly > 100 Then
+                            aproxYearly = aproxYearly / 100 ' kuna tulemus on sentides, siis kui sente on liiga palju, jagan 100'ga, et eurod saada
+                            lblAproxYearlyPrice.Text = "eur"
+                        Else
+                            lblAproxYearlyPrice.Text = "senti"
+                        End If
+                        Dim aproxYearlyOut As String = aproxYearly.ToString("N3")
+
+
+                        tBoxElectricityConsumptionRate.Text = consOut
+                        tBoxApproxPrice.Text = aproxOut
+                        tBoxApproxPriceYear.Text = aproxYearlyOut
                     End If
-                    Dim aproxYearlyOut As String = aproxYearly.ToString("N3")
 
 
-                    tBoxElectricityConsumptionRate.Text = consOut
-                    tBoxApproxPrice.Text = aproxOut
-                    tBoxApproxPriceYear.Text = aproxYearlyOut
                 End If
             End If
         End If
@@ -238,6 +244,7 @@ Public Class GUIMain
             Dim sDates As String()
             Dim dDates As Double() = New Double(24) {}
             Dim dPrices As Double()
+            Dim sPricesAmen As Integer
             'Dim priceDateStruct As New PriceDateStruct() if the code works then this can be deleted
 
             'points to the component
@@ -253,130 +260,130 @@ Public Class GUIMain
             'sets the values using the API
             sPrices = returnString.stockPrice().prices
             sDates = returnString.stockPrice().dates
-
-
-            Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
-            Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-            'this if is supposed to check if the system language is estonian, but it doesnt work/we are using it wrong or using the wrong thing 
-            'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
-            'changes the "."-s into ","-s
-            For i As Integer = 1 To 24
-                sPrices(i) = sPrices(i).Replace(".", ",")
-            Next
-            'End If
-            'sets the length for array of doubles
-            dPrices = New Double(sPrices.Length) {}
-
-            'sets the values into the double array
-            For i As Integer = 1 To sPrices.Length - 1
-                dPrices(i) = Double.Parse(sPrices(i))
-            Next
-
-
-            'WHAT THE FUCK?
-            For i As Integer = 1 To 24 'sDates.Length - 1
-                ' dDates(i) = Double.Parse(sDates(i))
-
-                'in textbox get one time as string
-                'Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(sDates(i)) 'new datetimeoffset from sDate string
-                'Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
-                'dDates(i) = CDbl(dateValue.Hour) 'convert to integer
-                'TextBox1.Text = dDates(i) 'put hour to textbox for testing
-
-            Next
-
-
-            'if the user has selected FIXED PRICE
-            If rdioFixedPrice.Checked Then
-                'if the input is NULL then make it zero thus avoiding crash
-                If tboxMonthlyCost.Text = "" Then
-                    tboxMonthlyCost.Text = "0"
-                End If
-                'fills the double array with fixed prices in order to later fill the table and chart
-                For i As Integer = 1 To 24
-                    dPrices(i) = tboxMonthlyCost.Text
-                Next
-            End If
-
-            'UNIVERSAL PRICE
-            If rdioBtnUniversalP.Checked Then
-                Dim universalPrice As Double
-                'universalPrice = returnString.universalServicePrice()
-                'sets the universal price to later fill table and chart
-                universalPrice = 18.49 * 10 'it is multiplied by ten because down the code it is divided by ten in order to convert it to cent/kWh, but this value already is cent/kWh. I got lazy. :P
-
-                'fills the double array with universal prices in order to later fill the table and chart
-                For i As Integer = 1 To 24
-                    dPrices(i) = universalPrice
-                Next
-            End If
-
-            'STOCK PRICE + MARGINAL
-            If rdiobtnStockPlussMarginal.Checked Then
-                'declares and marginal and gives it value
-                Dim mar As Double
-                mar = Double.Parse(tbMarginalOfStock.Text)
-                'fills the double array with stock + marginal prices in order to later fill the table and chart
-                For i As Integer = 1 To 24
-                    dPrices(i) = dPrices(i) + mar * 10 ' the *10 turns marginal from €/MWh to cents/kWh
-                Next
-            End If
-
-            'Dim priceAndDate As PriceDateStruct
-
-            'Creates a list
-            Dim records As List(Of PriceDateStruct)
-            records = New List(Of PriceDateStruct)
-            Dim p As PriceDateStruct
-
-            'fills the list
-            For i As Integer = 1 To 24 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
-                p.price = dPrices(i)
-                p.sDate = sDates(i)
-                records.Add(p)
-            Next
-
-            'creates datagridview(our table)
-            Dim dgv As New DataGridView()
-            dgv.Width = 1200 ' change table width
-            dgv.Dock = DockStyle.Fill 'is not scrollable is this is not added
-            For i As Integer = 0 To 23
-                'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
-
-                'sets the columns of the table, each column is a time
-                Dim dt As DateTime = DateTime.Parse(records(i).sDate)
-                Dim sTime As String = dt.ToString("HH:mm")
-                dgv.Columns.Add(0, sTime)
-
-            Next
-
-
-
-            'fills the prices into the table and adds the units
-            If rdioFixedPrice.Checked Then
-                For i As Integer = 0 To 23
-                    dgv.Rows(0).Cells(i).Value = tboxMonthlyCost.Text & " s/kWh" ' or any other number you want to insert
-                Next
+            If sPrices Is Nothing Then
+                MsgBox("Andmebaasi error!")
             Else
-                For i As Integer = 0 To 23
-                    dgv.Rows(0).Cells(i).Value = (records(i).price / 1000) * 100 & " s/kWh" ' or any other number you want to insert
+                Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+                Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+                'this if is supposed to check if the system language is estonian, but it doesnt work/we are using it wrong or using the wrong thing 
+                'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
+                'changes the "."-s into ","-s
+
+                For i As Integer = 1 To 24
+                    If sPrices(i) IsNot Nothing Then
+
+                        sPrices(i) = sPrices(i).Replace(".", ",") '
+                        sPricesAmen = i
+                    Else
+                        Exit For
+                        sPricesAmen = i - 1
+                    End If
+
                 Next
+                'End If
+                'sets the length for array of doubles
+                dPrices = New Double(sPricesAmen) {}
+
+                'sets the values into the double array
+                For i As Integer = 1 To sPricesAmen
+                    dPrices(i) = Double.Parse(sPrices(i))
+                Next
+                'if the user has selected FIXED PRICE
+                If rdioFixedPrice.Checked Then
+                    'if the input is NULL then make it zero thus avoiding crash
+                    If tboxMonthlyCost.Text = "" Then
+                        tboxMonthlyCost.Text = "0"
+                    End If
+                    'fills the double array with fixed prices in order to later fill the table and chart
+                    For i As Integer = 1 To 24
+                        dPrices(i) = tboxMonthlyCost.Text
+                    Next
+                End If
+
+                'UNIVERSAL PRICE
+                If rdioBtnUniversalP.Checked Then
+                    Dim universalPrice As Double
+                    'universalPrice = returnString.universalServicePrice()
+                    'sets the universal price to later fill table and chart
+                    universalPrice = 18.49 * 10 'it is multiplied by ten because down the code it is divided by ten in order to convert it to cent/kWh, but this value already is cent/kWh. I got lazy. :P
+
+                    'fills the double array with universal prices in order to later fill the table and chart
+                    For i As Integer = 1 To 24
+                        dPrices(i) = universalPrice
+                    Next
+                End If
+
+                'STOCK PRICE + MARGINAL
+                If rdiobtnStockPlussMarginal.Checked Then
+                    'declares and marginal and gives it value
+                    Dim mar As Double
+                    mar = Double.Parse(tbMarginalOfStock.Text)
+                    'fills the double array with stock + marginal prices in order to later fill the table and chart
+                    For i As Integer = 1 To 24
+                        dPrices(i) = dPrices(i) + mar * 10 ' the *10 turns marginal from €/MWh to cents/kWh
+                    Next
+                End If
+
+                'Dim priceAndDate As PriceDateStruct
+
+                'Creates a list
+                Dim records As List(Of PriceDateStruct)
+                records = New List(Of PriceDateStruct)
+                Dim p As PriceDateStruct
+
+                'fills the list
+                For i As Integer = 1 To 24 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
+                    p.price = dPrices(i)
+                    p.sDate = sDates(i)
+                    records.Add(p)
+                Next
+
+                'creates datagridview(our table)
+                Dim dgv As New DataGridView()
+                dgv.Width = 1200 ' change table width
+                dgv.Dock = DockStyle.Fill 'is not scrollable is this is not added
+                For i As Integer = 0 To 23
+                    'dgv.Columns.Add("Column" & i.ToString(), "Column" & i.ToString())
+
+                    'sets the columns of the table, each column is a time
+                    Dim dt As DateTime = DateTime.Parse(records(i).sDate)
+                    Dim sTime As String = dt.ToString("HH:mm")
+                    dgv.Columns.Add(0, sTime)
+
+                Next
+
+
+
+                'fills the prices into the table and adds the units
+                If rdioFixedPrice.Checked Then
+                    For i As Integer = 0 To 23
+                        dgv.Rows(0).Cells(i).Value = tboxMonthlyCost.Text & " s/kWh" ' or any other number you want to insert
+                    Next
+                Else
+                    For i As Integer = 0 To 23
+                        dgv.Rows(0).Cells(i).Value = (records(i).price / 1000) * 100 & " s/kWh" ' or any other number you want to insert
+                    Next
+                End If
+
+                'these lines were meant keep the user from editing the table, we failed :'(
+                tblPriceTable.AllowUserToDeleteRows = False 'Allows user to delete rows
+                tblPriceTable.ReadOnly = True 'Allows user to edit cells within the data grid
+
+                'adds the table
+                tblPriceTable.Controls.Add(dgv)
+
+                'creates the chart using the list as source of info
+                chart(records)
+
+                'hides a descriptive label, is now obsolete technically
+                lblTableState.Visible = False
+                'wrong
+                lblTableState.Text = "Börsihind"
+
             End If
 
-            'these lines were meant keep the user from editing the table, we failed :'(
-            tblPriceTable.AllowUserToDeleteRows = False 'Allows user to delete rows
-            tblPriceTable.ReadOnly = True 'Allows user to edit cells within the data grid
 
-            'adds the table
-            tblPriceTable.Controls.Add(dgv)
 
-            'creates the chart using the list as source of info
-            chart(records)
-
-            'hides a descriptive label, is now obsolete technically
-            lblTableState.Visible = False
-            'wrong
-            lblTableState.Text = "Börsihind"
 
 
         End If
@@ -2452,4 +2459,6 @@ Public Class GUIMain
 
 
     End Sub
+
+
 End Class
