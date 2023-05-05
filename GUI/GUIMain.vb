@@ -50,7 +50,7 @@ Public Class GUIMain
         TabControl1.SelectedTab = tabPackageComparison
     End Sub
 
-    Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack0.Click, btnBack1.Click, btnBack2.Click, btnBack3.Click, btnBack4.Click
+    Private Sub btnBack_Click(sender As Object, e As EventArgs)
         TabControl1.SelectedTab = Main
     End Sub
 
@@ -534,10 +534,10 @@ Public Class GUIMain
         btnTableAsc.Enabled = True
         btnTableDesc.Enabled = True
 
-        ' Dim returnString As PrjDatabaseComponent.IDatabaseAPI
-        'returnString = New PrjDatabaseComponent.CDatabase
-        Dim returnString As PrjDatabaseComponent.IDatabase
+        Dim returnString As PrjDatabaseComponent.IDatabaseAPI
         returnString = New PrjDatabaseComponent.CDatabase
+        'Dim returnString As PrjDatabaseComponent.IDatabase
+        'returnString = New PrjDatabaseComponent.CDatabase
         Dim sPrices As String()
         Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
         'MsgBox(currentDate)
@@ -546,9 +546,9 @@ Public Class GUIMain
         'MsgBox(futureDateString)
 
         'gets prices according to input dates (current to current+24h) 
-        sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
+        'sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
         ' GetDataFromEleringAPIWithDates(ByVal strStartDate As String, ByVal strEndDate As String) As (String(), String())
-        ' sPrices = returnString.stockPrice().prices
+        sPrices = returnString.stockPrice().prices
 
 
         'Dim sPricesOut As String = sPrices(1)
@@ -559,10 +559,10 @@ Public Class GUIMain
         Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
         'again with the language fiasco
         'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
-        sPrices(2) = sPrices(2).Replace(".", ",")
+        sPrices(24) = sPrices(24).Replace(".", ",")
         'End If
         'converts string to double
-        Dim calculateKWH As Double = Double.Parse(sPrices(2))
+        Dim calculateKWH As Double = Double.Parse(sPrices(24))
         'calculateKWH = (calculateKWH / 10) / 100
         'turns the initial string that is €/MWh into cents/kWh
         calculateKWH = (calculateKWH / 1000) * 100
@@ -1566,9 +1566,7 @@ Public Class GUIMain
         End If
     End Sub
 
-    Private Sub tabPackageHourlyRate_Click(sender As Object, e As EventArgs) Handles tabPackageHourlyRate.Click
 
-    End Sub
 
     'IN THE TARBIMISE AJALUGU TAB, tabClientConsumptionHistory subtab
     'this is work in progress, NOT FUNCTIONAAAAAAAAL!
@@ -2518,7 +2516,9 @@ Public Class GUIMain
 
     End Sub
 
-
+    Private Sub btnGreenEnergy_Click(sender As Object, e As EventArgs) Handles btnGreenEnergy.Click
+        TabControl1.SelectedTab = tabGreenEnergy
+    End Sub
 
 
 End Class

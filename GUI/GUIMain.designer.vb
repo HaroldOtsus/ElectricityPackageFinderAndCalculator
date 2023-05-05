@@ -41,6 +41,7 @@ Partial Class GUIMain
         Me.btnPackageComparison = New System.Windows.Forms.Button()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.Main = New System.Windows.Forms.TabPage()
+        Me.btnGreenEnergy = New System.Windows.Forms.Button()
         Me.cbColor = New System.Windows.Forms.ComboBox()
         Me.chrtFrontPage = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.tabPackageHourlyRate = New System.Windows.Forms.TabPage()
@@ -56,7 +57,6 @@ Partial Class GUIMain
         Me.btnTableAsc = New System.Windows.Forms.Button()
         Me.chrtPackageHourlyRate = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.tblPriceTable = New System.Windows.Forms.DataGridView()
-        Me.tBoxPackageHourlyRate = New System.Windows.Forms.TextBox()
         Me.lblPriceGraph = New System.Windows.Forms.Label()
         Me.lblPriceTable = New System.Windows.Forms.Label()
         Me.lblPackageHourlyRate = New System.Windows.Forms.Label()
@@ -67,7 +67,6 @@ Partial Class GUIMain
         Me.rdioFixedPrice = New System.Windows.Forms.RadioButton()
         Me.rdioExchange = New System.Windows.Forms.RadioButton()
         Me.lblPackageHourly = New System.Windows.Forms.Label()
-        Me.btnBack0 = New System.Windows.Forms.Button()
         Me.tabApplianceCalc = New System.Windows.Forms.TabPage()
         Me.lblSKwh1 = New System.Windows.Forms.Label()
         Me.lblSKwh2 = New System.Windows.Forms.Label()
@@ -121,7 +120,6 @@ Partial Class GUIMain
         Me.lblOptional = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.lblApplianceChoice = New System.Windows.Forms.Label()
-        Me.btnBack1 = New System.Windows.Forms.Button()
         Me.tabExchangeComparison = New System.Windows.Forms.TabPage()
         Me.lblMarginaal = New System.Windows.Forms.Label()
         Me.lblDontuse = New System.Windows.Forms.Label()
@@ -158,7 +156,6 @@ Partial Class GUIMain
         Me.lblEndTime = New System.Windows.Forms.Label()
         Me.lblStartTime = New System.Windows.Forms.Label()
         Me.lblTimePeriodSelection = New System.Windows.Forms.Label()
-        Me.btnBack2 = New System.Windows.Forms.Button()
         Me.tabConsumptionHistory = New System.Windows.Forms.TabPage()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.tabClientConsumptionHistory = New System.Windows.Forms.TabPage()
@@ -191,7 +188,6 @@ Partial Class GUIMain
         Me.lblSimulateClientConsumptionHistory = New System.Windows.Forms.Label()
         Me.lblConsumptionGraph = New System.Windows.Forms.Label()
         Me.lblClientConsumptionHistoryResult = New System.Windows.Forms.Label()
-        Me.btnBack3 = New System.Windows.Forms.Button()
         Me.tabPackageComparison = New System.Windows.Forms.TabPage()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -210,7 +206,6 @@ Partial Class GUIMain
         Me.Label6 = New System.Windows.Forms.Label()
         Me.lblPackage1 = New System.Windows.Forms.Label()
         Me.lblChoosePackages = New System.Windows.Forms.Label()
-        Me.btnBack4 = New System.Windows.Forms.Button()
         Me.tabGreenEnergy = New System.Windows.Forms.TabPage()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
@@ -224,6 +219,7 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
+        Me.tBoxPackageHourlyRate = New System.Windows.Forms.TextBox()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -324,6 +320,7 @@ Partial Class GUIMain
         'Main
         '
         Me.Main.BackColor = System.Drawing.Color.Transparent
+        Me.Main.Controls.Add(Me.btnGreenEnergy)
         Me.Main.Controls.Add(Me.cbColor)
         Me.Main.Controls.Add(Me.chrtFrontPage)
         Me.Main.Controls.Add(Me.btnPackageHourlyRate)
@@ -337,6 +334,15 @@ Partial Class GUIMain
         Me.Main.Size = New System.Drawing.Size(975, 642)
         Me.Main.TabIndex = 0
         Me.Main.Text = "Home"
+        '
+        'btnGreenEnergy
+        '
+        Me.btnGreenEnergy.Location = New System.Drawing.Point(365, 119)
+        Me.btnGreenEnergy.Name = "btnGreenEnergy"
+        Me.btnGreenEnergy.Size = New System.Drawing.Size(168, 92)
+        Me.btnGreenEnergy.TabIndex = 10
+        Me.btnGreenEnergy.Text = "Ilm ja roheline energia"
+        Me.btnGreenEnergy.UseVisualStyleBackColor = True
         '
         'cbColor
         '
@@ -386,7 +392,6 @@ Partial Class GUIMain
         Me.tabPackageHourlyRate.Controls.Add(Me.rdioFixedPrice)
         Me.tabPackageHourlyRate.Controls.Add(Me.rdioExchange)
         Me.tabPackageHourlyRate.Controls.Add(Me.lblPackageHourly)
-        Me.tabPackageHourlyRate.Controls.Add(Me.btnBack0)
         Me.tabPackageHourlyRate.Location = New System.Drawing.Point(4, 26)
         Me.tabPackageHourlyRate.Name = "tabPackageHourlyRate"
         Me.tabPackageHourlyRate.Padding = New System.Windows.Forms.Padding(3)
@@ -464,7 +469,6 @@ Partial Class GUIMain
         Me.rdiobtnStockPlussMarginal.Name = "rdiobtnStockPlussMarginal"
         Me.rdiobtnStockPlussMarginal.Size = New System.Drawing.Size(125, 17)
         Me.rdiobtnStockPlussMarginal.TabIndex = 17
-        Me.rdiobtnStockPlussMarginal.TabStop = True
         Me.rdiobtnStockPlussMarginal.Text = "Börsihind + marginaal"
         Me.rdiobtnStockPlussMarginal.UseVisualStyleBackColor = True
         '
@@ -475,7 +479,6 @@ Partial Class GUIMain
         Me.rdioBtnUniversalP.Name = "rdioBtnUniversalP"
         Me.rdioBtnUniversalP.Size = New System.Drawing.Size(95, 17)
         Me.rdioBtnUniversalP.TabIndex = 16
-        Me.rdioBtnUniversalP.TabStop = True
         Me.rdioBtnUniversalP.Text = "Universaalhind"
         Me.rdioBtnUniversalP.UseVisualStyleBackColor = True
         '
@@ -510,19 +513,6 @@ Partial Class GUIMain
         Me.tblPriceTable.RowHeadersWidth = 51
         Me.tblPriceTable.Size = New System.Drawing.Size(939, 81)
         Me.tblPriceTable.TabIndex = 13
-        '
-        'tBoxPackageHourlyRate
-        '
-        Me.tBoxPackageHourlyRate.BackColor = System.Drawing.SystemColors.HighlightText
-        Me.tBoxPackageHourlyRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tBoxPackageHourlyRate.Cursor = System.Windows.Forms.Cursors.No
-        Me.tBoxPackageHourlyRate.Enabled = False
-        Me.tBoxPackageHourlyRate.ForeColor = System.Drawing.SystemColors.MenuText
-        Me.tBoxPackageHourlyRate.Location = New System.Drawing.Point(484, 30)
-        Me.tBoxPackageHourlyRate.Name = "tBoxPackageHourlyRate"
-        Me.tBoxPackageHourlyRate.ReadOnly = True
-        Me.tBoxPackageHourlyRate.Size = New System.Drawing.Size(100, 20)
-        Me.tBoxPackageHourlyRate.TabIndex = 11
         '
         'lblPriceGraph
         '
@@ -592,13 +582,13 @@ Partial Class GUIMain
         Me.rdioFixedPrice.Name = "rdioFixedPrice"
         Me.rdioFixedPrice.Size = New System.Drawing.Size(99, 17)
         Me.rdioFixedPrice.TabIndex = 3
-        Me.rdioFixedPrice.TabStop = True
         Me.rdioFixedPrice.Text = "Fikseeritud hind"
         Me.rdioFixedPrice.UseVisualStyleBackColor = True
         '
         'rdioExchange
         '
         Me.rdioExchange.AutoSize = True
+        Me.rdioExchange.Checked = True
         Me.rdioExchange.Location = New System.Drawing.Point(30, 70)
         Me.rdioExchange.Name = "rdioExchange"
         Me.rdioExchange.Size = New System.Drawing.Size(68, 17)
@@ -610,20 +600,11 @@ Partial Class GUIMain
         'lblPackageHourly
         '
         Me.lblPackageHourly.AutoSize = True
-        Me.lblPackageHourly.Location = New System.Drawing.Point(110, 22)
+        Me.lblPackageHourly.Location = New System.Drawing.Point(27, 12)
         Me.lblPackageHourly.Name = "lblPackageHourly"
         Me.lblPackageHourly.Size = New System.Drawing.Size(162, 13)
         Me.lblPackageHourly.TabIndex = 1
         Me.lblPackageHourly.Text = "Kehtiva paketi andmete sisestus:"
-        '
-        'btnBack0
-        '
-        Me.btnBack0.Location = New System.Drawing.Point(16, 12)
-        Me.btnBack0.Name = "btnBack0"
-        Me.btnBack0.Size = New System.Drawing.Size(83, 33)
-        Me.btnBack0.TabIndex = 0
-        Me.btnBack0.Text = "Tagasi"
-        Me.btnBack0.UseVisualStyleBackColor = True
         '
         'tabApplianceCalc
         '
@@ -640,7 +621,6 @@ Partial Class GUIMain
         Me.tabApplianceCalc.Controls.Add(Me.lblOptional)
         Me.tabApplianceCalc.Controls.Add(Me.Label3)
         Me.tabApplianceCalc.Controls.Add(Me.lblApplianceChoice)
-        Me.tabApplianceCalc.Controls.Add(Me.btnBack1)
         Me.tabApplianceCalc.Location = New System.Drawing.Point(4, 26)
         Me.tabApplianceCalc.Name = "tabApplianceCalc"
         Me.tabApplianceCalc.Padding = New System.Windows.Forms.Padding(3)
@@ -1200,20 +1180,11 @@ Partial Class GUIMain
         'lblApplianceChoice
         '
         Me.lblApplianceChoice.AutoSize = True
-        Me.lblApplianceChoice.Location = New System.Drawing.Point(112, 22)
+        Me.lblApplianceChoice.Location = New System.Drawing.Point(33, 20)
         Me.lblApplianceChoice.Name = "lblApplianceChoice"
         Me.lblApplianceChoice.Size = New System.Drawing.Size(93, 13)
         Me.lblApplianceChoice.TabIndex = 2
         Me.lblApplianceChoice.Text = "Kodumasina valik:"
-        '
-        'btnBack1
-        '
-        Me.btnBack1.Location = New System.Drawing.Point(18, 12)
-        Me.btnBack1.Name = "btnBack1"
-        Me.btnBack1.Size = New System.Drawing.Size(83, 33)
-        Me.btnBack1.TabIndex = 1
-        Me.btnBack1.Text = "Tagasi"
-        Me.btnBack1.UseVisualStyleBackColor = True
         '
         'tabExchangeComparison
         '
@@ -1244,7 +1215,6 @@ Partial Class GUIMain
         Me.tabExchangeComparison.Controls.Add(Me.lblEndTime)
         Me.tabExchangeComparison.Controls.Add(Me.lblStartTime)
         Me.tabExchangeComparison.Controls.Add(Me.lblTimePeriodSelection)
-        Me.tabExchangeComparison.Controls.Add(Me.btnBack2)
         Me.tabExchangeComparison.Location = New System.Drawing.Point(4, 26)
         Me.tabExchangeComparison.Name = "tabExchangeComparison"
         Me.tabExchangeComparison.Padding = New System.Windows.Forms.Padding(3)
@@ -1590,19 +1560,9 @@ Partial Class GUIMain
         Me.lblTimePeriodSelection.TabIndex = 2
         Me.lblTimePeriodSelection.Text = "Ajavahemiku valik:"
         '
-        'btnBack2
-        '
-        Me.btnBack2.Location = New System.Drawing.Point(18, 12)
-        Me.btnBack2.Name = "btnBack2"
-        Me.btnBack2.Size = New System.Drawing.Size(83, 33)
-        Me.btnBack2.TabIndex = 1
-        Me.btnBack2.Text = "Tagasi"
-        Me.btnBack2.UseVisualStyleBackColor = True
-        '
         'tabConsumptionHistory
         '
         Me.tabConsumptionHistory.Controls.Add(Me.TabControl2)
-        Me.tabConsumptionHistory.Controls.Add(Me.btnBack3)
         Me.tabConsumptionHistory.Location = New System.Drawing.Point(4, 26)
         Me.tabConsumptionHistory.Name = "tabConsumptionHistory"
         Me.tabConsumptionHistory.Padding = New System.Windows.Forms.Padding(3)
@@ -1926,15 +1886,6 @@ Partial Class GUIMain
         Me.lblClientConsumptionHistoryResult.TabIndex = 35
         Me.lblClientConsumptionHistoryResult.Text = "Tulemus:"
         '
-        'btnBack3
-        '
-        Me.btnBack3.Location = New System.Drawing.Point(18, 3)
-        Me.btnBack3.Name = "btnBack3"
-        Me.btnBack3.Size = New System.Drawing.Size(83, 33)
-        Me.btnBack3.TabIndex = 1
-        Me.btnBack3.Text = "Tagasi"
-        Me.btnBack3.UseVisualStyleBackColor = True
-        '
         'tabPackageComparison
         '
         Me.tabPackageComparison.Controls.Add(Me.Label11)
@@ -1954,7 +1905,6 @@ Partial Class GUIMain
         Me.tabPackageComparison.Controls.Add(Me.Label6)
         Me.tabPackageComparison.Controls.Add(Me.lblPackage1)
         Me.tabPackageComparison.Controls.Add(Me.lblChoosePackages)
-        Me.tabPackageComparison.Controls.Add(Me.btnBack4)
         Me.tabPackageComparison.Location = New System.Drawing.Point(4, 26)
         Me.tabPackageComparison.Name = "tabPackageComparison"
         Me.tabPackageComparison.Padding = New System.Windows.Forms.Padding(3)
@@ -2116,15 +2066,6 @@ Partial Class GUIMain
         Me.lblChoosePackages.TabIndex = 2
         Me.lblChoosePackages.Text = "Vali elektripaketid:"
         '
-        'btnBack4
-        '
-        Me.btnBack4.Location = New System.Drawing.Point(18, 12)
-        Me.btnBack4.Name = "btnBack4"
-        Me.btnBack4.Size = New System.Drawing.Size(83, 33)
-        Me.btnBack4.TabIndex = 1
-        Me.btnBack4.Text = "Tagasi"
-        Me.btnBack4.UseVisualStyleBackColor = True
-        '
         'tabGreenEnergy
         '
         Me.tabGreenEnergy.Controls.Add(Me.Label14)
@@ -2270,6 +2211,19 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
         '
+        'tBoxPackageHourlyRate
+        '
+        Me.tBoxPackageHourlyRate.BackColor = System.Drawing.SystemColors.HighlightText
+        Me.tBoxPackageHourlyRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.tBoxPackageHourlyRate.Cursor = System.Windows.Forms.Cursors.No
+        Me.tBoxPackageHourlyRate.Enabled = False
+        Me.tBoxPackageHourlyRate.ForeColor = System.Drawing.SystemColors.MenuText
+        Me.tBoxPackageHourlyRate.Location = New System.Drawing.Point(484, 30)
+        Me.tBoxPackageHourlyRate.Name = "tBoxPackageHourlyRate"
+        Me.tBoxPackageHourlyRate.ReadOnly = True
+        Me.tBoxPackageHourlyRate.Size = New System.Drawing.Size(100, 20)
+        Me.tBoxPackageHourlyRate.TabIndex = 11
+        '
         'GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2336,26 +2290,19 @@ Partial Class GUIMain
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents Main As TabPage
     Friend WithEvents tabPackageHourlyRate As TabPage
-    Friend WithEvents btnBack0 As Button
     Friend WithEvents tabApplianceCalc As TabPage
     Friend WithEvents tabExchangeComparison As TabPage
     Friend WithEvents tabConsumptionHistory As TabPage
     Friend WithEvents tabPackageComparison As TabPage
-    Friend WithEvents btnBack1 As Button
-    Friend WithEvents btnBack2 As Button
-    Friend WithEvents btnBack3 As Button
-    Friend WithEvents btnBack4 As Button
     Friend WithEvents lblPackageHourly As Label
     Friend WithEvents rdioExchange As RadioButton
     Friend WithEvents lblPriceGraph As Label
     Friend WithEvents lblPriceTable As Label
-    Friend WithEvents lblPackageHourlyRate As Label
     Friend WithEvents lblResult As Label
     Friend WithEvents btnConfirmInput As Button
     Friend WithEvents tboxMonthlyCost As TextBox
     Friend WithEvents lblMonthlyCost As Label
     Friend WithEvents rdioFixedPrice As RadioButton
-    Friend WithEvents tBoxPackageHourlyRate As TextBox
     Friend WithEvents lblRoughPrice As Label
     Friend WithEvents lblElectricityConsumptionRate As Label
     Friend WithEvents lblOptional As Label
@@ -2518,4 +2465,7 @@ Partial Class GUIMain
     Friend WithEvents lblSimulateClientConsumptionHistory As Label
     Friend WithEvents lblConsumptionGraph As Label
     Friend WithEvents lblClientConsumptionHistoryResult As Label
+    Friend WithEvents btnGreenEnergy As Button
+    Friend WithEvents lblPackageHourlyRate As Label
+    Friend WithEvents tBoxPackageHourlyRate As TextBox
 End Class
