@@ -1221,15 +1221,13 @@ Public Class GUIMain
     Private Sub GUIMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         radioStockPlusMore.Enabled = False
         System.Threading.Thread.CurrentThread.CurrentUICulture = New System.Globalization.CultureInfo("en-EN")
+        lblMarg.Visible = False
+        lblFixed.Visible = False
+        lblDayPriceFrom.Visible = False
+        lblDayPriceTo.Visible = False
     End Sub
 
-    Private Sub Label7_Click(sender As Object, e As EventArgs) Handles lblKwh24h.Click
 
-    End Sub
-
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles lblSKwh2.Click
-
-    End Sub
 
     Private Function packageChartOfElectricity()
         chartPackages.Series.Clear() 'clear chart
@@ -2185,26 +2183,47 @@ Public Class GUIMain
                 cbNighPrice.Visible = True
                 cbMarginal.Visible = False
                 tbPrice.Visible = True
+                'lblMarg.Visible = False
+                lblFixed.Visible = True
+                tbPrice.Visible = True
+
             Case rbStock.Checked
                 cbMarginal.Visible = True
                 cbNighPrice.Visible = False
                 tbPrice.Visible = True
+                'lblMarg.Visible = True
+                lblFixed.Visible = False
+                tbPrice.Visible = False
         End Select
     End Sub
 
     Private Sub cbNighPrice_CheckedChanged(sender As Object, e As EventArgs) Handles cbNighPrice.CheckedChanged
         If cbNighPrice.Checked Then
             tbNightOrMarginal.Visible = True
+            lblMarg.Visible = True
+            lblMarg.Text = "Ööhind:"
+            lblDayPriceFrom.Visible = True
+            lblDayPriceTo.Visible = True
+            tbDayPrice1.Visible = True
+            tbDayPrice2.Visible = True
         Else
             tbNightOrMarginal.Visible = False
+            lblMarg.Visible = False
+            lblDayPriceFrom.Visible = False
+            lblDayPriceTo.Visible = False
+            tbDayPrice1.Visible = False
+            tbDayPrice2.Visible = False
         End If
     End Sub
 
     Private Sub cbMarginal_CheckedChanged(sender As Object, e As EventArgs) Handles cbMarginal.CheckedChanged
         If cbMarginal.Checked Then
             tbNightOrMarginal.Visible = True
+            lblMarg.Visible = True
+            lblMarg.Text = "Marginaal"
         Else
             tbNightOrMarginal.Visible = False
+            lblMarg.Visible = False
         End If
     End Sub
     Private Sub tabExchangeComparison_Enter(sender As Object, e As EventArgs) Handles tabExchangeComparison.Enter
@@ -2498,6 +2517,8 @@ Public Class GUIMain
 
 
     End Sub
+
+
 
 
 End Class
