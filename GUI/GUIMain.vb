@@ -61,9 +61,7 @@ Public Class GUIMain
 
     End Sub
 
-    Private Sub btnSimulateConsumptionHistory_Click(sender As Object, e As EventArgs)
-        TabControl2.SelectedTab = tabSimulateExchangeHistory
-    End Sub
+
 
 
     'If you change TabControl1 tab then TabControl2 reverts to a blank tab, looks cleaner this way IMO.
@@ -952,10 +950,14 @@ Public Class GUIMain
             tabExchangeComparison.Font = New Font("Microsoft Sans Serif", fontSize)
             tabConsumptionHistory.Font = New Font("Microsoft Sans Serif", fontSize)
             tabPackageComparison.Font = New Font("Microsoft Sans Serif", fontSize)
+            tabGreenEnergy.Font = New Font("Microsoft Sans Serif", fontSize)
             lblChangeFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
             btnFontIncrease.Font = New Font("Microsoft Sans Serif", fontSize)
             btnFontDecrease.Font = New Font("Microsoft Sans Serif", fontSize)
             btnRestoreFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
+            tbWeather.Font = New Font("Microsoft Sans Serif", fontSize)
+            tbProduction.Font = New Font("Microsoft Sans Serif", fontSize)
+            tbOpinion.Font = New Font("Microsoft Sans Serif", fontSize)
 
             tboxMonthlyCost.Width += 10
             tbMarginalOfStock.Width += 10
@@ -971,13 +973,14 @@ Public Class GUIMain
             'tBoxEndTime.Width += 10
             'tBoxCondition1.Width += 10
             'tBoxCondition2.Width += 10
-            tBoxMonthlyCost2.Width += 10
+            'tBoxMonthlyCost2.Width += 10
             cBoxPackage1.Width += 10
             cBoxPackage2.Width += 10
             rdioFixedPrice.Width += 10
             rdioBtnUniversalP.Width += 10
             lblSKwh3.Width += 10
             lblSKwh4.Width += 10
+
 
             lblSKwh1.Location = New Point(lblSKwh1.Location.X + 10, lblSKwh1.Location.Y)
             lblSKwh2.Location = New Point(lblSKwh2.Location.X + 10, lblSKwh2.Location.Y)
@@ -989,10 +992,19 @@ Public Class GUIMain
             'rdioBtnUniversalP.Location = New Point(rdioBtnUniversalP.Location.X + 14, rdioBtnUniversalP.Location.Y)
             lblSKwh3.Location = New Point(lblSKwh3.Location.X + 20, lblSKwh3.Location.Y)
             lblSKwh4.Location = New Point(lblSKwh4.Location.X + 20, lblSKwh4.Location.Y)
-            lblPriceGraph.Location = New Point(lblPriceGraph.Location.X + 13, lblPriceGraph.Location.Y)
+            lblPriceGraph.Location = New Point(lblPriceGraph.Location.X + 11, lblPriceGraph.Location.Y)
             chrtPackageHourlyRate.Location = New Point(chrtPackageHourlyRate.Location.X + 10, chrtPackageHourlyRate.Location.Y)
             tbMarginalOfStock.Location = New Point(tbMarginalOfStock.Location.X + 11, tbMarginalOfStock.Location.Y)
             tboxMonthlyCost.Location = New Point(tboxMonthlyCost.Location.X + 11, tboxMonthlyCost.Location.Y)
+
+            lblResult.Location = New Point(lblResult.Location.X + 11, lblResult.Location.Y)
+            lblPackageHourlyRate.Location = New Point(lblPackageHourlyRate.Location.X + 11, lblPackageHourlyRate.Location.Y)
+            tBoxPackageHourlyRate.Location = New Point(tBoxPackageHourlyRate.Location.X + 20, tBoxPackageHourlyRate.Location.Y)
+            txtboxValjadeEraldaja.Location = New Point(txtboxValjadeEraldaja.Location.X + 9, txtboxValjadeEraldaja.Location.Y)
+            txtboxTekstiKvalifikaator.Location = New Point(txtboxTekstiKvalifikaator.Location.X + 9, txtboxTekstiKvalifikaator.Location.Y)
+
+            tbPrice.Location = New Point(tbPrice.Location.X + 10, tbPrice.Location.Y)
+            tbNightOrMarginal.Location = New Point(tbNightOrMarginal.Location.X + 10, tbNightOrMarginal.Location.Y)
         End If
 
 
@@ -1010,10 +1022,14 @@ Public Class GUIMain
             tabExchangeComparison.Font = New Font("Microsoft Sans Serif", fontSize)
             tabConsumptionHistory.Font = New Font("Microsoft Sans Serif", fontSize)
             tabPackageComparison.Font = New Font("Microsoft Sans Serif", fontSize)
+            tabGreenEnergy.Font = New Font("Microsoft Sans Serif", fontSize)
             lblChangeFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
             btnFontIncrease.Font = New Font("Microsoft Sans Serif", fontSize)
             btnFontDecrease.Font = New Font("Microsoft Sans Serif", fontSize)
             btnRestoreFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
+            tbWeather.Font = New Font("Microsoft Sans Serif", fontSize)
+            tbProduction.Font = New Font("Microsoft Sans Serif", fontSize)
+            tbOpinion.Font = New Font("Microsoft Sans Serif", fontSize)
 
             tboxMonthlyCost.Width -= 10
             tbMarginalOfStock.Width -= 10
@@ -1029,7 +1045,7 @@ Public Class GUIMain
             'tBoxEndTime.Width -= 10
             'tBoxCondition1.Width -= 10
             'tBoxCondition2.Width -= 10
-            tBoxMonthlyCost2.Width -= 10
+            'tBoxMonthlyCost2.Width -= 10
             cBoxPackage1.Width -= 10
             cBoxPackage2.Width -= 10
             rdioFixedPrice.Width -= 10
@@ -1047,10 +1063,21 @@ Public Class GUIMain
             'rdioBtnUniversalP.Location = New Point(rdioBtnUniversalP.Location.X - 10, rdioBtnUniversalP.Location.Y)
             lblSKwh3.Location = New Point(lblSKwh3.Location.X - 20, lblSKwh3.Location.Y)
             lblSKwh4.Location = New Point(lblSKwh4.Location.X - 20, lblSKwh4.Location.Y)
-            lblPriceGraph.Location = New Point(lblPriceGraph.Location.X - 13, lblPriceGraph.Location.Y)
+            lblPriceGraph.Location = New Point(lblPriceGraph.Location.X - 11, lblPriceGraph.Location.Y)
             chrtPackageHourlyRate.Location = New Point(chrtPackageHourlyRate.Location.X - 10, chrtPackageHourlyRate.Location.Y)
             tbMarginalOfStock.Location = New Point(tbMarginalOfStock.Location.X - 11, tbMarginalOfStock.Location.Y)
             tboxMonthlyCost.Location = New Point(tboxMonthlyCost.Location.X - 11, tboxMonthlyCost.Location.Y)
+
+
+            lblResult.Location = New Point(lblResult.Location.X - 11, lblResult.Location.Y)
+            lblPackageHourlyRate.Location = New Point(lblPackageHourlyRate.Location.X - 11, lblPackageHourlyRate.Location.Y)
+            tBoxPackageHourlyRate.Location = New Point(tBoxPackageHourlyRate.Location.X - 20, tBoxPackageHourlyRate.Location.Y)
+            txtboxValjadeEraldaja.Location = New Point(txtboxValjadeEraldaja.Location.X - 9, txtboxValjadeEraldaja.Location.Y)
+            txtboxTekstiKvalifikaator.Location = New Point(txtboxTekstiKvalifikaator.Location.X - 10, txtboxTekstiKvalifikaator.Location.Y)
+
+            tbPrice.Location = New Point(tbPrice.Location.X - 9, tbPrice.Location.Y)
+            tbNightOrMarginal.Location = New Point(tbNightOrMarginal.Location.X - 10, tbNightOrMarginal.Location.Y)
+
         End If
 
     End Sub
@@ -1074,10 +1101,14 @@ Public Class GUIMain
             tabExchangeComparison.Font = New Font("Microsoft Sans Serif", fontSize)
             tabConsumptionHistory.Font = New Font("Microsoft Sans Serif", fontSize)
             tabPackageComparison.Font = New Font("Microsoft Sans Serif", fontSize)
+            tabGreenEnergy.Font = New Font("Microsoft Sans Serif", fontSize)
             lblChangeFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
             btnFontIncrease.Font = New Font("Microsoft Sans Serif", fontSize)
             btnFontDecrease.Font = New Font("Microsoft Sans Serif", fontSize)
             btnRestoreFontSize.Font = New Font("Microsoft Sans Serif", fontSize)
+            tbWeather.Font = New Font("Microsoft Sans Serif", fontSize)
+            tbProduction.Font = New Font("Microsoft Sans Serif", fontSize)
+            tbOpinion.Font = New Font("Microsoft Sans Serif", fontSize)
 
             tboxMonthlyCost.Width -= 10 * coef
             tbMarginalOfStock.Width -= 10 * coef
@@ -1093,7 +1124,7 @@ Public Class GUIMain
             'tBoxEndTime.Width -= 10 * coef
             'tBoxCondition1.Width -= 10 * coef
             'tBoxCondition2.Width -= 10 * coef
-            tBoxMonthlyCost2.Width -= 10 * coef
+            'tBoxMonthlyCost2.Width -= 10 * coef
             cBoxPackage1.Width -= 10 * coef
             cBoxPackage2.Width -= 10 * coef
             rdioFixedPrice.Width -= 10 * coef
@@ -1111,10 +1142,18 @@ Public Class GUIMain
             'rdioBtnUniversalP.Location = New Point(rdioBtnUniversalP.Location.X - 10 * coef, rdioBtnUniversalP.Location.Y)
             lblSKwh3.Location = New Point(lblSKwh3.Location.X - 20 * coef, lblSKwh3.Location.Y)
             lblSKwh4.Location = New Point(lblSKwh4.Location.X - 20 * coef, lblSKwh4.Location.Y)
-            lblPriceGraph.Location = New Point(lblPriceGraph.Location.X - 13 * coef, lblPriceGraph.Location.Y)
+            lblPriceGraph.Location = New Point(lblPriceGraph.Location.X - 11 * coef, lblPriceGraph.Location.Y)
             chrtPackageHourlyRate.Location = New Point(chrtPackageHourlyRate.Location.X - 10 * coef, chrtPackageHourlyRate.Location.Y)
             tbMarginalOfStock.Location = New Point(tbMarginalOfStock.Location.X - 11 * coef, tbMarginalOfStock.Location.Y)
             tboxMonthlyCost.Location = New Point(tboxMonthlyCost.Location.X - 11 * coef, tboxMonthlyCost.Location.Y)
+            lblResult.Location = New Point(lblResult.Location.X - 11 * coef, lblResult.Location.Y)
+            lblPackageHourlyRate.Location = New Point(lblPackageHourlyRate.Location.X - 11 * coef, lblPackageHourlyRate.Location.Y)
+            tBoxPackageHourlyRate.Location = New Point(tBoxPackageHourlyRate.Location.X - 20 * coef, tBoxPackageHourlyRate.Location.Y)
+            txtboxValjadeEraldaja.Location = New Point(txtboxValjadeEraldaja.Location.X - 9 * coef, txtboxValjadeEraldaja.Location.Y)
+            txtboxTekstiKvalifikaator.Location = New Point(txtboxTekstiKvalifikaator.Location.X - 9 * coef, txtboxTekstiKvalifikaator.Location.Y)
+
+            tbPrice.Location = New Point(tbPrice.Location.X - 10 * coef, tbPrice.Location.Y)
+            tbNightOrMarginal.Location = New Point(tbNightOrMarginal.Location.X - 10 * coef, tbNightOrMarginal.Location.Y)
 
         End If
     End Sub
