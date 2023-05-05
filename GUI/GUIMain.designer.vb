@@ -220,6 +220,7 @@ Partial Class GUIMain
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
         Me.tBoxPackageHourlyRate = New System.Windows.Forms.TextBox()
+        Me.lblCSVExample = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1583,6 +1584,7 @@ Partial Class GUIMain
         '
         'tabClientConsumptionHistory
         '
+        Me.tabClientConsumptionHistory.Controls.Add(Me.lblCSVExample)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblPriceTotalFromPackage)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblPriceTotalFromImport)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblChoosePackage)
@@ -1724,12 +1726,12 @@ Partial Class GUIMain
         '
         'tbDebug
         '
-        Me.tbDebug.Location = New System.Drawing.Point(383, 505)
+        Me.tbDebug.Location = New System.Drawing.Point(625, 505)
         Me.tbDebug.Multiline = True
         Me.tbDebug.Name = "tbDebug"
         Me.tbDebug.ReadOnly = True
         Me.tbDebug.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.tbDebug.Size = New System.Drawing.Size(515, 21)
+        Me.tbDebug.Size = New System.Drawing.Size(273, 21)
         Me.tbDebug.TabIndex = 44
         '
         'chrtHistory
@@ -2224,6 +2226,17 @@ Partial Class GUIMain
         Me.tBoxPackageHourlyRate.Size = New System.Drawing.Size(100, 20)
         Me.tBoxPackageHourlyRate.TabIndex = 11
         '
+        'lblCSVExample
+        '
+        Me.lblCSVExample.AutoSize = True
+        Me.lblCSVExample.BackColor = System.Drawing.Color.Transparent
+        Me.lblCSVExample.ForeColor = System.Drawing.Color.CornflowerBlue
+        Me.lblCSVExample.Location = New System.Drawing.Point(228, 245)
+        Me.lblCSVExample.Name = "lblCSVExample"
+        Me.lblCSVExample.Size = New System.Drawing.Size(58, 13)
+        Me.lblCSVExample.TabIndex = 62
+        Me.lblCSVExample.Text = "CSV näidis"
+        '
         'GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2468,4 +2481,5 @@ Partial Class GUIMain
     Friend WithEvents btnGreenEnergy As Button
     Friend WithEvents lblPackageHourlyRate As Label
     Friend WithEvents tBoxPackageHourlyRate As TextBox
+    Friend WithEvents lblCSVExample As Label
 End Class

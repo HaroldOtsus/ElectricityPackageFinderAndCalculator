@@ -2520,5 +2520,7 @@ Public Class GUIMain
         TabControl1.SelectedTab = tabGreenEnergy
     End Sub
 
-
+    Private Sub lblCSVExample_Click(sender As Object, e As EventArgs) Handles lblCSVExample.Click
+        CSVExample.Show()
+    End Sub
 End Class
