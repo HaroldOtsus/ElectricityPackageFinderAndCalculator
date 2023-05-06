@@ -25,7 +25,7 @@ Public Class CWeather
     '       "lat": 59.436958
     '   }
     'openweathermap.org/current#one
-    Public Function getWeatherfromAPI() As (Double, Integer, Double, Double) Implements IWeather.getWeatherfromAPI
+    Private Function getWeatherfromAPI() As (Double, Integer, Double, Double) Implements IWeather.getWeatherfromAPI
         Dim apiKey As String = "7406f4e5f40f2d23b1c9575266065495" 'my personal key from registration
         Dim idOfTallinn As String = "588409"
 
@@ -48,7 +48,7 @@ Public Class CWeather
 
 
 
-    Function GetDataFromEleringAPIAboutProduction() As (Boolean, Double, Double, String) Implements IWeather.GetDataFromEleringAPIAboutProduction
+    Private Function GetDataFromEleringAPIAboutProduction() As (Boolean, Double, Double, String) Implements IWeather.GetDataFromEleringAPIAboutProduction
 
         Dim url As String = $"https://dashboard.elering.ee/api/system/latest" 'ask for response
         Dim request As HttpWebRequest = DirectCast(WebRequest.Create(url), HttpWebRequest)
@@ -64,7 +64,7 @@ Public Class CWeather
 
     End Function
 
-    Public Class EnergyData
+    Private Class EnergyData
 
         <JsonProperty("production")>
         Public Property production As Double
@@ -74,7 +74,7 @@ Public Class CWeather
         Public Property timestamp As String
     End Class
 
-    Public Class EnergyDataResponse
+    Private Class EnergyDataResponse
         <JsonProperty("data")>
         Public Property data As List(Of EnergyData)
         <JsonProperty("success")>
@@ -83,7 +83,7 @@ Public Class CWeather
 
 
     'these classes are like this because this is how api gives them out
-    Public Class WeatherResult
+    Private Class WeatherResult
         <JsonProperty("weather")>
         Public Property Weather As Weather()
 
@@ -95,26 +95,26 @@ Public Class CWeather
         <JsonProperty("clouds")>
         Public Property Clouds As Clouds
     End Class
-    Public Class Weather
+    Private Class Weather
         <JsonProperty("main")>
         Public Property main As String 'word for example rain
         <JsonProperty("description")>
         Public Property Description As String 'word for example moderate rain
     End Class
 
-    Public Class Main
+    Private Class Main
         <JsonProperty("temp")>
         Public Property Temperature As Double 'double like 298.48
         <JsonProperty("humidity")>
         Public Property Humidity As Integer 'integer like 64
     End Class
 
-    Public Class Wind
+    Private Class Wind
         <JsonProperty("speed")>
         Public Property Speed As Double 'double for example 0.62
     End Class
 
-    Public Class Clouds
+    Private Class Clouds
         <JsonProperty("all")>
         Public Property all As Double 'double for example 0.62
     End Class

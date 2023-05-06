@@ -1501,9 +1501,9 @@ Public Class GUIMain
         Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
         Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
         'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
-        sPrices(1) = sPrices(1).Replace(".", ",")
+        sPrices(24) = sPrices(24).Replace(".", ",")
         'End If
-        Dim calculateKWH As Double = Double.Parse(sPrices(1))
+        Dim calculateKWH As Double = Double.Parse(sPrices(24))
 
         calculateKWH = (calculateKWH / 1000) * 100 'takes the MWh/€ value from the database
         'divides by a 1000 to get kWh and multiplies by a 100 to get cents
@@ -1543,21 +1543,27 @@ Public Class GUIMain
         If tbMarginalOfStock.TextLength > 0 Then
             rdiobtnStockPlussMarginal.Enabled = True
             If rdiobtnStockPlussMarginal.Checked = True Then
-                Dim returnString As PrjDatabaseComponent.IDatabase
+                'Dim returnString As PrjDatabaseComponent.IDatabase
+                'returnString = New PrjDatabaseComponent.CDatabase
+                Dim returnString As PrjDatabaseComponent.IDatabaseAPI
                 returnString = New PrjDatabaseComponent.CDatabase
+
                 Dim sPrices As String()
 
                 Dim currentDate As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
                 Dim futureDate As DateTime = DateTime.Now.AddHours(24)
                 Dim futureDateString As String = futureDate.ToString("yyyy-MM-dd HH:mm:ss")
 
-                sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
+                'sPrices = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString).Item1
+                sPrices = returnString.stockPrice().prices
                 Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
                 Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-
-                If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
-                    sPrices(1) = sPrices(1).Replace(".", ",")
-                End If
+                If sPrices(24) Is Nothing Then
+                    MsgBox("getStockPriceAndDatesFromDatabaseFuture error!")
+                Else
+                    If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
+                        sPrices(24) = sPrices(24).Replace(".", ",")
+                    End If
                 Dim sPrice1 As Double = Double.Parse(sPrices(1))
                 Dim calculateKWH As Double = sPrice1
 
@@ -1576,6 +1582,9 @@ Public Class GUIMain
                         tBoxPackageHourlyRate.Text = sum2
                     End If
                 End If
+                End If
+
+
             End If
 
         Else
@@ -1753,11 +1762,12 @@ Public Class GUIMain
             returnString = New PrjDatabaseComponent.CDatabase
             Dim packageone = returnString.onePackageInfo(packet1) ' get info about packages from database
             Dim packagetwo = returnString.onePackageInfo(packet2)
+
             If packageone.Item1 IsNot Nothing And packagetwo.Item1 IsNot Nothing Then 'did we get info from database?
                 compOne.Text = packageone.Item2 'company name
                 compTwo.Text = packagetwo.Item2
-                priceOfCont.Text = packageone.Item4 'price of the contract
-                priceOfCont2.Text = packagetwo.Item4
+                priceOfCont.Text = packageone.Item4 & "€" 'price of the contract
+                priceOfCont2.Text = packagetwo.Item4 & "€"
 
                 chartPackages.Series.Clear() 'clear chart
 
@@ -1790,59 +1800,74 @@ Public Class GUIMain
                     Dim data = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString) 'get stock prices and dates from database
                     Dim hour2(24) As Integer
                     Dim dateFromUnix(24) As String
-                    For k As Integer = 1 To 24
-                        Dim oDate As DateTime = Convert.ToDateTime(data.Item2(k))
-                        hour2(k) = oDate.Hour 'get hour form stock market price
-                    Next
-                    If Not packageone.Item5 Then 'if packet does not use market price
-                        If packagetwo.Item7 = True Then 'is the packet has different night price
-                            For i As Integer = 1 To 24
+                    Dim countOfAPI As Integer = 1
+                    If data.Item2 Is Nothing Then
+                        MsgBox("data.item2 aamen")
 
-                                If hour2(i) > 11 And hour2(i) < 24 Then 'day
-                                    series.Points.AddXY(data.Item2(i), packageone.Item3)
-                                Else
-                                    series.Points.AddXY(data.Item2(i), packageone.Item8) 'night
-                                End If
-                            Next
+                    Else
+                        For k As Integer = 1 To data.Item2.Length - 1
+                            If data.Item2(k) Is Nothing Then
+                                Exit For
+                            Else
+                                countOfAPI += 1
+                                Dim oDate As DateTime = Convert.ToDateTime(data.Item2(k))
+                                hour2(k) = oDate.Hour 'get hour from 
 
+                            End If
+                        Next
+                        If Not packageone.Item5 Then 'if packet does not use market price
+                            If packagetwo.Item7 = True Then 'is the packet has different night price
+                                For i As Integer = 1 To 24
+
+                                    If hour2(i) > 11 And hour2(i) < 24 Then 'day
+                                        series.Points.AddXY(data.Item2(i), packageone.Item3)
+                                    Else
+                                        series.Points.AddXY(data.Item2(i), packageone.Item8) 'night
+                                    End If
+                                Next
+
+                            Else
+                                For i As Integer = 1 To 24
+
+
+                                    series.Points.AddXY(data.Item2(i), packageone.Item3) 'packet has fixed price
+
+
+                                Next
+                            End If
                         Else
-                            For i As Integer = 1 To 24
 
 
-                                series.Points.AddXY(data.Item2(i), packageone.Item3) 'packet has fixed price
 
+                            For i As Integer = 1 To 24 'packet si tied to market price
+                                'Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.Item2(i)) 'new datetimeoffset from sDate string
+                                'Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
+                                If data.Item1(i) IsNot Nothing Then
+                                    Dim oDate As DateTime = Convert.ToDateTime(data.Item2(i))
+                                    Dim hour As Integer = oDate.Hour
+                                    Dim price As Double
+                                    Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+                                    Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+                                    'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
+                                    data.Item1(i) = data.Item1(i).Replace(".", ",")
+                                    'packages.Item3(j) = packages.Item3(j).Replace(".-", ",")
+                                    'End If
+                                    Dim pricesD As Double = Double.Parse(data.Item1(i))
+                                    pricesD = (pricesD / 1000) * 100 'MWH/eur to kWh/s
+                                    price = pricesD + packageone.Item3 'add marginal
+
+                                    ' series.Points.AddXY(hour, price)
+                                    chartPackages.Series(loopThroughBothPackets).Points.AddXY(data.Item2(i), price) 'add line to market
+                                End If
 
                             Next
                         End If
-                    Else
-
-
-
-                        For i As Integer = 1 To 24 'packet si tied to market price
-                            'Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.Item2(i)) 'new datetimeoffset from sDate string
-                            'Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
-                            If data.Item1(i) IsNot Nothing Then
-                                Dim oDate As DateTime = Convert.ToDateTime(data.Item2(i))
-                                Dim hour As Integer = oDate.Hour
-                                Dim price As Double
-                                Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
-                                Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-                                'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
-                                data.Item1(i) = data.Item1(i).Replace(".", ",")
-                                'packages.Item3(j) = packages.Item3(j).Replace(".-", ",")
-                                'End If
-                                Dim pricesD As Double = Double.Parse(data.Item1(i))
-                                pricesD = (pricesD / 1000) * 100 'MWH/eur to kWh/s
-                                price = pricesD + packageone.Item3 'add marginal
-
-                                ' series.Points.AddXY(hour, price)
-                                chartPackages.Series(loopThroughBothPackets).Points.AddXY(data.Item2(i), price) 'add line to market
-                            End If
-
-                        Next
+                        loopThroughBothPackets += 1
+                        packageone = packagetwo
                     End If
-                    loopThroughBothPackets += 1
-                    packageone = packagetwo
+
+
+
                 End While
             Else
                 MessageBox.Show("Ei saanud andmeid kätte")
@@ -2556,4 +2581,6 @@ Public Class GUIMain
     Private Sub lblCSVExample_Click(sender As Object, e As EventArgs) Handles lblCSVExample.Click
         CSVExample.Show()
     End Sub
+
+
 End Class

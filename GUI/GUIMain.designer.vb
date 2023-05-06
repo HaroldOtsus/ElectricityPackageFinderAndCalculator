@@ -57,6 +57,7 @@ Partial Class GUIMain
         Me.btnTableAsc = New System.Windows.Forms.Button()
         Me.chrtPackageHourlyRate = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.tblPriceTable = New System.Windows.Forms.DataGridView()
+        Me.tBoxPackageHourlyRate = New System.Windows.Forms.TextBox()
         Me.lblPriceGraph = New System.Windows.Forms.Label()
         Me.lblPriceTable = New System.Windows.Forms.Label()
         Me.lblPackageHourlyRate = New System.Windows.Forms.Label()
@@ -159,6 +160,7 @@ Partial Class GUIMain
         Me.tabConsumptionHistory = New System.Windows.Forms.TabPage()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.tabClientConsumptionHistory = New System.Windows.Forms.TabPage()
+        Me.lblCSVExample = New System.Windows.Forms.Label()
         Me.lblPriceTotalFromPackage = New System.Windows.Forms.Label()
         Me.lblPriceTotalFromImport = New System.Windows.Forms.Label()
         Me.lblChoosePackage = New System.Windows.Forms.Label()
@@ -219,8 +221,6 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
-        Me.tBoxPackageHourlyRate = New System.Windows.Forms.TextBox()
-        Me.lblCSVExample = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -514,6 +514,19 @@ Partial Class GUIMain
         Me.tblPriceTable.RowHeadersWidth = 51
         Me.tblPriceTable.Size = New System.Drawing.Size(939, 81)
         Me.tblPriceTable.TabIndex = 13
+        '
+        'tBoxPackageHourlyRate
+        '
+        Me.tBoxPackageHourlyRate.BackColor = System.Drawing.SystemColors.HighlightText
+        Me.tBoxPackageHourlyRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.tBoxPackageHourlyRate.Cursor = System.Windows.Forms.Cursors.No
+        Me.tBoxPackageHourlyRate.Enabled = False
+        Me.tBoxPackageHourlyRate.ForeColor = System.Drawing.SystemColors.MenuText
+        Me.tBoxPackageHourlyRate.Location = New System.Drawing.Point(484, 30)
+        Me.tBoxPackageHourlyRate.Name = "tBoxPackageHourlyRate"
+        Me.tBoxPackageHourlyRate.ReadOnly = True
+        Me.tBoxPackageHourlyRate.Size = New System.Drawing.Size(100, 20)
+        Me.tBoxPackageHourlyRate.TabIndex = 11
         '
         'lblPriceGraph
         '
@@ -1620,6 +1633,17 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.Text = "Simuleeri oma tarbimise ajalugu"
         Me.tabClientConsumptionHistory.UseVisualStyleBackColor = True
         '
+        'lblCSVExample
+        '
+        Me.lblCSVExample.AutoSize = True
+        Me.lblCSVExample.BackColor = System.Drawing.Color.Transparent
+        Me.lblCSVExample.ForeColor = System.Drawing.Color.CornflowerBlue
+        Me.lblCSVExample.Location = New System.Drawing.Point(228, 245)
+        Me.lblCSVExample.Name = "lblCSVExample"
+        Me.lblCSVExample.Size = New System.Drawing.Size(58, 13)
+        Me.lblCSVExample.TabIndex = 62
+        Me.lblCSVExample.Text = "CSV näidis"
+        '
         'lblPriceTotalFromPackage
         '
         Me.lblPriceTotalFromPackage.AutoSize = True
@@ -2212,30 +2236,6 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.TabIndex = 10
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
-        '
-        'tBoxPackageHourlyRate
-        '
-        Me.tBoxPackageHourlyRate.BackColor = System.Drawing.SystemColors.HighlightText
-        Me.tBoxPackageHourlyRate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tBoxPackageHourlyRate.Cursor = System.Windows.Forms.Cursors.No
-        Me.tBoxPackageHourlyRate.Enabled = False
-        Me.tBoxPackageHourlyRate.ForeColor = System.Drawing.SystemColors.MenuText
-        Me.tBoxPackageHourlyRate.Location = New System.Drawing.Point(484, 30)
-        Me.tBoxPackageHourlyRate.Name = "tBoxPackageHourlyRate"
-        Me.tBoxPackageHourlyRate.ReadOnly = True
-        Me.tBoxPackageHourlyRate.Size = New System.Drawing.Size(100, 20)
-        Me.tBoxPackageHourlyRate.TabIndex = 11
-        '
-        'lblCSVExample
-        '
-        Me.lblCSVExample.AutoSize = True
-        Me.lblCSVExample.BackColor = System.Drawing.Color.Transparent
-        Me.lblCSVExample.ForeColor = System.Drawing.Color.CornflowerBlue
-        Me.lblCSVExample.Location = New System.Drawing.Point(228, 245)
-        Me.lblCSVExample.Name = "lblCSVExample"
-        Me.lblCSVExample.Size = New System.Drawing.Size(58, 13)
-        Me.lblCSVExample.TabIndex = 62
-        Me.lblCSVExample.Text = "CSV näidis"
         '
         'GUIMain
         '
