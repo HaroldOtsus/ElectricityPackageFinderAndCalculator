@@ -2291,10 +2291,11 @@ Public Class GUIMain
         Dim pakett = returnStringDatabase.onePackageInfo(cbBorsiPakettid.Text)
         Dim strMarginaal As String = pakett.Item3.ToString()
 
-            lblMarginaal.Text = strMarginaal
+        lblMarginaal.Text = strMarginaal
 
 
-            Dim BorsihinnaVordlusEnd As DateTime = dtpBorsihinnaVordlusEnd.Value
+
+        Dim BorsihinnaVordlusEnd As DateTime = dtpBorsihinnaVordlusEnd.Value
         Dim BorsihinnaVordlusStart As DateTime = dtpBorsihinnaVordlusStart.Value
         Dim result As TimeSpan = BorsihinnaVordlusEnd.Subtract(BorsihinnaVordlusStart)
         Dim days As Integer = result.TotalDays
@@ -2338,6 +2339,16 @@ Public Class GUIMain
         Dim strPrices As String() = data.Item1
         Dim strTimes As String() = data.Item2
         Dim dateTimes(strPrices.Length) As DateTime
+
+        If strPrices.Length = 0 Then
+            MessageBox.Show("Andmebaas ei ole hetkel kättesaadav. Proovige hiljem uuesti.")
+            Return
+        End If
+
+        If strTimes.Length = 0 Then
+            MessageBox.Show("Andmebaas ei ole hetkel kättesaadav. Proovige hiljem uuesti.")
+            Return
+        End If
 
         'CHART
         chrtBorsihinnaVordlus.Series.Add(seriesStock)
