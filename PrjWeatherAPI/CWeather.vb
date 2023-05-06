@@ -6,7 +6,7 @@
 ' KIRJELDUS: Saab andmeid Eleringi või OpenWeatherMap APIlt
 ' Eeldused: Tingimused, mis peavad edukaks käivituseks täidetud olema, peab olema ühendus internettiga. 
 ' Tulem: TAgastab kätte saadud info APIlt, kui infot ei saa tagastab -1 või energyDataResponse.success on false
-
+'API instructions used  https://dashboard.elering.ee/assets/api-doc.html and https://openweathermap.org/api 
 
 
 Imports System.IO

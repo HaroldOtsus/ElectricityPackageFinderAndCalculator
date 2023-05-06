@@ -13,7 +13,7 @@
 
 
 
-Imports MySql.Data.MySqlClient 'for using mysql db
+Imports MySql.Data.MySqlClient 'for using mysql db https://dev.mysql.com/doc/connector-net/en/connector-net-programming.html
 Imports System.Security.Cryptography 'for hashing passwords
 Imports Microsoft.Extensions.Configuration.Ini 'for reading .ini files
 Imports Microsoft.Extensions.Configuration
@@ -25,9 +25,10 @@ Public Class CDatabase
     Implements ILogin
     Private Shared connString As String
 
+    'GetConnectioreturns connection string to database from config file
     Private Function GetConnectionString() As String
-        If String.IsNullOrEmpty(connString) Then
-            Try
+        If String.IsNullOrEmpty(connString) Then 'if connstring is empty then
+            Try 'try to read config file
                 Dim config As IConfigurationRoot = New ConfigurationBuilder().
                             SetBasePath(AppDomain.CurrentDomain.BaseDirectory).
                             AddIniFile("config.ini", optional:=False, reloadOnChange:=True).
@@ -38,7 +39,7 @@ Public Class CDatabase
                 Dim password As String = config.GetSection("database")("password")
                 Dim database As String = config.GetSection("database")("database")
 
-                connString = $"server={server};user id={user};password={password};database={database};Pooling=true;"
+                connString = $"server={server};user id={user};password={password};database={database};Pooling=true;"  'return connString
                 Return connString
             Catch ex As Exception
                 Return Nothing
@@ -54,15 +55,14 @@ Public Class CDatabase
 
     ''Private Shared conn As MySqlConnection
     Private ReadOnly conn As New MySqlConnection(connString)
-
-    Public Sub New()
+    'used https://stackoverflow.com/questions/5777549/mysql-database-connection-vb-net for example how to create connection
+    Public Sub New() 'connection to database
         Dim connString As String = GetConnectionString() '"server=84.50.131.222;user id=root;password=Koertelemeeldibjalutada!1;database=mydb;"
         conn = New MySqlConnection(connString)
     End Sub
-
+    'userPrefernces gets user's resolution and color from database and changes them byref
     Private Function userPrefernces(ByVal username, ByRef size, ByRef color) Implements ILogin.userPrefernces
         'get user prefences from database
-        'Dim connString = GetConnectionString()
         Dim conn As New MySqlConnection(connString)
 
         Try
@@ -82,7 +82,7 @@ Public Class CDatabase
 
 
     End Function
-
+    'updateUserPrefernces updates data in database
     Private Function updateUserPrefernces(ByVal username, ByVal update) Implements ILogin.updateUserPrefernces
         ' Dim connString = GetConnectionString()
         Dim conn As New MySqlConnection(connString)
@@ -100,6 +100,8 @@ Public Class CDatabase
         conn.Close()
 
     End Function
+    'hashPassword hashes a password using SHA256
+    'based on https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.hashalgorithm.computehash?view=net-8.0
     Private Function hashPassword(ByVal password As String) As String
         Dim sha256 As SHA256 = SHA256.Create() 'use create method that returns best available implementation of SHA256
         'convert password to bytes
@@ -112,10 +114,10 @@ Public Class CDatabase
 
 
 
-
+    'login returns true if login was successful and false if it was not for whatever reason
     Private Function login(ByVal username As String, ByVal password As String) As Boolean Implements ILogin.login
         Dim connString = GetConnectionString()
-        If connString = Nothing Then
+        If connString = Nothing Then 'if there is no config file
 
             MsgBox("Missing config.ini file!")
             Return False
@@ -153,7 +155,7 @@ Public Class CDatabase
 
     End Function
 
-
+    'checkIfUsernameExists checks if suer inserted username exists in database
     Private Function checkIfUsernameExists(ByVal username As String) As Boolean
         'we check is the username exists in database
         ' Dim connString = GetConnectionString()
@@ -178,7 +180,7 @@ Public Class CDatabase
         End Try
 
     End Function
-
+    'creates new user in table user in database
     Private Function signup(ByVal username As String, ByVal password As String, ByVal name As String, ByVal email As String) As Boolean Implements ISignup.signup
         ''call function that hashes password
         Dim connString = GetConnectionString()
@@ -217,11 +219,10 @@ Public Class CDatabase
 
 
 
-
+    'stringReturns returns info about appliance from database
     Private Function stringReturn(ByVal id As String) As (consumptionPerHour As String, usageTime As String) Implements IDatabase.stringReturn
         ' Dim connString = GetConnectionString()
         Dim conn As New MySqlConnection(connString)
-        Dim strVar As String
         Dim consumptionPerHour As String = ""
         Dim usageTime As String = ""
 
@@ -241,19 +242,14 @@ Public Class CDatabase
 
             conn.Close()
 
-        Catch ex As Exception
-            ' Handle all other exceptions here
-            ' Console.WriteLine("Exception: " & ex.Message)
-
-            'StrVar = "excemption occured"
-            'Return ex.Message
+        Catch ex As Exception 'exception
             consumptionPerHour = Nothing
             usageTime = Nothing
             Return (consumptionPerHour, usageTime)
         End Try
 
     End Function
-
+    ' datesOfStockPrice returns dates from database table webdata row 2
     Private Function datesOfStockPrice() As String() 'get stockprice dates from database
         ' Dim connString = GetConnectionString()
         Dim conn As New MySqlConnection(connString)
@@ -289,7 +285,7 @@ Public Class CDatabase
     End Function
 
 
-
+    ' stringsOfStockPrice returns prices from database table webdata row 1
     Private Function stringsOfStockPrice() As String() 'get stockprice strings from database
         ' Dim connString = GetConnectionString()
         Dim conn As New MySqlConnection(connString)
@@ -386,9 +382,6 @@ Public Class CDatabase
                     read.Close()
                     con.Close()
 
-                    'Dim stringOfDates As String()
-                    'stringOfDates = insertDatesToDatabase()
-
                     Return sPrices 'return prices
                 End If
             End If
@@ -462,13 +455,13 @@ Public Class CDatabase
             Dim oDate As DateTime = Convert.ToDateTime(dateOfStockPrices)
             Dim hour As Integer = oDate.Hour 'get hour from database string
             Return hour
-        Catch ex As Exception
+        Catch ex As Exception 'there has been an exeption
             Return -1
         End Try
     End Function
 
 
-
+    'stockPrice gets info from database table webdata rows 1 and 2 or API if the info there is old
     Private Function stockPrice() As (prices As String(), dates As String()) Implements IDatabaseAPI.stockPrice
         Dim currentHour As Integer = DateTime.Now.Hour 'get hour right now
         Dim dateOfStockPrices As String = ""
@@ -493,7 +486,7 @@ Public Class CDatabase
 
 
     End Function
-
+    'hoursofDatabasestocPricesFuture get what is the first hour in database and return it
     Private Function hourofDatabasestockPricesFuture() As Integer
         ' Dim connString = GetConnectionString()
         Dim conn As New MySqlConnection(connString)
@@ -512,13 +505,13 @@ Public Class CDatabase
             Dim format As String = "yyyy-MM-dd HH:mm:ss"
             Dim oDate As DateTime = Convert.ToDateTime(dateOfStockPrices)
             Dim hour As Integer = oDate.Hour
-            Return hour
+            Return hour 'return hour
         Catch ex As Exception
             Return -1
         End Try
     End Function
 
-
+    ' get info from database table webdata rows 3 and 4 and API
     Private Function getStockPriceAndDatesFromDatabaseFuture(ByVal strStartDate As String, ByVal strEndDate As String) As (String(), String()) _
         Implements IDatabase.getStockPriceAndDatesFromDatabaseFuture
         Dim currentHour As Integer = DateTime.Now.Hour
@@ -560,8 +553,6 @@ Public Class CDatabase
         api = New PrjAPIComponent.APIComponent
         Dim sPrices(24) As String
         sPrices = api.GetDataFromEleringAPI().Item1 'get prices from API
-        'Return sPrices
-        '' sPrices()
         Try
             'insert into database
             conn.Open() 'try to connect to database
@@ -631,7 +622,6 @@ Public Class CDatabase
 
 
     Private Function insertStockPriceToDatabaseFuture(ByVal strStartDate As String, ByVal strEndDate As String) As String() ''get data from API and insert it into database
-        '  Dim connString = GetConnectionString()
         Dim conn As New MySqlConnection(connString)
         Dim dateToday
         Dim stringOfErrors() As String = Nothing
@@ -645,9 +635,6 @@ Public Class CDatabase
 
                 conn.Open() 'try to connect to database
 
-                '' Dim command As New MySqlCommand("UPDATE webdata SET one = @colOne, two = @colTwo, three = @colThree WHERE idPacket = 1 ", conn)
-                '' broke command into several commands because it didn't update database and thougth there was a bug
-                '' actually didn't update because one column name was written wrongly
                 Dim command As New MySqlCommand("
             UPDATE webdata 
             SET 
@@ -808,10 +795,6 @@ Public Class CDatabase
         Try
 
             conn.Open() 'try to connect to database
-
-            '' Dim command As New MySqlCommand("UPDATE webdata SET one = @colOne, two = @colTwo, three = @colThree WHERE idPacket = 1 ", conn)
-            '' broke command into several commands because it didn't update database and thougth there was a bug
-            '' actually didn't update because one column name was written wrongly
             Dim command As New MySqlCommand("
             UPDATE webdata 
             SET 
@@ -934,8 +917,6 @@ Public Class CDatabase
         End Try
     End Function
     Private Function electricityPackagesCount() As Integer Implements IDatabase.electricityPackagesCount
-        'find how many electricity packages there are in the database
-        'Dim connString = GetConnectionString()
         Dim conn As New MySqlConnection(connString)
         Dim stringOfErrors() As String = Nothing
         Try
@@ -959,9 +940,8 @@ Public Class CDatabase
             Return -1
         End Try
     End Function
-
+    'get weatherinfo from database or API and return it
     Private Function weatherFromDatabase() As (Double, Integer, Double, Double) Implements IDatabase.weatherFromDatabase
-        ' Dim connString = GetConnectionString()
         Dim conn As New MySqlConnection(connString) 'connection to database
 
         Try
@@ -1009,7 +989,7 @@ Public Class CDatabase
             Return (-1, -1, -1, -1) 'there has been an error
         End Try
     End Function
-
+    'insert weather info from API to database
     Private Function insertWeatherToDatabase() As (Double, Integer, Double, Double)
 
         Dim currentHour As Integer = DateTime.Now.Hour
@@ -1054,7 +1034,7 @@ Public Class CDatabase
         End If
     End Function
 
-
+    'get info about production from database or API and return it
     Private Function productionFromDatabase() As (Double, Double, Integer, Date) Implements IDatabase.productionFromDatabase
         ' Dim connString = GetConnectionString()
         Dim conn As New MySqlConnection(connString)
@@ -1098,7 +1078,7 @@ Public Class CDatabase
             Return (-1, -1, -1, Today) 'cannot access database
         End Try
     End Function
-
+    'insert info about production from API to database
     Private Function insertProductionToDatabase() As (Double, Double, Integer, Date)
         '  Dim today As DateTime = DateTime.Today
         ' Dim currentHour As Integer = DateTime.Now.Hour
