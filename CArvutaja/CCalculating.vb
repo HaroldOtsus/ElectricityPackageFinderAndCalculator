@@ -1,4 +1,14 @@
-﻿Public Class CCalculating
+﻿' FAILINIMI: CCalculating.vb
+' AUTOR: Karro Endel Kütt
+' LOODUD: 
+' MUUDETUD: 06.05.2023
+'
+' KIRJELDUS: 
+' Eeldused: 
+' Sisendid: 
+' Komponendid:
+' Tulem: 
+Public Class CCalculating
     Implements ICalculating
 
     'Dim tunnihind As Double

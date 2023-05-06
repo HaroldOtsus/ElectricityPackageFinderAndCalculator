@@ -1,4 +1,14 @@
-﻿Imports System.Globalization
+﻿' FAILINIMI: LoginWindow.vb
+' AUTOR: Karl Paabut
+' LOODUD: 11.04.2023
+' MUUDETUD: 06.05.2023
+'
+' KIRJELDUS: Sisselogimis aken
+' Eeldused: Kasutajal on eelnevalt registreeritud ja teab oma sisselogimis andmeid.
+' Sisendid: 
+' Komponendid: PrjDatabaseComponent
+' Tulem: Kasutaja logib sisse
+Imports System.Globalization
 Imports System.Threading
 Public Class LoginWindow
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click

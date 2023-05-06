@@ -1,4 +1,14 @@
-﻿Public Interface APIInterface
+﻿' FAILINIMI: APIInterface.vb
+' AUTOR: Harold Otsus
+' LOODUD: 
+' MUUDETUD: 06.05.2023
+'
+' KIRJELDUS: 
+' Eeldused: 
+' Sisendid: 
+' Komponendid:
+' Tulem: 
+Public Interface APIInterface
 
     'Function returns 2x24 string arrays
     'First array of strings contains one pricees, based on the order of strings

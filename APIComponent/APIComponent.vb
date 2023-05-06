@@ -1,4 +1,14 @@
-﻿Imports System.Globalization
+﻿' FAILINIMI: APIComponent.vb
+' AUTOR: Harold Otsus
+' LOODUD: 
+' MUUDETUD: 06.05.2023
+'
+' KIRJELDUS: 
+' Eeldused: 
+' Sisendid: 
+' Komponendid:
+' Tulem: 
+Imports System.Globalization
 Imports System.IO
 Imports System.Net
 

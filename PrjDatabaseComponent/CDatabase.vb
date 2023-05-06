@@ -25,7 +25,7 @@ Public Class CDatabase
     Implements ILogin
     Private Shared connString As String
 
-    Public Function GetConnectionString() As String
+    Private Function GetConnectionString() As String
         If String.IsNullOrEmpty(connString) Then
             Try
                 Dim config As IConfigurationRoot = New ConfigurationBuilder().
@@ -960,7 +960,7 @@ Public Class CDatabase
         End Try
     End Function
 
-    Function weatherFromDatabase() As (Double, Integer, Double, Double) Implements IDatabase.weatherFromDatabase
+    Private Function weatherFromDatabase() As (Double, Integer, Double, Double) Implements IDatabase.weatherFromDatabase
         ' Dim connString = GetConnectionString()
         Dim conn As New MySqlConnection(connString) 'connection to database
 
@@ -1010,7 +1010,7 @@ Public Class CDatabase
         End Try
     End Function
 
-    Function insertWeatherToDatabase() As (Double, Integer, Double, Double)
+    Private Function insertWeatherToDatabase() As (Double, Integer, Double, Double)
 
         Dim currentHour As Integer = DateTime.Now.Hour
         Dim today As DateTime = DateTime.Today
@@ -1055,7 +1055,7 @@ Public Class CDatabase
     End Function
 
 
-    Function productionFromDatabase() As (Double, Double, Integer, Date) Implements IDatabase.productionFromDatabase
+    Private Function productionFromDatabase() As (Double, Double, Integer, Date) Implements IDatabase.productionFromDatabase
         ' Dim connString = GetConnectionString()
         Dim conn As New MySqlConnection(connString)
 
@@ -1099,7 +1099,7 @@ Public Class CDatabase
         End Try
     End Function
 
-    Function insertProductionToDatabase() As (Double, Double, Integer, Date)
+    Private Function insertProductionToDatabase() As (Double, Double, Integer, Date)
         '  Dim today As DateTime = DateTime.Today
         ' Dim currentHour As Integer = DateTime.Now.Hour
         Dim api As PrjWeatherAPI.IWeather
