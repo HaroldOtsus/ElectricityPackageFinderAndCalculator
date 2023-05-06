@@ -1277,21 +1277,28 @@ Public Class GUIMain
                     Dim data = returnString.getStockPriceAndDatesFromDatabaseFuture(currentDate, futureDateString) 'get stock prices and date from database
                     Dim hour2(24) As Integer
                     Dim dateFromUnix(24) As String
+                    Dim countOfAPI As Integer = 1
                     If data.Item2 Is Nothing Then
                         MsgBox("data.item2 aamen")
                         Exit For
                     Else
-                        For k As Integer = 1 To 24
+                        'vali lühem pikkus
+                        For k As Integer = 1 To data.Item2.Length - 1
+                            If data.Item2(k) Is Nothing Then
+                                Exit For
+                            Else
+                                countOfAPI += 1
+                                Dim oDate As DateTime = Convert.ToDateTime(data.Item2(k))
+                                hour2(k) = oDate.Hour 'get hour from 
 
+                            End If
 
-                            Dim oDate As DateTime = Convert.ToDateTime(data.Item2(k))
-                            hour2(k) = oDate.Hour 'get hour from 
 
 
                         Next
                         If Not packages.Item5(j) Then 'is the package price tied to market price?
                             If packages.Item7(j) = True Then 'if package has different night and day prices
-                                For i As Integer = 1 To 24
+                                For i As Integer = 1 To countOfAPI - 1
 
                                     If hour2(i) > 11 And hour2(i) < 24 Then 'day price
                                         series.Points.AddXY(data.Item2(i), packages.Item3(j))
@@ -1301,7 +1308,7 @@ Public Class GUIMain
                                 Next
 
                             Else
-                                For i As Integer = 1 To 24 'package has fixed price
+                                For i As Integer = 1 To countOfAPI - 1 'package has fixed price
 
 
                                     series.Points.AddXY(data.Item2(i), packages.Item3(j))
@@ -1313,7 +1320,7 @@ Public Class GUIMain
 
 
 
-                            For i As Integer = 1 To 24  'package is tied to market price
+                            For i As Integer = 1 To countOfAPI - 1  'package is tied to market price
                                 If data.Item1(i) IsNot Nothing Then
                                     ' Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.Item2(i)) 'new datetimeoffset from sDate string
                                     'Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date

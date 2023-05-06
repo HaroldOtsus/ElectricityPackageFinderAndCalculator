@@ -1,4 +1,19 @@
-﻿Imports MySql.Data.MySqlClient 'for using mysql db
+﻿' FAILINIMI: CDatabase.vb
+' AUTOR: Laura Kõrgmaa
+' LOODUD: 22.03.2023
+' MUUDETUD: 06.05.2023
+'
+' KIRJELDUS: Loob ühenduse andmebaasiga. Saab andmeid kätte andmebaasist. Saab muuta andmeid andmebaasis.
+' Eeldused: Tingimused, mis peavad edukaks käivituseks täidetud olema, peab olema ühendus internettiga. 
+'Peab olema config.ini fail, kust loetakse andmed andmebaasi kohta ja see fail peab olema paigaldatud GUI debugis.
+'Peab olema refrencite all MySql.Data ehk MySql connector for NET https://dev.mysql.com/downloads/connector/net/
+' Sisendid: Sisendparameetrite eesmärk..
+' Komponendid: Kasutab infot PrjAPIComponendilt ja PrjWeatherAPI-lt
+' Tulem: Info andmebaasist või info APIlt. Kui andmeid ei saadud kätte tagastatakse -1 või Nothing või 0.
+
+
+
+Imports MySql.Data.MySqlClient 'for using mysql db
 Imports System.Security.Cryptography 'for hashing passwords
 Imports Microsoft.Extensions.Configuration.Ini 'for reading .ini files
 Imports Microsoft.Extensions.Configuration
@@ -521,8 +536,14 @@ Public Class CDatabase
             Dim stringOfDates As String()
             stringOfPrices = insertStockPriceToDatabaseFuture(strStartDate, strEndDate)
             stringOfDates = insertDatesToDatabaseFuture(strStartDate, strEndDate)
-            Return (stringOfPrices, stringOfDates)
-            '        ''we put the info to the database
+            If stringOfPrices IsNot Nothing And stringOfDates IsNot Nothing Then
+
+                Return (stringOfPrices, stringOfDates)
+            Else
+                Dim oldsPrices = stringsOfStockPriceFuture()
+                Dim oldstringOfDates = datesOfStockPriceFuture()
+                Return (oldsPrices, oldstringOfDates)
+            End If
         End If
 
 
@@ -619,15 +640,15 @@ Public Class CDatabase
         api = New PrjAPIComponent.APIComponent
         Dim sPrices As String()
         sPrices = api.GetDataFromEleringAPIWithDates(strStartDate, strEndDate).Item1 'get prices from API
+        If sPrices.Length = 25 Then
+            Try
 
-        Try
+                conn.Open() 'try to connect to database
 
-            conn.Open() 'try to connect to database
-
-            '' Dim command As New MySqlCommand("UPDATE webdata SET one = @colOne, two = @colTwo, three = @colThree WHERE idPacket = 1 ", conn)
-            '' broke command into several commands because it didn't update database and thougth there was a bug
-            '' actually didn't update because one column name was written wrongly
-            Dim command As New MySqlCommand("
+                '' Dim command As New MySqlCommand("UPDATE webdata SET one = @colOne, two = @colTwo, three = @colThree WHERE idPacket = 1 ", conn)
+                '' broke command into several commands because it didn't update database and thougth there was a bug
+                '' actually didn't update because one column name was written wrongly
+                Dim command As New MySqlCommand("
             UPDATE webdata 
             SET 
                 one = @colOne, 
@@ -657,37 +678,38 @@ Public Class CDatabase
                 Date = @colDate
             WHERE 
                 idPacket = 3", conn)
-            command.Parameters.AddWithValue("@colOne", sPrices(1))
-            command.Parameters.AddWithValue("@colTwo", sPrices(2))
-            command.Parameters.AddWithValue("@colThree", sPrices(3))
-            command.Parameters.AddWithValue("@colFour", sPrices(4))
-            command.Parameters.AddWithValue("@colFive", sPrices(5))
-            command.Parameters.AddWithValue("@colSix", sPrices(6))
-            command.Parameters.AddWithValue("@colSeven", sPrices(7))
-            command.Parameters.AddWithValue("@colEight", sPrices(8))
-            command.Parameters.AddWithValue("@colNine", sPrices(9))
-            command.Parameters.AddWithValue("@colTen", sPrices(10))
-            command.Parameters.AddWithValue("@colEleven", sPrices(11))
-            command.Parameters.AddWithValue("@colTwelve", sPrices(12))
-            command.Parameters.AddWithValue("@colThirteen", sPrices(13))
-            command.Parameters.AddWithValue("@colFourteen", sPrices(14))
-            command.Parameters.AddWithValue("@colFifteen", sPrices(15))
-            command.Parameters.AddWithValue("@colSixteen", sPrices(16))
-            command.Parameters.AddWithValue("@colSeventeen", sPrices(17))
-            command.Parameters.AddWithValue("@colEighteen", sPrices(18))
-            command.Parameters.AddWithValue("@col19", sPrices(19))
-            command.Parameters.AddWithValue("@col20", sPrices(20))
-            command.Parameters.AddWithValue("@col21", sPrices(21))
-            command.Parameters.AddWithValue("@col22", sPrices(22))
-            command.Parameters.AddWithValue("@col23", sPrices(23))
-            command.Parameters.AddWithValue("@col24", sPrices(24))
-            command.Parameters.AddWithValue("@colDate", dateToday)
-            command.ExecuteNonQuery()
-            conn.Close()
+                command.Parameters.AddWithValue("@colOne", sPrices(1))
+                command.Parameters.AddWithValue("@colTwo", sPrices(2))
+                command.Parameters.AddWithValue("@colThree", sPrices(3))
+                command.Parameters.AddWithValue("@colFour", sPrices(4))
+                command.Parameters.AddWithValue("@colFive", sPrices(5))
+                command.Parameters.AddWithValue("@colSix", sPrices(6))
+                command.Parameters.AddWithValue("@colSeven", sPrices(7))
+                command.Parameters.AddWithValue("@colEight", sPrices(8))
+                command.Parameters.AddWithValue("@colNine", sPrices(9))
+                command.Parameters.AddWithValue("@colTen", sPrices(10))
+                command.Parameters.AddWithValue("@colEleven", sPrices(11))
+                command.Parameters.AddWithValue("@colTwelve", sPrices(12))
+                command.Parameters.AddWithValue("@colThirteen", sPrices(13))
+                command.Parameters.AddWithValue("@colFourteen", sPrices(14))
+                command.Parameters.AddWithValue("@colFifteen", sPrices(15))
+                command.Parameters.AddWithValue("@colSixteen", sPrices(16))
+                command.Parameters.AddWithValue("@colSeventeen", sPrices(17))
+                command.Parameters.AddWithValue("@colEighteen", sPrices(18))
+                command.Parameters.AddWithValue("@col19", sPrices(19))
+                command.Parameters.AddWithValue("@col20", sPrices(20))
+                command.Parameters.AddWithValue("@col21", sPrices(21))
+                command.Parameters.AddWithValue("@col22", sPrices(22))
+                command.Parameters.AddWithValue("@col23", sPrices(23))
+                command.Parameters.AddWithValue("@col24", sPrices(24))
+                command.Parameters.AddWithValue("@colDate", dateToday)
+                command.ExecuteNonQuery()
+                conn.Close()
 
-        Catch ex As Exception
-            Return Nothing
-        End Try
+            Catch ex As Exception
+                Return Nothing
+            End Try
+        End If
         Return sPrices
     End Function
 
@@ -702,11 +724,11 @@ Public Class CDatabase
         Dim sDates As String()
         sDates = api.GetDataFromEleringAPIWithDates(strStartDate, strEndDate).Item2 'get dates from API
         'get info from API about dates
+        If sDates.Length = 25 Then
+            Try
 
-        Try
-
-            conn.Open() 'try to connect to database
-            Dim command As New MySqlCommand("
+                conn.Open() 'try to connect to database
+                Dim command As New MySqlCommand("
             UPDATE webdata 
             SET 
                 one = @colOne, 
@@ -736,37 +758,38 @@ Public Class CDatabase
                 Date = @colDate
             WHERE 
                 idPacket = 4", conn)
-            command.Parameters.AddWithValue("@colOne", sDates(1))
-            command.Parameters.AddWithValue("@colTwo", sDates(2))
-            command.Parameters.AddWithValue("@colThree", sDates(3))
-            command.Parameters.AddWithValue("@colFour", sDates(4))
-            command.Parameters.AddWithValue("@colFive", sDates(5))
-            command.Parameters.AddWithValue("@colSix", sDates(6))
-            command.Parameters.AddWithValue("@colSeven", sDates(7))
-            command.Parameters.AddWithValue("@colEight", sDates(8))
-            command.Parameters.AddWithValue("@colNine", sDates(9))
-            command.Parameters.AddWithValue("@colTen", sDates(10))
-            command.Parameters.AddWithValue("@colEleven", sDates(11))
-            command.Parameters.AddWithValue("@colTwelve", sDates(12))
-            command.Parameters.AddWithValue("@colThirteen", sDates(13))
-            command.Parameters.AddWithValue("@colFourteen", sDates(14))
-            command.Parameters.AddWithValue("@colFifteen", sDates(15))
-            command.Parameters.AddWithValue("@colSixteen", sDates(16))
-            command.Parameters.AddWithValue("@colSeventeen", sDates(17))
-            command.Parameters.AddWithValue("@colEighteen", sDates(18))
-            command.Parameters.AddWithValue("@col19", sDates(19))
-            command.Parameters.AddWithValue("@col20", sDates(20))
-            command.Parameters.AddWithValue("@col21", sDates(21))
-            command.Parameters.AddWithValue("@col22", sDates(22))
-            command.Parameters.AddWithValue("@col23", sDates(23))
-            command.Parameters.AddWithValue("@col24", sDates(24))
-            command.Parameters.AddWithValue("@colDate", dateToday)
-            command.ExecuteNonQuery()
+                command.Parameters.AddWithValue("@colOne", sDates(1))
+                command.Parameters.AddWithValue("@colTwo", sDates(2))
+                command.Parameters.AddWithValue("@colThree", sDates(3))
+                command.Parameters.AddWithValue("@colFour", sDates(4))
+                command.Parameters.AddWithValue("@colFive", sDates(5))
+                command.Parameters.AddWithValue("@colSix", sDates(6))
+                command.Parameters.AddWithValue("@colSeven", sDates(7))
+                command.Parameters.AddWithValue("@colEight", sDates(8))
+                command.Parameters.AddWithValue("@colNine", sDates(9))
+                command.Parameters.AddWithValue("@colTen", sDates(10))
+                command.Parameters.AddWithValue("@colEleven", sDates(11))
+                command.Parameters.AddWithValue("@colTwelve", sDates(12))
+                command.Parameters.AddWithValue("@colThirteen", sDates(13))
+                command.Parameters.AddWithValue("@colFourteen", sDates(14))
+                command.Parameters.AddWithValue("@colFifteen", sDates(15))
+                command.Parameters.AddWithValue("@colSixteen", sDates(16))
+                command.Parameters.AddWithValue("@colSeventeen", sDates(17))
+                command.Parameters.AddWithValue("@colEighteen", sDates(18))
+                command.Parameters.AddWithValue("@col19", sDates(19))
+                command.Parameters.AddWithValue("@col20", sDates(20))
+                command.Parameters.AddWithValue("@col21", sDates(21))
+                command.Parameters.AddWithValue("@col22", sDates(22))
+                command.Parameters.AddWithValue("@col23", sDates(23))
+                command.Parameters.AddWithValue("@col24", sDates(24))
+                command.Parameters.AddWithValue("@colDate", dateToday)
+                command.ExecuteNonQuery()
 
-        Catch ex As Exception
+            Catch ex As Exception
 
-            Return Nothing
-        End Try
+                Return Nothing
+            End Try
+        End If
         Return sDates
 
     End Function

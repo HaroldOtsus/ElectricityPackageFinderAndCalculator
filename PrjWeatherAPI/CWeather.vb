@@ -1,4 +1,15 @@
-﻿Imports System.IO
+﻿' FAILINIMI: CWeather.vb
+' AUTOR: Laura Kõrgmaa
+' LOODUD: 20.04.2023
+' MUUDETUD: 06.05.2023
+'
+' KIRJELDUS: Saab andmeid Eleringi või OpenWeatherMap APIlt
+' Eeldused: Tingimused, mis peavad edukaks käivituseks täidetud olema, peab olema ühendus internettiga. 
+' Tulem: TAgastab kätte saadud info APIlt, kui infot ei saa tagastab -1 või energyDataResponse.success on false
+
+
+
+Imports System.IO
 Imports System.Net
 Imports System.Net.Http
 Imports Newtonsoft.Json 'use it to parse Json added from under manage NuGet packages
@@ -52,22 +63,6 @@ Public Class CWeather
         Return (energyDataResponse.success, energyDataResponse.data(0).production, energyDataResponse.data(0).production_renewable, energyDataResponse.data(0).timestamp)
 
     End Function
-
-    'Function Gettimestamp() As String
-    '    Dim url As String = $"https://dashboard.elering.ee/api/balance/total/latest" 'ask for response
-    '    Dim request As HttpWebRequest = DirectCast(WebRequest.Create(url), HttpWebRequest)
-    '    Dim response As HttpWebResponse = DirectCast(request.GetResponse(), HttpWebResponse)
-
-    '    Dim responseStream As Stream = response.GetResponseStream()
-    '    Dim reader As New StreamReader(responseStream)
-    '    Dim responseString As String = reader.ReadToEnd()
-
-    '    Dim energyDataResponse As EnergyDataResponse = JsonConvert.DeserializeObject(Of EnergyDataResponse)(responseString)
-
-    '    Return (energyDataResponse.data(0).timestamp)
-
-
-    'End Function
 
     Public Class EnergyData
 
