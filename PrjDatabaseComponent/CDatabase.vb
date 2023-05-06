@@ -93,11 +93,11 @@ Public Class CDatabase
             command.Parameters.AddWithValue("@username", username)
             command.Parameters.AddWithValue("@update", update)
             command.ExecuteNonQuery()
-
+            conn.Close()
         Catch ex As Exception
             'Does not return anything
         End Try
-        conn.Close()
+
 
     End Function
     'hashPassword hashes a password using SHA256

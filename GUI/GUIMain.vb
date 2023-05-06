@@ -562,24 +562,29 @@ Public Class GUIMain
         ' GetDataFromEleringAPIWithDates(ByVal strStartDate As String, ByVal strEndDate As String) As (String(), String())
         sPrices = returnString.stockPrice().prices
 
+        If sPrices(24) Is Nothing Then
+            MsgBox("Tõrge!")
 
-        'Dim sPricesOut As String = sPrices(1)
-        'Double.TryParse(sPrices(1), sPricesOut)
+        Else
+            'Dim sPricesOut As String = sPrices(1)
+            'Double.TryParse(sPrices(1), sPricesOut)
 
-        'THIS CODE REPEATS, has been written before, could be optimized
-        Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
-        Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-        'again with the language fiasco
-        'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
-        sPrices(24) = sPrices(24).Replace(".", ",")
-        'End If
-        'converts string to double
-        Dim calculateKWH As Double = Double.Parse(sPrices(24))
-        'calculateKWH = (calculateKWH / 10) / 100
-        'turns the initial string that is €/MWh into cents/kWh
-        calculateKWH = (calculateKWH / 1000) * 100
-        'e
-        tBoxPackageHourlyRate.Text = calculateKWH & " [s/kWh]"
+            'THIS CODE REPEATS, has been written before, could be optimized
+            Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+            Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+            'again with the language fiasco
+            'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
+            sPrices(24) = sPrices(24).Replace(".", ",")
+            'End If
+            'converts string to double
+            Dim calculateKWH As Double = Double.Parse(sPrices(24))
+            'calculateKWH = (calculateKWH / 10) / 100
+            'turns the initial string that is €/MWh into cents/kWh
+            calculateKWH = (calculateKWH / 1000) * 100
+            'e
+            tBoxPackageHourlyRate.Text = calculateKWH & " [s/kWh]"
+        End If
+
 
     End Sub
     'if user selects fixed price in paketijärgne tunnihind tab
@@ -922,6 +927,7 @@ Public Class GUIMain
             btnExchangePriceComparison.BackColor = myColor
             btnConsumptionHistory.BackColor = myColor
             btnPackageComparison.BackColor = myColor
+            btnGreenEnergy.BackColor = myColor
         End If
     End Sub
 
