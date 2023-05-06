@@ -87,7 +87,7 @@ Public Class CDatabase
         ' Dim connString = GetConnectionString()
         Dim conn As New MySqlConnection(connString)
         'if user changes color update database
-        Try
+       Try
             conn.Open()
             Dim command As New MySqlCommand("UPDATE user SET color = @update  WHERE username = @username;", conn)
             command.Parameters.AddWithValue("@username", username)
@@ -235,11 +235,11 @@ Public Class CDatabase
             While reader.Read()
                 consumptionPerHour = reader.GetString(2)
                 usageTime = reader.GetString(3)
-                Return (consumptionPerHour, usageTime)
+
                 'return to GUI
             End While
             reader.Close()
-
+            Return (consumptionPerHour, usageTime)
             conn.Close()
 
         Catch ex As Exception 'exception
@@ -278,6 +278,7 @@ Public Class CDatabase
 
                 Return sPrices
             End If
+            Return Nothing
         Catch ex As Exception
             Return Nothing
         End Try
@@ -312,6 +313,7 @@ Public Class CDatabase
 
                 Return sPrices
             End If
+            Return Nothing
         Catch ex As Exception 'if there is expception return error
             Return Nothing
         End Try
@@ -344,6 +346,7 @@ Public Class CDatabase
 
                 Return sPrices
             End If
+            Return Nothing
         Catch ex As Exception
 
             Return Nothing 'error
@@ -360,19 +363,10 @@ Public Class CDatabase
         Try
 
             conn.Open() 'try to connect to database
-            Dim command As New MySqlCommand("SELECT date FROM webdata WHERE idPacket = 4;", conn)
-            Dim reader As MySqlDataReader = command.ExecuteReader()
-            While reader.Read()
-                dateOfStockPrices = reader.GetString(0) 'get date from database
-            End While
-            conn.Close()
-            Dim con As New MySqlConnection(connString)
-            con.Open()
             Dim sPrices() As String = New String(25) {}
             sPrices(0) = ""
-            If dateOfStockPrices = dateToday Then
-                Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 4;", con)
-                Dim read As MySqlDataReader = cmd.ExecuteReader()
+            Dim cmd As New MySqlCommand("SELECT * FROM webdata WHERE idPacket = 4;", conn)
+            Dim read As MySqlDataReader = cmd.ExecuteReader()
                 If read IsNot Nothing Then
                     While read.Read() 'get all dates from database
                         For i As Integer = 1 To 24
@@ -380,12 +374,13 @@ Public Class CDatabase
                         Next
                     End While
                     read.Close()
-                    con.Close()
+                conn.Close()
 
-                    Return sPrices 'return prices
+                Return sPrices 'return prices
                 End If
-            End If
-            conn.Close()
+
+            Return Nothing
+
         Catch ex As Exception
             Return Nothing
         End Try
