@@ -1651,7 +1651,7 @@ Public Class GUIMain
                         Next
                         If Not packageone.Item5 Then 'if packet does not use market price
                             If packagetwo.Item7 = True Then 'is the packet has different night price
-                                For i As Integer = 1 To 24
+                                For i As Integer = 1 To countOfAPI - 1
 
                                     If hour2(i) > 11 And hour2(i) < 24 Then 'day
                                         series.Points.AddXY(data.Item2(i), packageone.Item3)
@@ -1661,7 +1661,7 @@ Public Class GUIMain
                                 Next
 
                             Else
-                                For i As Integer = 1 To 24
+                                For i As Integer = 1 To countOfAPI - 1
 
 
                                     series.Points.AddXY(data.Item2(i), packageone.Item3) 'packet has fixed price
@@ -1673,7 +1673,7 @@ Public Class GUIMain
 
 
 
-                            For i As Integer = 1 To 24 'packet si tied to market price
+                            For i As Integer = 1 To countOfAPI - 1 'packet si tied to market price
                                 'Dim dateTimeOffset As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(data.Item2(i)) 'new datetimeoffset from sDate string
                                 'Dim dateValue As Date = dateTimeOffset.LocalDateTime 'convert to date
                                 If data.Item1(i) IsNot Nothing Then
@@ -1708,7 +1708,6 @@ Public Class GUIMain
             End If
         End If
     End Sub
-
 
     Private Sub btnWeather_Click(sender As Object, e As EventArgs) Handles btnWeather.Click
         Dim returnString As PrjDatabaseComponent.IDatabase

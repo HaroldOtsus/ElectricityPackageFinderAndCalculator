@@ -61,19 +61,19 @@ Public Class CDatabase
         conn = New MySqlConnection(connString)
     End Sub
     'userPrefernces gets user's resolution and color from database and changes them byref
+    'userPrefernces gets user's resolution and color from database and changes them byref
     Private Function userPrefernces(ByVal username, ByRef size, ByRef color) Implements ILogin.userPrefernces
         'get user prefences from database
         Dim conn As New MySqlConnection(connString)
 
         Try
             conn.Open()
-            Dim command As New MySqlCommand("select isResolutionBig, color from user where username = @username", conn)
+            Dim command As New MySqlCommand("select color from user where username = @username", conn)
             command.Parameters.AddWithValue("@username", username)
             'right now only using color
             Dim reader As MySqlDataReader = command.ExecuteReader()
             While reader.Read()
-                size = reader.GetString(0)
-                color = reader.GetString(1)
+                color = reader.GetString(0)
             End While
 
         Catch ex As Exception
