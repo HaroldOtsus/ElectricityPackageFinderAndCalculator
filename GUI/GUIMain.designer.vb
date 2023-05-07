@@ -122,6 +122,7 @@ Partial Class GUIMain
         Me.Label3 = New System.Windows.Forms.Label()
         Me.lblApplianceChoice = New System.Windows.Forms.Label()
         Me.tabExchangeComparison = New System.Windows.Forms.TabPage()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.lblMarginaal = New System.Windows.Forms.Label()
         Me.lblDontuse = New System.Windows.Forms.Label()
         Me.btnKinnitaAndmed = New System.Windows.Forms.Button()
@@ -222,7 +223,6 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
-        Me.Label8 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1240,6 +1240,15 @@ Partial Class GUIMain
         Me.tabExchangeComparison.Text = "Börsihinna võrdlus"
         Me.tabExchangeComparison.UseVisualStyleBackColor = True
         '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(3, 626)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(236, 13)
+        Me.Label8.TabIndex = 42
+        Me.Label8.Text = "Elektripakettide infot uuendati viimati 17.04.2023"
+        '
         'lblMarginaal
         '
         Me.lblMarginaal.AutoSize = True
@@ -2248,15 +2257,6 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.TabIndex = 10
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(3, 626)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(236, 13)
-        Me.Label8.TabIndex = 42
-        Me.Label8.Text = "Elektripakettide infot uuendati viimati 17.04.2023"
         '
         'GUIMain
         '
