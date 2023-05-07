@@ -1557,24 +1557,24 @@ Public Class GUIMain
                     If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
                         sPrices(24) = sPrices(24).Replace(".", ",")
                     End If
-                Dim sPrice1 As Double = Double.Parse(sPrices(1))
-                Dim calculateKWH As Double = sPrice1
+                    Dim sPrice1 As Double = Double.Parse(sPrices(1))
+                    Dim calculateKWH As Double = sPrice1
 
-                calculateKWH = (calculateKWH / 1000) * 100
-                If checkIfTextBoxContainsLetters(tBoxMarginal) = True Then
-                    'Dim sum As Double = calculateKWH + Double.Parse(tbMarginalOfStock.Text)
+                    calculateKWH = (calculateKWH / 1000) * 100
+                    If checkIfTextBoxContainsLetters(tBoxMarginal) = True Then
+                        'Dim sum As Double = calculateKWH + Double.Parse(tbMarginalOfStock.Text)
 
-                    ' Convert sum to a string and display the result
-                    ' Dim result As String = sum.ToString()
+                        ' Convert sum to a string and display the result
+                        ' Dim result As String = sum.ToString()
 
-                    If tbMarginalOfStock.Text = "" Then
-                        Dim sum1 As String = calculateKWH + 0 & " [s/kWh]"
-                        tBoxPackageHourlyRate.Text = sum1
-                    Else
-                        Dim sum2 As String = calculateKWH + Double.Parse(tbMarginalOfStock.Text) & " [s/kWh]"
-                        tBoxPackageHourlyRate.Text = sum2
+                        If tbMarginalOfStock.Text = "" Then
+                            Dim sum1 As String = calculateKWH + 0 & " [s/kWh]"
+                            tBoxPackageHourlyRate.Text = sum1
+                        Else
+                            Dim sum2 As String = calculateKWH + Double.Parse(tbMarginalOfStock.Text) & " [s/kWh]"
+                            tBoxPackageHourlyRate.Text = sum2
+                        End If
                     End If
-                End If
                 End If
 
 
@@ -2157,8 +2157,9 @@ Public Class GUIMain
     End Sub
 
     Private Sub btnKinnitaAndmed_Click(sender As Object, e As EventArgs) Handles btnKinnitaAndmed.Click
-        chrtBorsihinnaVordlus.Series.Clear() 'clear chart
-        chrtBorsihinnaVordlus.Titles.Clear() 'clear chart
+        chrtBorsihinnaVordlus.Series.Clear() 'Clear chart series
+        chrtBorsihinnaVordlus.Titles.Clear() 'Clear chart series
+
         Dim returnString As PrjAPIComponent.APIInterface
         returnString = New PrjAPIComponent.APIComponent
 
@@ -2167,21 +2168,22 @@ Public Class GUIMain
         Dim pakett = returnStringDatabase.onePackageInfo(cbBorsiPakettid.Text)
         Dim strMarginaal As String = pakett.Item3.ToString()
 
+        'Näita kasutajale marginaali
         lblMarginaal.Text = strMarginaal
-
-
 
         Dim BorsihinnaVordlusEnd As DateTime = dtpBorsihinnaVordlusEnd.Value
         Dim BorsihinnaVordlusStart As DateTime = dtpBorsihinnaVordlusStart.Value
         Dim result As TimeSpan = BorsihinnaVordlusEnd.Subtract(BorsihinnaVordlusStart)
         Dim days As Integer = result.TotalDays
 
+        'Kui päevade vahe on rohkem, kui 5, siis näita veateatist
+        'On vajalik, kuna muidu näitaks andmeid väga segaselt ja mitte väljaloetavalt
         If days >= 5 Then
             MessageBox.Show("Valige ajavahemik maksimaalselt 5 päeva vahemikus.")
             Return
         End If
 
-        ' Reset X and Y axis of chart1
+        'Reset X and Y axis of chart
         chrtBorsihinnaVordlus.ChartAreas(0).AxisY.Maximum = 25
 
         chrtBorsihinnaVordlus.Width = 900 ' set chart the width to 600 pixels
@@ -2199,6 +2201,7 @@ Public Class GUIMain
         chrtBorsihinnaVordlus.ChartAreas(0).AxisX.ScrollBar.IsPositionedInside = True
         chrtBorsihinnaVordlus.ChartAreas(0).AxisY.ScrollBar.IsPositionedInside = True
 
+        'Börsihinna series
         Dim seriesStock As New Series("Börsihind")
         seriesStock.ChartType = DataVisualization.Charting.SeriesChartType.StepLine
         seriesStock.BorderWidth = 3
@@ -2216,6 +2219,7 @@ Public Class GUIMain
         Dim strTimes As String() = data.Item2
         Dim dateTimes(strPrices.Length) As DateTime
 
+        'Kontroll, kas andmebaasist saadud info on korrektne
         If strPrices.Length = 0 Then
             MessageBox.Show("Andmebaas ei ole hetkel kättesaadav. Proovige hiljem uuesti.")
             Return
@@ -2229,27 +2233,27 @@ Public Class GUIMain
         'CHART
         chrtBorsihinnaVordlus.Series.Add(seriesStock)
         chrtBorsihinnaVordlus.Series.Add(seriesPakett)
-        'chrtFrontPage.ChartAreas(0).AxisY.MajorGrid.Enabled = False 'remove liesn from Y axis
-        'chrtBorsihinnaVordlus.ChartAreas(0).AxisX.Interval = 1 'more lines X axis
-        'chrtBorsihinnaVordlus.ChartAreas(0).AxisY.Interval = 1 'more lines Y axis
         chrtBorsihinnaVordlus.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.StepLine
         chrtBorsihinnaVordlus.Series(0).Color = Color.Red
         chrtBorsihinnaVordlus.Series(0).BorderWidth = 3
 
+        'Muudame hinnad stringidest doubleiteks
         Dim dblPrices(strPrices.Length) As Double
 
+        'Vaheta stringides "."-id ","-de vastu
         For i As Integer = 1 To strPrices.Length - 1
             strPrices(i) = strPrices(i).Replace(".", ",")
             dblPrices(i) = Double.Parse(strPrices(i))
         Next
 
+        'Kontrollib, kas valitud pakett on öösel ja päeval sama hinnaga
         If rbOoPaevSamaHind.Checked = True Then
             If pakett.Item7 = True Then
                 MessageBox.Show("Antud pakettil on öö ja päeva hinnad erinevad.")
                 Return
             End If
         End If
-
+        'Kontrollib, kas valitud pakett on öösel ja päeval erineva hinnaga
         If rbOoPaevErinevHind.Checked = True Then
             If pakett.Item7 = False Then
                 MessageBox.Show("Antud pakettil on öö ja päeva hinnad samad.")
@@ -2257,35 +2261,43 @@ Public Class GUIMain
             End If
         End If
 
-        'fills chart
+        'Täidab joonise andmetega
         For i As Integer = 1 To strPrices.Length - 1
             'ADDS DATE AND PRICE TO CHART, PRICE IS CONVERTED FROM €/MWh to cent/kWh
             If pakett.Item5 = True Then
+                'Käibemaksuga
                 If rbKaibemaksuga.Checked = True Then
                     chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) * 1.2 / 1000) * 100)
                     chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), (((dblPrices(i) + pakett.Item3) * 1.2) / 1000) * 100)
+                    'Käibemaksuta
                 ElseIf rbKaibemaksuta.Checked = True Then
                     chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) / 1000) * 100)
                     chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), ((dblPrices(i) + pakett.Item3) / 1000) * 100)
                 End If
             Else
+                'Kui öö ja päeva hind on erinev
                 If pakett.Item7 = True Then
                     If rbKaibemaksuga.Checked = True Then
                         chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) * 1.2 / 1000) * 100)
+                        'Kui aeg on 12:00 või rohkem
                         If strTimes(i).Substring(11, 2) >= 12 Then
                             chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), pakett.Item3 * 1.2)
+                            'Kui aeg on 00:00 - 11:00
                         Else
                             chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), pakett.Item8 * 1.2)
                         End If
                     ElseIf rbKaibemaksuta.Checked = True Then
                         chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) / 1000) * 100)
+                        'Kui aeg on 12:00 või rohkem
                         If strTimes(i).Substring(11, 2) >= 12 Then
                             chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), pakett.Item3)
+                            'Kui aeg on 00:00 - 11:00
                         Else
                             chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), pakett.Item8)
                         End If
                     End If
                 Else
+                    'Kui öö ja päeva hind on sama
                     If rbKaibemaksuga.Checked = True Then
                         chrtBorsihinnaVordlus.Series(seriesStock.Name).Points.AddXY(strTimes(i), (dblPrices(i) * 1.2 / 1000) * 100)
                         chrtBorsihinnaVordlus.Series(seriesPakett.Name).Points.AddXY(strTimes(i), pakett.Item3 * 1.2)
@@ -2415,6 +2427,5 @@ Public Class GUIMain
     Private Sub lblCSVExample_Click(sender As Object, e As EventArgs) Handles lblCSVExample.Click
         CSVExample.Show()
     End Sub
-
 
 End Class

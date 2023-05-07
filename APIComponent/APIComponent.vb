@@ -1,13 +1,14 @@
 ﻿' FAILINIMI: APIComponent.vb
 ' AUTOR: Harold Otsus
-' LOODUD: 
-' MUUDETUD: 06.05.2023
+' LOODUD: 22.03.2023
+' MUUDETUD: 07.05.2023
 '
-' KIRJELDUS: 
-' Eeldused: 
-' Sisendid: 
-' Komponendid:
-' Tulem: 
+' KIRJELDUS: Saab andmeid Eleringi APIlt.
+' Eeldused: Peab olema ühendus internettiga.
+' Sisendid: Esimese funktsiooni puhul puuduvad sisendid. Teise funktsiooni puhul on sisenditeks kaks stringi, mis on kuupäevad.
+' Komponendid: Saadab infot PrjDatabaseComponent-ile ja GUI-le.
+' Tulem: Kui saadi info kätte Eleringilt, siis tagastab mõlema funktsiooni puhul kaks stringi massiivi, kus esimeses massiivis on hinnad 
+' ja teises massiivis on kuupäevad.
 Imports System.Globalization
 Imports System.IO
 Imports System.Net

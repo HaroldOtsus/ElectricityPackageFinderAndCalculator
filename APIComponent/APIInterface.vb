@@ -1,13 +1,12 @@
 ﻿' FAILINIMI: APIInterface.vb
 ' AUTOR: Harold Otsus
-' LOODUD: 
+' LOODUD: 22.03.2023
 ' MUUDETUD: 06.05.2023
 '
-' KIRJELDUS: 
-' Eeldused: 
-' Sisendid: 
-' Komponendid:
-' Tulem: 
+' KIRJELDUS: Liides APIComponent'i jaoks.
+' Eeldused: On olemas APIComponent.
+' Sisendid: Puuduvad.
+' Tulem: Info Eleringi veebilehelt.
 Public Interface APIInterface
 
     'Function returns 2x24 string arrays
