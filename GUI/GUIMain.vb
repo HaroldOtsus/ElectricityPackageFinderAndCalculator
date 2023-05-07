@@ -131,36 +131,40 @@ Public Class GUIMain
 
                     End If
 
+                    If tBoxConsumptionPerHour.Text.Length > 0 And tBoxUsageTime.Text.Length > 0 Then
+                        If checkIfTextBoxContainsLetters(tBoxConsumptionPerHour) = True And checkIfTextBoxContainsLetters(tBoxUsageTime) = True Then
+
+                            Dim incoming As Computing_Component.ICalculating
+                            incoming = New Computing_Component.CCalculating
+                            Dim actualOutput2 = incoming.applianceConsumption(tBoxConsumptionPerHour.Text, tBoxUsageTime.Text, tBoxPackagePrice.Text)
+
+                            'Shows only 3 decimal spaces
+                            Dim cons As Decimal = actualOutput2.consumption
+                            Dim consOut As String = cons.ToString("N3")
+
+                            Dim aprox As Decimal = actualOutput2.aproxPrice * 1.2
+                            Dim aproxOut As String = aprox.ToString("N3")
+
+                            Dim aproxYearly As Decimal = actualOutput2.yearlyAproxPrice * 1.2
+                            If aproxYearly > 100 Then
+                                aproxYearly = aproxYearly / 100 ' kuna tulemus on sentides, siis kui sente on liiga palju, jagan 100'ga, et eurod saada
+                                lblAproxYearlyPrice.Text = "eur"
+                            Else
+                                lblAproxYearlyPrice.Text = "senti"
+                            End If
+                            Dim aproxYearlyOut As String = aproxYearly.ToString("N3")
 
 
-                    Dim incoming As Computing_Component.ICalculating
-                        incoming = New Computing_Component.CCalculating
-                        Dim actualOutput2 = incoming.applianceConsumption(tBoxConsumptionPerHour.Text, tBoxUsageTime.Text, tBoxPackagePrice.Text)
-
-                        'Shows only 3 decimal spaces
-                        Dim cons As Decimal = actualOutput2.consumption
-                        Dim consOut As String = cons.ToString("N3")
-
-                        Dim aprox As Decimal = actualOutput2.aproxPrice * 1.2
-                        Dim aproxOut As String = aprox.ToString("N3")
-
-                        Dim aproxYearly As Decimal = actualOutput2.yearlyAproxPrice * 1.2
-                        If aproxYearly > 100 Then
-                            aproxYearly = aproxYearly / 100 ' kuna tulemus on sentides, siis kui sente on liiga palju, jagan 100'ga, et eurod saada
-                            lblAproxYearlyPrice.Text = "eur"
+                            tBoxElectricityConsumptionRate.Text = consOut
+                            tBoxApproxPrice.Text = aproxOut
+                            tBoxApproxPriceYear.Text = aproxYearlyOut
                         Else
-                            lblAproxYearlyPrice.Text = "senti"
+                            MsgBox("Sisesta ainult numbrid")
                         End If
-                        Dim aproxYearlyOut As String = aproxYearly.ToString("N3")
-
-
-                        tBoxElectricityConsumptionRate.Text = consOut
-                        tBoxApproxPrice.Text = aproxOut
-                        tBoxApproxPriceYear.Text = aproxYearlyOut
                     End If
 
-
                 End If
+            End If
             End If
 
     End Sub
