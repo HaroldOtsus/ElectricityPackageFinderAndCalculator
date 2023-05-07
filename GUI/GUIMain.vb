@@ -133,10 +133,10 @@ Public Class GUIMain
                         Dim cons As Decimal = actualOutput2.consumption
                         Dim consOut As String = cons.ToString("N3")
 
-                        Dim aprox As Decimal = actualOutput2.aproxPrice
+                        Dim aprox As Decimal = actualOutput2.aproxPrice * 1.2
                         Dim aproxOut As String = aprox.ToString("N3")
 
-                        Dim aproxYearly As Decimal = actualOutput2.yearlyAproxPrice
+                        Dim aproxYearly As Decimal = actualOutput2.yearlyAproxPrice * 1.2
                         If aproxYearly > 100 Then
                             aproxYearly = aproxYearly / 100 ' kuna tulemus on sentides, siis kui sente on liiga palju, jagan 100'ga, et eurod saada
                             lblAproxYearlyPrice.Text = "eur"
@@ -343,7 +343,7 @@ Public Class GUIMain
 
                 'fills the list
                 For i As Integer = 1 To 24 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
-                    p.price = dPrices(i)
+                    p.price = dPrices(i) * 1.2 'käibemaks
                     p.sDate = sDates(i)
                     records.Add(p)
                 Next
@@ -562,28 +562,34 @@ Public Class GUIMain
         ' GetDataFromEleringAPIWithDates(ByVal strStartDate As String, ByVal strEndDate As String) As (String(), String())
         sPrices = returnString.stockPrice().prices
 
-        If sPrices(24) Is Nothing Then
+        If sPrices Is Nothing Then
             MsgBox("Tõrge!")
 
-        Else
-            'Dim sPricesOut As String = sPrices(1)
-            'Double.TryParse(sPrices(1), sPricesOut)
 
-            'THIS CODE REPEATS, has been written before, could be optimized
-            Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
-            Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-            'again with the language fiasco
-            'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
-            sPrices(24) = sPrices(24).Replace(".", ",")
-            'End If
-            'converts string to double
-            Dim calculateKWH As Double = Double.Parse(sPrices(24))
-            'calculateKWH = (calculateKWH / 10) / 100
-            'turns the initial string that is €/MWh into cents/kWh
-            calculateKWH = (calculateKWH / 1000) * 100
-            'e
-            tBoxPackageHourlyRate.Text = calculateKWH & " [s/kWh]"
+        Else
+            If sPrices(24) Is Nothing Then
+                MsgBox("Tõrge!")
+            Else
+                'Dim sPricesOut As String = sPrices(1)
+                'Double.TryParse(sPrices(1), sPricesOut)
+
+                'THIS CODE REPEATS, has been written before, could be optimized
+                Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+                Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+                'again with the language fiasco
+                'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then 'do not do this if language is english
+                sPrices(24) = sPrices(24).Replace(".", ",")
+                'End If
+                'converts string to double
+                Dim calculateKWH As Double = Double.Parse(sPrices(24))
+                'calculateKWH = (calculateKWH / 10) / 100
+                'turns the initial string that is €/MWh into cents/kWh
+                calculateKWH = (calculateKWH / 1000) * 100
+                'e
+                tBoxPackageHourlyRate.Text = calculateKWH * 1.2 & " [s/kWh]"
+            End If
         End If
+
 
 
     End Sub
@@ -616,7 +622,7 @@ Public Class GUIMain
         'calculateKWH = (calculateKWH / 10) / 100
         calculateKWH = (calculateKWH / 1000) * 100
 
-        tBoxPackagePrice.Text = calculateKWH
+        tBoxPackagePrice.Text = calculateKWH * 1.2
     End Sub
 
 
@@ -703,7 +709,7 @@ Public Class GUIMain
             'filling list
             For i As Integer = 1 To 24 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
 
-                p.price = dPrices(i)
+                p.price = dPrices(i) * 1.2
                 p.sDate = sDates(i)
                 records.Add(p)
                 'records(i) = p
@@ -1427,7 +1433,7 @@ Public Class GUIMain
 
             For i As Integer = 1 To 24 'has to be 1 to 24 because the first bit in both dPrices and dDates is zero(infobit)
 
-                p.price = dPrices(i)
+                p.price = dPrices(i) * 1.2
                 p.sDate = sDates(i)
                 records.Add(p)
                 'records(i) = p
@@ -1503,11 +1509,11 @@ Public Class GUIMain
         If checkIfTextBoxContainsLetters(tbMarginalOfStock) = True Then
 
             If tbMarginalOfStock.Text = "" Then
-                Dim sum1 As String = calculateKWH + 0 & " [s/kWh]"
+                Dim sum1 As String = (calculateKWH + 0) * 1.2 & " [s/kWh]"
                 tBoxPackageHourlyRate.Text = sum1
 
             Else
-                Dim sum2 As String = calculateKWH + Double.Parse(tbMarginalOfStock.Text) & " [s/kWh]"
+                Dim sum2 As String = (calculateKWH + Double.Parse(tbMarginalOfStock.Text)) * 1.2 & " [s/kWh]"
                 tBoxPackageHourlyRate.Text = sum2
 
             End If
@@ -1557,7 +1563,7 @@ Public Class GUIMain
                     If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
                         sPrices(24) = sPrices(24).Replace(".", ",")
                     End If
-                    Dim sPrice1 As Double = Double.Parse(sPrices(1))
+                    Dim sPrice1 As Double = Double.Parse(sPrices(24))
                     Dim calculateKWH As Double = sPrice1
 
                     calculateKWH = (calculateKWH / 1000) * 100
@@ -2327,7 +2333,7 @@ Public Class GUIMain
 
 
             tableOfCSV = CCSVReader.CCSVReader.ReadCSV(selectedFileName)
-            tbDebug.Clear()
+
             Dim sumKWh As Double
             Dim sumPrice As Double
             Dim kWh As Double
@@ -2352,13 +2358,13 @@ Public Class GUIMain
                         price = 0
                     End If
                     'price = Double.Parse(row("Börsihind (EUR / MWh)"))
-                    tbDebug.AppendText(Environment.NewLine & row("Algus") & " " & row("Lõpp") & " " & kWh & " kWh" & " " & price & " €/mWh")
+                    'tbDebug.AppendText(Environment.NewLine & row("Algus") & " " & row("Lõpp") & " " & kWh & " kWh" & " " & price & " €/mWh")
                     'tbDebug.Text = sumKWh & sumPrice
                     sumKWh += kWh
                     sumPrice += price
                     divider += 1
                 Next
-                tbDebug.AppendText(Environment.NewLine & sumKWh)
+                'tbDebug.AppendText(Environment.NewLine & sumKWh)
                 'date time pickers are enabled
                 dtpBeginning.Enabled = True
                 dtpEnd.Enabled = True
@@ -2426,5 +2432,72 @@ Public Class GUIMain
     Private Sub lblCSVExample_Click(sender As Object, e As EventArgs) Handles lblCSVExample.Click
         CSVExample.Show()
     End Sub
+
+    Private Sub btnShowTimeCons_Click(sender As Object, e As EventArgs) Handles btnShowTimeCons.Click
+        chrtHistory.Series.Clear()
+        Dim userSeries As String = "Sinu pakett"
+        Dim beggingDate = dtpBeginning.Value
+        Dim endDate = dtpEnd.Value
+        Dim userPackagePriceSum As Double = 0
+        Dim dBPackagePriceSum As Double = 0
+        chrtHistory.ChartAreas(0).AxisX.Interval = 1
+
+        Dim bdDatetime As String = beggingDate.ToString("yyyy-MM-dd 12:00:00")
+        Dim edDatetime As String = endDate.ToString("yyyy-MM-dd 12:00:00")
+        'MsgBox(beggingDate)
+        'MsgBox(endDate)
+        If tableOfCSV.Rows.Count = 0 Then
+            MsgBox("Sisesta CSV fail!")
+        Else
+            If String.Compare(bdDatetime, edDatetime) = 0 Then
+                endDate = endDate.AddDays(1)
+                'MsgBox("enddate:" & endDate)
+            Else
+
+            End If
+
+
+            If beggingDate <= endDate Then
+
+
+
+                    ' price is fixed and night price is not checked
+
+                    'tableOfCSV
+                    chrtHistory.Series.Clear()
+                            chrtHistory.Series.Add(userSeries)
+                            'chrtHistory.Series.Add(New Series())
+                            chrtHistory.Series(0).ChartType = SeriesChartType.Line
+
+                ' copy the data into the chart
+                For Each row As DataRow In tableOfCSV.Rows
+                                If row("Algus") >= beggingDate And row("Lõpp") <= endDate Then
+                                    If row("Kogus (kWh)").GetType() Is GetType(String) AndAlso row("Kogus (kWh)").ToString().Contains(",") Then
+                                        row("Kogus (kWh)") = row("Kogus (kWh)").ToString().Replace(",", ".")
+                                    End If
+                                    Dim inputString As String = row("Kogus (kWh)").ToString().Trim()
+                                    Dim kWh As Double
+                                    If Double.TryParse(inputString, NumberStyles.Float, CultureInfo.InvariantCulture, kWh) Then
+
+                                    chrtHistory.Series(0).Points.AddXY(row("Algus"), kWh)
+
+                                End If
+                                End If
+
+                            Next
+
+                    
+
+
+
+                    Else
+                    MsgBox("Algus kuupäev ei saa olla peale lõpp kuupäeva!")
+
+            End If
+        End If
+
+        ' End If
+    End Sub
+
 
 End Class

@@ -160,6 +160,7 @@ Partial Class GUIMain
         Me.tabConsumptionHistory = New System.Windows.Forms.TabPage()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.tabClientConsumptionHistory = New System.Windows.Forms.TabPage()
+        Me.btnShowTimeCons = New System.Windows.Forms.Button()
         Me.lblCSVExample = New System.Windows.Forms.Label()
         Me.lblPriceTotalFromPackage = New System.Windows.Forms.Label()
         Me.lblPriceTotalFromImport = New System.Windows.Forms.Label()
@@ -173,7 +174,6 @@ Partial Class GUIMain
         Me.tbDayPrice1 = New System.Windows.Forms.TextBox()
         Me.tbNightOrMarginal = New System.Windows.Forms.TextBox()
         Me.tbPrice = New System.Windows.Forms.TextBox()
-        Me.tbDebug = New System.Windows.Forms.TextBox()
         Me.chrtHistory = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.rbFix = New System.Windows.Forms.RadioButton()
@@ -191,6 +191,7 @@ Partial Class GUIMain
         Me.lblConsumptionGraph = New System.Windows.Forms.Label()
         Me.lblClientConsumptionHistoryResult = New System.Windows.Forms.Label()
         Me.tabPackageComparison = New System.Windows.Forms.TabPage()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -221,6 +222,7 @@ Partial Class GUIMain
         Me.btnFontIncrease = New System.Windows.Forms.Button()
         Me.btnFontDecrease = New System.Windows.Forms.Button()
         Me.btnRestoreFontSize = New System.Windows.Forms.Button()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.Main.SuspendLayout()
         CType(Me.chrtFrontPage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1202,6 +1204,7 @@ Partial Class GUIMain
         '
         'tabExchangeComparison
         '
+        Me.tabExchangeComparison.Controls.Add(Me.Label8)
         Me.tabExchangeComparison.Controls.Add(Me.lblMarginaal)
         Me.tabExchangeComparison.Controls.Add(Me.lblDontuse)
         Me.tabExchangeComparison.Controls.Add(Me.btnKinnitaAndmed)
@@ -1240,7 +1243,7 @@ Partial Class GUIMain
         'lblMarginaal
         '
         Me.lblMarginaal.AutoSize = True
-        Me.lblMarginaal.Location = New System.Drawing.Point(774, 82)
+        Me.lblMarginaal.Location = New System.Drawing.Point(792, 111)
         Me.lblMarginaal.Name = "lblMarginaal"
         Me.lblMarginaal.Size = New System.Drawing.Size(0, 13)
         Me.lblMarginaal.TabIndex = 41
@@ -1248,7 +1251,7 @@ Partial Class GUIMain
         'lblDontuse
         '
         Me.lblDontuse.AutoSize = True
-        Me.lblDontuse.Location = New System.Drawing.Point(723, 111)
+        Me.lblDontuse.Location = New System.Drawing.Point(723, 109)
         Me.lblDontuse.Name = "lblDontuse"
         Me.lblDontuse.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.lblDontuse.Size = New System.Drawing.Size(56, 13)
@@ -1597,6 +1600,7 @@ Partial Class GUIMain
         '
         'tabClientConsumptionHistory
         '
+        Me.tabClientConsumptionHistory.Controls.Add(Me.btnShowTimeCons)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblCSVExample)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblPriceTotalFromPackage)
         Me.tabClientConsumptionHistory.Controls.Add(Me.lblPriceTotalFromImport)
@@ -1610,7 +1614,6 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.Controls.Add(Me.tbDayPrice1)
         Me.tabClientConsumptionHistory.Controls.Add(Me.tbNightOrMarginal)
         Me.tabClientConsumptionHistory.Controls.Add(Me.tbPrice)
-        Me.tabClientConsumptionHistory.Controls.Add(Me.tbDebug)
         Me.tabClientConsumptionHistory.Controls.Add(Me.chrtHistory)
         Me.tabClientConsumptionHistory.Controls.Add(Me.Panel4)
         Me.tabClientConsumptionHistory.Controls.Add(Me.cbMarginal)
@@ -1632,6 +1635,15 @@ Partial Class GUIMain
         Me.tabClientConsumptionHistory.TabIndex = 1
         Me.tabClientConsumptionHistory.Text = "Simuleeri oma tarbimise ajalugu"
         Me.tabClientConsumptionHistory.UseVisualStyleBackColor = True
+        '
+        'btnShowTimeCons
+        '
+        Me.btnShowTimeCons.Location = New System.Drawing.Point(172, 466)
+        Me.btnShowTimeCons.Name = "btnShowTimeCons"
+        Me.btnShowTimeCons.Size = New System.Drawing.Size(150, 34)
+        Me.btnShowTimeCons.TabIndex = 63
+        Me.btnShowTimeCons.Text = "Näita aeg/võimsust"
+        Me.btnShowTimeCons.UseVisualStyleBackColor = True
         '
         'lblCSVExample
         '
@@ -1748,16 +1760,6 @@ Partial Class GUIMain
         Me.tbPrice.TabIndex = 48
         Me.tbPrice.Visible = False
         '
-        'tbDebug
-        '
-        Me.tbDebug.Location = New System.Drawing.Point(625, 505)
-        Me.tbDebug.Multiline = True
-        Me.tbDebug.Name = "tbDebug"
-        Me.tbDebug.ReadOnly = True
-        Me.tbDebug.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.tbDebug.Size = New System.Drawing.Size(273, 21)
-        Me.tbDebug.TabIndex = 44
-        '
         'chrtHistory
         '
         ChartArea4.Name = "ChartArea1"
@@ -1826,11 +1828,11 @@ Partial Class GUIMain
         '
         'btnConfirmSimuCSV
         '
-        Me.btnConfirmSimuCSV.Location = New System.Drawing.Point(63, 464)
+        Me.btnConfirmSimuCSV.Location = New System.Drawing.Point(12, 466)
         Me.btnConfirmSimuCSV.Name = "btnConfirmSimuCSV"
         Me.btnConfirmSimuCSV.Size = New System.Drawing.Size(150, 34)
         Me.btnConfirmSimuCSV.TabIndex = 45
-        Me.btnConfirmSimuCSV.Text = "Kinnita andmed"
+        Me.btnConfirmSimuCSV.Text = "Näita aeg/hinda"
         Me.btnConfirmSimuCSV.UseVisualStyleBackColor = True
         '
         'lblToDateTime
@@ -1914,6 +1916,7 @@ Partial Class GUIMain
         '
         'tabPackageComparison
         '
+        Me.tabPackageComparison.Controls.Add(Me.Label2)
         Me.tabPackageComparison.Controls.Add(Me.Label11)
         Me.tabPackageComparison.Controls.Add(Me.Label7)
         Me.tabPackageComparison.Controls.Add(Me.Label5)
@@ -1938,6 +1941,15 @@ Partial Class GUIMain
         Me.tabPackageComparison.TabIndex = 5
         Me.tabPackageComparison.Text = "Elektripakettide võrdlus"
         Me.tabPackageComparison.UseVisualStyleBackColor = True
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(362, 516)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(236, 13)
+        Me.Label2.TabIndex = 20
+        Me.Label2.Text = "Elektripakettide infot uuendati viimati 17.04.2023"
         '
         'Label11
         '
@@ -2237,6 +2249,15 @@ Partial Class GUIMain
         Me.btnRestoreFontSize.Text = "Taasta fondi suurus"
         Me.btnRestoreFontSize.UseVisualStyleBackColor = True
         '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(3, 626)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(236, 13)
+        Me.Label8.TabIndex = 42
+        Me.Label8.Text = "Elektripakettide infot uuendati viimati 17.04.2023"
+        '
         'GUIMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2461,7 +2482,6 @@ Partial Class GUIMain
     Friend WithEvents tbDayPrice1 As TextBox
     Friend WithEvents tbNightOrMarginal As TextBox
     Friend WithEvents tbPrice As TextBox
-    Friend WithEvents tbDebug As TextBox
     Friend WithEvents chrtHistory As DataVisualization.Charting.Chart
     Friend WithEvents Panel4 As Panel
     Friend WithEvents rbFix As RadioButton
@@ -2482,4 +2502,7 @@ Partial Class GUIMain
     Friend WithEvents lblPackageHourlyRate As Label
     Friend WithEvents tBoxPackageHourlyRate As TextBox
     Friend WithEvents lblCSVExample As Label
+    Friend WithEvents btnShowTimeCons As Button
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label8 As Label
 End Class
