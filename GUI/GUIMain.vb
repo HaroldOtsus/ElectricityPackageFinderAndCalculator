@@ -130,6 +130,33 @@ Public Class GUIMain
 
 
                     End If
+                    If tBoxMarginal.TextLength > 0 Then
+                        If radioStockPlusMore.Enabled = True Then
+                            Dim returnString2 As PrjDatabaseComponent.IDatabaseAPI
+                            returnString2 = New PrjDatabaseComponent.CDatabase
+                            Dim sPrices As String()
+                            sPrices = returnString2.stockPrice().prices
+
+                            Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+                            Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+                            'If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
+                            sPrices(24) = sPrices(24).Replace(".", ",")
+                            'End If
+
+                            Dim calculateKWH As Double = Double.Parse(sPrices(24))
+                            'calculateKWH = (calculateKWH / 10) / 100
+                            calculateKWH = (calculateKWH / 1000) * 100
+                            If checkIfTextBoxContainsLetters(tBoxMarginal) = True Then
+                                Dim sum As Double = calculateKWH + Double.Parse(tBoxMarginal.Text)
+
+                                ' Convert sum to a string and display the result
+                                ' Dim result As String = sum.ToString()
+
+                                tBoxPackagePrice.Text = sum
+                            End If
+                        End If
+                        radioStockPlusMore.Enabled = True
+                    End If
 
                     If tBoxConsumptionPerHour.Text.Length > 0 And tBoxUsageTime.Text.Length > 0 Then
                         If checkIfTextBoxContainsLetters(tBoxConsumptionPerHour) = True And checkIfTextBoxContainsLetters(tBoxUsageTime) = True Then
@@ -165,7 +192,7 @@ Public Class GUIMain
 
                 End If
             End If
-            End If
+        End If
 
     End Sub
 
@@ -1181,55 +1208,57 @@ Public Class GUIMain
         returnString = New PrjDatabaseComponent.CDatabase
         Dim sPrices As String()
         sPrices = returnString.stockPrice().prices
-
+        tBoxMarginal.Enabled = True
         sPrices(24) = sPrices(24).Replace(".", ",")
         Dim calculateKWH As Double = Double.Parse(sPrices(24))
         'calculateKWH = (calculateKWH / 10) / 100 'Old one by laura
         calculateKWH = (calculateKWH / 1000) * 100 'takes the MWh/€ value from the database
         'divides by a 1000 to get kWh and multiplies by a 100 to get cents
-        If checkIfTextBoxContainsLetters(tBoxMarginal) = True Then
-            Dim sum As Double = calculateKWH + Double.Parse(tBoxMarginal.Text)
-
-            ' Convert sum to a string and display the result
-            ' Dim result As String = sum.ToString()
-
-            tBoxPackagePrice.Text = sum
-        End If
-    End Sub
-
-    Private Sub tBoxMarginal_TextChanged(sender As Object, e As EventArgs) Handles tBoxMarginal.TextChanged
         If tBoxMarginal.TextLength > 0 Then
-            If radioStockPlusMore.Enabled = True Then
-                Dim returnString As PrjDatabaseComponent.IDatabaseAPI
-                returnString = New PrjDatabaseComponent.CDatabase
-                Dim sPrices As String()
-                sPrices = returnString.stockPrice().prices
+            If checkIfTextBoxContainsLetters(tBoxMarginal) = True Then
+                Dim sum As Double = calculateKWH + Double.Parse(tBoxMarginal.Text)
 
-                Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
-                Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
-                If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
-                    sPrices(24) = sPrices(24).Replace(".", ",")
-                End If
+                ' Convert sum to a string and display the result
+                ' Dim result As String = sum.ToString()
 
-                Dim calculateKWH As Double = Double.Parse(sPrices(24))
-                'calculateKWH = (calculateKWH / 10) / 100
-                calculateKWH = (calculateKWH / 1000) * 100
-                If checkIfTextBoxContainsLetters(tBoxMarginal) = True Then
-                    Dim sum As Double = calculateKWH + Double.Parse(tBoxMarginal.Text)
-
-                    ' Convert sum to a string and display the result
-                    ' Dim result As String = sum.ToString()
-
-                    tBoxPackagePrice.Text = sum
-                End If
+                tBoxPackagePrice.Text = sum
             End If
-            radioStockPlusMore.Enabled = True
         End If
-
     End Sub
+
+    'Private Sub tBoxMarginal_TextChanged(sender As Object, e As EventArgs) Handles tBoxMarginal.TextChanged
+    '    If tBoxMarginal.TextLength > 0 Then
+    '        If radioStockPlusMore.Enabled = True Then
+    '            Dim returnString As PrjDatabaseComponent.IDatabaseAPI
+    '            returnString = New PrjDatabaseComponent.CDatabase
+    '            Dim sPrices As String()
+    '            sPrices = returnString.stockPrice().prices
+
+    '            Dim culture As System.Globalization.CultureInfo = System.Globalization.CultureInfo.InstalledUICulture
+    '            Dim language As String = culture.TwoLetterISOLanguageName ' find out language of windows op
+    '            If String.Equals(language, "et", StringComparison.OrdinalIgnoreCase) Then
+    '                sPrices(24) = sPrices(24).Replace(".", ",")
+    '            End If
+
+    '            Dim calculateKWH As Double = Double.Parse(sPrices(24))
+    '            'calculateKWH = (calculateKWH / 10) / 100
+    '            calculateKWH = (calculateKWH / 1000) * 100
+    '            If checkIfTextBoxContainsLetters(tBoxMarginal) = True Then
+    '                Dim sum As Double = calculateKWH + Double.Parse(tBoxMarginal.Text)
+
+    '                ' Convert sum to a string and display the result
+    '                ' Dim result As String = sum.ToString()
+
+    '                tBoxPackagePrice.Text = sum
+    '            End If
+    '        End If
+    '        radioStockPlusMore.Enabled = True
+    '    End If
+
+    'End Sub
 
     Private Sub GUIMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        radioStockPlusMore.Enabled = False
+        ' radioStockPlusMore.Enabled = False
         System.Threading.Thread.CurrentThread.CurrentUICulture = New System.Globalization.CultureInfo("en-EN")
         lblMarg.Visible = False
         lblFixed.Visible = False
@@ -2525,5 +2554,9 @@ Public Class GUIMain
         btnSisesta.Enabled = True
         tBoxConsumptionPerHour.Text = ""
         tBoxUsageTime.Text = ""
+    End Sub
+
+    Private Sub tBoxMarginal_TextChanged(sender As Object, e As EventArgs) Handles tBoxMarginal.TextChanged
+
     End Sub
 End Class
